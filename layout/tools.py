@@ -1,6 +1,6 @@
 from kivy.core.window import Window
 from kivy.properties import ObjectProperty, NumericProperty
-
+from button.base import BaseButtonBehavior
 from button.left_button import LeftButtonWidget
 from button.right_button import RightButtonWidget
 from layout.base import BaseLayout
@@ -11,8 +11,10 @@ from utils.checks import show_outline
 class Tools(BaseLayout, KeyboardHandler):
     x = NumericProperty(0)
     y = NumericProperty(0)
+
     height = NumericProperty(Window.height - BaseLayout.scene_default_height())
     width = NumericProperty(Window.width)
+
     left_btn = ObjectProperty(None)
     right_btn = ObjectProperty(None)
 
@@ -36,13 +38,21 @@ class Tools(BaseLayout, KeyboardHandler):
         show_outline(self)
 
     def on_move(self):
+        print('MOVE >>>')
+        self.right_btn.canvas.opacity = 0.5
         self.parent.scene.bike.move()
-        RightButtonWidget.change_text(self.status_bar, 'Go')
+        text = self.parent.scene.bike.show_status('Go bike! ==>')
+        BaseButtonBehavior.change_text(self.status_bar, text)
 
     def on_relax(self):
+        self.left_btn.canvas.opacity = 1
+        self.right_btn.canvas.opacity = 1
         self.parent.scene.bike.relax()
-        RightButtonWidget.change_text(self.status_bar)
+        text = self.parent.scene.bike.show_status('... Relax ...')
+        BaseButtonBehavior.change_text(self.status_bar, text)
 
     def on_stop(self):
+        print('<<< Stop ')
+        self.left_btn.canvas.opacity = 0.5
         self.parent.scene.bike.stop()
-        LeftButtonWidget.change_text(self.status_bar, '...breakup...')
+        BaseButtonBehavior.change_text(self.status_bar, '... stop ...')

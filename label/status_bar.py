@@ -1,23 +1,20 @@
 from kivy.core.window import Window
-from kivy.graphics import Color, Line
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.label import Label
+from utils.checks import show_outline
 
 
 class StatusBar(Label):
     text = StringProperty('Start game!')
-    x = NumericProperty((Window.width / 2) - 140)
-    y = NumericProperty((Window.height / 2) + 40)
-    height = NumericProperty(20)
-    width = NumericProperty(300)
+
+    x = NumericProperty(450)
+    y = NumericProperty(450)
+
+    height = NumericProperty(180)
+    width = NumericProperty(400)
 
     def __init__(self, **kwargs):
         super(StatusBar, self).__init__(**kwargs)
         self.size_hint = (None, None)
-        self.show_outline()
+        show_outline(self)
 
-    def show_outline(self):
-        rectangle = (self.x, self.y, self.width, self.height)
-        with self.canvas.before:
-            Color(.5, .5, .5, 1, mode='rgb')
-            Line(width=1, rectangle=rectangle)

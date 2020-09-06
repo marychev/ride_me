@@ -17,11 +17,13 @@ class KeyboardHandler(object):
         raise NotImplementedError
 
     def _keyboard_closed(self):
+        print('_keyboard_closed')
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
         self._keyboard.unbind(on_key_up=self._on_keyboard_up)
         self._keyboard = None
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        print('_on_keyboard_down')
         if keycode[1] == 'right':
             self.on_move()
         elif keycode[1] == 'left':
@@ -29,6 +31,7 @@ class KeyboardHandler(object):
         return True
 
     def _on_keyboard_up(self, keyboard, keycode):
+        print('_on_keyboard_up')
         if keycode[1] == 'right' or keycode[1] == 'left':
             self.on_relax()
         return True

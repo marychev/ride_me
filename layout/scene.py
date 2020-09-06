@@ -16,5 +16,7 @@ class Scene(BaseLayout):
         self.bike = Bike()
         self.add_widget(self.bike)
 
+        self.bike.lending()
+
 
 

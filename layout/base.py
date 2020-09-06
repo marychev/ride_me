@@ -14,8 +14,8 @@ class BaseLayout(FloatLayout):
 
     @staticmethod
     def scene_default_height():
-        return Window.height - (Window.height / 4)
+        return int(Window.height - (Window.height / 5))
 
     @staticmethod
     def tools_default_height():
-        return Window.height - BaseLayout.scene_default_height()
+        return int(Window.height - BaseLayout.scene_default_height())
