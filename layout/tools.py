@@ -38,9 +38,10 @@ class Tools(BaseLayout, KeyboardHandler):
         show_outline(self)
 
     def on_move(self):
-        print('MOVE >>>')
+        self.left_btn.canvas.opacity = 1
         self.right_btn.canvas.opacity = 0.5
         self.parent.scene.bike.move()
+
         text = self.parent.scene.bike.show_status('Go bike! ==>')
         BaseButtonBehavior.change_text(self.status_bar, text)
 
@@ -48,11 +49,15 @@ class Tools(BaseLayout, KeyboardHandler):
         self.left_btn.canvas.opacity = 1
         self.right_btn.canvas.opacity = 1
         self.parent.scene.bike.relax()
+
         text = self.parent.scene.bike.show_status('... Relax ...')
         BaseButtonBehavior.change_text(self.status_bar, text)
 
     def on_stop(self):
         print('<<< Stop ')
         self.left_btn.canvas.opacity = 0.5
+        self.right_btn.canvas.opacity = 1
         self.parent.scene.bike.stop()
-        BaseButtonBehavior.change_text(self.status_bar, '... stop ...')
+
+        text = self.parent.scene.bike.show_status('... Stop ...')
+        BaseButtonBehavior.change_text(self.status_bar, text)
