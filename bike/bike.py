@@ -5,6 +5,7 @@ from bike.bike_event import BikeEvent
 from layout.base import BaseLayout
 from utils.checks import show_outline
 
+
 SECOND_GAME = 1 / 60
 TMP_JUMP = 500
 START_POS_X = 80
