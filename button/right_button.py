@@ -16,6 +16,9 @@ class RightButtonWidget(BaseButtonBehavior, Image):
 
     def __init__(self, **kwargs):
         super(RightButtonWidget, self).__init__(**kwargs)
+        self.set_canvas_button()
+
+    def set_canvas_button(self):
         with self.canvas:
             Color(1, 1, 1)
             Ellipse(pos=(590, 10), size=self.btn_size)

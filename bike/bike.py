@@ -6,8 +6,7 @@ from layout.base import BaseLayout
 from utils.checks import show_outline
 
 
-SECOND_GAME = 1 / 60
-TMP_JUMP = 500
+TMP_JUMP = 200
 START_POS_X = 80
 START_POS_Y = BaseLayout.tools_default_height() + TMP_JUMP
 
@@ -20,7 +19,7 @@ class Bike(Image, BikeEvent):
 
     height = NumericProperty(60)
     width = NumericProperty(80)
-    max_speed = NumericProperty(11)
+    max_speed = NumericProperty(8)
     gravity = NumericProperty(0.2)
 
     def __init__(self, **kwargs):
@@ -32,10 +31,12 @@ class Bike(Image, BikeEvent):
 
     def show_status(self, title='...'):
         return '''{}
-        Speed:                  {}
-        Velocity coordinates:   {}
+Speed:          {}
+Pos / x,y:      {} / {}, {}
+State pre/now:  {} / {}
         '''.format(
             title,
             self.speed,
-            self.pos,
+            self.pos, self.x, self.y,
+            self.pre_event, self.current_event
         )

@@ -2,7 +2,11 @@ import kivy
 kivy.require('1.11.1')
 
 from kivy.core.window import Window
-# Window.size = (680, 420)
-Window.size = (860, 640)
 
-SECOND_GAME = 1.5 / 60
+SECOND_GAME = 2 / 60
+HEIGHT_GAME = 640
+WIDTH_GAME = 860
+
+Window.size = (WIDTH_GAME, HEIGHT_GAME)
+
+
