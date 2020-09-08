@@ -1,6 +1,6 @@
 from kivy.core.window import Window
 from kivy.graphics import Color, Rectangle, Ellipse
-from kivy.properties import NumericProperty, ListProperty
+from kivy.properties import NumericProperty, ListProperty, ReferenceListProperty
 from kivy.uix.image import Image
 
 from button.base import BaseButtonBehavior
@@ -9,6 +9,7 @@ from button.base import BaseButtonBehavior
 class RightButtonWidget(BaseButtonBehavior, Image):
     x = NumericProperty(Window.width - 110)
     y = NumericProperty(10)
+    pos = ReferenceListProperty(x, y)
     height = NumericProperty(0)
     width = NumericProperty(0)
     btn_size = ListProperty([80, 80])
@@ -21,7 +22,7 @@ class RightButtonWidget(BaseButtonBehavior, Image):
     def set_canvas_button(self):
         with self.canvas:
             Color(1, 1, 1)
-            Ellipse(pos=(590, 10), size=self.btn_size)
+            Ellipse(pos=(self.x, self.y), size=self.btn_size)
             Color(255, 0, 0)
             Rectangle(pos=(610, 45), size=(self.btn_size[0]/2, self.margin))
             Color(255, 0, 0)

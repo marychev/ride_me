@@ -24,6 +24,6 @@ class LeftButtonWidget(BaseButtonBehavior, Image):
     def set_canvas_button(self):
         with self.canvas:
             Color(1, 1, 1)
-            Ellipse(pos=(10, 10), size=self.btn_size)
+            Ellipse(pos=(self.x, self.y), size=self.btn_size)
             Color(255, 0, 0)
             Rectangle(pos=(30, 45), size=(self.btn_size[0]/2, self.margin))

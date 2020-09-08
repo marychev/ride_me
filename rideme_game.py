@@ -8,7 +8,6 @@ class RideMeGame(BoxLayout):
     status_bar = ObjectProperty(None)
     scene = ObjectProperty(None)
     tool = ObjectProperty(None)
-    states = ListProperty(['INIT', 'START', 'PLAY', 'PAUSE', 'FINISH'])
 
     def __init__(self, **kwargs):
         super(RideMeGame, self).__init__(**kwargs)
