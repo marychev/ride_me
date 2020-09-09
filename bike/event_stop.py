@@ -40,6 +40,6 @@ class StopBikeEvent(BaseBikeEvent):
             BaseBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_move])
 
             self.speed = 0
-            self.acceleration = 0.05
+            self.acceleration = 0
             self.current_event = EVENT_NAME
             self.on_stop = Clock.schedule_interval(self.set_stop, SECOND_GAME)

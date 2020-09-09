@@ -1,7 +1,8 @@
-from kivy.properties import ObjectProperty, ListProperty
+from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
 from label.status_bar import StatusBar
-from layout import Tools, Scene
+from layout.tools import Tools
+from layout.scene import Scene
 
 
 class RideMeGame(BoxLayout):
