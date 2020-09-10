@@ -2,13 +2,11 @@ from kivy.properties import NumericProperty, StringProperty, ReferenceListProper
 from kivy.uix.image import Image
 
 from bike.bike_event import BikeEvent
-from conf import HEIGHT_GAME
 from utils.checks import show_outline
 
 
-TMP_JUMP = 20
 START_POS_X = 80
-START_POS_Y = HEIGHT_GAME / 2
+START_POS_Y = 150
 
 
 class Bike(Image, BikeEvent):
@@ -32,7 +30,7 @@ class Bike(Image, BikeEvent):
 
         # TODO: FOR DEV
         # check here position Road, Land and apply useful actions and events
-        self.landing()
+        # self.landing()
 
     def show_status(self, title='...'):
         return '''{}

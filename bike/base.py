@@ -40,20 +40,24 @@ class BaseBikeEvent(EventDispatcher):
         [Clock.unschedule(event) for event in event_list]
 
     def can_wait(self):
+        print(1, self.current_event)
         Log.try_to_set(EVENT_NAME, self)
         # it is on the land
+        print(self.road_pos, self.y)
         can = self.road_pos.y >= self.y
         Log.can_or_not(EVENT_NAME, can, self)
         return can
 
     def set_wait(self, dt):
-        if self.can_wait():
-            self.pre_event = self.current_event
-            BaseBikeEvent.unschedule([self.on_move, self.on_relax, self.on_stop, self.on_landing])
+        print(2, self.current_event)
+        # if self.can_wait():
+        self.pre_event = self.current_event
+        self.current_event = EVENT_NAME
+        BaseBikeEvent.unschedule([self.on_move, self.on_relax, self.on_stop, self.on_landing])
 
     def wait(self):
         Log.start(EVENT_NAME, self)
-
+        print(3, self.current_event)
         if self.can_wait():
             BaseBikeEvent.unschedule([self.on_move, self.on_relax, self.on_stop, self.on_landing])
             self.current_event = EVENT_NAME
@@ -68,7 +72,9 @@ class BaseBikeEvent(EventDispatcher):
             self.speed = self.max_speed
 
     def _set_pos(self):
+        print(self.pos)
         self.pos = Vector(self.x, self.y)
         self.canvas.before.clear()
         show_outline(self)
+        print(self.pos)
 

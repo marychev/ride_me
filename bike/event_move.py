@@ -19,33 +19,39 @@ class MoveBikeEvent(StopBikeEvent):
         Log.try_to_set(EVENT_NAME, self)
         prohibited_events = [LANDING_EVENT_NAME, ]
         can = (self.current_event not in prohibited_events) and not self.has_leave_screen()
-        Log.can_or_not(EVENT_NAME, can, self)
 
         if not can:
             self.wait()
 
+        Log.can_or_not(EVENT_NAME, can, self)
         return can
 
     def set_move(self, dt):
+        print('-?????----', self.speed)
+
         if self.can_move():
-            StopBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_stop])
+            StopBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_stop, self.on_wait])
 
             self.x += self.speed
             self.add_speed(self.acceleration)
             self._set_pos()
             self.pre_event = self.current_event
-        print('')
+            # self.current_event = EVENT_NAME
+
+        print('-----------', self.speed)
         self.collision_screen()
 
     def move(self):
         Log.start(EVENT_NAME, self)
 
         if self.can_move():
-            StopBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_stop])
+            StopBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_stop, self.on_wait])
 
             self.acceleration = 0.2
+            self.pre_event = self.current_event
             self.current_event = EVENT_NAME
             self.on_move = Clock.schedule_interval(self.set_move, SECOND_GAME)
+            print('2-----------', self.speed)
 
     def collision_screen(self):
         if self.has_leave_screen():

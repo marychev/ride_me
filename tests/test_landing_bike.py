@@ -17,15 +17,17 @@ class LandingBikeBehaviorTest(GraphicUnitTest):
         self.app = RideMeGame()
         self.render(self.app)
 
+    def assert_equals_for_pre_current(self, pre_event, current_event):
+        self.assertEqual(self.app.scene.bike.pre_event, pre_event)
+        self.assertEqual(self.app.scene.bike.current_event, current_event)
+
     def assert_equal_on_release_landing(self, btn):
         btn.on_release()
-        self.assertEqual(self.app.scene.bike.pre_event, LANDING_EVENT_NAME)
-        self.assertEqual(self.app.scene.bike.current_event, LANDING_EVENT_NAME)
+        self.assert_equals_for_pre_current(LANDING_EVENT_NAME, LANDING_EVENT_NAME)
 
     def assert_equal_on_press_landing(self, btn):
         btn.on_press()
-        self.assertEqual(self.app.scene.bike.pre_event, LANDING_EVENT_NAME)
-        self.assertEqual(self.app.scene.bike.current_event, LANDING_EVENT_NAME)
+        self.assert_equals_for_pre_current(LANDING_EVENT_NAME, LANDING_EVENT_NAME)
 
     def test_runtouchapp(self):
         self.set_app()
@@ -56,8 +58,20 @@ class LandingBikeBehaviorTest(GraphicUnitTest):
 
     def test_collision_to_land_correctly(self):
         self.set_app()
-        self.set_bike_pos()
 
-        self.app.scene.bike.y = BaseLayout.tools_default_height() - 1
-        self.app.scene.bike.landing()
-        self.assertEqual(self.app.scene.bike.current_event, 'on_wait')
+        # set landing values
+        self.app.scene.bike.x = WIDTH_GAME / 2
+        self.app.scene.bike.y = BaseLayout.tools_default_height() * 2    # has sky point
+        self.app.scene.bike.set_landing(1)
+        self.assert_equals_for_pre_current(LANDING_EVENT_NAME, LANDING_EVENT_NAME)
+
+        # set collision values
+        self.app.scene.bike.x = WIDTH_GAME / 2
+        self.app.scene.bike.y = BaseLayout.tools_default_height()  # has road point
+        self.app.scene.bike.set_landing(1)
+        # check collision and a new WAIT state
+        self.assert_equals_for_pre_current(LANDING_EVENT_NAME, 'on_wait')
+        self.assertTrue(self.app.scene.bike.road_pos.y >= self.app.scene.bike.y)
+        self.assertTrue(self.app.scene.bike.road_pos.y >= self.app.scene.bike.pos[1])
+        self.assertTrue(self.app.scene.bike.acceleration == 0)
+        self.assertTrue(self.app.scene.bike.speed < 1)

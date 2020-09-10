@@ -1,0 +1,29 @@
+SET
+CAN
+. try set on_landing => on_landing(pre: on_landing).
++ Set on_landing => on_landing, (pre: on_landing). Speed: 2.8000000000000003| Acceleration: 0
+	x/y = 80 / 131.8
+[80, 129.0]
+[80, 129.0]
+SET
+CAN
+. try set on_landing => on_landing(pre: on_landing).
++ Set on_landing => on_landing, (pre: on_landing). Speed: 3.0000000000000004| Acceleration: 0
+	x/y = 80 / 129.0
+[80, 126.0]
+[80, 126.0]
+
+	Contact with the land. BOOM!!!
+	------------------------------
+
+ON_WAIT & on_landing, (pre: on_landing)
+3 on_landing
+1 on_landing
+. try set on_wait => on_landing(pre: on_landing).
+[80, 128] 126.0
++ Set on_wait => on_landing, (pre: on_landing). Speed: 3.2000000000000006| Acceleration: 0
+	x/y = 80 / 126.0
+
+	Waiting for some actions!!!
+	------------------------------
+2 on_wait

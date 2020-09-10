@@ -22,6 +22,7 @@ class StopBikeEvent(BaseBikeEvent):
         return can
 
     def set_stop(self, dt):
+        self.on_move.cancel()
         if self.can_stop():
             BaseBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_move])
 
