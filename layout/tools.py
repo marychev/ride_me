@@ -38,6 +38,8 @@ class Tools(BaseLayout, KeyboardHandler):
         show_outline(self)
 
     def on_move(self):
+        print(self)
+        print('>>>> on_move')
         self.left_btn.canvas.opacity = 1
         self.right_btn.canvas.opacity = 0.5
         self.parent.scene.bike.move()

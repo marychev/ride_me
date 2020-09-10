@@ -15,22 +15,5 @@ class CollisionBikeTest(GraphicUnitTest):
     def test_collision_y_by_on_move(self):
         self.set_app()
         self.app.scene.bike.y = BaseLayout.tools_default_height()
-        self.app.scene.bike.wait()
-
+        self.app.scene.bike.set_wait(1)
         self.assertEqual(self.app.scene.bike.current_event, WAIT_EVENT_NAME)
-
-        print('GOGOGOGOGO')
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()
-        self.app.scene.bike.move()
-        self.app.scene.bike.relax()

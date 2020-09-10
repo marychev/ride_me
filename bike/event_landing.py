@@ -15,7 +15,8 @@ class LandingBikeEvent(StopBikeEvent):
     current_event = StringProperty(EVENT_NAME)
 
     def can_landing(self):
-        print('CAN')
+        print('CAN', self.pos)
+        print(self.x, self.y, '????????????<')
         Log.try_to_set(EVENT_NAME, self)
         can = self.road_pos.y < self.y
         Log.can_or_not(EVENT_NAME, can, self)
@@ -35,7 +36,6 @@ class LandingBikeEvent(StopBikeEvent):
         self.collision_with_land()
 
     def landing(self):
-        print('INIT', self.pos)
         Log.start(EVENT_NAME, self)
 
         if self.can_landing():

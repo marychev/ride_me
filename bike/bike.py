@@ -28,13 +28,13 @@ class Bike(Image, BikeEvent):
 
         show_outline(self)
 
-        # TODO: FOR DEV
-        # check here position Road, Land and apply useful actions and events
-        # self.landing()
+        # check positions Road, Land and apply useful actions and events
+        if self.can_landing():
+            self.landing()
 
     def show_status(self, title='...'):
         return '''{}
-Speed:          {}
+Speed / Accel:  {}
 Pos / x,y:      {} / {}, {}
 State pre/now:  {} / {}
         '''.format(

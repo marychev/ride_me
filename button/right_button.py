@@ -28,3 +28,7 @@ class RightButtonWidget(BaseButtonBehavior, Image):
             Color(255, 0, 0)
             Rectangle(pos=(625, 30), size=(self.margin, self.btn_size[0]/2))
 
+    def on_press(self):
+        app = self.parent.parent
+        app.scene.bike.move()
+
