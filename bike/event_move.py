@@ -1,17 +1,20 @@
 from kivy.clock import Clock
-from kivy.properties import NumericProperty
 from kivy.properties import StringProperty
 
+from bike.base_event import BaseBikeEvent
 from bike.event_landing import EVENT_NAME as LANDING_EVENT_NAME
-from bike.event_stop import StopBikeEvent
 from conf import SECOND_GAME, WIDTH_GAME, HEIGHT_GAME
 from utils.logs import Log
 
 EVENT_NAME = 'on_move'
 
 
-class MoveBikeEvent(StopBikeEvent):
+class MoveBikeEvent(BaseBikeEvent):
     current_event = StringProperty(EVENT_NAME)
+
+    def __init__(self, **kwargs):
+        self.register_event_type(EVENT_NAME)
+        super(MoveBikeEvent, self).__init__(**kwargs)
 
     def has_leave_screen(self):
         return self.x + self.width > WIDTH_GAME or self.y > HEIGHT_GAME
@@ -24,7 +27,7 @@ class MoveBikeEvent(StopBikeEvent):
         return can
 
     def set_move(self, dt):
-        StopBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_stop, self.on_wait])
+        self.unschedule([self.on_landing, self.on_relax, self.on_stop, self.on_wait])
 
         self.acceleration = 4
         self.add_speed(self.acceleration)
@@ -36,7 +39,7 @@ class MoveBikeEvent(StopBikeEvent):
 
         self.collision_screen()
 
-    def move(self):
+    def on_move(self, dt, *args):
         Log.start(EVENT_NAME, self)
 
         if self.can_move():

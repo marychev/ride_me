@@ -1,8 +1,6 @@
-from kivy.base import EventLoop
 from kivy.tests.common import GraphicUnitTest
 
-from bike.base import EVENT_NAME as WAIT_EVENT_NAME
-from conf import HEIGHT_GAME, WIDTH_GAME
+from bike.base_event import EVENT_NAME as WAIT_EVENT_NAME
 from layout.base import BaseLayout
 from rideme_game import RideMeGame
 

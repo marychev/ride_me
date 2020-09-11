@@ -1,6 +1,6 @@
 from kivy.tests.common import GraphicUnitTest
 
-from bike.base import EVENT_NAME as WAIT_EVENT_NAME
+from bike.base_event import EVENT_NAME as WAIT_EVENT_NAME
 from layout.base import BaseLayout
 from rideme_game import RideMeGame
 
@@ -27,7 +27,7 @@ class MoveBikeTest(GraphicUnitTest):
 
     def test_try_move(self):
         self.set_app()
-        self.app.scene.bike.move()
+        self.app.scene.bike.on_move(0)
         self.assert_equals_for_pre_current(WAIT_EVENT_NAME, MOVE_EVENT_NAME)
 
     def test_try_move_by_right_button(self):

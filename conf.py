@@ -3,7 +3,7 @@ kivy.require('1.11.1')
 
 from kivy.core.window import Window
 
-SECOND_GAME = 3 / 60
+SECOND_GAME = 2 / 60
 HEIGHT_GAME = 640
 WIDTH_GAME = 860
 

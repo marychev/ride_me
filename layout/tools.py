@@ -25,11 +25,11 @@ class Tools(BaseLayout, KeyboardHandler):
         self.left_btn = LeftButtonWidget()
         self.right_btn = RightButtonWidget()
 
-        # Bind Events
-        self.left_btn.fbind('on_press', lambda x: self.on_stop())
-        self.right_btn.fbind('on_press', lambda x: self.on_move())
-        self.left_btn.fbind('on_release', lambda x: self.on_relax())
-        self.right_btn.fbind('on_release', lambda x: self.on_relax())
+        # # Bind Events
+        self.left_btn.fbind('on_press', self.on_stop)
+        self.right_btn.fbind('on_press', self.on_move)
+        self.left_btn.fbind('on_release', self.on_relax)
+        self.right_btn.fbind('on_release', self.on_relax)
 
         # Add widgets
         self.add_widget(self.left_btn)
@@ -37,25 +37,27 @@ class Tools(BaseLayout, KeyboardHandler):
 
         show_outline(self)
 
-    def on_move(self):
+    def on_move(self, dt):
         print(self)
-        print('>>>> on_move')
+        print('>>>> on_move', dt)
         self.left_btn.canvas.opacity = 1
         self.right_btn.canvas.opacity = 0.5
-        self.parent.scene.bike.move()
+
+        self.parent.scene.bike.on_move(0)
 
         text = self.parent.scene.bike.show_status('Go bike! ==>')
         BaseButtonBehavior.change_text(self.status_bar, text)
 
-    def on_relax(self):
+    def on_relax(self, dt):
         self.left_btn.canvas.opacity = 1
         self.right_btn.canvas.opacity = 1
-        self.parent.scene.bike.relax()
+
+        self.parent.scene.bike.on_relax(0)
 
         text = self.parent.scene.bike.show_status('... Relax ...')
         BaseButtonBehavior.change_text(self.status_bar, text)
 
-    def on_stop(self):
+    def on_stop(self, dt):
         print('<<< Stop ')
         self.left_btn.canvas.opacity = 0.5
         self.right_btn.canvas.opacity = 1

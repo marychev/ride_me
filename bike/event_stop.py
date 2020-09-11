@@ -1,11 +1,11 @@
 from kivy.clock import Clock
 from kivy.properties import StringProperty
-from bike.base import BaseBikeEvent
+
+from bike.base_event import BaseBikeEvent
+from bike.event_landing import EVENT_NAME as LANDING_EVENT_NAME
 from conf import SECOND_GAME, WIDTH_GAME
 from utils.logs import Log
 
-# ERR: from bike.event_landing import LANDING_EVENT_NAME
-LANDING_EVENT_NAME = 'on_landing'
 EVENT_NAME = 'on_stop'
 
 
@@ -22,9 +22,10 @@ class StopBikeEvent(BaseBikeEvent):
         return can
 
     def set_stop(self, dt):
-        self.on_move.cancel()
+        # self.on_move and self.on_move.cancel()
+
         if self.can_stop():
-            BaseBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_move])
+            self.unschedule([self.on_landing, self.on_relax, self.on_move])
 
             self.x += self.speed
             self.add_speed(-self.acceleration)
@@ -38,7 +39,7 @@ class StopBikeEvent(BaseBikeEvent):
         Log.start(EVENT_NAME, self)
 
         if self.can_stop():
-            BaseBikeEvent.unschedule([self.on_landing, self.on_relax, self.on_move])
+            self.unschedule([self.on_landing, self.on_relax, self.on_move])
 
             self.speed = 0
             self.acceleration = 0

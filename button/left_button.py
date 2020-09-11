@@ -27,3 +27,9 @@ class LeftButtonWidget(BaseButtonBehavior, Image):
             Ellipse(pos=(self.x, self.y), size=self.btn_size)
             Color(255, 0, 0)
             Rectangle(pos=(30, 45), size=(self.btn_size[0]/2, self.margin))
+
+    def on_press(self):
+        self.parent.on_stop(0)
+
+    def on_release(self):
+        self.parent.on_relax(0)

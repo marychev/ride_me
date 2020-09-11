@@ -35,6 +35,10 @@ class BaseBikeEvent(EventDispatcher):
     current_event = StringProperty(EVENT_NAME)
     pre_event = StringProperty('undefined')
 
+    def __init__(self, **kwargs):
+        self.register_event_type(EVENT_NAME)
+        super(BaseBikeEvent, self).__init__(**kwargs)
+
     @staticmethod
     def unschedule(event_list):
         [Clock.unschedule(event) for event in event_list]
@@ -49,7 +53,11 @@ class BaseBikeEvent(EventDispatcher):
     def set_wait(self, dt):
         self.pre_event = self.current_event
         self.current_event = EVENT_NAME
+
         BaseBikeEvent.unschedule([self.on_move, self.on_relax, self.on_stop, self.on_landing])
+
+        if self.pre_event == self.current_event and self.speed == 0:
+            self.on_wait.cancel()
 
     def wait(self):
         Log.start(EVENT_NAME, self)

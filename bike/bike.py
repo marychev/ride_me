@@ -1,7 +1,7 @@
 from kivy.properties import NumericProperty, StringProperty, ReferenceListProperty
 from kivy.uix.image import Image
 
-from bike.bike_event import BikeEvent
+from bike.bike_events import BikeEvents
 from utils.checks import show_outline
 
 
@@ -9,7 +9,7 @@ START_POS_X = 80
 START_POS_Y = 150
 
 
-class Bike(Image, BikeEvent):
+class Bike(Image, BikeEvents):
     source = StringProperty('bike/bike.png')
 
     x = NumericProperty(START_POS_X)
