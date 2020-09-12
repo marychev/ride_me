@@ -27,7 +27,9 @@ class RelaxBikeEvent(BaseBikeEvent):
 
     def set_relax(self, dt):
         print('>> SET RELAX', self.pos)
-        self.unschedule([self.on_landing, self.on_move, self.on_stop])
+        self.unschedule([self.on_landing,
+                         self.on_move,
+                         self.on_stop])
 
         self.acceleration = 1
         self.add_speed(-self.acceleration)
@@ -36,7 +38,7 @@ class RelaxBikeEvent(BaseBikeEvent):
 
         if self.speed < 0:
             Clock.unschedule(self.on_relax)
-            self.wait()
+            self.on_wait()
 
     def on_relax(self, dt, *args):
         Log.start(EVENT_NAME, self)

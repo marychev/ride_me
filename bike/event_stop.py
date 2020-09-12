@@ -12,6 +12,10 @@ EVENT_NAME = 'on_stop'
 class StopBikeEvent(BaseBikeEvent):
     current_event = StringProperty(EVENT_NAME)
 
+    def __init__(self, **kwargs):
+        self.register_event_type(EVENT_NAME)
+        super(StopBikeEvent, self).__init__(**kwargs)
+
     def can_stop(self):
         Log.try_to_set(EVENT_NAME, self)
         prohibited_events = [LANDING_EVENT_NAME, ]
@@ -35,7 +39,7 @@ class StopBikeEvent(BaseBikeEvent):
                 self.on_stop.cancel()
                 self.wait()
 
-    def stop(self):
+    def on_stop(self):
         Log.start(EVENT_NAME, self)
 
         if self.can_stop():

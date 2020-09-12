@@ -6,7 +6,7 @@ from utils.checks import show_outline
 
 
 START_POS_X = 80
-START_POS_Y = 150
+START_POS_Y = 130
 
 
 class Bike(Image, BikeEvents):

@@ -51,4 +51,4 @@ class LandingBikeEvent(BaseBikeEvent):
     def collision_with_land(self):
         if self.has_collision_with_land():
             print('\n\tContact with the land. BOOM!!!\n\t------------------------------')
-            self.wait()
+            self.on_wait()

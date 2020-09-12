@@ -40,6 +40,7 @@ class MoveBikeEvent(BaseBikeEvent):
         self.collision_screen()
 
     def on_move(self, dt, *args):
+        print('....on move.. ? ...')
         Log.start(EVENT_NAME, self)
 
         if self.can_move():
@@ -56,4 +57,4 @@ class MoveBikeEvent(BaseBikeEvent):
             self.x -= 200
             self.speed = 0
             self.acceleration = 0
-            self.stop()
+            self.on_wait()

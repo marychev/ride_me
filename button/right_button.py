@@ -16,7 +16,10 @@ class RightButtonWidget(BaseButtonBehavior, Image):
     margin = NumericProperty(10)
 
     def __init__(self, **kwargs):
+        self.register_event_type('on_press')
+        self.register_event_type('on_release')
         super(RightButtonWidget, self).__init__(**kwargs)
+
         self.set_canvas_button()
 
     def set_canvas_button(self):
@@ -29,6 +32,7 @@ class RightButtonWidget(BaseButtonBehavior, Image):
             Rectangle(pos=(625, 30), size=(self.margin, self.btn_size[0]/2))
 
     def on_press(self):
+        print(self.parent)
         self.parent.on_move(0)
 
     def on_release(self):

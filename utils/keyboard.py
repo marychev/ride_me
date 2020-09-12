@@ -7,7 +7,7 @@ class KeyboardHandler(object):
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
         self._keyboard.bind(on_key_up=self._on_keyboard_up)
 
-    def on_move(self, dt):
+    def on_move_btn(self, dt):
         raise NotImplementedError
 
     def on_relax(self, dt):

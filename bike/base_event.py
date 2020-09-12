@@ -25,12 +25,10 @@ class BaseBikeEvent(EventDispatcher):
 
     road_pos = Vector(80, BaseLayout.tools_default_height())
 
-    on_wait = ObjectProperty(None)
     on_landing = ObjectProperty(None)
     on_move = ObjectProperty(None)
     on_relax = ObjectProperty(None)
     on_stop = ObjectProperty(None)
-    # events_list = ReferenceListProperty(on_landing, on_wait, on_move, on_relax, on_stop)
 
     current_event = StringProperty(EVENT_NAME)
     pre_event = StringProperty('undefined')
@@ -59,7 +57,7 @@ class BaseBikeEvent(EventDispatcher):
         if self.pre_event == self.current_event and self.speed == 0:
             self.on_wait.cancel()
 
-    def wait(self):
+    def on_wait(self):
         Log.start(EVENT_NAME, self)
         if self.can_wait():
             BaseBikeEvent.unschedule([self.on_move, self.on_relax, self.on_stop, self.on_landing])
