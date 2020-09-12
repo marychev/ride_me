@@ -16,8 +16,6 @@ class RightButtonWidget(BaseButtonBehavior, Image):
     margin = NumericProperty(10)
 
     def __init__(self, **kwargs):
-        self.register_event_type('on_press')
-        self.register_event_type('on_release')
         super(RightButtonWidget, self).__init__(**kwargs)
 
         self.set_canvas_button()
@@ -32,9 +30,26 @@ class RightButtonWidget(BaseButtonBehavior, Image):
             Rectangle(pos=(625, 30), size=(self.margin, self.btn_size[0]/2))
 
     def on_press(self):
-        print(self.parent)
-        self.parent.on_move(0)
+        print('---------------------')
+        print('-- on_press RB -- ')
+        print('---------------------')
+        self.canvas.opacity = 0.5
+
+        bike = self.parent.parent.scene.bike
+        bike.on_move(0)
+
+        text = bike.show_status('Go bike! ==>')
+        BaseButtonBehavior.change_text(self.parent.status_bar, text)
 
     def on_release(self):
-        self.parent.on_relax(0)
+        print('---------------------')
+        print('-- on_release RB -- ')
+        print('---------------------')
+        self.canvas.opacity = 1
+
+        bike = self.parent.parent.scene.bike
+        bike.on_relax(0)
+
+        text = bike.show_status('... Relax ...')
+        BaseButtonBehavior.change_text(self.parent.status_bar, text)
 

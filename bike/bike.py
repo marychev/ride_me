@@ -9,7 +9,7 @@ START_POS_X = 80
 START_POS_Y = 130
 
 
-class Bike(Image, BikeEvents):
+class Bike(BikeEvents, Image):
     source = StringProperty('bike/bike.png')
 
     x = NumericProperty(START_POS_X)
@@ -18,7 +18,7 @@ class Bike(Image, BikeEvents):
 
     height = NumericProperty(60)
     width = NumericProperty(80)
-    max_speed = NumericProperty(8)
+    max_speed = NumericProperty(40)
     gravity = NumericProperty(0.2)
 
     def __init__(self, **kwargs):
@@ -28,18 +28,19 @@ class Bike(Image, BikeEvents):
 
         show_outline(self)
 
-        # check positions Road, Land and apply useful actions and events
-        if self.can_landing():
-            self.landing()
+        self.on_wait()
+        self.on_landing()
+
+        print('\t\tbike')
 
     def show_status(self, title='...'):
         return '''{}
-Speed / Accel:  {}
+Speed / Accel:  {} {}
 Pos / x,y:      {} / {}, {}
 State pre/now:  {} / {}
         '''.format(
             title,
-            self.speed,
+            self.speed, self.acceleration,
             self.pos, self.x, self.y,
             self.pre_event, self.current_event
         )

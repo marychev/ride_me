@@ -1,6 +1,6 @@
 from kivy.clock import Clock
 from kivy.properties import StringProperty
-from bike.base_event import BaseBikeEvent
+from bike.event_base import BaseBikeEvent
 from bike.event_landing import EVENT_NAME as LANDING_EVENT_NAME
 from conf import SECOND_GAME, WIDTH_GAME
 from utils.logs import Log
@@ -20,33 +20,48 @@ class RelaxBikeEvent(BaseBikeEvent):
         Log.try_to_set(EVENT_NAME, self)
         prohibited_events = [LANDING_EVENT_NAME, ]
         leave_screen_x = self.x > WIDTH_GAME
-        can = (self.current_event not in prohibited_events) and not leave_screen_x
-
+        can = (
+                (self.current_event not in prohibited_events)
+                and not leave_screen_x
+                and self.speed > 0
+        )
         Log.can_or_not(EVENT_NAME, can, self)
         return can
 
-    def set_relax(self, dt):
-        print('>> SET RELAX', self.pos)
-        self.unschedule([self.on_landing,
-                         self.on_move,
-                         self.on_stop])
+    def _set_relax(self, dt):
+        print('- -  set relax - -', dt)
 
-        self.acceleration = 1
-        self.add_speed(-self.acceleration)
-        self.x += self.speed
-        self._set_pos()
+        Clock.unschedule(self.on_move)
 
-        if self.speed < 0:
-            Clock.unschedule(self.on_relax)
-            self.on_wait()
+        if self.can_relax():
+            print('>> SET RELAX', dt)
+            speed_up = -dt
+            self.add_speed(speed_up)
+
+            self.x += self.speed
+            self._set_pos()
+
+            self.pre_event = self.current_event
+            self.current_event = EVENT_NAME
+
+            if self.speed < 0:
+                Clock.unschedule(self.on_relax)
+                self.on_wait()
+
+            return True
+        else:
+            self.loop_event.cancel()
+            return False
 
     def on_relax(self, dt, *args):
         Log.start(EVENT_NAME, self)
 
-        if self.can_relax():
-            BaseBikeEvent.unschedule([self.on_landing, self.on_move, self.on_stop])
+        Clock.unschedule(self.on_move)
 
-            self.pre_event = self.current_event
-            self.current_event = EVENT_NAME
-            self.on_relax = Clock.schedule_interval(self.set_relax, SECOND_GAME)
+        # static values
+        self.pre_event = self.current_event
+        self.current_event = EVENT_NAME
+        self.loop_event = Clock.schedule_interval(self._set_relax, SECOND_GAME)
+
+
 

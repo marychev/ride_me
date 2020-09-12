@@ -1,7 +1,7 @@
 from kivy.clock import Clock
 from kivy.properties import StringProperty
 
-from bike.base_event import BaseBikeEvent
+from bike.event_base import BaseBikeEvent
 from bike.event_landing import EVENT_NAME as LANDING_EVENT_NAME
 from conf import SECOND_GAME, WIDTH_GAME, HEIGHT_GAME
 from utils.logs import Log
@@ -16,40 +16,56 @@ class MoveBikeEvent(BaseBikeEvent):
         self.register_event_type(EVENT_NAME)
         super(MoveBikeEvent, self).__init__(**kwargs)
 
-    def has_leave_screen(self):
-        return self.x + self.width > WIDTH_GAME or self.y > HEIGHT_GAME
+        self.acceleration = 10
 
     def can_move(self):
         Log.try_to_set(EVENT_NAME, self)
         prohibited_events = [LANDING_EVENT_NAME, ]
-        can = (self.current_event not in prohibited_events) and not self.has_leave_screen()
+        can = (
+            (self.current_event not in prohibited_events)
+            and not self.has_leave_screen()
+            and (self.acceleration > 0)
+        )
         Log.can_or_not(EVENT_NAME, can, self)
         return can
 
-    def set_move(self, dt):
-        self.unschedule([self.on_landing, self.on_relax, self.on_stop, self.on_wait])
+    def _set_move(self, dt):
+        print('_  set move --', dt)
 
-        self.acceleration = 4
-        self.add_speed(self.acceleration)
-        self.x += self.speed
-        self._set_pos()
-
-        self.pre_event = self.current_event
-        self.current_event = EVENT_NAME
-
+        # TODO: check and changing values into loops
         self.collision_screen()
 
-    def on_move(self, dt, *args):
-        print('....on move.. ? ...')
-        Log.start(EVENT_NAME, self)
-
         if self.can_move():
-            self.unschedule([self.on_landing, self.on_relax, self.on_stop, self.on_wait])
+            speed_up = dt * 5
+            self.add_speed(speed_up)
 
+            self.acceleration -= speed_up
+
+            self.x += self.speed
+            self._set_pos()
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
 
-            self.on_move = Clock.schedule_interval(self.set_move, SECOND_GAME)
+            # if self.acceleration <= 0:
+            #     self.loop_event.cancel()
+            return True
+        else:
+            self.loop_event.cancel()
+            Clock.unschedule(self.on_move)
+            return False
+
+    def on_move(self, dt):
+        Log.start(EVENT_NAME, self)
+
+        # static values
+        self.pre_event = self.current_event
+        self.current_event = EVENT_NAME
+
+        self.loop_event = Clock.schedule_interval(self._set_move, SECOND_GAME)
+        self.collision_screen()
+
+    def has_leave_screen(self):
+        return self.x + self.width > WIDTH_GAME or self.y > HEIGHT_GAME
 
     def collision_screen(self):
         if self.has_leave_screen():
@@ -57,4 +73,6 @@ class MoveBikeEvent(BaseBikeEvent):
             self.x -= 200
             self.speed = 0
             self.acceleration = 0
-            self.on_wait()
+
+            self.loop_event.cancel()
+            Clock.unschedule(self)
