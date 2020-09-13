@@ -29,7 +29,7 @@ class StopBikeEvent(BaseBikeEvent):
         # self.on_move and self.on_move.cancel()
 
         if self.can_stop():
-            self.unschedule([self.on_landing, self.on_relax, self.on_motion])
+            self.unschedule([self.on_landing, self.on_relax, self.on_go])
 
             self.x += self.speed
             self.add_speed(-self.acceleration)
@@ -43,7 +43,7 @@ class StopBikeEvent(BaseBikeEvent):
         Log.start(EVENT_NAME, self)
 
         if self.can_stop():
-            self.unschedule([self.on_landing, self.on_relax, self.on_motion])
+            self.unschedule([self.on_landing, self.on_relax, self.on_go])
 
             self.speed = 0
             self.acceleration = 0

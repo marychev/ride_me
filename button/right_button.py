@@ -35,9 +35,10 @@ class RightButtonWidget(BaseButtonBehavior, Image):
         print('-- on_press RB -- ')
         print('---------------------')
         self.canvas.opacity = 0.5
+        self.disabled = True
 
         bike = self.parent.parent.scene.bike
-        bike.on_motion(SECOND_GAME)
+        bike.on_go(SECOND_GAME)
 
         text = bike.show_status('Go bike! ==>')
         BaseButtonBehavior.change_text(self.parent.status_bar, text)
@@ -47,9 +48,10 @@ class RightButtonWidget(BaseButtonBehavior, Image):
         print('-- on_release RB -- ')
         print('---------------------')
         self.canvas.opacity = 1
+        self.disabled = False
 
         bike = self.parent.parent.scene.bike
-        bike.on_relax(0)
+        bike.on_relax(SECOND_GAME)
 
         text = bike.show_status('... Relax ...')
         BaseButtonBehavior.change_text(self.parent.status_bar, text)

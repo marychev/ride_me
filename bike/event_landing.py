@@ -61,4 +61,4 @@ class LandingBikeEvent(BaseBikeEvent):
             self.current_event = '{}-collision'.format(self.current_event)
 
             self.loop_event.cancel()
-            self.on_wait(0)
+            self.on_wait()

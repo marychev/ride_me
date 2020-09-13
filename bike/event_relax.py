@@ -30,42 +30,56 @@ class RelaxBikeEvent(BaseBikeEvent):
         return can
 
     def _set_relax(self, dt):
-        print('- -  set relax - -', dt)
-
-        Clock.unschedule(self.on_motion)
-
+        print('>> SET RELAX', dt)
         if self.can_relax():
-            print('>> SET RELAX', dt)
-            speed_up = -dt
+            speed_up = -dt * 8
             self.add_speed(speed_up)
-
             self.x += self.speed
             self._set_pos()
 
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
-
-            # if self.speed <= 0:
-            #     Clock.unschedule(self.on_relax)
-            #     self.on_wait(0)
-
-            return True
         else:
-            self.loop_event.cancel()
-            return False
+            # # define reason for why can't relax
+            # print('???? WHY NOT RELAX? --> ', self.loop_event.get_callback().__name__)
+            # if '_set_relax' in self.loop_event.get_callback().__name__:
+            #     self.handle_speed_ended()
+            # elif '_set_go' in self.loop_event.get_callback().__name__:
+            #     self.handle_speed_ended()
+            # elif '_set_wait' in self.loop_event.get_callback().__name__:
+            #     self.handle_speed_ended()
+            # else:
+            #     print(self.show_status('<== WHY NOT RELAX .....'))
+            #     raise ValueError('WHY NOT RELAX!')
+            print('???? WHY NOT Relax?', self.loop_event.get_callback().__name__)
 
-    def on_relax(self, dt, *args):
+    def on_relax(self, dt):
         Log.start(EVENT_NAME, self)
 
-        self.speed = dt
-        if self.can_relax() and dt:
+        # handling on_go event
+        if '_set_go' in self.loop_event.get_callback().__name__:
             self.loop_event.cancel()
-            Clock.unschedule(self.on_motion)
+            # that bike can move when speed == 0
+            self.speed += dt
 
-            # static values
-            self.pre_event = self.current_event
-            self.current_event = EVENT_NAME
-            self.loop_event = Clock.schedule_interval(self._set_relax, SECOND_GAME)
+            if self.can_relax() and dt:
+                # static values
+                self.pre_event = self.current_event
+                self.current_event = EVENT_NAME
+                self.loop_event = Clock.schedule_interval(self._set_relax, SECOND_GAME)
+            else:
+                raise 0
 
+        else:
+            print(self.show_status('!!!!!!!!!!!!!!!!!!!'))
+            print(self.loop_event.get_callback().__name__)
+            # raise ValueError('*** ELSE ON_RELAX ... ***')
 
-
+    def handle_speed_ended(self):
+        if self.speed <= 0:
+            print('[x] The speed has ended!')
+            self.speed = 0
+            self.loop_event.cancel()
+            self.on_wait()
+        else:
+            raise ValueError('[x] The speed has ended! WHY NOT RELAX!')

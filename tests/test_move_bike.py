@@ -6,14 +6,14 @@ from rideme_game import RideMeGame
 
 ROAD_START_X = 80
 ROAD_START_Y = BaseLayout.tools_default_height()
-MOVE_EVENT_NAME = 'on_motion'
+MOVE_EVENT_NAME = 'on_go'
 
 
 class MoveBikeTest(GraphicUnitTest):
     def set_bike_pos(self):
         self.app.scene.bike.x = ROAD_START_X
         self.app.scene.bike.y = ROAD_START_Y
-        self.app.scene.bike.on_wait(0.1)
+        self.app.scene.bike.on_wait()
 
     def set_app(self):
         self.app = RideMeGame()
@@ -28,7 +28,7 @@ class MoveBikeTest(GraphicUnitTest):
     def test_try_move(self):
         self.set_app()
         print(self.app.scene.bike.show_status('\r\tTEST'))
-        self.app.scene.bike.on_motion(0.1)
+        self.app.scene.bike.on_go(0.1)
         self.assert_equals_move()
 
     # def test_try_move_by_right_button(self):

@@ -16,13 +16,13 @@ class CollisionBikeTest(GraphicUnitTest):
         self.app.scene.bike.x = self.app.scene.bike.road_pos.x
         self.app.scene.bike.y = self.app.scene.bike.road_pos.y
 
-        self.app.scene.bike.on_wait(0.1)
+        self.app.scene.bike.on_wait()
         self.assertTrue(self.app.scene.bike.can_wait())
         self.assertEqual(self.app.scene.bike.current_event, WAIT_EVENT_NAME)
 
-        self.app.scene.bike.on_motion(0.1)
-        self.assertTrue(self.app.scene.bike.can_move())
-        self.assertEqual(self.app.scene.bike.current_event, 'on_motion')
+        self.app.scene.bike.on_go(0.1)
+        self.assertTrue(self.app.scene.bike.can_go())
+        self.assertEqual(self.app.scene.bike.current_event, 'on_go')
 
         print(self.app.scene.bike.show_status())
         self.app.scene.bike.on_relax(0.1)

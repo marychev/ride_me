@@ -8,7 +8,7 @@ from utils.checks import show_outline
 
 
 START_POS_X = 80
-START_POS_Y = 128 + 100
+START_POS_Y = 130
 
 
 class Bike(BikeEvents, Image):
@@ -41,8 +41,8 @@ class Bike(BikeEvents, Image):
             self.available_events.append('on_landing')
         if self.can_wait():
             self.available_events.append('on_wait')
-        if self.can_move():
-            self.available_events.append('on_motion')
+        if self.can_go():
+            self.available_events.append('on_go')
         if self.can_relax():
             self.available_events.append('on_relax')
         print(self.available_events)

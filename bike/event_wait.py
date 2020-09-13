@@ -27,32 +27,23 @@ class WaitBikeEvent(BaseBikeEvent):
         print('SET WAIT', dt)
         if self.can_wait():
             self.speed = 0
-            self.acceleration = 0
+            self.acceleration = 0.001
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
-            self.loop_event.cancel()
-            return True
         else:
-            return False
+            print('*** ELSE _SET_WAIT ***')
 
-        # if self.pre_event == self.current_event and self.speed == 0:
-        #     self.on_wait.cancel()
-
-    def on_wait(self, dt):
+    def on_wait(self):
         Log.start(EVENT_NAME, self)
-        self.loop_event and self.loop_event.cancel()
-
-        # Clock.unschedule(self.on_landing)
-        # Clock.unschedule(self.on_motion)
-        # Clock.unschedule(self.on_relax)
-
         if self.can_wait():
             self.speed = 0
-            self.acceleration = 0
+            self.acceleration = 0.001
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
 
             self.define_available_events()
 
-            self.loop_event = Clock.schedule_interval(self._set_wait, SECOND_GAME)
+            self.loop_event = Clock.schedule_once(self._set_wait, SECOND_GAME)
             print('\n\tWaiting for some actions!!!\n\t------------------------------')
+        else:
+            print('*** ELSE ON_WAIT ***')
