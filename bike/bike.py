@@ -13,7 +13,7 @@ class Bike(BikeEvents, Image):
     source = StringProperty('bike/bike.png')
 
     x = NumericProperty(START_POS_X)
-    y = NumericProperty(START_POS_Y)
+    y = NumericProperty(START_POS_Y + 100)
     pos = ReferenceListProperty(x, y)
 
     height = NumericProperty(60)

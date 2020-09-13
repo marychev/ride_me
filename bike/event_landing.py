@@ -21,21 +21,25 @@ class LandingBikeEvent(BaseBikeEvent):
         return can
 
     def _set_landing(self, dt):
+        self.collision_with_land()
+
         if self.can_landing():
             self.y -= self.speed
             self.add_speed(self.gravity)
             self._set_pos()
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
+            return True
         else:
             self.current_event = '{}-cancel'.format(self.current_event)
             self.loop_event.cancel()
-
-        self.collision_with_land()
+            return False
 
     def on_landing(self):
         Log.start(EVENT_NAME, self)
         # todo: need set value for _set_landing
+        self.pre_event = self.current_event
+        self.current_event = EVENT_NAME
         self.loop_event = Clock.schedule_interval(self._set_landing, SECOND_GAME)
         self.collision_with_land()
 

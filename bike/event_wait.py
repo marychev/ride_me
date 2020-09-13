@@ -11,6 +11,7 @@ class WaitBikeEvent(BaseBikeEvent):
     def __init__(self, **kwargs):
         self.register_event_type(EVENT_NAME)
         super(WaitBikeEvent, self).__init__(**kwargs)
+        self.speed = 0
 
     def can_wait(self):
         Log.try_to_set(EVENT_NAME, self)
@@ -31,7 +32,14 @@ class WaitBikeEvent(BaseBikeEvent):
 
     def on_wait(self):
         Log.start(EVENT_NAME, self)
+        self.loop_event and self.loop_event.cancel()
+
+        # Clock.unschedule(self.on_move)
+        # Clock.unschedule(self.on_relax)
+
         if self.can_wait():
+            self.speed = 0
+            self.acceleration = 0
             self.loop_event = Clock.schedule_once(self._set_wait, SECOND_GAME)
             print('\n\tWaiting for some actions!!!\n\t------------------------------')
 

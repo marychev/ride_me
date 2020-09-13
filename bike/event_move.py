@@ -16,7 +16,7 @@ class MoveBikeEvent(BaseBikeEvent):
         self.register_event_type(EVENT_NAME)
         super(MoveBikeEvent, self).__init__(**kwargs)
 
-        self.acceleration = 10
+        self.acceleration = 20
 
     def can_move(self):
         Log.try_to_set(EVENT_NAME, self)
@@ -36,7 +36,7 @@ class MoveBikeEvent(BaseBikeEvent):
         self.collision_screen()
 
         if self.can_move():
-            speed_up = dt * 5
+            speed_up = dt * 20
             self.add_speed(speed_up)
 
             self.acceleration -= speed_up
@@ -56,8 +56,10 @@ class MoveBikeEvent(BaseBikeEvent):
 
     def on_move(self, dt):
         Log.start(EVENT_NAME, self)
+        self.loop_event.cancel()
 
         # static values
+        self.acceleration = 20
         self.pre_event = self.current_event
         self.current_event = EVENT_NAME
 
@@ -71,8 +73,7 @@ class MoveBikeEvent(BaseBikeEvent):
         if self.has_leave_screen():
             print('\n\t>> Collision <<\n\t')
             self.x -= 200
-            self.speed = 0
-            self.acceleration = 0
 
             self.loop_event.cancel()
-            Clock.unschedule(self)
+            self.on_wait()
+

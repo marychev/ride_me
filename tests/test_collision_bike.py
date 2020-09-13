@@ -1,6 +1,6 @@
 from kivy.tests.common import GraphicUnitTest
 
-from bike.base_event import EVENT_NAME as WAIT_EVENT_NAME
+from bike.event_wait import EVENT_NAME as WAIT_EVENT_NAME
 from layout.base import BaseLayout
 from rideme_game import RideMeGame
 
@@ -13,5 +13,5 @@ class CollisionBikeTest(GraphicUnitTest):
     def test_collision_y_by_on_move(self):
         self.set_app()
         self.app.scene.bike.y = BaseLayout.tools_default_height()
-        self.app.scene.bike.set_wait(1)
+        self.app.scene.bike._set_wait(1)
         self.assertEqual(self.app.scene.bike.current_event, WAIT_EVENT_NAME)
