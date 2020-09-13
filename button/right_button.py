@@ -3,6 +3,7 @@ from kivy.graphics import Color, Rectangle, Ellipse
 from kivy.properties import NumericProperty, ListProperty, ReferenceListProperty
 from kivy.uix.image import Image
 
+from conf import SECOND_GAME
 from button.base import BaseButtonBehavior
 
 
@@ -36,7 +37,7 @@ class RightButtonWidget(BaseButtonBehavior, Image):
         self.canvas.opacity = 0.5
 
         bike = self.parent.parent.scene.bike
-        bike.on_move(0)
+        bike.on_motion(SECOND_GAME)
 
         text = bike.show_status('Go bike! ==>')
         BaseButtonBehavior.change_text(self.parent.status_bar, text)

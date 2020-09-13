@@ -15,16 +15,19 @@ class KeyboardHandler(object):
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
         print('_on_keyboard_down')
-        bike = self.parent.scene.bike
+        # bike = self.parent.scene.bike
         if keycode[1] == 'right':
-            bike.on_move(0)
+            # bike.on_move(0)
+            self.right_btn.on_press()
         elif keycode[1] == 'left':
-            bike.on_stop(0)
+            self.left_btn.on_press()
+            # bike.on_stop(0)
         return True
 
     def _on_keyboard_up(self, keyboard, keycode):
         print('_on_keyboard_up')
-        bike = self.parent.scene.bike
-        if keycode[1] == 'right' or keycode[1] == 'left':
-            bike.on_relax(0)
+        if keycode[1] == 'right':
+            self.right_btn.on_release()
+        elif keycode[1] == 'left':
+            self.left_btn.on_release()
         return True

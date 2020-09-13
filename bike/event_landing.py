@@ -12,23 +12,27 @@ class LandingBikeEvent(BaseBikeEvent):
         self.register_event_type(EVENT_NAME)
         super(LandingBikeEvent, self).__init__(**kwargs)
 
+        if self.can_landing():
+            self.available_events.append(EVENT_NAME)
+
         self.gravity = 0.2
 
     def can_landing(self):
         Log.try_to_set(EVENT_NAME, self)
-        can = self.road_pos.y < self.y
+        can = self.road_pos.y < self.y    # not <= because we must be upper road
         Log.can_or_not(EVENT_NAME, can, self)
         return can
 
     def _set_landing(self, dt):
-        self.collision_with_land()
-
+        print('---SET LANDING')
         if self.can_landing():
             self.y -= self.speed
             self.add_speed(self.gravity)
             self._set_pos()
+
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
+            self.collision_with_land()
             return True
         else:
             self.current_event = '{}-cancel'.format(self.current_event)
@@ -37,11 +41,14 @@ class LandingBikeEvent(BaseBikeEvent):
 
     def on_landing(self):
         Log.start(EVENT_NAME, self)
+
         # todo: need set value for _set_landing
-        self.pre_event = self.current_event
-        self.current_event = EVENT_NAME
-        self.loop_event = Clock.schedule_interval(self._set_landing, SECOND_GAME)
-        self.collision_with_land()
+        if self.can_landing():
+            self.pre_event = self.current_event
+            self.current_event = EVENT_NAME
+            self.loop_event = Clock.schedule_interval(self._set_landing, SECOND_GAME)
+
+            self.collision_with_land()
 
     def has_collision_with_land(self):
         return self.road_pos.y >= self.y and self.current_event == EVENT_NAME
@@ -50,5 +57,8 @@ class LandingBikeEvent(BaseBikeEvent):
         if self.has_collision_with_land():
             print('\n\tContact with the land. BOOM!!!\n\t------------------------------')
             self.speed = 0
+            self.y = self.road_pos.y
             self.current_event = '{}-collision'.format(self.current_event)
+
             self.loop_event.cancel()
+            self.on_wait(0)

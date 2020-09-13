@@ -6,17 +6,16 @@ from bike.event_landing import EVENT_NAME as LANDING_EVENT_NAME
 from conf import SECOND_GAME, WIDTH_GAME, HEIGHT_GAME
 from utils.logs import Log
 
-EVENT_NAME = 'on_move'
+EVENT_NAME = 'on_motion'
 
 
 class MoveBikeEvent(BaseBikeEvent):
-    current_event = StringProperty(EVENT_NAME)
-
     def __init__(self, **kwargs):
         self.register_event_type(EVENT_NAME)
         super(MoveBikeEvent, self).__init__(**kwargs)
 
-        self.acceleration = 20
+        if self.can_move():
+            self.available_events.append(EVENT_NAME)
 
     def can_move(self):
         Log.try_to_set(EVENT_NAME, self)
@@ -30,15 +29,12 @@ class MoveBikeEvent(BaseBikeEvent):
         return can
 
     def _set_move(self, dt):
+        print('!!!!!!!!!!!!!!!!')
         print('_  set move --', dt)
-
-        # TODO: check and changing values into loops
-        self.collision_screen()
-
-        if self.can_move():
+        print(self)
+        if self.can_move() and dt:
             speed_up = dt * 20
             self.add_speed(speed_up)
-
             self.acceleration -= speed_up
 
             self.x += self.speed
@@ -46,25 +42,33 @@ class MoveBikeEvent(BaseBikeEvent):
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
 
+            self.collision_screen()
             # if self.acceleration <= 0:
             #     self.loop_event.cancel()
             return True
         else:
             self.loop_event.cancel()
-            Clock.unschedule(self.on_move)
+            # Clock.unschedule(self.on_move)
             return False
 
-    def on_move(self, dt):
+    def on_motion(self, dt):
         Log.start(EVENT_NAME, self)
-        self.loop_event.cancel()
 
-        # static values
-        self.acceleration = 20
-        self.pre_event = self.current_event
-        self.current_event = EVENT_NAME
+        print(self.show_status())
 
-        self.loop_event = Clock.schedule_interval(self._set_move, SECOND_GAME)
-        self.collision_screen()
+        self.acceleration = dt
+        if self.can_move():
+            # self.loop_event.cancel()
+
+            # static values
+            self.acceleration = 20
+            self.pre_event = self.current_event
+            self.current_event = EVENT_NAME
+            print('*****************')
+            self.loop_event = Clock.schedule_interval(self._set_move, SECOND_GAME)
+            print('////////////////////')
+
+            self.collision_screen()
 
     def has_leave_screen(self):
         return self.x + self.width > WIDTH_GAME or self.y > HEIGHT_GAME
@@ -75,5 +79,5 @@ class MoveBikeEvent(BaseBikeEvent):
             self.x -= 200
 
             self.loop_event.cancel()
-            self.on_wait()
+            self.on_wait(0.1)
 

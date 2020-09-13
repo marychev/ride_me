@@ -3,7 +3,6 @@ from kivy.tests.common import GraphicUnitTest
 
 from bike.event_landing import EVENT_NAME as LANDING_EVENT_NAME
 from conf import HEIGHT_GAME, WIDTH_GAME
-from layout.base import BaseLayout
 from rideme_game import RideMeGame
 
 
@@ -17,17 +16,17 @@ class LandingBikeBehaviorTest(GraphicUnitTest):
         self.app = RideMeGame()
         self.render(self.app)
 
-    def assert_equals_for_pre_current(self, pre_event, current_event):
-        self.assertEqual(self.app.scene.bike.pre_event, pre_event)
-        self.assertEqual(self.app.scene.bike.current_event, current_event)
+    def assert_equals_landing(self):
+        self.assertEqual(self.app.scene.bike.pre_event, LANDING_EVENT_NAME)
+        self.assertEqual(self.app.scene.bike.current_event, LANDING_EVENT_NAME)
 
-    def assert_equal_on_release_landing(self, btn):
+    def on_release_assert_equal_landing(self, btn):
         btn.on_release()
-        self.assert_equals_for_pre_current(LANDING_EVENT_NAME, LANDING_EVENT_NAME)
+        self.assert_equals_landing()
 
-    def assert_equal_on_press_landing(self, btn):
+    def on_press_assert_equal_landing(self, btn):
         btn.on_press()
-        self.assert_equals_for_pre_current(LANDING_EVENT_NAME, LANDING_EVENT_NAME)
+        self.assert_equals_landing()
 
     def test_runtouchapp(self):
         self.set_app()
@@ -53,8 +52,8 @@ class LandingBikeBehaviorTest(GraphicUnitTest):
         self.set_bike_pos()
 
         right_btn = self.app.tool.right_btn
-        self.assert_equal_on_press_landing(right_btn)
-        self.assert_equal_on_release_landing(right_btn)
+        self.on_press_assert_equal_landing(right_btn)
+        self.on_release_assert_equal_landing(right_btn)
 
     # def test_collision_to_land_correctly(self):
     #     self.set_app()

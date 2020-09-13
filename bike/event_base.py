@@ -1,9 +1,8 @@
 from kivy.clock import Clock
 from kivy.event import EventDispatcher
-from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty
+from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty, ListProperty
 from kivy.vector import Vector
 
-from layout.base import BaseLayout
 from utils.checks import show_outline
 
 
@@ -20,10 +19,9 @@ class BaseBikeEvent(EventDispatcher):
     canvas = ObjectProperty(None)
     loop_event = ObjectProperty(None)
 
-    road_pos = Vector(80, BaseLayout.tools_default_height())
-
     current_event = StringProperty('undefined')
     pre_event = StringProperty('undefined')
+    available_events = ListProperty()
 
     @staticmethod
     def unschedule(event_list):

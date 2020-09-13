@@ -10,11 +10,12 @@ EVENT_NAME = 'on_relax'
 
 
 class RelaxBikeEvent(BaseBikeEvent):
-    current_event = StringProperty(EVENT_NAME)
-
     def __init__(self, **kwargs):
         self.register_event_type(EVENT_NAME)
         super(RelaxBikeEvent, self).__init__(**kwargs)
+
+        if self.can_relax():
+            self.available_events.append(EVENT_NAME)
 
     def can_relax(self):
         Log.try_to_set(EVENT_NAME, self)
@@ -31,7 +32,7 @@ class RelaxBikeEvent(BaseBikeEvent):
     def _set_relax(self, dt):
         print('- -  set relax - -', dt)
 
-        Clock.unschedule(self.on_move)
+        Clock.unschedule(self.on_motion)
 
         if self.can_relax():
             print('>> SET RELAX', dt)
@@ -44,9 +45,9 @@ class RelaxBikeEvent(BaseBikeEvent):
             self.pre_event = self.current_event
             self.current_event = EVENT_NAME
 
-            if self.speed <= 0:
-                Clock.unschedule(self.on_relax)
-                self.on_wait()
+            # if self.speed <= 0:
+            #     Clock.unschedule(self.on_relax)
+            #     self.on_wait(0)
 
             return True
         else:
@@ -55,14 +56,16 @@ class RelaxBikeEvent(BaseBikeEvent):
 
     def on_relax(self, dt, *args):
         Log.start(EVENT_NAME, self)
-        self.loop_event.cancel()
 
-        Clock.unschedule(self.on_move)
+        self.speed = dt
+        if self.can_relax() and dt:
+            self.loop_event.cancel()
+            Clock.unschedule(self.on_motion)
 
-        # static values
-        self.pre_event = self.current_event
-        self.current_event = EVENT_NAME
-        self.loop_event = Clock.schedule_interval(self._set_relax, SECOND_GAME)
+            # static values
+            self.pre_event = self.current_event
+            self.current_event = EVENT_NAME
+            self.loop_event = Clock.schedule_interval(self._set_relax, SECOND_GAME)
 
 
 
