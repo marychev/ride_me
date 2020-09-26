@@ -1,8 +1,9 @@
-from kivy.core.window import Window
 from kivy.properties import NumericProperty, ObjectProperty
-from layout.base import BaseLayout
-from conf import WIDTH_GAME, HEIGHT_GAME
+
 from bike.bike import Bike
+from conf import WIDTH_GAME
+from layout.base import BaseLayout
+from road.road import Road
 from utils.checks import background
 
 
@@ -13,14 +14,19 @@ class Scene(BaseLayout):
     width = NumericProperty(WIDTH_GAME)
 
     bike = ObjectProperty(None)
+    road = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # self.bike = Bike()
-        # self.add_widget(self.bike)
+        self.bike = Bike()
+        self.road = Road()
+
+        self.add_widget(self.road)
+        self.add_widget(self.bike)
 
         self.background()
 
     def background(self):
         background(self, '4d6db7')
+

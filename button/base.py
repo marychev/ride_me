@@ -5,8 +5,8 @@ from kivy.graphics import Color, Rectangle, Ellipse
 
 
 class BaseButtonBehavior(ButtonBehavior):
-    height = NumericProperty(40)
-    width = NumericProperty(40)
+    height = NumericProperty(80)
+    width = NumericProperty(80)
 
     margin_x = NumericProperty(20)
     margin_y = NumericProperty(20)
@@ -37,6 +37,7 @@ class BaseButtonBehavior(ButtonBehavior):
 
     def set_canvas_button(self):
         with self.canvas:
+            self.canvas.clear()
             Color(.8, .8, .8)
             Ellipse(pos=self.pos, size=self.size)
 
