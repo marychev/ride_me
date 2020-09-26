@@ -7,6 +7,8 @@ from utils.keyboard import KeyboardHandler
 from utils.checks import background
 from conf import WIDTH_GAME
 
+TOOLS_BACKGROUND = '000000'
+
 
 class Tools(BaseLayout, KeyboardHandler):
     height = NumericProperty(BaseLayout.tools_default_height())
@@ -29,6 +31,6 @@ class Tools(BaseLayout, KeyboardHandler):
         self.background()
 
     def background(self):
-        background(self, '000000')
+        background(self, TOOLS_BACKGROUND)
 
 
