@@ -1,20 +1,22 @@
-from kivy.core.window import Window
-from kivy.properties import NumericProperty, StringProperty
+from kivy.properties import StringProperty
 from kivy.uix.label import Label
-from utils.checks import show_outline
+
+from conf import HEIGHT_GAME, WIDTH_GAME
+from utils.checks import background
 
 
 class StatusBar(Label):
     text = StringProperty('Start game!')
 
-    x = NumericProperty(450)
-    y = NumericProperty(450)
-
-    height = NumericProperty(180)
-    width = NumericProperty(400)
-
     def __init__(self, **kwargs):
         super(StatusBar, self).__init__(**kwargs)
+
         self.size_hint = (None, None)
-        show_outline(self)
+        self.x = WIDTH_GAME / 2 - self.center_x
+        self.y = HEIGHT_GAME - self.height - self.center_y / 2
+
+        self.background()
+
+    def background(self):
+        background(self, 'c3131a')
 

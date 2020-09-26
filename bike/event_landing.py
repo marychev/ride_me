@@ -9,16 +9,16 @@ EVENT_NAME = 'on_landing'
 
 class LandingBikeEvent(BaseBikeEvent):
     def __init__(self, **kwargs):
-        self.register_event_type(EVENT_NAME)
         super(LandingBikeEvent, self).__init__(**kwargs)
 
         if self.can_landing():
+            self.register_event_type(EVENT_NAME)
             self.available_events.append(EVENT_NAME)
 
         self.gravity = 0.2
 
     def can_landing(self):
-        Log.try_to_set(EVENT_NAME, self)
+        # Log.try_to_set(EVENT_NAME, self)
         can = self.road_pos.y < self.y    # not <= because we must be upper road
         Log.can_or_not(EVENT_NAME, can, self)
         return can

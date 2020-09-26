@@ -17,23 +17,24 @@ class BaseBikeEvent(EventDispatcher):
     gravity = NumericProperty(0)
 
     canvas = ObjectProperty(None)
-    loop_event = ObjectProperty(None)
 
     current_event = StringProperty('undefined')
     pre_event = StringProperty('undefined')
     available_events = ListProperty()
 
-    @staticmethod
-    def unschedule(event_list):
-        [Clock.unschedule(event) for event in event_list]
-
     def add_speed(self, value):
         self.speed += value
         if self.speed > self.max_speed:
             self.speed = self.max_speed
+
+        if self.speed <= 0:
+            self.on_wait()
+
         return self.speed
 
     def _set_pos(self):
+        self.x += self.speed
+
         self.pos = Vector(self.x, self.y)
         self.canvas.before.clear()
         show_outline(self)
