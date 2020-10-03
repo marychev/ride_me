@@ -2,6 +2,8 @@ from kivy.properties import ObjectProperty, ListProperty, NumericProperty, Refer
 from kivy.uix.behaviors.button import ButtonBehavior
 from kivy.utils import get_color_from_hex
 from kivy.graphics import Color, Rectangle, Ellipse
+from kivy.clock import Clock
+from conf import SECOND_GAME
 
 
 class BaseButtonBehavior(ButtonBehavior):
@@ -36,6 +38,11 @@ class BaseButtonBehavior(ButtonBehavior):
     def on_release(self):
         self.canvas.opacity = 1
         self.disabled = False
+
+        road = self.get_road()
+        Clock.unschedule(road.go)
+        Clock.unschedule(road.stop)
+        Clock.schedule_interval(road.relax, SECOND_GAME)
 
     @staticmethod
     def change_text(widget, text='...'):

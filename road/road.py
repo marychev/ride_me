@@ -15,17 +15,16 @@ class Road(Widget):
     x = NumericProperty(0)
     y = NumericProperty(BaseLayout.tools_default_height())
 
-    height = NumericProperty(60)
+    height = NumericProperty(420)
     width = NumericProperty(WIDTH_GAME)
 
     canvas = ObjectProperty()
-    texture = ObjectProperty(Image(source='road/road.png').texture)
+    texture = ObjectProperty(Image(source='road/road-1.png').texture)
 
     tmp_ac = NumericProperty(0)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
-        # Clock.schedule_interval(self.move, SECOND_GAME)
         self.size_hint = None, None
 
         self.texture.wrap = 'repeat'
@@ -37,7 +36,6 @@ class Road(Widget):
         return self.parent.status_bar
 
     def go(self, dt):
-        print(self.texture.uvpos[0], self.tmp_ac, SECOND_GAME)
         self.tmp_ac += 0.01
 
         uv_pos_x = (self.texture.uvpos[0] + SECOND_GAME) + self.tmp_ac
@@ -48,7 +46,6 @@ class Road(Widget):
         self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
 
     def relax(self, dt):
-        print('*** relax ***', self.tmp_ac)
         uv_pos_x = (self.texture.uvpos[0] + SECOND_GAME)  # % Window.width
         self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
         with self.canvas.before:
@@ -57,11 +54,12 @@ class Road(Widget):
         self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
 
     def stop(self, dt):
-        print('S T O P')
-        uv_pos_x = (self.texture.uvpos[0] - SECOND_GAME)
+        uv_pos_x = (self.texture.uvpos[0] - (SECOND_GAME * 10))
         self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
+
+        self.get_status_bar().show_status('S T O P', self.parent.bike, self)
 
     def show_status(self, title='ROAD'):
         return '''

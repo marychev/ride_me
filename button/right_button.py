@@ -20,22 +20,13 @@ class RightButtonWidget(BaseButtonBehavior, Image):
 
         self.set_canvas_button()
 
-    def get_status_bar(self):
-        return self.parent.status_bar
-
     def on_press(self):
         super().on_press()
 
         road = self.get_road()
+        Clock.unschedule(road.stop)
         Clock.unschedule(road.relax)
         Clock.schedule_interval(road.go, SECOND_GAME)
-
-    def on_release(self):
-        super().on_release()
-
-        road = self.get_road()
-        Clock.unschedule(road.go)
-        Clock.schedule_interval(road.relax, SECOND_GAME)
 
     def set_canvas_button(self):
         super().set_canvas_button()
