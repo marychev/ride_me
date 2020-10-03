@@ -23,6 +23,12 @@ class BaseButtonBehavior(ButtonBehavior):
     icon_x = NumericProperty(0)
     icon_y = NumericProperty(0)
 
+    def get_road(self):
+        return self.parent.parent.scene.road
+
+    def get_bike(self):
+        return self.parent.parent.scene.bike
+
     def on_press(self):
         self.canvas.opacity = 0.5
         self.disabled = True

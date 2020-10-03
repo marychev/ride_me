@@ -32,8 +32,6 @@ class Bike(Image):
     pre_event = StringProperty('undefined')
     available_events = ListProperty()
 
-    # road_pos = Vector(80, BaseLayout.tools_default_height())
-
     def __init__(self, **kwargs):
         super(Bike, self).__init__(**kwargs)
 
@@ -66,16 +64,16 @@ class Bike(Image):
         if self.can_relax():
             self.available_events.append('on_relax')
 
-    def show_status(self, title='...'):
-        return '''{}
-----------------------------------------------------------------------
-Speed / Accel:              {} / {} 
-Pos / x,y:                  {} / {}, {}
-State pre/now/available:    {} / {} / {}
-----------------------------------------------------------------------
-        '''.format(
+    def show_status(self, title='BIKE'):
+        return '''
+{}
+-----------------------------------------------
+Speed:              {}
+Acceleration:   {}
+Pos:                  {}
+State (pre/now**):    {} / {}, {}
+'''.format(
             title,
-            self.speed, self.acceleration, self.gravity,
-            self.pos, self.x, self.y,
+            self.speed, self.acceleration, self.pos,
             self.pre_event, self.current_event, self.available_events,
         )

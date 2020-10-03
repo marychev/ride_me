@@ -6,6 +6,7 @@ from kivy.core.window import Window
 from conf import SECOND_GAME, WIDTH_GAME
 from layout.base import BaseLayout
 from kivy.graphics import Color, Rectangle, Ellipse
+from button.base import BaseButtonBehavior
 
 
 class Road(Widget):
@@ -32,6 +33,9 @@ class Road(Widget):
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
 
+    def get_status_bar(self):
+        return self.parent.status_bar
+
     def go(self, dt):
         print(self.texture.uvpos[0], self.tmp_ac, SECOND_GAME)
         self.tmp_ac += 0.01
@@ -40,7 +44,8 @@ class Road(Widget):
         self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
-        print('> > > > > ', self.texture.uvpos)
+
+        self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
 
     def relax(self, dt):
         print('*** relax ***', self.tmp_ac)
@@ -49,4 +54,21 @@ class Road(Widget):
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
 
-        print('... relax ... ', self.texture.uvpos)
+        self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
+
+    def stop(self, dt):
+        print('S T O P')
+        uv_pos_x = (self.texture.uvpos[0] - SECOND_GAME)
+        self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
+        with self.canvas.before:
+            Rectangle(texture=self.texture, size=self.size, pos=self.pos)
+
+    def show_status(self, title='ROAD'):
+        return '''
+{}
+-----------------------------------------------
+UVPos:          {}
+Pos:            {}'''.format(
+            title,
+            self.texture.uvpos, self.pos
+        )

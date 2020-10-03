@@ -4,7 +4,7 @@ from kivy.properties import NumericProperty, ListProperty, ReferenceListProperty
 from kivy.uix.image import Image
 from kivy.clock import Clock
 
-from conf import WIDTH_GAME, HEIGHT_GAME
+from conf import WIDTH_GAME, HEIGHT_GAME, SECOND_GAME
 from button.base import BaseButtonBehavior
 
 
@@ -20,34 +20,22 @@ class RightButtonWidget(BaseButtonBehavior, Image):
 
         self.set_canvas_button()
 
-    def get_road(self):
-        return self.parent.parent.scene.road
-
-    def get_bike(self):
-        return self.parent.parent.scene.bike
+    def get_status_bar(self):
+        return self.parent.status_bar
 
     def on_press(self):
         super().on_press()
 
         road = self.get_road()
-        Clock.schedule_interval(road.go, 1 / 60)
-
-        text = 'Go bike! ===>\n'
-        text += 'Road: {}, {}'.format(road.texture.uvpos, road.pos)
-        BaseButtonBehavior.change_text(self.parent.status_bar, text)
+        Clock.unschedule(road.relax)
+        Clock.schedule_interval(road.go, SECOND_GAME)
 
     def on_release(self):
         super().on_release()
 
         road = self.get_road()
         Clock.unschedule(road.go)
-        Clock.schedule_interval(road.relax, 1 / 60)
-        # road.relax()
-
-        bike = self.get_bike()
-        text = bike.show_status('... Relax ...')
-        text += 'Road: {}, {}'.format(road.texture.uvpos, road.pos)
-        BaseButtonBehavior.change_text(self.parent.status_bar, text)
+        Clock.schedule_interval(road.relax, SECOND_GAME)
 
     def set_canvas_button(self):
         super().set_canvas_button()

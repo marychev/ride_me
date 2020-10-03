@@ -12,17 +12,16 @@ class StatusBar(Label):
         super(StatusBar, self).__init__(**kwargs)
 
         self.size_hint = (None, None)
-        self.x = WIDTH_GAME / 2 - self.center_x
-        self.y = HEIGHT_GAME - self.height - self.center_y / 2
-
-        # self.text_size = 400, None
-        # self.size = self.texture_size
-
-        self.width = 320
-        print(self.text_size)
+        self.width = WIDTH_GAME / 2
+        self.height = HEIGHT_GAME / 2
+        self.x = self.width - self.center_x
+        self.y = HEIGHT_GAME - self.height - 8
 
         self.background()
 
     def background(self):
         background(self, 'c3131a')
 
+    def show_status(self, title, bike, road):
+        self.text = '{}\n{}{}'.format(title, bike.show_status(), road.show_status())
+        return self.text

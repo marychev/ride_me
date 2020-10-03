@@ -1,4 +1,5 @@
 from kivy.uix.image import Image
+from kivy.clock import Clock
 
 from button.base import BaseButtonBehavior
 
@@ -15,6 +16,10 @@ class LeftButtonWidget(BaseButtonBehavior, Image):
 
     def on_press(self):
         super().on_press()
+
+        road = self.get_road()
+        Clock.unschedule(road.relax)
+        Clock.schedule_interval(road.go, 1 / 60)
 
         text = 'S T O P'
         BaseButtonBehavior.change_text(self.parent.status_bar, text)
