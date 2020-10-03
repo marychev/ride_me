@@ -1,4 +1,4 @@
-from kivy.properties import NumericProperty, ObjectProperty
+from kivy.properties import NumericProperty, ObjectProperty, StringProperty
 
 from bike.bike import Bike
 from conf import WIDTH_GAME
@@ -8,6 +8,7 @@ from utils.checks import background
 
 
 class Scene(BaseLayout):
+    id = StringProperty('scene')
     x = NumericProperty(0)
     y = NumericProperty(BaseLayout.tools_default_height())
     height = NumericProperty(BaseLayout.scene_default_height())

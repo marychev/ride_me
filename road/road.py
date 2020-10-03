@@ -20,9 +20,11 @@ class Road(Widget):
     canvas = ObjectProperty()
     texture = ObjectProperty(Image(source='road/road.png').texture)
 
+    tmp_ac = NumericProperty(0)
+
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
-        Clock.schedule_interval(self.move, SECOND_GAME)
+        # Clock.schedule_interval(self.move, SECOND_GAME)
         self.size_hint = None, None
 
         self.texture.wrap = 'repeat'
@@ -30,8 +32,21 @@ class Road(Widget):
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
 
-    def move(self, dt):
-        uv_pos_x = (self.texture.uvpos[0] - dt) % Window.width
+    def go(self, dt):
+        print(self.texture.uvpos[0], self.tmp_ac, SECOND_GAME)
+        self.tmp_ac += 0.01
+
+        uv_pos_x = (self.texture.uvpos[0] + SECOND_GAME) + self.tmp_ac
         self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
+        print('> > > > > ', self.texture.uvpos)
+
+    def relax(self, dt):
+        print('*** relax ***', self.tmp_ac)
+        uv_pos_x = (self.texture.uvpos[0] + SECOND_GAME)  # % Window.width
+        self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
+        with self.canvas.before:
+            Rectangle(texture=self.texture, size=self.size, pos=self.pos)
+
+        print('... relax ... ', self.texture.uvpos)

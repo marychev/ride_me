@@ -1,4 +1,4 @@
-from kivy.properties import ObjectProperty, NumericProperty
+from kivy.properties import ObjectProperty, NumericProperty, StringProperty
 from button.base import BaseButtonBehavior
 from button.left_button import LeftButtonWidget
 from button.right_button import RightButtonWidget
@@ -11,6 +11,8 @@ TOOLS_BACKGROUND = '000000'
 
 
 class Tools(BaseLayout, KeyboardHandler):
+    id = StringProperty('tools')
+
     height = NumericProperty(BaseLayout.tools_default_height())
     width = NumericProperty(WIDTH_GAME)
 
