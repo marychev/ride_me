@@ -3,7 +3,7 @@
 Use packages:
 * Kivy: https://kivy.org/#home
 * Buildozer: https://github.com/kivy/buildozer
-
+* Linux packages source: https://sources.voidlinux.org/ 
 
 ### Install environment:
 	
@@ -28,3 +28,7 @@ Use packages:
 Go to the *buildozer.spec* and edit it, then type
 
     buildozer android debug deploy run
+
+
+[Packages source](https://sources.voidlinux.org/) for some broken libs: *sdl2, sdl2_image, sdl2_ttf, sdl_mixer ...* for deployment or building. 
+Path local building libs `YOUR_APP/.buildozer/android/platform/build-armeabi-v7a/packages/`
