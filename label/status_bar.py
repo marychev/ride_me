@@ -20,7 +20,7 @@ class StatusBar(Label):
         self.background()
 
     def background(self):
-        background(self, 'c3131a')
+        background(self, '222222')
 
     def show_status(self, title, bike, road):
         self.text = '{}\n{}{}'.format(title, bike.show_status(), road.show_status())
