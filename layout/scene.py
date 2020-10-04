@@ -26,8 +26,8 @@ class Scene(BaseLayout):
         self.add_widget(self.road)
         self.add_widget(self.bike)
 
-        self.background()
+        # self.background()
 
-    def background(self):
-        background(self, '4d6db7')
+    # def background(self):
+    #     background(self, '4d6db7')
 

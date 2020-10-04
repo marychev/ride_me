@@ -1,12 +1,12 @@
-from kivy.clock import Clock
-from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty
+from kivy.properties import NumericProperty, ObjectProperty, StringProperty
+from kivy.core.window import Window
+from kivy.graphics import Rectangle
+from kivy.properties import NumericProperty, ObjectProperty, StringProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
-from kivy.core.window import Window
+
 from conf import SECOND_GAME, WIDTH_GAME
 from layout.base import BaseLayout
-from kivy.graphics import Color, Rectangle, Ellipse
-from button.base import BaseButtonBehavior
 
 
 class Road(Widget):
@@ -15,7 +15,7 @@ class Road(Widget):
     x = NumericProperty(0)
     y = NumericProperty(BaseLayout.tools_default_height())
 
-    height = NumericProperty(420)
+    height = NumericProperty(120)
     width = NumericProperty(WIDTH_GAME)
 
     canvas = ObjectProperty()
@@ -37,29 +37,25 @@ class Road(Widget):
 
     def go(self, dt):
         self.tmp_ac += 0.01
-
-        uv_pos_x = (self.texture.uvpos[0] + SECOND_GAME) + self.tmp_ac
-        self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
-        with self.canvas.before:
-            Rectangle(texture=self.texture, size=self.size, pos=self.pos)
-
+        uvpos_x = (self.texture.uvpos[0] + SECOND_GAME) + self.tmp_ac
+        self.set_texture_uvpos(uvpos_x, self.texture.uvpos[1])
         self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
 
     def relax(self, dt):
-        uv_pos_x = (self.texture.uvpos[0] + SECOND_GAME)  # % Window.width
-        self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
-        with self.canvas.before:
-            Rectangle(texture=self.texture, size=self.size, pos=self.pos)
-
+        uvpos_x = (self.texture.uvpos[0] + SECOND_GAME) % Window.width
+        self.set_texture_uvpos(uvpos_x, self.texture.uvpos[1])
         self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
 
     def stop(self, dt):
-        uv_pos_x = (self.texture.uvpos[0] - (SECOND_GAME * 10))
-        self.texture.uvpos = (uv_pos_x, self.texture.uvpos[1])
+        uvpos_x = (self.texture.uvpos[0] - (SECOND_GAME * 10))
+        self.set_texture_uvpos(uvpos_x, self.texture.uvpos[1])
+        self.get_status_bar().show_status('S T O P', self.parent.bike, self)
+
+    def set_texture_uvpos(self, uvpos_x, uvpos_y):
+        self.texture.uvpos = (uvpos_x, uvpos_y)
+        self.canvas.before.clear()
         with self.canvas.before:
             Rectangle(texture=self.texture, size=self.size, pos=self.pos)
-
-        self.get_status_bar().show_status('S T O P', self.parent.bike, self)
 
     def show_status(self, title='ROAD'):
         return '''

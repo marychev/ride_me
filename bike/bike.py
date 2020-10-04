@@ -6,10 +6,11 @@ from layout.base import BaseLayout
 from bike.bike_events import BikeEvents
 from utils.checks import show_outline
 from kivy.clock import Clock
+from layout.base import BaseLayout
 
 
 START_POS_X = 80
-START_POS_Y = 128
+START_POS_Y = BaseLayout.tools_default_height() + 30  # border
 
 
 class Bike(Image):
