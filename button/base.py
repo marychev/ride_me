@@ -1,8 +1,8 @@
-from kivy.properties import ObjectProperty, ListProperty, NumericProperty, ReferenceListProperty
-from kivy.uix.behaviors.button import ButtonBehavior
-from kivy.utils import get_color_from_hex
-from kivy.graphics import Color, Rectangle, Ellipse
 from kivy.clock import Clock
+from kivy.graphics import Color, Rectangle, Ellipse
+from kivy.properties import ObjectProperty, NumericProperty, ReferenceListProperty
+from kivy.uix.behaviors.button import ButtonBehavior
+
 from conf import SECOND_GAME
 
 

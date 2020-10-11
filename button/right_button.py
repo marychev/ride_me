@@ -1,14 +1,14 @@
-from kivy.core.window import Window
-from kivy.graphics import Color, Rectangle, Ellipse
-from kivy.properties import NumericProperty, ListProperty, ReferenceListProperty, StringProperty
-from kivy.uix.image import Image
+from kivy.graphics import Color, Rectangle
 from kivy.clock import Clock
+from kivy.graphics import Color, Rectangle
+from kivy.properties import StringProperty
+from kivy.uix.image import Image
 
-from conf import WIDTH_GAME, HEIGHT_GAME, SECOND_GAME
 from button.base import BaseButtonBehavior
+from conf import WIDTH_GAME, SECOND_GAME
 
 
-class RightButtonWidget(BaseButtonBehavior, Image):
+class RightButtonWidget(BaseButtonBehavior):
     id = StringProperty('right_btn')
 
     def __init__(self, **kwargs):

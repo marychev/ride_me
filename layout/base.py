@@ -7,10 +7,10 @@ from utils.checks import show_outline
 class BaseLayout(FloatLayout):
     status_bar = ObjectProperty(None)
 
-    def __init__(self, **kwargs):
-        super(BaseLayout, self).__init__(**kwargs)
-        self.status_bar = kwargs.get('status_bar')
-        show_outline(self)
+    # def __init__(self, **kwargs):
+    #     super(BaseLayout, self).__init__(**kwargs)
+    #     self.status_bar = kwargs.get('status_bar')
+    #     show_outline(self)
 
     @staticmethod
     def scene_default_height():

@@ -1,0 +1,43 @@
+#:kivy 1.11.1
+
+<Scene>:
+    size_hint: 1, .8
+
+    # ImageBackgroundOutline:
+    ImageBackground:
+        source: 'layout/bg-mountains.png'
+
+
+# -- abstract --
+
+<ImageBackgroundOutline@Image>:
+    canvas.after:
+        Color:
+            rgba: (1, .1, .1, 1)
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+    canvas.before:
+        Color:
+            rgba: (1, 0, 0, 0.1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+
+<ImageBackground@Image>:
+    canvas.after:
+        Color:
+            rgba: (1, .1, .1, 1)
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+
+
+<ImageOutline@Image>:
+    canvas.after:
+        Color:
+            rgb: (1, .1, .1, 1)
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
