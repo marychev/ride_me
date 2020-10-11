@@ -1,0 +1,11 @@
+#:kivy 1.11.1
+#:import Window kivy.core.window.Window
+
+
+<RightButtonWidget@LeftButtonWidget>:
+    canvas.after:
+        Color:
+            rgb: 255, 0, 0
+        Rectangle:
+            pos: self.center_x - (self.icon_size[1] / 2), self.center_y / 2
+            size: self.icon_size[1], self.icon_size[0]

@@ -7,21 +7,15 @@ from utils.keyboard import KeyboardHandler
 from utils.checks import background
 from conf import WIDTH_GAME
 from kivy.uix.boxlayout import BoxLayout
+
 from kivy.lang import Builder
-
-
-TOOLS_BACKGROUND = '000000'
-
 Builder.load_file('layout/tools.kv')
 
 
 class Tools(BoxLayout, KeyboardHandler):
-    pass
     # id = StringProperty('tools')
-    #
     # height = NumericProperty(BaseLayout.tools_default_height())
     # width = NumericProperty(WIDTH_GAME)
-    #
     # left_btn = ObjectProperty(None)
     # right_btn = ObjectProperty(None)
     #
@@ -38,5 +32,6 @@ class Tools(BoxLayout, KeyboardHandler):
     #
     # def background(self):
     #     background(self, TOOLS_BACKGROUND)
-    #
-    #
+
+    """    dev    """
+

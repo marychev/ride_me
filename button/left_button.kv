@@ -1,0 +1,21 @@
+#:kivy 1.11.1
+
+
+<LeftButtonWidget>:
+    btn_size: 100, 100
+    icon_size: 50, 10
+    size_hint: None, None
+
+    canvas:
+        Clear
+        Color:
+            rgba: .1, .1, .1, 1
+        Ellipse:
+            pos: self.pos
+            size: self.btn_size
+    canvas.after:
+        Color:
+            rgb: 255, 0, 0
+        Rectangle:
+            pos: self.x + self.btn_size[0] / 4, self.y + self.btn_size[1] / 2 - (self.icon_size[1] / 2)
+            size: self.btn_size[0] / 2, self.icon_size[1]

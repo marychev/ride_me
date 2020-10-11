@@ -2,6 +2,8 @@
 
 #:import Scene layout.scene.Scene
 #:import Tools layout.tools.Tools
+#:import LeftButtonWidget button.left_button
+#:import RightButtonWidget button.right_button
 
 
 <RideMeGame>:
@@ -9,4 +11,11 @@
 
     Scene:
     Tools:
-
+        AnchorLayout:
+            anchor_x: 'left'
+            anchor_y: 'bottom'
+            LeftButtonWidget:
+        AnchorLayout:
+            anchor_x: 'right'
+            anchor_y: 'bottom'
+            RightButtonWidget:

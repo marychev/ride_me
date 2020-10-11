@@ -6,9 +6,8 @@ from kivy.uix.boxlayout import BoxLayout
 
 
 class RideMeGame(BoxLayout):
-    pass
     # status_bar = ObjectProperty(StatusBar())
-    # # scene = ObjectProperty(None)
+    # scene = ObjectProperty(None)
     # tool = ObjectProperty(None)
     #
     # def __init__(self, **kwargs):
@@ -20,3 +19,4 @@ class RideMeGame(BoxLayout):
     #     self.scene.add_widget(self.status_bar)
     #     self.add_widget(self.scene)
     #     self.add_widget(self.tool)
+    """    dev    """
