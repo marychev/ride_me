@@ -1,0 +1,52 @@
+#:kivy 1.11.1
+
+#:import Scene layout.scene.Scene
+#:import Tools layout.tools.Tools
+#:import LeftButtonWidget button.left_button
+#:import RightButtonWidget button.right_button
+
+
+<StartScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Press GO for start game'
+            font_size: 42
+
+        Button:
+            text: 'GO'
+            font_size: 80
+            size_hint: .6, .6
+            pos_hint: {'x': .2, 'y': .2}
+            on_press: root.manager.current = 'game'
+
+        Label:
+            text: 'go go go'
+
+
+<GameScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        Scene:
+
+        Tools:
+            AnchorLayout:
+                anchor_x: 'left'
+                anchor_y: 'bottom'
+                LeftButtonWidget:
+
+            AnchorLayout:
+                anchor_x: 'center'
+                anchor_y: 'bottom'
+                Button:
+                    text: 'Back to start'
+                    size_hint: .4, .3
+                    on_press: root.manager.current = 'start'
+
+            AnchorLayout:
+                anchor_x: 'right'
+                anchor_y: 'bottom'
+                RightButtonWidget:
+
