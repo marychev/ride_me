@@ -1,28 +1,7 @@
-#:kivy 1.11.1
-
 #:import Scene layout.scene.Scene
 #:import Tools layout.tools.Tools
-#:import LeftButtonWidget button.left_button
-#:import RightButtonWidget button.right_button
-
-
-<StartScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-
-        Label:
-            text: 'Start Game'
-            font_size: 18
-
-        Button:
-            text: 'GO'
-            font_size: 80
-            size_hint: .4, .6
-            pos_hint: {'x': .3, 'y': .2}
-            on_press: root.manager.current = 'game'
-
-        Label:
-            text: '===========>'
+#:import Bike bike.bike.Bike
+#:import Road road.road.Road
 
 
 <GameScreen>:
@@ -30,6 +9,17 @@
         orientation: 'vertical'
 
         Scene:
+            #Label:
+            #    text: str(self.pos)
+
+            Road:
+                canvas.before:
+                    Rectangle:
+                        size: self.width, 80
+                        pos: self.pos[0], self.pos[1] + 80
+                        texture: self.texture
+
+            Bike:
 
         Tools:
             AnchorLayout:

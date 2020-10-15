@@ -9,23 +9,23 @@ from utils.checks import background_texture, set_texture_uvpos
 
 
 class Road(Widget):
-    id = StringProperty('road')
-
-    x = NumericProperty(0)
-    y = NumericProperty(BaseLayout.tools_default_height())
-
-    height = NumericProperty(120)
-    width = NumericProperty(WIDTH_GAME)
-
-    canvas = ObjectProperty()
-    texture = ObjectProperty(Image(source='road/road-1.png').texture)
-
-    tmp_ac = NumericProperty(0)
+    # id = StringProperty('road')
+    # x = NumericProperty(0)
+    # y = NumericProperty(BaseLayout.tools_default_height())
+    # height = NumericProperty(120)
+    # width = NumericProperty(WIDTH_GAME)
+    # canvas = ObjectProperty()
+    texture = ObjectProperty(Image(source='road/road-2.png').texture)
+    # tmp_ac = NumericProperty(0)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
-        self.size_hint = None, None
-        background_texture(self)
+
+        self.texture.wrap = 'repeat'
+        self.texture.uvsize = (Window.width / self.texture.width, -1)
+
+        # self.size_hint = None, None
+        # background_texture(self)
 
     def get_status_bar(self):
         return self.parent.status_bar

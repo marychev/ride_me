@@ -1,25 +1,12 @@
 from conf import *      # <-- don't delete!
 from kivy.app import App
-from kivy.uix.screenmanager import ScreenManager, Screen
-from kivy.lang import Builder
-
-from kivy.uix.screenmanager import ScreenManager, Screen, WipeTransition
-
-
-ride_me = Builder.load_file("ride_me.kv")
-
-
-class StartScreen(Screen):
-    pass
-
-
-class GameScreen(Screen):
-    pass
-
+from kivy.uix.screenmanager import ScreenManager, WipeTransition
+from screen.game_screen import GameScreen
+from screen.start_screen import StartScreen
 
 sm = ScreenManager(transition=WipeTransition())
-sm.add_widget(StartScreen(name='start'))
 sm.add_widget(GameScreen(name='game'))
+sm.add_widget(StartScreen(name='start'))
 
 
 class RideMeApp(App):

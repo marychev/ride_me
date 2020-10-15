@@ -1,13 +1,27 @@
 #:kivy 1.11.1
+#:import Window kivy.core.window
 
 
 <Scene>:
-    #id: scene
-    size_hint: 1, .8
+    # background_color
+    canvas.before:
+        Color:
+            rgb: (.6, .8, .8)
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
-    # ImageBackgroundOutline:
-    ImageBackground:
-        source: 'layout/bg-mountains.png'
+    Image:
+        source: 'layout/mountains-1.png'
+        size: self.texture_size
+
+        canvas:
+            Rectangle:
+                texture: self.texture
+                size: self.width, self.height
+                pos: 0, 100
+
+
 
 
 # --- abstract ---
@@ -28,12 +42,12 @@
 
 
 <ImageBackground@Image>:
-    canvas.after:
+    canvas.before:
         Color:
-            rgba: (1, .1, .1, 1)
-        Line:
-            width: 1
-            rectangle: self.x, self.y, self.width, self.height
+            rgba: (1, 0, 0, 0.1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
 
 <ImageOutline@Image>:

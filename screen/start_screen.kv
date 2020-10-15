@@ -1,0 +1,23 @@
+#:kivy 1.11.1
+
+
+<StartScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Start Game'
+            font_size: 18
+
+        Button:
+            text: 'GO'
+            font_size: 80
+            size_hint: .4, .6
+            pos_hint: {'x': .3, 'y': .2}
+            on_press: root.manager.current = 'game'
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'center'
+            Label:
+                text: '===========>'
