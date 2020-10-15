@@ -1,5 +1,6 @@
 #:kivy 1.11.1
 #:import Window kivy.core.window
+#:import BackgroundImageAnimation layout.background_image
 
 
 <Scene>:
@@ -11,18 +12,27 @@
             pos: self.pos
             size: self.size
 
-    Image:
-        source: 'layout/mountains-1.png'
-        size: self.texture_size
-
-        canvas:
+    BackgroundImageAnimation:
+        id: background_image_animation
+        canvas.before:
+            Color:
+                rgb: (1, 1, 1)
             Rectangle:
-                texture: self.texture
+                texture: self.mountains_texture
                 size: self.width, self.height
-                pos: 0, 100
-
-
-
+                pos: self.x, self.y + 120
+            Rectangle:
+                texture: self.cloud_min_texture
+                size: self.width, self.cloud_min_texture.height
+                pos: self.x, self.y + self.height + 30
+            Rectangle:
+                texture: self.cloud_middle_texture
+                size: self.width, self.cloud_middle_texture.height
+                pos: 0, self.y + self.height + 50
+            Rectangle:
+                texture: self.cloud_big_texture
+                size: self.width, self.cloud_big_texture.height
+                pos: 0, self.y + self.height
 
 # --- abstract ---
 
