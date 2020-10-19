@@ -19,7 +19,6 @@ class BackgroundImageAnimation(Widget):
         self.cloud_big_texture.uvsize = (Window.width/self.cloud_big_texture.width, -1)
         self.cloud_middle_texture.wrap = 'repeat'
         self.cloud_middle_texture.uvsize = (Window.width/self.cloud_middle_texture.width, -1)
-
         self.cloud_min_texture.wrap = 'repeat'
         self.cloud_min_texture.uvsize = (Window.width/self.cloud_min_texture.width, -1)
 

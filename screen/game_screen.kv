@@ -2,27 +2,42 @@
 #:import Tools layout.tools.Tools
 #:import Bike bike.bike.Bike
 #:import Road road.road.Road
+#:import Window kivy.core.window.Window
 
 
 <GameScreen>:
     BoxLayout:
+        id: game_screen
         orientation: 'vertical'
 
         Scene:
-            #Label:
-            #    text: str(self.pos)
-
+            id: scene
+            Label:
+                text: '{} / {} // {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, Window.height)
+                color: 1,0,1,1
             Road:
+                id: road
+                x: 0
+                y: 0
+                width: Window.width
+                size_hint: None, None
+
                 canvas.before:
+                    Clear
                     Rectangle:
                         size: self.width, 80
                         pos: self.pos[0], self.pos[1] + 80
                         texture: self.texture
 
             Bike:
+                id: bike
 
         Tools:
+            id: tools
+            size_hint: 1, .2
+
             AnchorLayout:
+                id: left_btn_wrap
                 anchor_x: 'left'
                 anchor_y: 'bottom'
                 LeftButtonWidget:
@@ -36,6 +51,7 @@
                     on_press: root.manager.current = 'start'
 
             AnchorLayout:
+                id: right_btn_wrap
                 anchor_x: 'right'
                 anchor_y: 'bottom'
                 RightButtonWidget:

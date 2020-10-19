@@ -25,7 +25,7 @@ Use packages:
 
     buildozer init
 
-Go to the *buildozer.spec* and edit it, then type
+Go to the *buildozer.spec* and edit it, then type, **version**
 
     buildozer android debug deploy run
 
