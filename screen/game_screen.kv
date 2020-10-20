@@ -12,21 +12,22 @@
 
         Scene:
             id: scene
+
             Label:
-                text: '{} / {} // {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, Window.height)
+                text: '{} / {} // {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, root.ids.road.acceleration)
                 color: 1,0,1,1
+
             Road:
                 id: road
                 x: 0
-                y: 0
+                y: root.ids.tools.height
                 width: Window.width
                 size_hint: None, None
-
                 canvas.before:
                     Clear
                     Rectangle:
-                        size: self.width, 80
-                        pos: self.pos[0], self.pos[1] + 80
+                        size: self.size
+                        pos: self.pos
                         texture: self.texture
 
             Bike:

@@ -15,6 +15,10 @@ class Road(Widget):
     # width = NumericProperty(WIDTH_GAME)
     texture = ObjectProperty(Image(source='road/road-2.png').texture)
 
+    distance_traveled = NumericProperty(0)
+    # for bike
+    acceleration = NumericProperty(0)
+
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
 
@@ -30,18 +34,22 @@ class Road(Widget):
         return self.parent.status_bar
 
     def go(self, dt):
-        print(self.texture.uvpos[0])
-        game_screen = self.get_game_screen()
-        self.y = game_screen.ids.tools.height
-        uvpos_x = self.texture.uvpos[0] + SECOND_GAME
-        uvpos_y = self.texture.uvpos[1]
-        set_texture_uvpos(self, uvpos_x, uvpos_y)
-        # self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
+        print('go', self.texture.uvpos[0])
+        self.acceleration += SECOND_GAME
+
+        self.distance_traveled = self.texture.uvpos[0] + self.acceleration
+        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
+        # todo: self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
 
     def relax(self, dt):
-        uvpos_x = (self.texture.uvpos[0] + SECOND_GAME) % Window.width
-        set_texture_uvpos(self, uvpos_x, self.texture.uvpos[1])
-        self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
+        self.acceleration -= SECOND_GAME + dt
+        if self.acceleration < 0:
+            self.acceleration = 0
+            return False
+
+        self.distance_traveled = self.texture.uvpos[0] + self.acceleration
+        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
+        # todo: self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
 
     def stop(self, dt):
         uvpos_x = (self.texture.uvpos[0] - (SECOND_GAME * 10))

@@ -20,14 +20,17 @@ class RightButtonWidget(LeftButtonWidget):
         self.counter.start()
 
         road = self.get_road()
-        print(road)
+        road.acceleration += self.counter.count
         # Clock.unschedule(road.stop)
-        # Clock.unschedule(road.relax)
+        Clock.unschedule(road.relax)
         Clock.schedule_interval(road.go, SECOND_GAME)
 
     def on_release(self):
         self.button_state_style()
         self.counter.stop()
 
+        road = self.get_road()
+        Clock.unschedule(road.go)
+        Clock.schedule_interval(road.relax, SECOND_GAME)
 
 
