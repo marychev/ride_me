@@ -13,6 +13,9 @@
         Scene:
             id: scene
 
+            BackgroundImageAnimation:
+                id: background_image_animation
+
             Label:
                 text: '{} / {} // {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, root.ids.road.acceleration)
                 color: 1,0,1,1
@@ -30,8 +33,8 @@
                         pos: self.pos
                         texture: self.texture
 
-            Bike:
-                id: bike
+            #Bike:
+            #    id: bike
 
         Tools:
             id: tools

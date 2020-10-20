@@ -4,7 +4,6 @@ from kivy.graphics import Color, Rectangle
 from kivy.properties import StringProperty, BooleanProperty, NumericProperty, ObjectProperty
 from kivy.uix.image import Image
 from button.left_button import LeftButtonWidget
-from utils.counter import CounterClock
 from conf import WIDTH_GAME, SECOND_GAME
 from kivy.event import EventDispatcher
 
@@ -13,17 +12,18 @@ Builder.load_file('button/right_button.kv')
 
 
 class RightButtonWidget(LeftButtonWidget):
-    counter = ObjectProperty(CounterClock())
-
     def on_press(self):
         self.button_state_style()
         self.counter.start()
 
         road = self.get_road()
         road.acceleration += self.counter.count
-        # Clock.unschedule(road.stop)
         Clock.unschedule(road.relax)
         Clock.schedule_interval(road.go, SECOND_GAME)
+
+        bg_animation = self.get_background_image_animation()
+        Clock.unschedule(bg_animation.relax_mountains)
+        Clock.schedule_interval(bg_animation.go_mountains, SECOND_GAME)
 
     def on_release(self):
         self.button_state_style()
@@ -32,5 +32,10 @@ class RightButtonWidget(LeftButtonWidget):
         road = self.get_road()
         Clock.unschedule(road.go)
         Clock.schedule_interval(road.relax, SECOND_GAME)
+
+        bg_animation = self.get_background_image_animation()
+        Clock.unschedule(bg_animation.go_mountains)
+        Clock.schedule_interval(bg_animation.relax_mountains, SECOND_GAME)
+
 
 

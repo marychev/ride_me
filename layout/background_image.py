@@ -3,6 +3,9 @@ from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.core.window import Window
 from kivy.clock import Clock
+from conf import SECOND_GAME
+from utils.checks import background_texture, set_texture_uvpos
+from kivy.app import App
 
 
 class BackgroundImageAnimation(Widget):
@@ -13,16 +16,23 @@ class BackgroundImageAnimation(Widget):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Clock.schedule_interval(self.scroll_textures, 3/60)
+        Clock.schedule_interval(self.scroll_textures_clouds, 3/60)
 
-        self.cloud_big_texture.wrap = 'repeat'
-        self.cloud_big_texture.uvsize = (Window.width/self.cloud_big_texture.width, -1)
-        self.cloud_middle_texture.wrap = 'repeat'
-        self.cloud_middle_texture.uvsize = (Window.width/self.cloud_middle_texture.width, -1)
-        self.cloud_min_texture.wrap = 'repeat'
-        self.cloud_min_texture.uvsize = (Window.width/self.cloud_min_texture.width, -1)
+        self.repeat_wrap(self.cloud_big_texture)
+        self.repeat_wrap(self.cloud_middle_texture)
+        self.repeat_wrap(self.cloud_min_texture)
 
-    def scroll_textures(self, dt):
+    @staticmethod
+    def get_game_screen():
+        app = App.get_running_app()
+        return app.root.get_screen('game')
+
+    @staticmethod
+    def repeat_wrap(texture, uvsize_y=-1):
+        texture.wrap = 'repeat'
+        texture.uvsize = (Window.width/texture.width, uvsize_y)
+
+    def scroll_textures_clouds(self, dt):
         def set_ivpos(texture):
             return (texture.uvpos[0] + dt / 2.0) % Window.width, texture.uvpos[1]
 
@@ -37,4 +47,31 @@ class BackgroundImageAnimation(Widget):
         texture.dispatch(self)
         texture = self.property('cloud_big_texture')
         texture.dispatch(self)
+
+    def relax_mountains(self, dt):
+        print('relax mountains', self.get_game_screen().ids.road.acceleration)
+        road = self.get_game_screen().ids.road
+        if road.acceleration <= 0:
+            print('RETURN FALSE relax mountains')
+            return False
+
+        def set_ivpos(texture):
+            # return texture.uvpos[0] + (road.acceleration/2) / 1000, texture.uvpos[1]
+            return texture.uvpos[0] + dt/10, texture.uvpos[1]
+
+        self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
+        texture = self.property('mountains_texture')
+        texture.dispatch(self)
+
+    def go_mountains(self, dt):
+        print('go mountains')
+        def set_ivpos(texture):
+            return texture.uvpos[0] + dt/10, texture.uvpos[1]
+
+        self.repeat_wrap(self.mountains_texture)
+
+        self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
+        texture = self.property('mountains_texture')
+        texture.dispatch(self)
+
 
