@@ -2,7 +2,7 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from button.left_button import LeftButtonWidget
 from conf import SECOND_GAME
-
+from kivy.animation import Animation
 Builder.load_file('button/right_button.kv')
 
 
@@ -15,12 +15,16 @@ class RightButtonWidget(LeftButtonWidget):
         self._road_manage_events(is_press=True)
         self._bg_animation_manage_events(is_press=True)
 
+        self.get_bike().anim_go()
+
     def on_release(self):
         print('on_release right')
         self.button_state_style()
         self.counter.stop()
         self._road_manage_events(is_release=True)
         self._bg_animation_manage_events(is_release=True)
+
+        self.get_bike().anim_relax()
 
     def _road_manage_events(self, is_press=False, is_release=False):
         road = self.get_road()

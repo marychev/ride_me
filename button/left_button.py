@@ -6,6 +6,7 @@ from kivy.uix.image import Image
 from conf import SECOND_GAME
 from screen.utils import get_game_screen
 from utils.counter import CounterClock
+from kivy.animation import Animation
 
 Builder.load_file('button/left_button.kv')
 
@@ -44,10 +45,14 @@ class LeftButtonWidget(ButtonBehavior, Image):
         self.button_state_style()
         self._road_manage_events(is_press=True)
 
+        self.get_bike().anim_stop()
+
     def on_release(self):
         print('on_release left')
         self.button_state_style()
         self._road_manage_events(is_release=True)
+
+        self.get_bike().anim_relax()
 
     def _road_manage_events(self, is_press=False, is_release=False):
         road = self.get_road()

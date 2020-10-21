@@ -1,45 +1,38 @@
-from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty, ListProperty
+from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
-from kivy.vector import Vector
+# from kivy.vector import Vector
 from conf import SECOND_GAME
-from bike.bike_events import BikeEvents
-from utils.checks import show_outline
+# from bike.bike_events import BikeEvents
 from kivy.clock import Clock
-from layout.base import BaseLayout
 
-
-START_POS_X = 80
-START_POS_Y = BaseLayout.tools_default_height() + 30  # border
+# START_POS_Y = BaseLayout.tools_default_height() + 30  # border
+from kivy.lang import Builder
+from kivy.animation import Animation
+Builder.load_file("bike/bike.kv")
 
 
 class Bike(Image):
     source = StringProperty('bike/bike.png')
-
-    x = NumericProperty(START_POS_X)
-    y = NumericProperty(START_POS_Y)
-    pos = ReferenceListProperty(x, y)
-
-    height = NumericProperty(60)
-    width = NumericProperty(80)
-    canvas = ObjectProperty(None)
-
     gravity = NumericProperty(0.2)
     acceleration = NumericProperty(0)
     speed = NumericProperty(0)
-    max_speed = NumericProperty(8)
+    max_speed = NumericProperty(60)
 
-    current_event = StringProperty('undefined')
-    pre_event = StringProperty('undefined')
-    available_events = ListProperty()
+    # animation
 
-    def __init__(self, **kwargs):
-        super(Bike, self).__init__(**kwargs)
+    def anim_go(self):
+        anim = Animation(angle=2, duration=.2)
+        anim.start(self)
 
-        Clock.schedule_interval(self.move, SECOND_GAME)
+    def anim_relax(self):
+        anim = Animation(angle=0, duration=.2)
+        anim.start(self)
 
-        self.size_hint = None, None
+    def anim_stop(self):
+        anim = Animation(angle=-2, duration=.1)
+        anim.start(self)
 
-        show_outline(self)
+    # events
 
     def move(self, dt):
         if self.speed > 0:
@@ -53,16 +46,7 @@ class Bike(Image):
     def on_stop(self):
         self.speed -= 15
 
-    def define_available_events(self):
-        self.available_events = []
-        if self.can_landing():
-            self.available_events.append('on_landing')
-        if self.can_wait():
-            self.available_events.append('on_wait')
-        if self.can_go():
-            self.available_events.append('on_go')
-        if self.can_relax():
-            self.available_events.append('on_relax')
+    # info
 
     def show_status(self, title='BIKE'):
         return '''

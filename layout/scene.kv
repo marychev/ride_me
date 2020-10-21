@@ -32,37 +32,3 @@
             texture: self.cloud_big_texture
             size: self.width, self.cloud_big_texture.height
             pos: 0, self.y + self.height
-
-# --- abstract ---
-
-<ImageBackgroundOutline@Image>:
-    canvas.after:
-        Color:
-            rgba: (1, .1, .1, 1)
-        Line:
-            width: 1
-            rectangle: self.x, self.y, self.width, self.height
-    canvas.before:
-        Color:
-            rgba: (1, 0, 0, 0.1)
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
-
-<ImageBackground@Image>:
-    canvas.before:
-        Color:
-            rgba: (1, 0, 0, 0.1)
-        Rectangle:
-            pos: self.pos
-            size: self.size
-
-
-<ImageOutline@Image>:
-    canvas.after:
-        Color:
-            rgb: (1, .1, .1, 1)
-        Line:
-            width: 1
-            rectangle: self.x, self.y, self.width, self.height

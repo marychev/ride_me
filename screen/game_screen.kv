@@ -18,10 +18,6 @@
             BackgroundImageAnimation:
                 id: background_image_animation
 
-            Label:
-                text: '{} / {} \n {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, root.ids.road.acceleration)
-                color: 1,0,1,1
-
             Road:
                 id: road
                 x: 0
@@ -35,8 +31,17 @@
                         pos: self.pos
                         texture: self.texture
 
-            #Bike:
-            #    id: bike
+            Bike:
+                id: bike
+                x: 80
+                y: root.ids.road.pos[1] + root.ids.road.height/4
+                height: int(Window.width / 15)
+                width: self.height
+                size_hint: None, None
+
+            Label:
+                text: '{} \n {}'.format(str(root.ids.bike.texture_size), str(Window.width / 10))
+                color: 0,0,0,1
 
         Tools:
             id: tools

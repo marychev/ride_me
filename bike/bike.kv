@@ -1,0 +1,22 @@
+#:import Window kivy.core.window.Window
+
+
+<Bike>:
+    # -- animation
+    angle: 0
+    canvas.before:
+        PushMatrix
+        Rotate:
+            angle: root.angle
+            axis: 0, 0, 1
+            origin: root.center
+    canvas.after:
+        PopMatrix
+
+    # outline
+    canvas:
+        Color:
+            rgb: (1, .1, .1, 1)
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
