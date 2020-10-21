@@ -1,8 +1,10 @@
+#:import Window kivy.core.window.Window
 #:import Scene layout.scene.Scene
 #:import Tools layout.tools.Tools
+#:import LeftButtonWidget button.left_button.LeftButtonWidget
+#:import RightButtonWidget button.right_button.RightButtonWidget
 #:import Bike bike.bike.Bike
 #:import Road road.road.Road
-#:import Window kivy.core.window.Window
 
 
 <GameScreen>:
@@ -17,7 +19,7 @@
                 id: background_image_animation
 
             Label:
-                text: '{} / {} // {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, root.ids.road.acceleration)
+                text: '{} / {} \n {} / {} | {}'.format(self.pos, self.size, root.pos, root.ids.tools.height, root.ids.road.acceleration)
                 color: 1,0,1,1
 
             Road:

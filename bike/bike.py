@@ -2,7 +2,6 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
 from kivy.uix.image import Image
 from kivy.vector import Vector
 from conf import SECOND_GAME
-from layout.base import BaseLayout
 from bike.bike_events import BikeEvents
 from utils.checks import show_outline
 from kivy.clock import Clock

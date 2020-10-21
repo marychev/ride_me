@@ -5,3 +5,4 @@ Builder.load_file("screen/game_screen.kv")
 
 class GameScreen(Screen):
     pass
+
