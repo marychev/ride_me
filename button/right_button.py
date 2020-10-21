@@ -9,7 +9,6 @@ Builder.load_file('button/right_button.kv')
 class RightButtonWidget(LeftButtonWidget):
 
     def on_press(self):
-        print('on_press right')
         self.button_state_style()
         self.counter.start()
         self._road_manage_events(is_press=True)
@@ -18,7 +17,6 @@ class RightButtonWidget(LeftButtonWidget):
         self.get_bike().anim_go()
 
     def on_release(self):
-        print('on_release right')
         self.button_state_style()
         self.counter.stop()
         self._road_manage_events(is_release=True)

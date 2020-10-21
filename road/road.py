@@ -20,14 +20,12 @@ class Road(Widget):
         return self.parent.status_bar
 
     def go(self, dt):
-        print('go road')
         self.acceleration += SECOND_GAME
         self.distance_traveled = self.texture.uvpos[0] + self.acceleration
         set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
         # todo: self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
 
     def relax(self, dt):
-        print('relax road')
         self.acceleration -= SECOND_GAME + dt
         if self.acceleration < 0:
             self.acceleration = 0
@@ -38,7 +36,6 @@ class Road(Widget):
         # todo: self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
 
     def stop(self, dt):
-        print('stop road')
         self.acceleration -= SECOND_GAME / dt
         if self.acceleration < 0:
             self.acceleration = 0

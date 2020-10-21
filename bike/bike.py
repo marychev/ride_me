@@ -1,13 +1,7 @@
+from kivy.animation import Animation
+from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
-# from kivy.vector import Vector
-from conf import SECOND_GAME
-# from bike.bike_events import BikeEvents
-from kivy.clock import Clock
-
-# START_POS_Y = BaseLayout.tools_default_height() + 30  # border
-from kivy.lang import Builder
-from kivy.animation import Animation
 Builder.load_file("bike/bike.kv")
 
 

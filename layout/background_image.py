@@ -45,8 +45,6 @@ class BackgroundImageAnimation(Widget):
     # mountains textures
 
     def go_mountains(self, dt):
-        print('go mountains')
-
         def set_ivpos(texture):
             return texture.uvpos[0] + dt/10, texture.uvpos[1]
         self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
@@ -55,10 +53,8 @@ class BackgroundImageAnimation(Widget):
         self.redraw_textures('mountains_texture')
 
     def relax_mountains(self, dt):
-        print('relax mountains')
         road = get_game_screen().ids.road
         if road.acceleration <= 0:
-            print('RETURN FALSE relax mountains')
             return False
 
         def set_ivpos(texture):

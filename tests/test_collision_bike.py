@@ -1,7 +1,6 @@
 # from kivy.tests.common import GraphicUnitTest
 #
 # from bike.event_wait import EVENT_NAME as WAIT_EVENT_NAME
-# from layout.base import BaseLayout
 # from rideme_game import RideMeGame
 #
 #

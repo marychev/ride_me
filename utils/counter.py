@@ -15,7 +15,6 @@ class CounterClock(EventDispatcher):
 
     def _on_counter(self, dt):
         self.count += dt
-        print("Press Count : %s" % str(self.count))
 
     def start(self):
         self.on_counter = Clock.schedule_interval(self._on_counter, 1/60)

@@ -1,11 +1,7 @@
 from kivy.tests.common import GraphicUnitTest
 
-from layout.base import BaseLayout
-from rideme_game import RideMeGame
-
-
 ROAD_START_X = 80
-ROAD_START_Y = BaseLayout.tools_default_height()
+ROAD_START_Y = 120
 MOVE_EVENT_NAME = 'on_go'
 
 

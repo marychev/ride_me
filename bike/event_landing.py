@@ -24,7 +24,6 @@ class LandingBikeEvent(BaseBikeEvent):
         return can
 
     def _set_landing(self, dt):
-        print('---SET LANDING')
         if self.can_landing():
             self.y -= self.speed
             self.add_speed(self.gravity)

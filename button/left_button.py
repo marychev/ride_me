@@ -41,14 +41,12 @@ class LeftButtonWidget(ButtonBehavior, Image):
             raise 0
 
     def on_press(self):
-        print('on_press left')
         self.button_state_style()
         self._road_manage_events(is_press=True)
 
         self.get_bike().anim_stop()
 
     def on_release(self):
-        print('on_release left')
         self.button_state_style()
         self._road_manage_events(is_release=True)
 
