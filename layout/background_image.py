@@ -23,7 +23,6 @@ class BackgroundImageAnimation(Widget):
     @staticmethod
     def repeat_wrap(texture, uvsize_x=1, uvsize_y=-1):
         texture.wrap = 'repeat'
-        # ! texture.uvsize = (Window.width/texture.width, uvsize_y)
         texture.uvsize = (uvsize_x, uvsize_y)
 
     def redraw_textures(self, texture_name):
@@ -55,7 +54,7 @@ class BackgroundImageAnimation(Widget):
 
     def relax_mountains(self, dt):
         bike = get_game_screen().ids.bike
-        if bike.acceleration <= 0:
+        if bike.speed <= 0:
             return False
 
         def set_ivpos(texture):

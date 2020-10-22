@@ -15,50 +15,61 @@ class Road(Widget):
         super(Road, self).__init__(**kwargs)
         self.texture.wrap = 'repeat'
         self.texture.uvsize = (Window.width / self.texture.width, -1)
+        #self.texture.uvsize = (1, -1)
 
     @classmethod
     def get_bike(cls):
         return get_game_screen().ids.bike
 
-    def get_status_bar(self):
-        return self.parent.status_bar
+    @staticmethod
+    def get_status_bar():
+        return get_game_screen().ids.status_bar
 
-    def go(self, dt):
+    def go(self, acceleration):
+        print('go road')
         bike = self.get_bike()
-        bike.acceleration += SECOND_GAME
-        # self.acceleration += SECOND_GAME
-        self.distance_traveled = self.texture.uvpos[0] + bike.acceleration  # self.acceleration
-        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
-        # todo: self.get_status_bar().show_status('Go bike ===>', self.parent.bike, self)
+        bike.acceleration = acceleration
 
-    def relax(self, dt):
+        bike.speed += acceleration
+        self.set_distance_traveled(bike)
+        self.get_status_bar().show_status('Go bike ===>', bike, self)
+
+    def relax(self, acceleration):
+        print('go Relax')
         bike = self.get_bike()
-        bike.acceleration -= SECOND_GAME + dt
-        if bike.acceleration < 0:
-            bike.acceleration = 0
+        bike.acceleration = acceleration
+
+        if bike.speed - acceleration <= 0:
+            bike.speed = 0
+            self.get_status_bar().show_status('... Relax ...', bike, self)
             return False
+        else:
+            bike.speed -= acceleration
+            self.set_distance_traveled(bike)
+            self.get_status_bar().show_status('... Relax ...', bike, self)
 
-        self.distance_traveled = self.texture.uvpos[0] + bike.acceleration   # self.acceleration
-        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
-        # todo: self.get_status_bar().show_status('... Relax ...', self.parent.bike, self)
-
-    def stop(self, dt):
+    def stop(self, acceleration):
+        print('on S T O P')
         bike = self.get_bike()
-        bike.acceleration -= SECOND_GAME / dt
-        if bike.acceleration < 0:
-            bike.acceleration = 0
+        bike.acceleration = acceleration
+        stop_way = (acceleration + SECOND_GAME) * 2
+        if bike.speed - stop_way <= 0:
+            bike.speed = 0
+            self.get_status_bar().show_status('S T O P', bike, self)
             return False
-
-        self.distance_traveled = self.texture.uvpos[0] + bike.acceleration   # self.acceleration
-        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
-        # todo: self.get_status_bar().show_status('S T O P', self.parent.bike, self)
+        else:
+            bike.speed -= stop_way
+            self.set_distance_traveled(bike)
+            self.get_status_bar().show_status('S T O P', bike, self)
 
     def show_status(self, title='ROAD'):
         return '''
-{}
------------------------------------------------
-UVPos:          {}
-Pos:            {}'''.format(
+----------------------------------------------- [{}]
+distance_traveled:          {}'''.format(
             title,
-            self.texture.uvpos, self.pos
+            self.distance_traveled
         )
+
+    def set_distance_traveled(self, bike):
+        self.distance_traveled = self.texture.uvpos[0] + bike.speed
+        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])

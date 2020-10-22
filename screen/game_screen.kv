@@ -5,6 +5,7 @@
 #:import RightButtonWidget button.right_button.RightButtonWidget
 #:import Bike bike.bike.Bike
 #:import Road road.road.Road
+#:import StatusBar label.status_bar.StatusBar
 
 
 <GameScreen>:
@@ -15,8 +16,35 @@
         Scene:
             id: scene
 
+
             BackgroundImageAnimation:
                 id: background_image_animation
+
+
+            StatusBar:
+                id: status_bar
+                font_size: 16
+                color: 0,0,0,1
+                size_hint: .5, .4
+                text_size: self.size
+                valign: 'top'
+                padding: 5, 5
+                x: self.padding_x
+                y: int(Window.height - self.size[1]) - self.padding_y
+
+                # outline
+                canvas.before:
+                    Color:
+                        rgb: (.1, .1, .1)
+                    Line:
+                        width: 1
+                        rectangle: self.x, self.y, self.width, self.height
+
+                    Color:
+                        rgba: (1, 1, 1, .8)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 
             Road:
                 id: road
@@ -24,6 +52,7 @@
                 y: root.ids.tools.height
                 width: Window.width
                 size_hint: None, None
+
                 canvas.before:
                     Clear
                     Rectangle:
@@ -35,13 +64,9 @@
                 id: bike
                 x: 80
                 y: root.ids.road.pos[1] + root.ids.road.height/4
-                height: int(Window.width / 15)
+                height: int(Window.width / 16)
                 width: self.height
                 size_hint: None, None
-
-            Label:
-                text: 'ac: {} \n dur: {}'.format(root.ids.bike.acceleration, root.ids.road.distance_traveled)
-                color: 0,0,0,1
 
         Tools:
             id: tools

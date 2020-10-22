@@ -29,8 +29,8 @@ class RightButtonWidget(LeftButtonWidget):
         bike = self.get_bike()
 
         if is_press:
-            bike.acceleration += self.counter.count
-
+            extra_acceleration = self.counter.count / 4
+            bike.acceleration += extra_acceleration
             Clock.unschedule(road.relax)
             Clock.schedule_interval(road.go, SECOND_GAME)
         elif is_release:

@@ -28,30 +28,17 @@ class Bike(Image):
 
     # events
 
-    def move(self, dt):
-        if self.speed > 0:
-            extra_speed = dt * self.speed
-            self.pos = (self.x + extra_speed, self.y)
-            self.speed -= (self.gravity * dt) * 11
-
-    def on_go(self):
-        self.speed += 10
-
-    def on_stop(self):
-        self.speed -= 15
-
     # info
 
     def show_status(self, title='BIKE'):
         return '''
-{}
------------------------------------------------
-Speed:              {}
-Acceleration:   {}
-Pos:                  {}
-State (pre/now**):    {} / {}, {}
+------------------------------------------- [{}]
+_acceleration:             {}
+Speed:                          {}
+Pos:                              {}
 '''.format(
             title,
-            self.speed, self.acceleration, self.pos,
-            self.pre_event, self.current_event, self.available_events,
+            self.acceleration,
+            self.speed,
+            self.pos,
         )
