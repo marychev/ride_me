@@ -26,8 +26,11 @@ class RightButtonWidget(LeftButtonWidget):
 
     def _road_manage_events(self, is_press=False, is_release=False):
         road = self.get_road()
+        bike = self.get_bike()
+
         if is_press:
-            road.acceleration += self.counter.count
+            bike.acceleration += self.counter.count
+
             Clock.unschedule(road.relax)
             Clock.schedule_interval(road.go, SECOND_GAME)
         elif is_release:

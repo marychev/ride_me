@@ -16,14 +16,15 @@ class BackgroundImageAnimation(Widget):
         super().__init__(**kwargs)
         Clock.schedule_interval(self.scroll_textures_clouds, 3/60)
 
-        self.repeat_wrap(self.cloud_big_texture)
-        self.repeat_wrap(self.cloud_middle_texture)
-        self.repeat_wrap(self.cloud_min_texture)
+        self.repeat_wrap(self.cloud_big_texture, uvsize_x=Window.width/self.cloud_big_texture.width)
+        self.repeat_wrap(self.cloud_middle_texture, uvsize_x=Window.width/self.cloud_middle_texture.width)
+        self.repeat_wrap(self.cloud_min_texture, uvsize_x=Window.width/self.cloud_min_texture.width)
 
     @staticmethod
-    def repeat_wrap(texture, uvsize_y=-1):
+    def repeat_wrap(texture, uvsize_x=1, uvsize_y=-1):
         texture.wrap = 'repeat'
-        texture.uvsize = (Window.width/texture.width, uvsize_y)
+        # ! texture.uvsize = (Window.width/texture.width, uvsize_y)
+        texture.uvsize = (uvsize_x, uvsize_y)
 
     def redraw_textures(self, texture_name):
         texture = self.property(texture_name)
@@ -53,15 +54,15 @@ class BackgroundImageAnimation(Widget):
         self.redraw_textures('mountains_texture')
 
     def relax_mountains(self, dt):
-        road = get_game_screen().ids.road
-        if road.acceleration <= 0:
+        bike = get_game_screen().ids.bike
+        if bike.acceleration <= 0:
             return False
 
         def set_ivpos(texture):
-            # return texture.uvpos[0] + (road.acceleration/2) / 1000, texture.uvpos[1]
             return texture.uvpos[0] + dt/10, texture.uvpos[1]
         self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
 
+        self.repeat_wrap(self.mountains_texture)
         self.redraw_textures('mountains_texture')
 
 

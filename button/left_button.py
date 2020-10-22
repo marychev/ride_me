@@ -13,18 +13,25 @@ Builder.load_file('button/left_button.kv')
 
 class LeftButtonWidget(ButtonBehavior, Image):
     counter = ObjectProperty(CounterClock())
+    game_screen = ObjectProperty(None, allownone=True)
 
-    @staticmethod
-    def get_road():
-        return get_game_screen().ids.road
+    def __init__(self, **kwargs):
+        super(LeftButtonWidget, self).__init__(**kwargs)
+        self.game_screen = get_game_screen()
 
-    @staticmethod
-    def get_bike():
-        return get_game_screen().ids.bike
+    @classmethod
+    def get_road(cls):
+        if not hasattr(cls.game_screen, 'ids'):
+            cls.game_screen = get_game_screen()
+        return cls.game_screen.ids.road
 
-    @staticmethod
-    def get_background_image_animation():
-        return get_game_screen().ids.background_image_animation
+    @classmethod
+    def get_bike(cls):
+        return cls.game_screen.ids.bike
+
+    @classmethod
+    def get_background_image_animation(cls):
+        return cls.game_screen.ids.background_image_animation
 
     @staticmethod
     def change_text(widget, text='...'):
