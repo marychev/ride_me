@@ -1,0 +1,13 @@
+<StatusBar>:
+    # -- repeat-wrap
+    canvas.before:
+        Color:
+            rgb: (.1, .1, .1)
+        Line:
+            width: 1
+            rectangle: self.x, self.y, self.width, self.height
+        Color:
+            rgba: (1, 1, 1, .8)
+        Rectangle:
+            pos: self.pos
+            size: self.size

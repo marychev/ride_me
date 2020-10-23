@@ -1,6 +1,9 @@
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
 from screen.utils import get_game_screen
+from kivy.lang import Builder
+
+Builder.load_file("label/status_bar.kv")
 
 
 class StatusBar(Label):
@@ -12,6 +15,10 @@ class StatusBar(Label):
     @staticmethod
     def get_road():
         return get_game_screen().ids.road
+
+    @staticmethod
+    def get_finish():
+        return get_game_screen().ids.finish
 
     @staticmethod
     def get_bike():

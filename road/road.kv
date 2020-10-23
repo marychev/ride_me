@@ -1,0 +1,11 @@
+#:import Window kivy.core.window.Window
+
+
+<Road>:
+    # -- repeat-wrap
+    canvas.before:
+        Clear
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            texture: self.texture

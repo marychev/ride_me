@@ -45,7 +45,6 @@ class BackgroundImageAnimation(Widget):
     # mountains textures
 
     def go_mountains(self, dt):
-        print('go mountains')
         if StatusBar.get_road().has_finished():
             print('finish -go -r')
         else:
@@ -57,7 +56,6 @@ class BackgroundImageAnimation(Widget):
             self.redraw_textures('mountains_texture')
 
     def relax_mountains(self, dt):
-        print('relax mountains')
         if StatusBar.get_road().has_finished():
             print('finish -go -r')
         else:

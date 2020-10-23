@@ -5,6 +5,7 @@
 #:import RightButtonWidget button.right_button.RightButtonWidget
 #:import Bike bike.bike.Bike
 #:import Road road.road.Road
+#:import Finish road.finish.Finish
 #:import StatusBar label.status_bar.StatusBar
 
 
@@ -16,35 +17,19 @@
         Scene:
             id: scene
 
-
             BackgroundImageAnimation:
                 id: background_image_animation
 
-
             StatusBar:
                 id: status_bar
-                font_size: 16
+                font_size: 14
                 color: 0,0,0,1
-                size_hint: .5, .4
+                x: self.padding_x
+                y: int(Window.height - self.size[1]) - self.padding_y
+                size_hint: .5, .5
                 text_size: self.size
                 valign: 'top'
                 padding: 5, 5
-                x: self.padding_x
-                y: int(Window.height - self.size[1]) - self.padding_y
-
-                # outline
-                canvas.before:
-                    Color:
-                        rgb: (.1, .1, .1)
-                    Line:
-                        width: 1
-                        rectangle: self.x, self.y, self.width, self.height
-
-                    Color:
-                        rgba: (1, 1, 1, .8)
-                    Rectangle:
-                        pos: self.pos
-                        size: self.size
 
             Road:
                 id: road
@@ -53,12 +38,13 @@
                 width: Window.width
                 size_hint: None, None
 
-                canvas.before:
-                    Clear
-                    Rectangle:
-                        size: self.size
-                        pos: self.pos
-                        texture: self.texture
+                Finish:
+                    id: finish
+                    x: root.ids.road.total_way
+                    y: root.ids.tools.height
+                    width: 40
+                    height: root.ids.road.height
+                    size_hint: None, None
 
             Bike:
                 id: bike
