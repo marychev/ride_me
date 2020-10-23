@@ -37,4 +37,8 @@ class StatusBar(Label):
             self.text = '{}\r{}{}'.format(title, bike.show_status(), road.show_status())
         else:
             self.text = 'FINISH!'
+            self.size_hint = .99, .88
+            self.valign = 'center'
+            self.halign = 'center'
+            self.font_size = 42
         return self.text

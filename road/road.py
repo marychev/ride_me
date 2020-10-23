@@ -14,7 +14,7 @@ Builder.load_file("road/road.kv")
 
 class Road(Widget):
     texture = ObjectProperty(Image(source='road/img/road-2.png').texture)
-    total_way = NumericProperty(800)
+    total_way = NumericProperty(200)
     distance_traveled = NumericProperty(0)
 
     def __init__(self, **kwargs):
