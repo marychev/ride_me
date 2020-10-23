@@ -6,7 +6,7 @@ Builder.load_file("bike/bike.kv")
 
 
 class Bike(Image):
-    source = StringProperty('bike/bike.png')
+    source = StringProperty('bike/bike-1.png')
     gravity = NumericProperty(0.2)
     acceleration = NumericProperty(0)
     speed = NumericProperty(0)

@@ -21,6 +21,14 @@ class BackgroundImageAnimation(Widget):
         self.repeat_wrap(self.cloud_min_texture, uvsize_x=Window.width/self.cloud_min_texture.width)
 
     @staticmethod
+    def get_road():
+        return get_game_screen().ids.road
+
+    @staticmethod
+    def get_bike():
+        return get_game_screen().ids.bike
+
+    @staticmethod
     def repeat_wrap(texture, uvsize_x=1, uvsize_y=-1):
         texture.wrap = 'repeat'
         texture.uvsize = (uvsize_x, uvsize_y)
@@ -45,24 +53,32 @@ class BackgroundImageAnimation(Widget):
     # mountains textures
 
     def go_mountains(self, dt):
-        def set_ivpos(texture):
-            return texture.uvpos[0] + dt/10, texture.uvpos[1]
-        self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
+        print('go mountains')
+        if self.get_road().has_finished():
+            print('finish -go -r')
+        else:
+            def set_ivpos(texture):
+                return texture.uvpos[0] + dt/10, texture.uvpos[1]
+            self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
 
-        self.repeat_wrap(self.mountains_texture)
-        self.redraw_textures('mountains_texture')
+            self.repeat_wrap(self.mountains_texture)
+            self.redraw_textures('mountains_texture')
 
     def relax_mountains(self, dt):
-        bike = get_game_screen().ids.bike
-        if bike.speed <= 0:
-            return False
+        print('relax mountains')
+        if self.get_road().has_finished():
+            print('finish -go -r')
+        else:
+            bike = self.get_bike()
+            if bike.speed <= 0:
+                return False
 
-        def set_ivpos(texture):
-            return texture.uvpos[0] + dt/10, texture.uvpos[1]
-        self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
+            def set_ivpos(texture):
+                return texture.uvpos[0] + dt/10, texture.uvpos[1]
+            self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
 
-        self.repeat_wrap(self.mountains_texture)
-        self.redraw_textures('mountains_texture')
+            self.repeat_wrap(self.mountains_texture)
+            self.redraw_textures('mountains_texture')
 
 
 

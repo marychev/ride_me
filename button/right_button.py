@@ -13,16 +13,13 @@ class RightButtonWidget(LeftButtonWidget):
         self.counter.start()
         self._road_manage_events(is_press=True)
         self._bg_animation_manage_events(is_press=True)
-
-        self.get_bike().anim_go()
+        self._bike_manage_events(is_press=True)
 
     def on_release(self):
         self.button_state_style()
         self.counter.stop()
         self._road_manage_events(is_release=True)
         self._bg_animation_manage_events(is_release=True)
-
-        self.get_bike().anim_relax()
 
     def _road_manage_events(self, is_press=False, is_release=False):
         road = self.get_road()
@@ -50,3 +47,11 @@ class RightButtonWidget(LeftButtonWidget):
         else:
             raise 0
 
+    def _bike_manage_events(self, is_press=False, is_release=False):
+        bike = self.get_bike()
+        if is_press:
+            bike.anim_go()
+        elif is_release:
+            bike.anim_relax()
+        else:
+            raise 0

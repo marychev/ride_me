@@ -13,5 +13,8 @@ class StatusBar(Label):
         super(StatusBar, self).__init__(**kwargs)
 
     def show_status(self, title, bike, road):
-        self.text = '{}\r{}{}'.format(title, bike.show_status(), road.show_status())
+        if not road.has_finished():
+            self.text = '{}\r{}{}'.format(title, bike.show_status(), road.show_status())
+        else:
+            self.text = 'FINISH!'
         return self.text
