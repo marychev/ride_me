@@ -3,7 +3,7 @@ from kivy.core.window import Window
 from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
-from screen.utils import get_game_screen
+from label.status_bar import StatusBar
 
 
 class BackgroundImageAnimation(Widget):
@@ -19,14 +19,6 @@ class BackgroundImageAnimation(Widget):
         self.repeat_wrap(self.cloud_big_texture, uvsize_x=Window.width/self.cloud_big_texture.width)
         self.repeat_wrap(self.cloud_middle_texture, uvsize_x=Window.width/self.cloud_middle_texture.width)
         self.repeat_wrap(self.cloud_min_texture, uvsize_x=Window.width/self.cloud_min_texture.width)
-
-    @staticmethod
-    def get_road():
-        return get_game_screen().ids.road
-
-    @staticmethod
-    def get_bike():
-        return get_game_screen().ids.bike
 
     @staticmethod
     def repeat_wrap(texture, uvsize_x=1, uvsize_y=-1):
@@ -54,7 +46,7 @@ class BackgroundImageAnimation(Widget):
 
     def go_mountains(self, dt):
         print('go mountains')
-        if self.get_road().has_finished():
+        if StatusBar.get_road().has_finished():
             print('finish -go -r')
         else:
             def set_ivpos(texture):
@@ -66,10 +58,10 @@ class BackgroundImageAnimation(Widget):
 
     def relax_mountains(self, dt):
         print('relax mountains')
-        if self.get_road().has_finished():
+        if StatusBar.get_road().has_finished():
             print('finish -go -r')
         else:
-            bike = self.get_bike()
+            bike = StatusBar.get_bike()
             if bike.speed <= 0:
                 return False
 
@@ -79,7 +71,3 @@ class BackgroundImageAnimation(Widget):
 
             self.repeat_wrap(self.mountains_texture)
             self.redraw_textures('mountains_texture')
-
-
-
-

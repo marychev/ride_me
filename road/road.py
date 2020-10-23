@@ -4,7 +4,7 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from conf import SECOND_GAME
 from utils.checks import set_texture_uvpos
-from screen.utils import get_game_screen
+from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
 from kivy.clock import Clock
 
@@ -18,25 +18,13 @@ class Road(Widget):
         super(Road, self).__init__(**kwargs)
         BackgroundImageAnimation.repeat_wrap(self.texture, Window.width / self.texture.width)
 
-    @classmethod
-    def get_bike(cls):
-        return get_game_screen().ids.bike
-
-    @staticmethod
-    def get_status_bar():
-        return get_game_screen().ids.status_bar
-
-    @staticmethod
-    def get_background_image_animation():
-        return get_game_screen().ids.background_image_animation
-
     def go(self, acceleration):
         print('go road')
-        status_bar = self.get_status_bar()
+        status_bar = StatusBar.get_status_bar()
         if self.has_finished():
             status_bar.show_status('', None, self)
         else:
-            bike = self.get_bike()
+            bike = StatusBar.get_bike()
             bike.acceleration = acceleration
 
             bike.speed += acceleration
@@ -45,11 +33,11 @@ class Road(Widget):
 
     def relax(self, acceleration):
         print('go Relax')
-        status_bar = self.get_status_bar()
+        status_bar = StatusBar.get_status_bar()
         if self.has_finished():
             status_bar.show_status('', None, self)
         else:
-            bike = self.get_bike()
+            bike = StatusBar.get_bike()
             bike.acceleration = acceleration
 
             if bike.speed - acceleration <= 0:
@@ -63,11 +51,11 @@ class Road(Widget):
 
     def stop(self, acceleration):
         print('on S T O P')
-        status_bar = self.get_status_bar()
+        status_bar = StatusBar.get_status_bar()
         if self.has_finished():
             status_bar.show_status('', None, self)
         else:
-            bike = self.get_bike()
+            bike = StatusBar.get_bike()
             bike.acceleration = acceleration
             stop_way = (acceleration + SECOND_GAME) * 2
             if bike.speed - stop_way <= 0:
@@ -77,7 +65,7 @@ class Road(Widget):
             else:
                 bike.speed -= stop_way
                 self.set_distance_traveled(bike)
-                self.get_status_bar().show_status('S T O P', bike, self)
+                status_bar.show_status('S T O P', bike, self)
 
     def show_status(self, title='ROAD'):
         return '''
@@ -95,7 +83,7 @@ distance_traveled:    {}'''.format(
 
     def has_finished(self):
         if self.distance_traveled >= self.total_way:
-            bg_animation = self.get_background_image_animation()
+            bg_animation = StatusBar.get_background_image_animation()
             Clock.unschedule(self.go)
             Clock.unschedule(self.relax)
             Clock.unschedule(bg_animation.go_mountains)

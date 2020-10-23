@@ -2,7 +2,8 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from button.left_button import LeftButtonWidget
 from conf import SECOND_GAME
-from kivy.animation import Animation
+from label.status_bar import StatusBar
+
 Builder.load_file('button/right_button.kv')
 
 
@@ -20,11 +21,11 @@ class RightButtonWidget(LeftButtonWidget):
         self.counter.stop()
         self._road_manage_events(is_release=True)
         self._bg_animation_manage_events(is_release=True)
+        self._bike_manage_events(is_release=True)
 
     def _road_manage_events(self, is_press=False, is_release=False):
-        road = self.get_road()
-        bike = self.get_bike()
-
+        road = StatusBar.get_road()
+        bike = StatusBar.get_bike()
         if is_press:
             extra_acceleration = self.counter.count / 4
             bike.acceleration += extra_acceleration
@@ -37,7 +38,7 @@ class RightButtonWidget(LeftButtonWidget):
             raise 0
 
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
-        bg_animation = self.get_background_image_animation()
+        bg_animation = StatusBar.get_background_image_animation()
         if is_press:
             Clock.unschedule(bg_animation.relax_mountains)
             Clock.schedule_interval(bg_animation.go_mountains, SECOND_GAME)
@@ -48,7 +49,7 @@ class RightButtonWidget(LeftButtonWidget):
             raise 0
 
     def _bike_manage_events(self, is_press=False, is_release=False):
-        bike = self.get_bike()
+        bike = StatusBar.get_bike()
         if is_press:
             bike.anim_go()
         elif is_release:

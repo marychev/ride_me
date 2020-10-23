@@ -1,6 +1,6 @@
 from kivy.properties import ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
-from utils.keyboard import KeyboardHandler
+from button.keyboard import KeyboardHandler
 
 
 class Tools(BoxLayout, KeyboardHandler):

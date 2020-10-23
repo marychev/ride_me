@@ -1,5 +1,4 @@
 from kivy.core.window import Window
-from kivy.clock import Clock
 from kivy.app import App
 
 
