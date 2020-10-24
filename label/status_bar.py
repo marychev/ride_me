@@ -33,12 +33,13 @@ class StatusBar(Label):
         return get_game_screen().ids.status_bar
 
     def show_status(self, title, bike, road):
-        if not road.has_finished():
-            self.text = '{}\r{}{}'.format(title, bike.show_status(), road.show_status())
-        else:
-            self.text = 'FINISH!'
-            self.size_hint = .99, .88
-            self.valign = 'center'
-            self.halign = 'center'
-            self.font_size = 42
+        self.text = '{}\r{}{}'.format(title, bike.show_status(), road.show_status())
+        return self.text
+
+    def show_status_finished(self):
+        self.text = 'FINISH!'
+        self.size_hint = .99, .88
+        self.valign = 'center'
+        self.halign = 'center'
+        self.font_size = 42
         return self.text

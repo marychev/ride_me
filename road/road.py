@@ -1,21 +1,24 @@
+from kivy.clock import Clock
 from kivy.core.window import Window
+from kivy.lang import Builder
 from kivy.properties import NumericProperty, ObjectProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
-from conf import SECOND_GAME
-from utils.checks import set_texture_uvpos
 from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
-from kivy.clock import Clock
-from kivy.lang import Builder
+from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad
+from road.finish import Finish
+from utils.checks import set_texture_uvpos
 
 Builder.load_file("road/road.kv")
 
 
 class Road(Widget):
     texture = ObjectProperty(Image(source='road/img/road-2.png').texture)
-    total_way = NumericProperty(200)
+    total_way = NumericProperty(800)
     distance_traveled = NumericProperty(0)
+
+    finish = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
@@ -23,69 +26,54 @@ class Road(Widget):
 
     @classmethod
     def set_finish_x(cls):
-        road = StatusBar.get_road()
-        bike = StatusBar.get_bike()
-        finish = StatusBar.get_finish()
-        finish.x = (road.total_way - road.distance_traveled) + bike.x + bike.width
+        if not isinstance(cls.finish, Finish):
+            cls.finish = StatusBar.get_finish()
+        cls.finish.x = cls.finish.get_x()
 
     def go(self, acceleration):
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
-            status_bar.show_status('', None, self)
+            status_bar.show_status_finished()
+            return False
         else:
             bike = StatusBar.get_bike()
-            bike.acceleration = acceleration
-            bike.speed += acceleration
-            self.set_distance_traveled(bike)
+            event = GoEventRoad(self, bike)
 
-            self.set_finish_x()
-            status_bar.show_status('Go bike ===>', bike, self)
+            if event.start(acceleration):
+                status_bar.show_status('Go bike ===>', bike, self)
+            else:
+                return False
 
     def relax(self, acceleration):
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
-            status_bar.show_status('', None, self)
+            status_bar.show_status_finished()
+            return False
         else:
             bike = StatusBar.get_bike()
-            bike.acceleration = acceleration
+            event = RelaxEventRoad(self, bike)
 
-            if bike.speed - acceleration <= 0:
-                bike.speed = 0
-
-                self.set_finish_x()
+            if event.start(acceleration):
                 status_bar.show_status('... Relax ...', bike, self)
-                return False
             else:
-                bike.speed -= acceleration
-                self.set_distance_traveled(bike)
-
-                self.set_finish_x()
-                status_bar.show_status('... Relax ...', bike, self)
+                return False
 
     def stop(self, acceleration):
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
-            status_bar.show_status('', None, self)
+            status_bar.show_status_finished()
+            return False
         else:
             bike = StatusBar.get_bike()
-            bike.acceleration = acceleration
-            stop_way = (acceleration + SECOND_GAME) * 2
+            event = StopEventRoad(self, bike)
 
-            if bike.speed - stop_way <= 0:
-                bike.speed = 0
-
-                self.set_finish_x()
+            if event.start(acceleration):
                 status_bar.show_status('S T O P', bike, self)
-                return False
             else:
-                bike.speed -= stop_way
-                self.set_distance_traveled(bike)
-
-                self.set_finish_x()
-                status_bar.show_status('S T O P', bike, self)
+                return False
 
     def set_distance_traveled(self, bike):
         self.distance_traveled = self.texture.uvpos[0] + bike.speed
