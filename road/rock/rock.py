@@ -16,5 +16,7 @@ class Rock(Image):
 
         distance_traveled = self.x - bike.speed
 
+        bike.collision_rock()
+
         if (road.__class__.__name__ == 'Road') and (bike.__class__.__name__ == 'Bike'):
             return distance_traveled

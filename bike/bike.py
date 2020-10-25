@@ -1,7 +1,9 @@
 from kivy.animation import Animation
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
+from label.status_bar import StatusBar
 from kivy.uix.image import Image
+from kivy.graphics import Color, Rectangle
 Builder.load_file("bike/bike.kv")
 
 
@@ -27,6 +29,21 @@ class Bike(Image):
         anim.start(self)
 
     # events
+    def has_collision_rock(self):
+        rock = StatusBar.get_rock()
+        return (rock.x - rock.width - self.width) <= 0
+
+    def collision_rock(self):
+        print('****')
+        if self.has_collision_rock():
+            self.speed = 0
+            self.acceleration = 0
+
+            with self.canvas:
+                Color(rgba=(1, 0, 0, .1))
+                Rectangle(pos=self.pos, size=self.size)
+
+        print('****', )
 
     # info
 
