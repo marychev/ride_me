@@ -15,7 +15,7 @@ class Bike(Image):
     # animation
 
     def anim_go(self):
-        anim = Animation(angle=2, duration=.2)
+        anim = Animation(angle=4, duration=.2)
         anim.start(self)
 
     def anim_relax(self):

@@ -15,7 +15,7 @@ Builder.load_file("road/road.kv")
 
 class Road(Widget):
     texture = ObjectProperty(Image(source='road/img/road-2.png').texture)
-    total_way = NumericProperty(800)
+    total_way = NumericProperty(400)
     distance_traveled = NumericProperty(0)
 
     finish = ObjectProperty(None)
@@ -35,10 +35,16 @@ class Road(Widget):
 
         if self.has_finished():
             status_bar.show_status_finished()
-            return False
+            self.unschedule_events()
         else:
             bike = StatusBar.get_bike()
             event = GoEventRoad(self, bike)
+
+            bike.acceleration = acceleration
+            bike.speed += acceleration
+
+            self.set_distance_traveled(bike)
+            self.set_finish_x()
 
             if event.start(acceleration):
                 status_bar.show_status('Go bike ===>', bike, self)
@@ -50,7 +56,7 @@ class Road(Widget):
 
         if self.has_finished():
             status_bar.show_status_finished()
-            return False
+            self.unschedule_events()
         else:
             bike = StatusBar.get_bike()
             event = RelaxEventRoad(self, bike)
@@ -65,7 +71,6 @@ class Road(Widget):
 
         if self.has_finished():
             status_bar.show_status_finished()
-            return False
         else:
             bike = StatusBar.get_bike()
             event = StopEventRoad(self, bike)
@@ -80,15 +85,14 @@ class Road(Widget):
         set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
 
     def has_finished(self):
-        if self.distance_traveled >= self.total_way:
-            bg_animation = StatusBar.get_background_image_animation()
-            Clock.unschedule(self.go)
-            Clock.unschedule(self.relax)
-            Clock.unschedule(bg_animation.go_mountains)
-            Clock.unschedule(bg_animation.relax_mountains)
-            return True
+        return self.distance_traveled >= self.total_way
 
-        return False
+    def unschedule_events(self):
+        bg_animation = StatusBar.get_background_image_animation()
+        Clock.unschedule(self.go)
+        Clock.unschedule(self.relax)
+        Clock.unschedule(bg_animation.go_mountains)
+        Clock.unschedule(bg_animation.relax_mountains)
 
     def show_status(self, title='ROAD'):
         return '''

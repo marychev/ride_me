@@ -26,6 +26,7 @@ class RightButtonWidget(LeftButtonWidget):
     def _road_manage_events(self, is_press=False, is_release=False):
         road = StatusBar.get_road()
         bike = StatusBar.get_bike()
+
         if is_press:
             extra_acceleration = self.counter.count / 4
             bike.acceleration += extra_acceleration

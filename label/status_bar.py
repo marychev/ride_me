@@ -34,12 +34,11 @@ class StatusBar(Label):
 
     def show_status(self, title, bike, road):
         self.text = '{}\r{}{}'.format(title, bike.show_status(), road.show_status())
-        return self.text
 
     def show_status_finished(self):
+        print('FINISH')
         self.text = 'FINISH!'
         self.size_hint = .99, .88
         self.valign = 'center'
         self.halign = 'center'
         self.font_size = 42
-        return self.text

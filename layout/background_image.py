@@ -46,7 +46,8 @@ class BackgroundImageAnimation(Widget):
 
     def go_mountains(self, dt):
         if StatusBar.get_road().has_finished():
-            print('finish -go -r')
+            print('finish -go go_mountains')
+            return False
         else:
             def set_ivpos(texture):
                 return texture.uvpos[0] + dt/10, texture.uvpos[1]
@@ -57,7 +58,7 @@ class BackgroundImageAnimation(Widget):
 
     def relax_mountains(self, dt):
         if StatusBar.get_road().has_finished():
-            print('finish -go -r')
+            print('finish -relax_mountains -r')
         else:
             bike = StatusBar.get_bike()
             if bike.speed <= 0:

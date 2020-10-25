@@ -39,6 +39,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     def _road_manage_events(self, is_press=False, is_release=False):
         road = StatusBar.get_road()
+
         if is_press:
             Clock.unschedule(road.relax)
             Clock.schedule_interval(road.stop, SECOND_GAME)
@@ -51,6 +52,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
         bg_animation = StatusBar.get_background_image_animation()
         bike = StatusBar.get_bike()
+
         if bike.speed <= 0:
             Clock.unschedule(bg_animation.relax_mountains)
             Clock.schedule_interval(bg_animation.stop_mountains, SECOND_GAME)
