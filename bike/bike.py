@@ -6,7 +6,7 @@ Builder.load_file("bike/bike.kv")
 
 
 class Bike(Image):
-    source = StringProperty('bike/bike-1.png')
+    source = StringProperty('bike/img/bike-1.png')
     gravity = NumericProperty(0.2)
     acceleration = NumericProperty(0)
     speed = NumericProperty(0)
@@ -15,7 +15,7 @@ class Bike(Image):
     # animation
 
     def anim_go(self):
-        anim = Animation(angle=4, duration=.2)
+        anim = Animation(angle=6, duration=.2)
         anim.start(self)
 
     def anim_relax(self):
@@ -23,7 +23,7 @@ class Bike(Image):
         anim.start(self)
 
     def anim_stop(self):
-        anim = Animation(angle=-2, duration=.1)
+        anim = Animation(angle=-3, duration=.1)
         anim.start(self)
 
     # events

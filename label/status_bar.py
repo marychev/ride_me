@@ -17,6 +17,10 @@ class StatusBar(Label):
         return get_game_screen().ids.road
 
     @staticmethod
+    def get_rock():
+        return get_game_screen().ids.rock
+
+    @staticmethod
     def get_finish():
         return get_game_screen().ids.finish
 

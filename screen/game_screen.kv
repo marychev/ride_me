@@ -3,8 +3,9 @@
 #:import Tools layout.tools.Tools
 #:import LeftButtonWidget button.left_button.LeftButtonWidget
 #:import RightButtonWidget button.right_button.RightButtonWidget
-#:import Bike bike.bike.Bike
 #:import Road road.road.Road
+#:import Bike bike.bike.Bike
+#:import Rock road.rock.Rock
 #:import Finish road.finish.Finish
 #:import StatusBar label.status_bar.StatusBar
 
@@ -38,11 +39,21 @@
                 width: Window.width
                 size_hint: None, None
 
+                # --- ROCK DEV ---
+                Rock:
+                    id: rock
+                    source: 'road/rock/img/rock-1.png'
+                    x: Window.width / 2
+                    y: root.ids.tools.height
+                    height: int(self.texture_size[0] - 20)
+
+                # --- END ROCK DEV ---
+
                 Finish:
                     id: finish
                     x: -self.width
                     y: root.ids.tools.height
-                    width: 40
+                    width: 80
                     height: root.ids.road.height
                     size_hint: None, None
 

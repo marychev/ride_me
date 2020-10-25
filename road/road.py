@@ -14,8 +14,8 @@ Builder.load_file("road/road.kv")
 
 
 class Road(Widget):
-    texture = ObjectProperty(Image(source='road/img/road-2.png').texture)
-    total_way = NumericProperty(400)
+    texture = ObjectProperty(Image(source='road/img/road-01.png').texture)
+    total_way = NumericProperty(800)
     distance_traveled = NumericProperty(0)
 
     finish = ObjectProperty(None)
@@ -28,9 +28,10 @@ class Road(Widget):
     def set_finish_x(cls):
         if not isinstance(cls.finish, Finish):
             cls.finish = StatusBar.get_finish()
-        cls.finish.x = cls.finish.get_x()
+        cls.finish.set_x()
 
     def go(self, acceleration):
+        print('GO ROAD!')
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
@@ -38,20 +39,13 @@ class Road(Widget):
             self.unschedule_events()
         else:
             bike = StatusBar.get_bike()
-            event = GoEventRoad(self, bike)
-
-            bike.acceleration = acceleration
-            bike.speed += acceleration
-
-            self.set_distance_traveled(bike)
-            self.set_finish_x()
+            event = GoEventRoad(self, bike, StatusBar.get_rock())
 
             if event.start(acceleration):
                 status_bar.show_status('Go bike ===>', bike, self)
-            else:
-                return False
 
     def relax(self, acceleration):
+        print('RELAX ROAD!')
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
@@ -59,11 +53,12 @@ class Road(Widget):
             self.unschedule_events()
         else:
             bike = StatusBar.get_bike()
-            event = RelaxEventRoad(self, bike)
+            event = RelaxEventRoad(self, bike, StatusBar.get_rock())
 
             if event.start(acceleration):
                 status_bar.show_status('... Relax ...', bike, self)
             else:
+                # event stops or can't start
                 return False
 
     def stop(self, acceleration):
@@ -73,12 +68,10 @@ class Road(Widget):
             status_bar.show_status_finished()
         else:
             bike = StatusBar.get_bike()
-            event = StopEventRoad(self, bike)
+            event = StopEventRoad(self, bike, StatusBar.get_rock())
 
             if event.start(acceleration):
                 status_bar.show_status('S T O P', bike, self)
-            else:
-                return False
 
     def set_distance_traveled(self, bike):
         self.distance_traveled = self.texture.uvpos[0] + bike.speed
