@@ -19,9 +19,10 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     @classmethod
     def set_objects(cls):
-        cls.road = StatusBar.get_road()
-        cls.bike = StatusBar.get_bike()
-        cls.bg_animation = StatusBar.get_background_image_animation()
+        status_bar = StatusBar()
+        cls.road = status_bar.get_road()
+        cls.bike = status_bar.get_bike()
+        cls.bg_animation = status_bar.get_background_image_animation()
 
     def button_state_style(self):
         if 'down' in self.state:

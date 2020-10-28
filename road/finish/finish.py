@@ -19,14 +19,27 @@ class Finish(Widget):
     def set_x(self):
         print('x-finish')
         self.x = self.get_x()
+        self.redraw_texture()
 
     def get_x(self):
         print('get x finish')
-        bike = self.parent.parent.children[0]
+        bike = self.get_bike()
+        road = self.get_road()
+        return (road.total_way - road.distance_traveled) + bike.x + bike.width
+
+    # general elements and functions
+
+    def redraw_texture(self, name='texture'):
+        texture = self.property(name)
+        texture.dispatch(self)
+
+    def get_road(self):
         road = self.parent.parent.children[1]
+        if road.__class__.__name__ == 'Road':
+            return road
 
-        if (road.__class__.__name__ == 'Road') and (bike.__class__.__name__ == 'Bike'):
-            return (road.total_way - road.distance_traveled) + bike.x + bike.width
-
-
+    def get_bike(self):
+        bike = self.parent.parent.children[0]
+        if bike.__class__.__name__ == 'Bike':
+            return bike
 
