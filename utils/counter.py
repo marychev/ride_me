@@ -11,13 +11,14 @@ class CounterClock(EventDispatcher):
         self.register_event_type('on_counter')
 
     def on_counter(self):
-        print('INIT on_counter event', self)
+        print('INIT on_counter event', self.count)
+        self.start()
 
     def _on_counter(self, dt):
         self.count += dt
 
     def start(self):
-        self.on_counter = Clock.schedule_interval(self._on_counter, 1/60)
+        Clock.schedule_interval(self._on_counter, 1/60)
 
     def stop(self):
-        self.on_counter.cancel()
+        Clock.unschedule(self._on_counter)

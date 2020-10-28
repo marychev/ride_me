@@ -9,12 +9,10 @@ class Rock(Image):
         return self.x - self.get_bike().speed
 
     def set_x(self):
-        print('x-rock')
         self.x = self.get_x()
         self.redraw_texture()
 
     def get_x(self):
-        print('todo-1', self.texture_size, self.size)
         return self.get_distance_traveled()
 
     # general elements and functions

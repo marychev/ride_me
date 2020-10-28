@@ -4,6 +4,7 @@ from screen.utils import get_game_screen
 
 class KeyboardHandler(object):
     def __init__(self):
+        self.on_down_last_time = 0
         self.active_key = None
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
@@ -22,7 +23,8 @@ class KeyboardHandler(object):
         self._keyboard = None
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
-        print('DOWN: _on_keyboard_down', self.active_key)
+        print('DOWN: _on_keyboard_down', self.active_key, keycode[1])
+
         left_btn = self.get_left_btn()
         right_btn = self.get_right_btn()
 
@@ -32,6 +34,8 @@ class KeyboardHandler(object):
         elif keycode[1] == 'left' and self.active_key is None:
             left_btn.state = 'down'
             left_btn.on_press()
+        elif keycode[1] == 'spacebar' and self.active_key is None:
+            left_btn.on_double_press(self._keyboard)
 
         self.active_key = keycode[1]
         return True

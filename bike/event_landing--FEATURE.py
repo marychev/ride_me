@@ -54,7 +54,6 @@ class LandingBikeEvent(BaseBikeEvent):
 
     def collision_with_land(self):
         if self.has_collision_with_land():
-            print('\n\tContact with the land. BOOM!!!\n\t------------------------------')
             self.speed = 0
             self.y = self.road_pos.y
             self.current_event = '{}-collision'.format(self.current_event)

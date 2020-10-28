@@ -4,6 +4,8 @@ from kivy.properties import NumericProperty, StringProperty
 from label.status_bar import StatusBar
 from kivy.uix.image import Image
 from kivy.graphics import Color, Rectangle
+from road.events import JumpEventRoad
+
 Builder.load_file("bike/bike.kv")
 
 
@@ -14,17 +16,39 @@ class Bike(Image):
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
 
+    def get_road(self):
+        road = self.parent.children[1]
+        if road.__class__.__name__ == 'Road':
+            return road
+
+    def get_rock(self):
+        rock = self.get_road().children[1]
+        if rock.__class__.__name__ == 'Rock':
+            return rock
+
+    def get_finish(self):
+        finish = self.get_road().children[0]
+        if finish.__class__.__name__ == 'Finish':
+            return finish
+
+    def is_in_sky(self):
+        road = self.get_road()
+        return road.x + road.height < self.y
+
     # animation
 
     def anim_go(self):
+        self.source = 'bike/img/bike-go.jpg'
         anim = Animation(angle=6, duration=.2)
         anim.start(self)
 
     def anim_relax(self):
+        self.source = 'bike/img/bike-1.png'
         anim = Animation(angle=0, duration=.2)
         anim.start(self)
 
     def anim_stop(self):
+        self.source = 'bike/img/bike-1.png'
         anim = Animation(angle=-3, duration=.1)
         anim.start(self)
 
@@ -34,12 +58,10 @@ class Bike(Image):
 
     # events
     def has_collision_rock(self):
-        rock = StatusBar.get_rock()
+        rock = self.get_rock()
         return rock.x <= self.x + self.width
 
     def collision_rock(self):
-        rock = StatusBar.get_rock()
-        print('**** COLLISION START ', rock.x <= self.width+self.x)
         self.speed = 0
         self.acceleration = 0
 
@@ -48,8 +70,6 @@ class Bike(Image):
             Rectangle(pos=self.pos, size=self.size)
 
         self.anim_collision()
-
-        print('COLLISION END  <****')
 
     # info
 

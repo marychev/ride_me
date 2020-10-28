@@ -22,7 +22,6 @@ class Finish(Widget):
         self.redraw_texture()
 
     def get_x(self):
-        print('get x finish')
         bike = self.get_bike()
         road = self.get_road()
         return (road.total_way - road.distance_traveled) + bike.x + bike.width

@@ -2,11 +2,11 @@ from label.status_bar import StatusBar
 
 
 class GoEventRoad:
-    def __init__(self, road=None, bike=None, rock=None):
+    def __init__(self, road=None, bike=None, rock=None, finish=None):
         self.road = road or StatusBar.get_road()
         self.bike = bike or StatusBar.get_bike()
         self.rock = rock or StatusBar.get_rock()
-        self.finish = StatusBar.get_finish()
+        self.finish = finish or StatusBar.get_finish()
 
     def start(self, acceleration):
         print('Start GO ROAD')

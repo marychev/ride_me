@@ -2,6 +2,7 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from button.left_button import LeftButtonWidget
 from conf import SECOND_GAME
+from kivy.properties import ObjectProperty
 
 Builder.load_file('button/right_button.kv')
 

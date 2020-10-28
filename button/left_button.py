@@ -13,16 +13,24 @@ Builder.load_file('button/left_button.kv')
 class LeftButtonWidget(ButtonBehavior, Image):
     counter = ObjectProperty(CounterClock())
 
+    status_bar = ObjectProperty(None)
     road = ObjectProperty(None)
     bike = ObjectProperty(None)
     bg_animation = ObjectProperty(None)
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.register_event_type('on_double_press')
+        if kwargs.get("on_double_press") is not None:
+            self.bind(on_double_press=kwargs.get("on_double_press"))
+
     @classmethod
     def set_objects(cls):
-        status_bar = StatusBar()
-        cls.road = status_bar.get_road()
-        cls.bike = status_bar.get_bike()
-        cls.bg_animation = status_bar.get_background_image_animation()
+        cls.status_bar = StatusBar()
+        cls.road = cls.status_bar.get_road()
+        cls.bike = cls.status_bar.get_bike()
+        cls.bg_animation = cls.status_bar.get_background_image_animation()
 
     def button_state_style(self):
         if 'down' in self.state:
@@ -33,6 +41,19 @@ class LeftButtonWidget(ButtonBehavior, Image):
             self.disabled = False
         else:
             raise 0
+
+    # events
+
+    def on_touch_down(self, touch):
+        if touch.is_double_tap:
+            self.dispatch('on_double_press', touch)
+            return True
+        return super().on_touch_down(touch)
+
+    def on_double_press(self, touch):
+        print('DDDDDDDD', touch)
+        self.status_bar or self.set_objects()
+        Clock.schedule_interval(self.road.jump, SECOND_GAME)
 
     def on_press(self):
         self.set_objects()
