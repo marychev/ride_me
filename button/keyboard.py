@@ -1,5 +1,5 @@
 from kivy.core.window import Window
-from kivy.app import App
+from screen.utils import get_game_screen
 
 
 class KeyboardHandler(object):
@@ -9,16 +9,11 @@ class KeyboardHandler(object):
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
         self._keyboard.bind(on_key_up=self._on_keyboard_up)
 
-    @staticmethod
-    def get_game_screen():
-        app = App.get_running_app()
-        return app.root.get_screen('game')
-
     def get_left_btn(self):
-        return self.get_game_screen().ids.left_btn_wrap.children[0]
+        return get_game_screen().ids.left_btn_wrap.children[0]
 
     def get_right_btn(self):
-        return self.get_game_screen().ids.right_btn_wrap.children[0]
+        return get_game_screen().ids.right_btn_wrap.children[0]
 
     def _keyboard_closed(self):
         print('CLOSED: _keyboard_closed')

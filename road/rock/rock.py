@@ -5,6 +5,10 @@ Builder.load_file("road/rock/rock.kv")
 
 
 class Rock(Image):
+    def get_distance_traveled(self):
+        bike = self.parent.parent.children[0]
+        return self.x - bike.speed
+
     def set_x(self):
         print('x-rock')
         self.x = self.get_x()
@@ -14,9 +18,5 @@ class Rock(Image):
         bike = self.parent.parent.children[0]
         road = self.parent.parent.children[1]
 
-        distance_traveled = self.x - bike.speed
-
-        bike.collision_rock()
-
         if (road.__class__.__name__ == 'Road') and (bike.__class__.__name__ == 'Bike'):
-            return distance_traveled
+            return self.get_distance_traveled()

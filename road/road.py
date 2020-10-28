@@ -7,7 +7,6 @@ from kivy.uix.widget import Widget
 from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
 from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad
-from road.finish import Finish
 from utils.checks import set_texture_uvpos
 
 Builder.load_file("road/road.kv")
@@ -15,20 +14,12 @@ Builder.load_file("road/road.kv")
 
 class Road(Widget):
     texture = ObjectProperty(Image(source='road/img/road-01.png').texture)
-    total_way = NumericProperty(800)
+    total_way = NumericProperty(500)
     distance_traveled = NumericProperty(0)
-
-    finish = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
         BackgroundImageAnimation.repeat_wrap(self.texture, Window.width / self.texture.width)
-
-    @classmethod
-    def set_finish_x(cls):
-        if not isinstance(cls.finish, Finish):
-            cls.finish = StatusBar.get_finish()
-        cls.finish.set_x()
 
     def go(self, acceleration):
         print('GO ROAD!')
@@ -43,6 +34,9 @@ class Road(Widget):
 
             if event.start(acceleration):
                 status_bar.show_status('Go bike ===>', bike, self)
+            else:
+                status_bar.show_status('No Go ???', bike, self)
+                self.unschedule_events()
 
     def relax(self, acceleration):
         print('RELAX ROAD!')
@@ -58,10 +52,11 @@ class Road(Widget):
             if event.start(acceleration):
                 status_bar.show_status('... Relax ...', bike, self)
             else:
-                # event stops or can't start
-                return False
+                status_bar.show_status('No relax ???', bike, self)
+                self.unschedule_events()
 
     def stop(self, acceleration):
+        print('STOP ROAD!')
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
@@ -72,9 +67,15 @@ class Road(Widget):
 
             if event.start(acceleration):
                 status_bar.show_status('S T O P', bike, self)
+            else:
+                status_bar.show_status('No stop ???', bike, self)
+                self.unschedule_events()
+
+    def get_distance_traveled(self, bike):
+        return self.texture.uvpos[0] + bike.speed
 
     def set_distance_traveled(self, bike):
-        self.distance_traveled = self.texture.uvpos[0] + bike.speed
+        self.distance_traveled = self.get_distance_traveled(bike)
         set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
 
     def has_finished(self):

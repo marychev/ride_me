@@ -11,7 +11,6 @@ Builder.load_file("road/finish/finish.kv")
 
 class Finish(Widget):
     texture = ObjectProperty(Image(source='road/finish/img/finish.jpg').texture)
-    distance_traveled = NumericProperty(0)
 
     def __init__(self, **kwargs):
         super(Finish, self).__init__(**kwargs)
@@ -22,7 +21,7 @@ class Finish(Widget):
         self.x = self.get_x()
 
     def get_x(self):
-        print('todo-2, finish')
+        print('get x finish')
         bike = self.parent.parent.children[0]
         road = self.parent.parent.children[1]
 

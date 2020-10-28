@@ -28,22 +28,28 @@ class Bike(Image):
         anim = Animation(angle=-3, duration=.1)
         anim.start(self)
 
+    def anim_collision(self):
+        anim = Animation(angle=180, duration=.2)
+        anim.start(self)
+
     # events
     def has_collision_rock(self):
         rock = StatusBar.get_rock()
-        return (rock.x - rock.width - self.width) <= 0
+        return rock.x <= self.x + self.width
 
     def collision_rock(self):
-        print('****')
-        if self.has_collision_rock():
-            self.speed = 0
-            self.acceleration = 0
+        rock = StatusBar.get_rock()
+        print('**** COLLISION START ', rock.x <= self.width+self.x)
+        self.speed = 0
+        self.acceleration = 0
 
-            with self.canvas:
-                Color(rgba=(1, 0, 0, .1))
-                Rectangle(pos=self.pos, size=self.size)
+        with self.canvas:
+            Color(rgba=(1, 0, 0, .2))
+            Rectangle(pos=self.pos, size=self.size)
 
-        print('****', )
+        self.anim_collision()
+
+        print('COLLISION END  <****')
 
     # info
 
