@@ -20,7 +20,6 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
         self.register_event_type('on_double_press')
         if kwargs.get("on_double_press") is not None:
             self.bind(on_double_press=kwargs.get("on_double_press"))
@@ -51,7 +50,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
         return super().on_touch_down(touch)
 
     def on_double_press(self, touch):
-        print('DDDDDDDD', touch)
+        print('ON PRESS JUMP', touch)
         self.status_bar or self.set_objects()
         Clock.schedule_interval(self.road.jump, SECOND_GAME)
 

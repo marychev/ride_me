@@ -13,6 +13,7 @@ class Bike(Image):
     source = StringProperty('bike/img/bike-1.png')
     gravity = NumericProperty(0.2)
     acceleration = NumericProperty(0)
+    power = NumericProperty(100)
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
 
@@ -77,11 +78,12 @@ class Bike(Image):
         return '''
 ------------------------------------------- [{}]
 _acceleration:             {}
+_power:                             {}
 Speed:                          {}
 Pos:                              {}
 '''.format(
             title,
-            self.acceleration,
+            self.acceleration, self.power,
             self.speed,
             self.pos,
         )

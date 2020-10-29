@@ -1,34 +1,23 @@
-from conf import SECOND_GAME
 from .go import GoEventRoad
-from kivy.clock import Clock
-from kivy.properties import NumericProperty, ObjectProperty, StringProperty
 
 
 class JumpEventRoad(GoEventRoad):
-    def __init__(self, road, bike, rock, finish=None):
-        super().__init__(road, bike, rock, finish)
-        self.pre_event = ''
 
-    def define_event(self):
-        max_jump = self.road.x + 200
-        if self.bike.y <= max_jump and not self.pre_event:
-            return 'start'
-        elif self.bike.is_in_sky() and self.pre_event:
-            return 'landing'
-        else:
-            print(self.bike.is_in_sky(), self.pre_event)
+    def __init__(self, road, bike, rock, finish):
+        super(JumpEventRoad, self).__init__(road, bike, rock, finish)
+        self.max_jump = 200
 
-    def start(self, acceleration):
-        max_jump = self.road.x + 200
-        if self.bike.y <= max_jump and not self.pre_event:
-            self.bike.y += acceleration * 80
+    def up(self, acceleration):
+        if self.bike.y < self.max_jump:
+            self.bike.y += acceleration * self.bike.power
+            self.bike.power -= acceleration * self.bike.power
             return True
-        self.pre_event = 'start'
 
     def landing(self, acceleration):
         is_in_sky = self.bike.is_in_sky()
-        if self.bike.is_in_sky() and self.pre_event:
-            self.bike.y -= acceleration * 80
+        if is_in_sky:
+            self.bike.y -= acceleration * self.bike.power
+            self.bike.power += acceleration * self.bike.power
         else:
             self.bike.y = self.road.height
-        return is_in_sky and self.pre_event
+        return is_in_sky
