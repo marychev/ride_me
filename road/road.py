@@ -9,6 +9,7 @@ from layout.background_image import BackgroundImageAnimation
 from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad, JumpEventRoad
 from utils.checks import set_texture_uvpos
 from conf import SECOND_GAME
+from utils.validation import ValidObject
 
 Builder.load_file("road/road.kv")
 
@@ -22,6 +23,18 @@ class Road(Widget):
         super(Road, self).__init__(**kwargs)
         BackgroundImageAnimation.repeat_wrap(self.texture, Window.width / self.texture.width)
         Clock.schedule_interval(self.do_landing, SECOND_GAME)
+
+    def get_distance_traveled(self, bike):
+        return self.texture.uvpos[0] + bike.speed
+
+    def set_distance_traveled(self, bike):
+        self.distance_traveled = self.get_distance_traveled(bike)
+        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
+
+    def has_finished(self):
+        return self.distance_traveled >= self.total_way
+
+    # events
 
     def do_landing(self, dt):
         event = JumpEventRoad(self, self.get_bike(), self.get_rock(), self.get_finish())
@@ -92,16 +105,6 @@ class Road(Widget):
                 status_bar.show_status('No stop ???', bike, self)
                 self.unschedule_events()
 
-    def get_distance_traveled(self, bike):
-        return self.texture.uvpos[0] + bike.speed
-
-    def set_distance_traveled(self, bike):
-        self.distance_traveled = self.get_distance_traveled(bike)
-        set_texture_uvpos(self, self.distance_traveled, self.texture.uvpos[1])
-
-    def has_finished(self):
-        return self.distance_traveled >= self.total_way
-
     def unschedule_events(self):
         bg_animation = StatusBar.get_background_image_animation()
         Clock.unschedule(self.jump)
@@ -124,17 +127,22 @@ distance_traveled:    {}
 
     # get parents and children
 
+    def get_tools(self):
+        return ValidObject.tools(self.parent.parent.children[0])
+
     def get_bike(self):
-        bike = self.parent.children[0]
-        if bike.__class__.__name__ == 'Bike':
-            return bike
+        return ValidObject.bike(self.parent.children[0])
 
     def get_rock(self):
-        rock = self.children[1]
-        if rock.__class__.__name__ == 'Rock':
-            return rock
+        return ValidObject.road(self.children[1])
 
     def get_finish(self):
-        finish = self.children[0]
-        if finish.__class__.__name__ == 'Finish':
-            return finish
+        return ValidObject.finish(self.children[0])
+
+    # initialization
+
+    def init_size(self):
+        return Window.width, self.height
+
+    def init_pos(self):
+        return 0, self.get_tools().height

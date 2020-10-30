@@ -10,7 +10,7 @@ class GoEventRoad:
 
     def start(self, acceleration):
         print('Start GO ROAD')
-        if self.bike.has_collision_rock():
+        if self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
             return False
         else:

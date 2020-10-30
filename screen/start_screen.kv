@@ -16,6 +16,13 @@
             pos_hint: {'x': .3, 'y': .2}
             on_press: root.manager.current = 'game'
 
+        Button:
+            text: 'Restart game'
+            font_size: 42
+            size_hint: .4, .6
+            pos_hint: {'x': .3, 'y': .2}
+            on_press: root.restart_game()
+
         AnchorLayout:
             anchor_x: 'center'
             anchor_y: 'center'

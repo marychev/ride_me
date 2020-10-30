@@ -34,35 +34,25 @@
 
             Road:
                 id: road
-                x: 0
-                y: root.ids.tools.height
-                width: Window.width
+                pos: self.init_pos()
+                width: self.init_size()[0]
                 size_hint: None, None
 
-                # --- ROCK DEV ---
                 Rock:
                     id: rock
-                    source: 'road/rock/img/rock-1.png'
-                    x: 400
-                    y: root.ids.tools.height
-                    height: int(self.texture_size[0] - 20)
-
-                # --- END ROCK DEV ---
+                    pos: self.init_pos()
+                    height: self.init_size()[1]
 
                 Finish:
                     id: finish
-                    x: -self.width
-                    y: root.ids.tools.height
-                    width: 80
-                    height: root.ids.road.height
+                    pos: self.init_pos()
+                    size: self.init_size()
                     size_hint: None, None
 
             Bike:
                 id: bike
-                x: 80
-                y: (root.ids.road.pos[1] + root.ids.road.height/4) + 100
-                height: int(Window.width / 16)
-                width: self.height
+                pos: self.init_pos()
+                size: self.init_size()
                 size_hint: None, None
 
         Tools:

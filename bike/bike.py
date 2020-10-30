@@ -1,10 +1,10 @@
 from kivy.animation import Animation
+from kivy.graphics import Color, Rectangle
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
-from label.status_bar import StatusBar
 from kivy.uix.image import Image
-from kivy.graphics import Color, Rectangle
-from road.events import JumpEventRoad
+from kivy.core.window import Window
+from utils.validation import ValidObject
 
 Builder.load_file("bike/bike.kv")
 
@@ -16,21 +16,6 @@ class Bike(Image):
     power = NumericProperty(100)
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
-
-    def get_road(self):
-        road = self.parent.children[1]
-        if road.__class__.__name__ == 'Road':
-            return road
-
-    def get_rock(self):
-        rock = self.get_road().children[1]
-        if rock.__class__.__name__ == 'Rock':
-            return rock
-
-    def get_finish(self):
-        finish = self.get_road().children[0]
-        if finish.__class__.__name__ == 'Finish':
-            return finish
 
     def is_in_sky(self):
         road = self.get_road()
@@ -58,9 +43,6 @@ class Bike(Image):
         anim.start(self)
 
     # events
-    def has_collision_rock(self):
-        rock = self.get_rock()
-        return rock.x <= self.x + self.width
 
     def collision_rock(self):
         self.speed = 0
@@ -87,3 +69,23 @@ Pos:                              {}
             self.speed,
             self.pos,
         )
+
+    # get parent and children
+
+    def get_road(self):
+        return ValidObject.road(self.parent.children[1])
+
+    def get_rock(self):
+        return ValidObject.rock(self.get_road().children[1])
+
+    def get_finish(self):
+        return ValidObject.finish(self.get_road().children[0])
+
+    # initialization
+
+    def init_pos(self):
+        road = self.get_road()
+        return 80, (road.y + road.height / 4) + 100
+
+    def init_size(self):
+        return int(Window.width / 16), int(Window.width / 16)

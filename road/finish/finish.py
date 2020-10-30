@@ -3,8 +3,8 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty, NumericProperty
 from kivy.lang import Builder
-# from road.road import Road
-# from bike.bike import Bike
+from utils.validation import ValidObject
+from utils.texture import redraw_texture
 
 Builder.load_file("road/finish/finish.kv")
 
@@ -17,9 +17,8 @@ class Finish(Widget):
         BackgroundImageAnimation.repeat_wrap(self.texture, 8, 8)
 
     def set_x(self):
-        print('x-finish')
         self.x = self.get_x()
-        self.redraw_texture()
+        redraw_texture(self)
 
     def get_x(self):
         bike = self.get_bike()
@@ -28,17 +27,20 @@ class Finish(Widget):
 
     # general elements and functions
 
-    def redraw_texture(self, name='texture'):
-        texture = self.property(name)
-        texture.dispatch(self)
-
     def get_road(self):
-        road = self.parent.parent.children[1]
-        if road.__class__.__name__ == 'Road':
-            return road
+        return ValidObject.road(self.parent.parent.children[1])
 
     def get_bike(self):
-        bike = self.parent.parent.children[0]
-        if bike.__class__.__name__ == 'Bike':
-            return bike
+        return ValidObject.bike(self.parent.parent.children[0])
+
+    def get_tools(self):
+        return ValidObject.tools(self.parent.parent.parent.children[0])
+
+    # initialization
+
+    def init_pos(self):
+        return -self.width, self.get_tools().height
+
+    def init_size(self):
+        return 80, self.get_road().height
 
