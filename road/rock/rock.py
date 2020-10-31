@@ -15,9 +15,6 @@ class Rock(Image):
         redraw_texture(self)
 
     def get_x(self):
-        return self.get_distance_traveled()
-
-    def get_distance_traveled(self):
         return self.x - self.get_bike().speed
 
     # general elements and functions
@@ -27,11 +24,3 @@ class Rock(Image):
 
     def get_tools(self):
         return ValidObject.tools(self.parent.parent.parent.children[0])
-
-    # initialization
-
-    def init_size(self):
-        return self.width, int(self.texture_size[0] - 20)
-
-    def init_pos(self):
-        return 400, self.get_tools().height

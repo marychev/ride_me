@@ -34,25 +34,25 @@
 
             Road:
                 id: road
-                pos: self.init_pos()
-                width: self.init_size()[0]
+                pos: 0, root.ids.tools.height
+                size: Window.width, self.height
                 size_hint: None, None
 
                 Rock:
                     id: rock
-                    pos: self.init_pos()
-                    height: self.init_size()[1]
+                    pos: 400, root.ids.tools.height
+                    size: int(Window.width / 16), int(Window.width / 16)
 
                 Finish:
                     id: finish
-                    pos: self.init_pos()
-                    size: self.init_size()
+                    pos: root.ids.road.total_way, root.ids.tools.height
+                    size: 80, root.ids.road.height
                     size_hint: None, None
 
             Bike:
                 id: bike
-                pos: self.init_pos()
-                size: self.init_size()
+                pos: 80, root.ids.tools.height  # + 200
+                size: int(Window.width / 16), int(Window.width / 16)
                 size_hint: None, None
 
         Tools:

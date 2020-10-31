@@ -3,23 +3,29 @@ from kivy.graphics import Color, Rectangle
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
-from kivy.core.window import Window
 from utils.validation import ValidObject
+from kivy.clock import Clock
+from conf import SECOND_GAME
 
 Builder.load_file("bike/bike.kv")
 
 
 class Bike(Image):
     source = StringProperty('bike/img/bike-1.png')
-    gravity = NumericProperty(0.2)
     acceleration = NumericProperty(0)
-    power = NumericProperty(100)
+    power = NumericProperty(50)
+    max_power = NumericProperty(200)
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
 
+    def set_power(self, dt):
+        power = self.power
+        power = power - (dt*100) if int(dt) < 0 else power + (dt*100)
+        self.power = float('{:3.2f}'.format(power))
+
     def is_in_sky(self):
         road = self.get_road()
-        return road.x + road.height < self.y
+        return road.y < self.y
 
     # animation
 
@@ -60,7 +66,7 @@ class Bike(Image):
         return '''
 ------------------------------------------- [{}]
 _acceleration:             {}
-_power:                             {}
+_power:                           {} 
 Speed:                          {}
 Pos:                              {}
 '''.format(
@@ -70,7 +76,7 @@ Pos:                              {}
             self.pos,
         )
 
-    # get parent and children
+    # game objects
 
     def get_road(self):
         return ValidObject.road(self.parent.children[1])
@@ -80,12 +86,3 @@ Pos:                              {}
 
     def get_finish(self):
         return ValidObject.finish(self.get_road().children[0])
-
-    # initialization
-
-    def init_pos(self):
-        road = self.get_road()
-        return 80, (road.y + road.height / 4) + 100
-
-    def init_size(self):
-        return int(Window.width / 16), int(Window.width / 16)

@@ -4,6 +4,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from label.status_bar import StatusBar
+from utils.texture import redraw_texture
 
 
 class BackgroundImageAnimation(Widget):
@@ -25,10 +26,6 @@ class BackgroundImageAnimation(Widget):
         texture.wrap = 'repeat'
         texture.uvsize = (uvsize_x, uvsize_y)
 
-    def redraw_textures(self, texture_name):
-        texture = self.property(texture_name)
-        texture.dispatch(self)
-
     # clouds textures
 
     def scroll_textures_clouds(self, dt):
@@ -38,9 +35,9 @@ class BackgroundImageAnimation(Widget):
         self.cloud_middle_texture.uvpos = set_ivpos(self.cloud_middle_texture)
         self.cloud_big_texture.uvpos = set_ivpos(self.cloud_big_texture)
 
-        self.redraw_textures('cloud_min_texture')
-        self.redraw_textures('cloud_middle_texture')
-        self.redraw_textures('cloud_big_texture')
+        redraw_texture(self, 'cloud_min_texture')
+        redraw_texture(self, 'cloud_middle_texture')
+        redraw_texture(self, 'cloud_big_texture')
 
     # mountains textures
 
@@ -53,7 +50,7 @@ class BackgroundImageAnimation(Widget):
             self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
 
             self.repeat_wrap(self.mountains_texture)
-            self.redraw_textures('mountains_texture')
+            redraw_texture(self, 'mountains_texture')
 
     def relax_mountains(self, dt):
         if StatusBar.get_road().has_finished():
@@ -68,4 +65,4 @@ class BackgroundImageAnimation(Widget):
             self.mountains_texture.uvpos = set_ivpos(self.mountains_texture)
 
             self.repeat_wrap(self.mountains_texture)
-            self.redraw_textures('mountains_texture')
+            redraw_texture(self, 'mountains_texture')

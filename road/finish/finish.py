@@ -5,6 +5,7 @@ from kivy.properties import ObjectProperty, NumericProperty
 from kivy.lang import Builder
 from utils.validation import ValidObject
 from utils.texture import redraw_texture
+from kivy.core.window import Window
 
 Builder.load_file("road/finish/finish.kv")
 
@@ -24,8 +25,10 @@ class Finish(Widget):
         bike = self.get_bike()
         road = self.get_road()
         return (road.total_way - road.distance_traveled) + bike.x + bike.width
+        # return self.pos[0] - bike.speed
+        # return road.total_way - road.distance_traveled
 
-    # general elements and functions
+    # game objects
 
     def get_road(self):
         return ValidObject.road(self.parent.parent.children[1])
@@ -35,12 +38,3 @@ class Finish(Widget):
 
     def get_tools(self):
         return ValidObject.tools(self.parent.parent.parent.children[0])
-
-    # initialization
-
-    def init_pos(self):
-        return -self.width, self.get_tools().height
-
-    def init_size(self):
-        return 80, self.get_road().height
-

@@ -1,4 +1,5 @@
 from .go import GoEventRoad
+from utils.state import State
 
 
 class RelaxEventRoad(GoEventRoad):
@@ -6,6 +7,7 @@ class RelaxEventRoad(GoEventRoad):
     def start(self, acceleration):
         if self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
+            self.road.set_state(State.ON_RELAX_STOP)
             return False
         else:
             self.bike.acceleration = acceleration
@@ -14,8 +16,10 @@ class RelaxEventRoad(GoEventRoad):
                 self.bike.speed = 0
                 self.rock.set_x()
                 self.finish.set_x()
+                self.road.set_state(State.ON_RELAX_STOP)
                 return False
             else:
                 self.bike.speed -= acceleration
                 self.set_distances()
+                self.road.set_state(State.ON_RELAX_MOVE)
                 return True

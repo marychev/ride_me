@@ -2,37 +2,50 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from button.left_button import LeftButtonWidget
 from conf import SECOND_GAME
-from kivy.properties import ObjectProperty
 
 Builder.load_file('button/right_button.kv')
 
 
 class RightButtonWidget(LeftButtonWidget):
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.register_event_type('on_double_press')
+
+        if kwargs.get("on_double_press") is not None:
+            self.bind(on_double_press=kwargs.get("on_double_press"))
+
     def on_press(self):
         self.set_objects()
         self.button_state_style()
-        self.counter.start()
+        # self.counter.start()
         self._road_manage_events(is_press=True)
         self._bg_animation_manage_events(is_press=True)
         self._bike_manage_events(is_press=True)
 
     def on_release(self):
         self.button_state_style()
-        self.counter.stop()
+        # self.counter.stop()
         self._road_manage_events(is_release=True)
         self._bg_animation_manage_events(is_release=True)
         self._bike_manage_events(is_release=True)
+
+    def on_double_press(self, touch):
+        print('ON PRESS DOUBLE JUMP', touch)
+        self.status_bar or self.set_objects()
+        self.road.on_jump_start()
 
     def _road_manage_events(self, is_press=False, is_release=False):
         if is_press:
             extra_acceleration = self.counter.count / 4
             self.bike.acceleration += extra_acceleration
-            Clock.unschedule(self.road.relax)
-            Clock.schedule_interval(self.road.go, SECOND_GAME)
+
+            self.road.on_relax_stop()
+            self.road.on_go_start()
         elif is_release:
-            Clock.unschedule(self.road.go)
-            Clock.schedule_interval(self.road.relax, SECOND_GAME)
+            self.road.on_go_stop()
+            self.road.on_relax_start()
         else:
             raise 0
 

@@ -35,7 +35,7 @@ class KeyboardHandler(object):
             left_btn.state = 'down'
             left_btn.on_press()
         elif keycode[1] == 'spacebar' and self.active_key is None:
-            left_btn.on_double_press(self._keyboard)
+            right_btn.on_double_press(self._keyboard)
 
         self.active_key = keycode[1]
         return True

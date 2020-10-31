@@ -18,12 +18,6 @@ class LeftButtonWidget(ButtonBehavior, Image):
     bike = ObjectProperty(None)
     bg_animation = ObjectProperty(None)
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.register_event_type('on_double_press')
-        if kwargs.get("on_double_press") is not None:
-            self.bind(on_double_press=kwargs.get("on_double_press"))
-
     @classmethod
     def set_objects(cls):
         cls.status_bar = StatusBar()
@@ -49,11 +43,6 @@ class LeftButtonWidget(ButtonBehavior, Image):
             return True
         return super().on_touch_down(touch)
 
-    def on_double_press(self, touch):
-        print('ON PRESS JUMP', touch)
-        self.status_bar or self.set_objects()
-        Clock.schedule_interval(self.road.jump, SECOND_GAME)
-
     def on_press(self):
         self.set_objects()
         self.button_state_style()
@@ -67,11 +56,11 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     def _road_manage_events(self, is_press=False, is_release=False):
         if is_press:
-            Clock.unschedule(self.road.relax)
+            self.road.on_relax_stop()
             Clock.schedule_interval(self.road.stop, SECOND_GAME)
         elif is_release:
             Clock.unschedule(self.road.stop)
-            Clock.schedule_interval(self.road.relax, SECOND_GAME)
+            self.road.on_relax_start()
         else:
             raise 0
 
