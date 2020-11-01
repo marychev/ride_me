@@ -22,14 +22,12 @@ class RightButtonWidget(LeftButtonWidget):
         self.counter.start()
         self._road_manage_events(is_press=True)
         self._bg_animation_manage_events(is_press=True)
-        # self._bike_manage_events(is_press=True)
 
     def on_release(self):
         self.button_state_style()
         self.counter.stop()
         self._road_manage_events(is_release=True)
         self._bg_animation_manage_events(is_release=True)
-        # ~~self._bike_manage_events(is_release=True)~~
 
     def on_double_press(self, touch):
         print('\rON PRESS DOUBLE JUMP\r', touch)
@@ -38,9 +36,10 @@ class RightButtonWidget(LeftButtonWidget):
 
     def _road_manage_events(self, is_press=False, is_release=False, is_double_press=False):
         if is_press:
-            # todo: acceleration
-            extra_acceleration = self.counter.count / 2
-            self.bike.acceleration += extra_acceleration
+            # # todo: acceleration
+            # extra_acceleration = self.counter.count / 4
+            # self.bike.set_acceleration(extra_acceleration)
+
             self.road.on_relax_stop()
             self.road.on_go_start()
         elif is_release:

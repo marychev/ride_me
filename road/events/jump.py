@@ -8,7 +8,6 @@ class JumpEventRoad(GoEventRoad):
         super(JumpEventRoad, self).__init__(road, bike, rock, finish)
 
     def up(self, dt):
-        print('up', self.road.state)
         can_up = self.bike.power > 0 and (State.ON_JUMP_LANDING != self.road.state)
         if can_up:
             self._do_up(dt)

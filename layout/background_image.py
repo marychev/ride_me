@@ -46,7 +46,6 @@ class BackgroundImageAnimation(Widget):
     # event
     # go_mountains --
     def go_mountains(self, dt):
-        print('GO ')
         if StatusBar.get_road().has_finished():
             return False
         else:
@@ -59,8 +58,6 @@ class BackgroundImageAnimation(Widget):
 
     def go_mountains_start(self):
         road = StatusBar.get_road()
-        print('TRY START', road.state)
-        print('>>>>>>>>>>>>>>')
         if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
                           State.ON_GO_START, State.NONE):
             Clock.schedule_interval(self.go_mountains, SECOND_GAME)

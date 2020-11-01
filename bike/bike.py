@@ -14,7 +14,7 @@ class Bike(Image):
     source = StringProperty('bike/img/bike-1.png')
     acceleration = NumericProperty(0)
     power = NumericProperty(50)
-    max_power = NumericProperty(200)
+    max_power = NumericProperty(150)
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
 
@@ -35,10 +35,9 @@ class Bike(Image):
         anim.start(self)
 
     def anim_relax(self):
-        if int(self.angle) != 0:
-            self.source = 'bike/img/bike-relax.png'
-            anim = Animation(angle=0, duration=.2)
-            anim.start(self)
+        self.source = 'bike/img/bike-relax.png'
+        anim = Animation(angle=0, duration=.2)
+        anim.start(self)
 
     def anim_wait(self):
         self.source = 'bike/img/bike-wait.png'
