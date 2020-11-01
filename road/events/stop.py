@@ -6,7 +6,7 @@ from utils.state import State
 class StopEventRoad(GoEventRoad):
 
     def start(self, acceleration):
-        if self.bike.collide_widget(self.rock):
+        if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
             self.road.set_state(State.ON_STOP_STOP)
             return False

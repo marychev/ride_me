@@ -18,7 +18,8 @@ class StatusBar(Label):
 
     @staticmethod
     def get_rock():
-        return get_game_screen().ids.rock
+        return get_game_screen().ids.get('rock')
+        #return get_game_screen().ids.rock
 
     @staticmethod
     def get_finish():

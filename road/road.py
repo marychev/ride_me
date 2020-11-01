@@ -16,6 +16,7 @@ Builder.load_file("road/road.kv")
 
 
 class Road(Widget):
+
     texture = ObjectProperty(Image(source='road/img/road-01.png').texture)
     total_way = NumericProperty(800)
     distance_traveled = NumericProperty(0)
@@ -29,6 +30,7 @@ class Road(Widget):
         self.on_landing_start()
 
         self.register_event_type(State.EVENT_ON_JUMP)
+        self.register_event_type(State.EVENT_ON_LANDING)
         self.register_event_type(State.EVENT_ON_GO)
         self.register_event_type(State.EVENT_ON_RELAX)
         self.register_event_type(State.EVENT_ON_STOP)
@@ -51,9 +53,10 @@ class Road(Widget):
             del self.last_states[1]
 
     # Events
-    # on landing --
+    # -- on landing --
 
     def on_landing(self, acceleration):
+        print('on_landing', self.state)
         event = JumpEventRoad(self, self.get_bike(), self.get_rock(), self.get_finish())
         status_bar = StatusBar.get_status_bar()
         if event.landing(acceleration):
@@ -75,13 +78,16 @@ class Road(Widget):
             print('\nXXX xx x .  landing  . x xx XXX\n', self.state)
 
     def on_landing_stop(self):
-        if self.state == State.ON_JUMP_LANDING:
+        if self.state in [State.ON_JUMP_LANDING, State.ON_JUMP_LANDING_STOP]:
+            self.get_bike().anim_wait()
+            print('I')
             Clock.unschedule(self.on_landing)
-            self.get_bike().anim_relax()
+            print('II', self.state)
 
-    # on jump --
+    # -- on jump up --
 
     def on_jump(self, acceleration):
+        print('on jump', self.state)
         bike = self.get_bike()
         status_bar = StatusBar.get_status_bar()
         event = JumpEventRoad(self, bike, self.get_rock(), self.get_finish())
@@ -104,10 +110,10 @@ class Road(Widget):
 
     def on_jump_stop(self):
         if self.state == State.ON_JUMP_UP_MOVE:
+            # self.get_bike().anim_relax()
             Clock.unschedule(self.on_jump)
-            self.get_bike().anim_relax()
 
-    # on go --
+    # -- on go --
 
     def on_go(self, acceleration):
         print('GO ROAD!', self.state, self.last_states)
@@ -128,7 +134,9 @@ class Road(Widget):
                 return False
 
     def on_go_start(self):
-        if self.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP]:
+        print('--- > TRY START', self.state)
+        print('>>>>>>>>>>>>>>')
+        if self.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP, State.NONE]:
             Clock.schedule_interval(self.on_go, SECOND_GAME)
 
             self.state = State.ON_GO_START
@@ -138,10 +146,10 @@ class Road(Widget):
 
     def on_go_stop(self):
         if self.state == State.ON_GO_MOVE:
-            Clock.unschedule(self.on_go)
             self.get_bike().anim_relax()
+            Clock.unschedule(self.on_go)
 
-    # on relax --
+    # -- on relax --
 
     def on_relax(self, acceleration):
         print('On Relax', self.state, self.last_states)
@@ -164,20 +172,21 @@ class Road(Widget):
     def on_relax_start(self):
         print(self.state, '<<<<<<<<<<,')
         if self.state not in [State.ON_JUMP_UP_MOVE]:
-            Clock.schedule_interval(self.on_relax, SECOND_GAME)
             self.state = State.ON_RELAX_START
             self.get_bike().anim_relax()
+            Clock.schedule_interval(self.on_relax, SECOND_GAME)
         else:
             print('\nXXX xx x .  relax start  . x xx XXX\n', self.state)
 
     def on_relax_stop(self):
-        if self.state == State.ON_RELAX_MOVE:
+        print('III', self.state)
+        if self.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP]:
             Clock.unschedule(self.on_relax)
-            self.get_bike().anim_relax()
+            self.get_bike().anim_wait()
         else:
             print('\nXXX xx x .  relax stop  . x xx XXX\n', self.state)
 
-    # on stop --
+    # -- on stop --
 
     def on_stop(self, acceleration):
         status_bar = StatusBar.get_status_bar()
@@ -233,7 +242,10 @@ distance_traveled:    {}
         return ValidObject.bike(self.parent.children[0]) if self.parent else None
 
     def get_rock(self):
-        return ValidObject.rock(self.children[1])
+        try:
+            return ValidObject.rock(self.children[1])
+        except IndexError as e:
+            print('Rock was not find in the Road!')
 
     def get_finish(self):
         return ValidObject.finish(self.children[0])

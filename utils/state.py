@@ -3,6 +3,8 @@ class State:
 
     EVENT_ON_JUMP = 'on_jump'
     ON_JUMP_START = 'on_jump__start'
+
+    EVENT_ON_LANDING = 'on_landing'
     ON_JUMP_LANDING = 'on_jump__landing'
     ON_JUMP_LANDING_STOP = 'on_jump__landing__stop'
     ON_JUMP_UP_MOVE = 'on_jump__up__move'

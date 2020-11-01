@@ -5,6 +5,8 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from label.status_bar import StatusBar
 from utils.texture import redraw_texture
+from utils.state import State
+from conf import SECOND_GAME
 
 
 class BackgroundImageAnimation(Widget):
@@ -41,7 +43,10 @@ class BackgroundImageAnimation(Widget):
 
     # mountains textures
 
+    # event
+    # go_mountains --
     def go_mountains(self, dt):
+        print('GO ')
         if StatusBar.get_road().has_finished():
             return False
         else:
@@ -52,7 +57,23 @@ class BackgroundImageAnimation(Widget):
             self.repeat_wrap(self.mountains_texture)
             redraw_texture(self, 'mountains_texture')
 
+    def go_mountains_start(self):
+        road = StatusBar.get_road()
+        print('TRY START', road.state)
+        print('>>>>>>>>>>>>>>')
+        if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
+                          State.ON_GO_START, State.NONE):
+            Clock.schedule_interval(self.go_mountains, SECOND_GAME)
+
+    def go_mountains_stop(self):
+        road = StatusBar.get_road()
+        if road.state == State.ON_GO_MOVE:
+            Clock.unschedule(self.go_mountains)
+
+    # relax mountains --
+
     def relax_mountains(self, dt):
+        print('Relax --')
         if StatusBar.get_road().has_finished():
             pass
         else:
@@ -66,3 +87,18 @@ class BackgroundImageAnimation(Widget):
 
             self.repeat_wrap(self.mountains_texture)
             redraw_texture(self, 'mountains_texture')
+
+    def relax_mountains_start(self):
+        road = StatusBar.get_road()
+        bike = StatusBar.get_bike()
+        if road.state not in [State.ON_JUMP_UP_MOVE]:
+            road.state = State.ON_RELAX_START
+            road.on_relax_start()
+            bike.anim_relax()
+
+    def relax_mountains_stop(self):
+        road = StatusBar.get_road()
+        bike = StatusBar.get_bike()
+        if road.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP]:
+            road.on_relax_stop()
+            bike.anim_wait()

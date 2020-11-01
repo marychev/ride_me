@@ -30,30 +30,38 @@ class Bike(Image):
     # animation
 
     def anim_go(self):
-        self.source = 'bike/img/bike-go.jpg'
-        anim = Animation(angle=6, duration=.2)
+        self.source = 'bike/img/bike-go.png'
+        anim = Animation(angle=8, duration=.2)
         anim.start(self)
 
     def anim_relax(self):
-        if self.angle != 0:
-            self.source = 'bike/img/bike-1.png'
+        if int(self.angle) != 0:
+            self.source = 'bike/img/bike-relax.png'
             anim = Animation(angle=0, duration=.2)
             anim.start(self)
 
+    def anim_wait(self):
+        self.source = 'bike/img/bike-wait.png'
+        anim = Animation(angle=0, duration=.2)
+        anim.start(self)
+
     def anim_stop(self):
-        self.source = 'bike/img/bike-1.png'
-        anim = Animation(angle=-3, duration=.2)
+        self.source = 'bike/img/bike-stop.png'
+        anim = Animation(angle=-1, duration=.1)
         anim.start(self)
 
     def anim_jump_up(self):
-        anim = Animation(angle=12, duration=.6)
+        self.source = 'bike/img/bike-jump-up.png'
+        anim = Animation(angle=8, duration=.2)
         anim.start(self)
 
     def anim_landing(self):
-        anim = Animation(angle=-6, duration=.3)
+        self.source = 'bike/img/bike-landing.png'
+        anim = Animation(angle=-8, duration=.2)
         anim.start(self)
 
     def anim_collision(self):
+        self.source = 'bike/img/bike-1.png'
         anim = Animation(angle=180, duration=.2)
         anim.start(self)
 

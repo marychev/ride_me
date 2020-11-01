@@ -38,18 +38,13 @@ class RightButtonWidget(LeftButtonWidget):
 
     def _road_manage_events(self, is_press=False, is_release=False, is_double_press=False):
         if is_press:
-            print('kkk')
             # todo: acceleration
             extra_acceleration = self.counter.count / 2
             self.bike.acceleration += extra_acceleration
-            print('> I <')
             self.road.on_relax_stop()
-            print('> II <')
             self.road.on_go_start()
         elif is_release:
-            print('> III <')
             self.road.on_go_stop()
-            print('> IV <')
             self.road.on_relax_start()
         elif is_double_press:
             self.road.on_jump_start()
@@ -58,10 +53,10 @@ class RightButtonWidget(LeftButtonWidget):
 
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
         if is_press:
-            Clock.unschedule(self.bg_animation.relax_mountains)
-            Clock.schedule_interval(self.bg_animation.go_mountains, SECOND_GAME)
+            self.bg_animation.relax_mountains_stop()
+            self.bg_animation.go_mountains_start()
         elif is_release:
-            Clock.unschedule(self.bg_animation.go_mountains)
-            Clock.schedule_interval(self.bg_animation.relax_mountains, SECOND_GAME)
+            self.bg_animation.go_mountains_stop()
+            self.bg_animation.relax_mountains_start()
         else:
             raise 0
