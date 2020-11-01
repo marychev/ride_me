@@ -18,7 +18,7 @@ Builder.load_file("road/road.kv")
 class Road(Widget):
 
     texture = ObjectProperty(Image(source='road/img/road-01.png').texture)
-    total_way = NumericProperty(1800)
+    total_way = NumericProperty(3000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -244,9 +244,7 @@ distance_traveled:    {}
         try:
             return ValidObject.rock(self.children[1])
         except IndexError as e:
-            # todo:
-            # print('[WARNING] the `Rock` item does not exist on the `Road`!')
-            pass
+            print('[WARNING] the `Rock` item does not exist on the `Road`!')
 
     def get_finish(self):
         return ValidObject.finish(self.children[0])
