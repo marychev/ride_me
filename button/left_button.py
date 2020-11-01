@@ -35,7 +35,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
         else:
             raise 0
 
-    # events
+    # events --
 
     def on_touch_down(self, touch):
         if touch.is_double_tap:
@@ -47,19 +47,17 @@ class LeftButtonWidget(ButtonBehavior, Image):
         self.set_objects()
         self.button_state_style()
         self._road_manage_events(is_press=True)
-        self.bike.anim_stop()
 
     def on_release(self):
         self.button_state_style()
         self._road_manage_events(is_release=True)
-        self.bike.anim_relax()
 
     def _road_manage_events(self, is_press=False, is_release=False):
         if is_press:
             self.road.on_relax_stop()
-            Clock.schedule_interval(self.road.stop, SECOND_GAME)
+            self.road.on_stop_start()
         elif is_release:
-            Clock.unschedule(self.road.stop)
+            self.road.on_stop_stop()
             self.road.on_relax_start()
         else:
             raise 0
@@ -68,3 +66,5 @@ class LeftButtonWidget(ButtonBehavior, Image):
         if self.bike.speed <= 0:
             Clock.unschedule(self.bg_animation.relax_mountains)
             Clock.schedule_interval(self.bg_animation.stop_mountains, SECOND_GAME)
+        else:
+            raise 0

@@ -10,5 +10,4 @@ class StartScreen(Screen):
     def restart_game(self):
         self.manager.clear_widgets(screens=[self.manager.get_screen('game')])
         self.manager.add_widget(GameScreen(name='game'))
-        print('Hello', self)
 

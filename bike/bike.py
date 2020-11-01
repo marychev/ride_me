@@ -35,13 +35,22 @@ class Bike(Image):
         anim.start(self)
 
     def anim_relax(self):
-        self.source = 'bike/img/bike-1.png'
-        anim = Animation(angle=0, duration=.2)
-        anim.start(self)
+        if self.angle != 0:
+            self.source = 'bike/img/bike-1.png'
+            anim = Animation(angle=0, duration=.2)
+            anim.start(self)
 
     def anim_stop(self):
         self.source = 'bike/img/bike-1.png'
-        anim = Animation(angle=-3, duration=.1)
+        anim = Animation(angle=-3, duration=.2)
+        anim.start(self)
+
+    def anim_jump_up(self):
+        anim = Animation(angle=12, duration=.6)
+        anim.start(self)
+
+    def anim_landing(self):
+        anim = Animation(angle=-6, duration=.3)
         anim.start(self)
 
     def anim_collision(self):

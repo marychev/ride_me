@@ -19,33 +19,40 @@ class RightButtonWidget(LeftButtonWidget):
     def on_press(self):
         self.set_objects()
         self.button_state_style()
-        # self.counter.start()
+        self.counter.start()
         self._road_manage_events(is_press=True)
         self._bg_animation_manage_events(is_press=True)
-        self._bike_manage_events(is_press=True)
+        # self._bike_manage_events(is_press=True)
 
     def on_release(self):
         self.button_state_style()
-        # self.counter.stop()
+        self.counter.stop()
         self._road_manage_events(is_release=True)
         self._bg_animation_manage_events(is_release=True)
-        self._bike_manage_events(is_release=True)
+        # ~~self._bike_manage_events(is_release=True)~~
 
     def on_double_press(self, touch):
-        print('ON PRESS DOUBLE JUMP', touch)
+        print('\rON PRESS DOUBLE JUMP\r', touch)
         self.status_bar or self.set_objects()
-        self.road.on_jump_start()
+        self._road_manage_events(is_double_press=True)
 
-    def _road_manage_events(self, is_press=False, is_release=False):
+    def _road_manage_events(self, is_press=False, is_release=False, is_double_press=False):
         if is_press:
-            extra_acceleration = self.counter.count / 4
+            print('kkk')
+            # todo: acceleration
+            extra_acceleration = self.counter.count / 2
             self.bike.acceleration += extra_acceleration
-
+            print('> I <')
             self.road.on_relax_stop()
+            print('> II <')
             self.road.on_go_start()
         elif is_release:
+            print('> III <')
             self.road.on_go_stop()
+            print('> IV <')
             self.road.on_relax_start()
+        elif is_double_press:
+            self.road.on_jump_start()
         else:
             raise 0
 
@@ -56,13 +63,5 @@ class RightButtonWidget(LeftButtonWidget):
         elif is_release:
             Clock.unschedule(self.bg_animation.go_mountains)
             Clock.schedule_interval(self.bg_animation.relax_mountains, SECOND_GAME)
-        else:
-            raise 0
-
-    def _bike_manage_events(self, is_press=False, is_release=False):
-        if is_press:
-            self.bike.anim_go()
-        elif is_release:
-            self.bike.anim_relax()
         else:
             raise 0

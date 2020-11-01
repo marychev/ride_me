@@ -1,5 +1,4 @@
 from .go import GoEventRoad
-from label.status_bar import StatusBar
 from utils.state import State
 
 
@@ -9,7 +8,7 @@ class JumpEventRoad(GoEventRoad):
         super(JumpEventRoad, self).__init__(road, bike, rock, finish)
 
     def up(self, dt):
-        print('up')
+        print('up', self.road.state)
         can_up = self.bike.power > 0 and (State.ON_JUMP_LANDING != self.road.state)
         if can_up:
             self._do_up(dt)
@@ -19,18 +18,15 @@ class JumpEventRoad(GoEventRoad):
         return can_up
 
     def landing(self, dt):
-        print('landing', self.road.state, self.road.last_states)
         is_in_sky = self.bike.is_in_sky()
-        status_bar = StatusBar.get_status_bar()
+
         if is_in_sky:
             self._do_down(dt)
             self.road.set_state(State.ON_JUMP_LANDING)
-            status_bar.show_status('. . . . on landing', self.bike, self.road)
         else:
             self.bike.y = self.road.y
             self.bike.power = self.bike.max_power
             self.road.set_state(State.ON_JUMP_LANDING_STOP)
-            status_bar.show_status('. . . STOP on landing', self.bike, self.road)
         return is_in_sky
 
     def _do_up(self, dt):
