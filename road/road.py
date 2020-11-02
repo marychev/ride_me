@@ -63,10 +63,10 @@ class Road(Widget):
 
     # Events
     # -- on wait --
-    def on_wait(self, acceleration):
+    def on_wait(self, dt):
         event = WaitEventRoad(self, self.get_bike(), self.get_rock(), self.get_finish())
         status_bar = StatusBar.get_status_bar()
-        if event.wait(acceleration):
+        if event.start(dt):
             status_bar.show_status('On Wait: ' + self.state, self.get_bike(), self)
             return True
         else:
@@ -84,9 +84,7 @@ class Road(Widget):
 
     def on_wait_stop(self):
         if self.state == State.NONE:
-            print('I--11')
             Clock.unschedule(self.on_wait)
-            print('II--11--', self.state)
 
     # -- on landing --
 
@@ -294,7 +292,7 @@ distance_traveled:    {}
         return ValidObject.tools(self.parent.parent.children[0])
 
     def get_bike(self):
-        return ValidObject.bike(self.parent.children[0]) if self.parent else None
+        return ValidObject.bike(self.parent.children[0]) if self.parent else StatusBar.get_bike()
 
     def get_rock(self):
         try:
