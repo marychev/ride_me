@@ -4,8 +4,8 @@ from utils.state import State
 
 class JumpEventRoad(GoEventRoad):
 
-    def __init__(self, road, bike, rock, finish):
-        super(JumpEventRoad, self).__init__(road, bike, rock, finish)
+    # def __init__(self, **kwargs):
+    #     super(JumpEventRoad, self).__init__(**kwargs)
 
     def up(self, dt):
         can_up = self.bike.power > 0 and (State.ON_JUMP_LANDING != self.road.state)

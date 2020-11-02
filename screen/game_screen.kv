@@ -41,7 +41,7 @@
                 Rock:
                     id: rock
                     pos: 1000, root.ids.tools.height
-                    size: int(Window.width / 16), int(Window.width / 16)
+                    size: 80, 80
 
                 Finish:
                     id: finish
@@ -51,8 +51,8 @@
 
             Bike:
                 id: bike
-                pos: 80, root.ids.tools.height  # + 200
-                size: root.ids.road.height, root.ids.road.height
+                pos: 80, root.ids.tools.height  + 200
+                size: 120, 120
                 size_hint: None, None
 
         Tools:

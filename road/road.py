@@ -53,6 +53,14 @@ class Road(Widget):
             del self.last_states[0]
             del self.last_states[1]
 
+    def game_objects(self):
+        return {
+            'status_bar': StatusBar.get_status_bar(),
+            'road': self,
+            'bike': self.get_bike(),
+            'rock': self.get_rock(),
+            'finish': self.get_finish()}
+
     # Events
     # -- on wait --
     def on_wait(self, acceleration):
@@ -95,17 +103,16 @@ class Road(Widget):
 
     def on_landing_start(self):
         bike = self.get_bike()
-        if bike:
-            if self.state in (State.ON_JUMP_UP_MOVE, State.ON_JUMP_UP_STOP):
-                Clock.schedule_interval(self.on_landing, SECOND_GAME)
+        if self.state in (State.ON_JUMP_UP_MOVE, State.ON_JUMP_UP_STOP, State.NONE):
+            Clock.schedule_interval(self.on_landing, SECOND_GAME)
 
-                self.state = State.ON_JUMP_LANDING
-                bike.anim_landing()
-            else:
-                if bike.speed <= 0:
-                    self.on_wait_start()
-                    bike.anim_wait()
-                print('\nXXX xx x .  landing  . x xx XXX\n', self.state)
+            self.state = State.ON_JUMP_LANDING
+            bike and bike.anim_landing()
+        else:
+            if bike.speed <= 0:
+                self.on_wait_start()
+                bike.anim_wait()
+            print('\nXXX xx x .  landing  . x xx XXX\n', self.state)
 
     def on_landing_stop(self):
         if self.state == State.ON_JUMP_LANDING:  # , State.ON_JUMP_LANDING_STOP):
@@ -124,7 +131,7 @@ class Road(Widget):
         status_bar = StatusBar.get_status_bar()
         event = JumpEventRoad(self, bike, self.get_rock(), self.get_finish())
 
-        if event.up(acceleration):
+        if event.start(acceleration):
             status_bar.show_status('On Jump: ' + self.state, bike, self)
         else:
             self.on_jump_stop()
@@ -265,8 +272,9 @@ class Road(Widget):
         self.on_jump_stop()
         self.on_go_stop()
         self.on_relax_stop()
-        Clock.unschedule(bg_animation.go_mountains)
-        Clock.unschedule(bg_animation.relax_mountains)
+        bg_animation.go_mountains_stop()
+        bg_animation.relax_mountains_stop()
+        self.on_wait_start()
 
     def show_status(self, title='ROAD'):
         return '''

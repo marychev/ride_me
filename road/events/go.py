@@ -21,6 +21,13 @@ class GoEventRoad:
             self.road.set_state(State.ON_GO_MOVE)
             return True
 
+    def set_game_objects(self, status_bar, road, bike, rock, finish):
+        self.status_bar = status_bar
+        self.road = road
+        self.bike = bike
+        self.rock = rock
+        self.finish = finish
+
     def set_distances(self):
         self.rock and self.rock.set_x()
         self.road.set_distance_traveled()
