@@ -210,9 +210,6 @@ class Road(Widget):
             if event.start(acceleration):
                 status_bar.show_status('On Relax: ' + self.state, bike, self)
             else:
-                if bike.speed <= 0:
-                    self.on_wait_start()
-
                 status_bar.show_status('Stop On Relax: ' + self.state, bike, self)
                 self.unschedule_events()
                 return False
@@ -254,7 +251,6 @@ class Road(Widget):
                 return False
 
     def on_stop_start(self):
-        #if self.state not in (State.ON_RELAX_STOP, State.ON_STOP_STOP):
         if self.state in (State.ON_GO_MOVE, State.ON_RELAX_MOVE):
             Clock.schedule_interval(self.on_stop, SECOND_GAME)
             self.state = State.ON_STOP_START
