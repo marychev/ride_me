@@ -1,5 +1,7 @@
+from kivy.clock import Clock
 from label.status_bar import StatusBar
 from utils.state import State
+from conf import SECOND_GAME
 
 
 class GoEventRoad:

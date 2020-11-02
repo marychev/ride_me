@@ -1,3 +1,6 @@
+from kivy.clock import Clock
+from utils.state import State
+from conf import SECOND_GAME
 from .go import GoEventRoad
 from utils.state import State
 
