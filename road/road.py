@@ -53,6 +53,33 @@ class Road(Widget):
             del self.last_states[1]
 
     # Events
+    # -- on wait --
+    def on_wait(self, acceleration):
+        event = WaitEventRoad(self, self.get_bike(), self.get_rock(), self.get_finish())
+        status_bar = StatusBar.get_status_bar()
+        if event.wait(acceleration):
+            status_bar.show_status('On Wait: ' + self.state, self.get_bike(), self)
+            return True
+        else:
+            self.on_wait_stop()
+            status_bar.show_status('Stop On Wait: ' + self.state, self.get_bike(), self)
+            return False
+
+    def on_wait_start(self):
+        if self.state in (State.ON_RELAX_STOP, State.ON_STOP_STOP, State.ON_JUMP_LANDING_STOP):
+            Clock.schedule_interval(self.on_wait, SECOND_GAME)
+            self.state = State.NONE
+            self.get_bike().anim_wait()
+        else:
+            print('\nXXX xx x .  wait  . x xx XXX\n', self.state)
+
+    def on_wait_stop(self):
+        if self.state == State.NONE:  # , State.ON_JUMP_LANDING_STOP):
+            self.get_bike().anim_wait()
+            print('I--11')
+            Clock.unschedule(self.on_wait)
+            print('II--11--', self.state)
+
     # -- on landing --
 
     def on_landing(self, acceleration):
@@ -78,7 +105,7 @@ class Road(Widget):
             print('\nXXX xx x .  landing  . x xx XXX\n', self.state)
 
     def on_landing_stop(self):
-        if self.state in [State.ON_JUMP_LANDING, State.ON_JUMP_LANDING_STOP]:
+        if self.state == State.ON_JUMP_LANDING:  # , State.ON_JUMP_LANDING_STOP):
             self.get_bike().anim_wait()
             print('I')
             Clock.unschedule(self.on_landing)
@@ -101,7 +128,8 @@ class Road(Widget):
             return False
 
     def on_jump_start(self):
-        if self.state not in (State.ON_JUMP_LANDING, State.ON_JUMP_UP_MOVE):
+        # if self.state not in (State.ON_JUMP_LANDING, State.ON_JUMP_UP_MOVE):
+        if self.state in (State.ON_RELAX_MOVE, State.NONE):
             Clock.schedule_interval(self.on_jump, SECOND_GAME)
             self.state = State.ON_JUMP_START
             self.get_bike().anim_jump_up()
@@ -145,7 +173,7 @@ class Road(Widget):
             print('\nXXX xx x .  go  . x xx XXX\n', self.state)
 
     def on_go_stop(self):
-        if self.state == State.ON_GO_MOVE:
+        if self.state in (State.ON_GO_MOVE, State.ON_GO_START):
             self.get_bike().anim_relax()
             Clock.unschedule(self.on_go)
 
@@ -171,7 +199,7 @@ class Road(Widget):
 
     def on_relax_start(self):
         print(self.state, '<<<<<<<<<<,')
-        if self.state not in [State.ON_JUMP_UP_MOVE]:
+        if self.state not in (State.ON_JUMP_UP_MOVE, State.ON_GO_STOP, State.ON_JUMP_LANDING_STOP):
             self.state = State.ON_RELAX_START
             self.get_bike().anim_relax()
             Clock.schedule_interval(self.on_relax, SECOND_GAME)
@@ -180,7 +208,7 @@ class Road(Widget):
 
     def on_relax_stop(self):
         print('III', self.state)
-        if self.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP]:
+        if self.state == State.ON_RELAX_MOVE:   #:, State.ON_RELAX_STOP):
             Clock.unschedule(self.on_relax)
             self.get_bike().anim_wait()
         else:
@@ -204,13 +232,15 @@ class Road(Widget):
                 return False
 
     def on_stop_start(self):
-        if self.state not in (State.ON_RELAX_STOP, State.ON_STOP_STOP):
+        #if self.state not in (State.ON_RELAX_STOP, State.ON_STOP_STOP):
+        if self.state in (State.ON_GO_MOVE, State.ON_RELAX_MOVE):
             Clock.schedule_interval(self.on_stop, SECOND_GAME)
             self.state = State.ON_STOP_START
             self.get_bike().anim_stop()
 
     def on_stop_stop(self):
-        Clock.unschedule(self.on_stop)
+        if self.state in (State.ON_STOP_START, State.ON_STOP_MOVE):
+            Clock.unschedule(self.on_stop)
 
     def unschedule_events(self):
         bg_animation = StatusBar.get_background_image_animation()
