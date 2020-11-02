@@ -10,7 +10,7 @@ class GoEventRoad:
         self.rock = rock or StatusBar.get_rock()
         self.finish = finish or StatusBar.get_finish()
 
-    def start(self, dt):
+    def do(self, dt):
         if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
             self.road.set_state(State.ON_GO_STOP)
