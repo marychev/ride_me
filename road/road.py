@@ -53,14 +53,6 @@ class Road(Widget):
             del self.last_states[0]
             del self.last_states[1]
 
-    def game_objects(self):
-        return {
-            'status_bar': StatusBar.get_status_bar(),
-            'road': self,
-            'bike': self.get_bike(),
-            'rock': self.get_rock(),
-            'finish': self.get_finish()}
-
     # Events
     # -- on wait --
     def on_wait(self, dt):
@@ -167,7 +159,7 @@ class Road(Widget):
             bike = self.get_bike()
             event = GoEventRoad(**self.game_objects())
 
-            if event.start(acceleration):
+            if event.do(acceleration):
                 status_bar.show_status('On Go: ' + self.state, bike, self)
             else:
                 status_bar.show_status('Stop On Go: ' + self.state, bike, self)
@@ -175,8 +167,6 @@ class Road(Widget):
                 return False
 
     def on_go_start(self):
-        print('\n\t--- > TRY START', self.state)
-        print('----------------------------------------')
         if self.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP, State.NONE]:
             Clock.schedule_interval(self.on_go, SECOND_GAME)
 
@@ -196,7 +186,6 @@ class Road(Widget):
     # -- on relax --
 
     def on_relax(self, acceleration):
-        # print('On Relax', self.state, self.last_states)
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
@@ -206,12 +195,12 @@ class Road(Widget):
             bike = StatusBar.get_bike()
             event = RelaxEventRoad(**self.game_objects())
 
-            if event.start(acceleration):
-                status_bar.show_status('On Relax: ' + self.state, bike, self)
-            else:
-                status_bar.show_status('Stop On Relax: ' + self.state, bike, self)
-                self.unschedule_events()
-                return False
+        if event.do(acceleration):
+            status_bar.show_status('On Relax: ' + self.state, bike, self)
+        else:
+            status_bar.show_status('Stop On Relax: ' + self.state, bike, self)
+            self.unschedule_events()
+            return False
 
     def on_relax_start(self):
         print(self.state, '<<<<<<<<<<,')
@@ -281,7 +270,15 @@ distance_traveled:    {}
             self.total_way - self.distance_traveled,
         )
 
-    # game objects
+    # get game objects
+
+    def game_objects(self):
+        return {
+            'status_bar': StatusBar.get_status_bar(),
+            'road': self,
+            'bike': self.get_bike(),
+            'rock': self.get_rock(),
+            'finish': self.get_finish()}
 
     def get_tools(self):
         return ValidObject.tools(self.parent.parent.children[0])
