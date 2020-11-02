@@ -3,7 +3,7 @@ from utils.state import State
 
 
 class WaitEventRoad(GoEventRoad):
-    def wait(self, dt):
+    def start(self, dt):
         can = self.bike.speed <= 0
         if can:
             self.bike.speed = 0

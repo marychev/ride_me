@@ -64,7 +64,7 @@ class BackgroundImageAnimation(Widget):
 
     def go_mountains_stop(self):
         road = StatusBar.get_road()
-        if road.state == State.ON_GO_MOVE:
+        if road.state in (State.ON_GO_MOVE, State.ON_GO_START):
             Clock.unschedule(self.go_mountains)
 
     # relax mountains --

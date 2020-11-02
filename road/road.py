@@ -64,7 +64,7 @@ class Road(Widget):
     # Events
     # -- on wait --
     def on_wait(self, dt):
-        event = WaitEventRoad(self, self.get_bike(), self.get_rock(), self.get_finish())
+        event = WaitEventRoad(**self.game_objects())
         status_bar = StatusBar.get_status_bar()
         if event.start(dt):
             status_bar.show_status('On Wait: ' + self.state, self.get_bike(), self)
@@ -89,7 +89,7 @@ class Road(Widget):
     # -- on landing --
 
     def on_landing(self, acceleration):
-        event = JumpEventRoad(self, self.get_bike(), self.get_rock(), self.get_finish())
+        event = JumpEventRoad(**self.game_objects())
         status_bar = StatusBar.get_status_bar()
         if event.landing(acceleration):
             status_bar.show_status('On Landing: ' + self.state, self.get_bike(), self)
@@ -127,7 +127,7 @@ class Road(Widget):
         # print('on jump', self.state)
         bike = self.get_bike()
         status_bar = StatusBar.get_status_bar()
-        event = JumpEventRoad(self, bike, self.get_rock(), self.get_finish())
+        event = JumpEventRoad(**self.game_objects())
 
         if event.start(acceleration):
             status_bar.show_status('On Jump: ' + self.state, bike, self)
@@ -158,7 +158,6 @@ class Road(Widget):
     # -- on go --
 
     def on_go(self, acceleration):
-        # print('GO ROAD!', self.state, self.last_states)
         status_bar = StatusBar.get_status_bar()
 
         if self.has_finished():
@@ -166,7 +165,7 @@ class Road(Widget):
             self.unschedule_events()
         else:
             bike = self.get_bike()
-            event = GoEventRoad(self, bike, self.get_rock())
+            event = GoEventRoad(**self.game_objects())
 
             if event.start(acceleration):
                 status_bar.show_status('On Go: ' + self.state, bike, self)
@@ -205,7 +204,7 @@ class Road(Widget):
             self.unschedule_events()
         else:
             bike = StatusBar.get_bike()
-            event = RelaxEventRoad(self, bike, self.get_rock())
+            event = RelaxEventRoad(**self.game_objects())
 
             if event.start(acceleration):
                 status_bar.show_status('On Relax: ' + self.state, bike, self)
@@ -242,7 +241,7 @@ class Road(Widget):
             status_bar.show_status_finished()
         else:
             bike = self.get_bike()
-            event = StopEventRoad(self, bike, self.get_rock())
+            event = StopEventRoad(** self.game_objects())
             if event.start(acceleration):
                 status_bar.show_status('On Stop: ' + self.state, bike, self)
             else:
