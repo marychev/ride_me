@@ -14,7 +14,7 @@ class RelaxEventRoad(GoEventRoad):
                 self.bike.speed = 0
                 self.rock and self.rock.set_x()
                 self.finish.set_x()
-                self.road.set_state(State.ON_RELAX_STOP)
+                self.road.set_state(State.NONE)
                 return False
             else:
                 self.bike.speed -= dt/10

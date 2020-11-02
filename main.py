@@ -5,8 +5,8 @@ from screen.game_screen import GameScreen
 from screen.start_screen import StartScreen
 
 sm = ScreenManager(transition=WipeTransition())
-sm.add_widget(StartScreen(name='start'))
 sm.add_widget(GameScreen(name='game'))
+sm.add_widget(StartScreen(name='start'))
 
 
 class RideMeApp(App):

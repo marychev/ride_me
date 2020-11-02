@@ -1,14 +1,15 @@
 class State:
     NONE = 'None'
+    EVENT_ON_WAIT = 'on_wait'
 
     EVENT_ON_JUMP = 'on_jump'
     ON_JUMP_START = 'on_jump__start'
+    ON_JUMP_UP_MOVE = 'on_jump__up__move'
+    ON_JUMP_UP_STOP = 'on_jump__up__stop'
 
     EVENT_ON_LANDING = 'on_landing'
     ON_JUMP_LANDING = 'on_jump__landing'
     ON_JUMP_LANDING_STOP = 'on_jump__landing__stop'
-    ON_JUMP_UP_MOVE = 'on_jump__up__move'
-    ON_JUMP_UP_STOP = 'on_jump__up__stop'
 
     EVENT_ON_GO = 'on_go'
     ON_GO_START = 'on_go__start'
@@ -27,7 +28,9 @@ class State:
 
     @classmethod
     def list_states(cls):
-        exclude_events = (State.EVENT_ON_JUMP, State.EVENT_ON_GO, State.EVENT_ON_RELAX, State.EVENT_ON_STOP)
+        exclude_events = (
+            State.EVENT_ON_JUMP, State.EVENT_ON_GO, State.EVENT_ON_RELAX,
+            State.EVENT_ON_STOP, State.EVENT_ON_WAIT)
         return [
             v for v in list(State.__dict__.values())
             if type(v) == str and not v.startswith('__') and v not in exclude_events
