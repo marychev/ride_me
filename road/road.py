@@ -119,11 +119,8 @@ class Road(Widget):
     # -- on jump up --
 
     def on_jump(self, acceleration):
-        # print('on jump', self.state)
         bike = self.get_bike()
-        print(4)
-        status_bar = StatusBar.get_status_bar()
-        print(5)
+        status_bar = self.get_status_bar()
         event = JumpEventRoad(**self.game_objects())
 
         if event.start(acceleration):
@@ -179,15 +176,13 @@ class Road(Widget):
 
     def on_relax(self, acceleration):
         print('On Relax', self.state, self.last_states)
-        print(7)
-        status_bar = StatusBar.get_status_bar()
-        print(8)
+        status_bar = self.get_status_bar()
 
         if self.has_finished():
             status_bar.show_status_finished()
             self.unschedule_events()
         else:
-            bike = StatusBar.get_bike()
+            bike = self.get_bike()
             event = RelaxEventRoad(**self.game_objects())
 
             if event.do(acceleration):
