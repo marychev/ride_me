@@ -4,7 +4,7 @@ from utils.state import State
 
 class JumpEventRoad(GoEventRoad):
 
-    def start(self, dt):
+    def do(self, dt):
         can_up = self.bike.power > 0 and (State.ON_JUMP_LANDING != self.road.state)
         if can_up:
             self._do_up(dt)

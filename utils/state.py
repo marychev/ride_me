@@ -36,3 +36,35 @@ class State:
             v for v in list(State.__dict__.values())
             if type(v) == str and not v.startswith('__') and v not in exclude_events
         ]
+
+    @classmethod
+    def available_states_landing(cls):
+        return (
+            State.NONE,
+            State.ON_JUMP_UP_MOVE, State.ON_JUMP_UP_STOP,
+            State.ON_RELAX_MOVE,
+            State.ON_GO_MOVE,
+            State.ON_STOP_MOVE
+        )
+
+    @classmethod
+    def available_states_jump(cls):
+        return State.ON_RELAX_MOVE, State.NONE
+
+    @classmethod
+    def available_states_go(cls):
+        return State.ON_RELAX_MOVE, State.ON_RELAX_STOP, State.NONE
+
+    @classmethod
+    def available_states_relax(cls):
+        return (
+            State.ON_GO_STOP, State.NONE,
+            State.ON_JUMP_LANDING_STOP
+        )
+
+    @classmethod
+    def available_states_stop(cls):
+        return (
+            State.ON_GO_MOVE,
+            State.ON_RELAX_MOVE
+        )
