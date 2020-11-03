@@ -19,9 +19,8 @@ class StatusBar(Label):
 
     @staticmethod
     def get_rock():
-        print('[WARNING] Try to get a game object from DOM! get_rock')
+        # TODO: TEMP print('[WARNING] Try to get a game object from DOM! get_rock')
         return get_game_screen().ids.get('rock')
-        #return get_game_screen().ids.rock
 
     @staticmethod
     def get_finish():

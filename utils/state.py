@@ -1,5 +1,6 @@
 class State:
     NONE = 'None'
+    FINISHED = 'None'
     EVENT_ON_WAIT = 'on_wait'
 
     EVENT_ON_JUMP = 'on_jump'

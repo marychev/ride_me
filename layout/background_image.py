@@ -46,6 +46,8 @@ class BackgroundImageAnimation(Widget):
     # event
     # go_mountains --
     def go_mountains(self, dt):
+        print(0.1)
+        print('go_mountains')
         if StatusBar.get_road().has_finished():
             return False
         else:
@@ -57,12 +59,16 @@ class BackgroundImageAnimation(Widget):
             redraw_texture(self, 'mountains_texture')
 
     def go_mountains_start(self):
+        print('go_mountains_start')
+        print(0.2)
         road = StatusBar.get_road()
         if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
                           State.ON_GO_START, State.NONE):
             Clock.schedule_interval(self.go_mountains, SECOND_GAME)
 
     def go_mountains_stop(self):
+        print('go_mountains_ STOP')
+
         road = StatusBar.get_road()
         if road.state in (State.ON_GO_MOVE, State.ON_GO_START):
             Clock.unschedule(self.go_mountains)
@@ -70,7 +76,8 @@ class BackgroundImageAnimation(Widget):
     # relax mountains --
 
     def relax_mountains(self, dt):
-        print('Relax --')
+        print('*************** Relax relax_mountains --')
+        print(0.3)
         if StatusBar.get_road().has_finished():
             pass
         else:
@@ -86,16 +93,20 @@ class BackgroundImageAnimation(Widget):
             redraw_texture(self, 'mountains_texture')
 
     def relax_mountains_start(self):
+        print('0 relax_mountains_start')
+        print(0.4)
         road = StatusBar.get_road()
         bike = StatusBar.get_bike()
-        if road.state not in [State.ON_JUMP_UP_MOVE]:
+        if road.state not in (State.ON_JUMP_UP_MOVE, State.ON_GO_STOP, State.ON_JUMP_LANDING_STOP):
             road.state = State.ON_RELAX_START
             road.on_relax_start()
             bike.anim_relax()
 
     def relax_mountains_stop(self):
+        print('relax_mountains_stop')
+        print(0.5)
         road = StatusBar.get_road()
         bike = StatusBar.get_bike()
-        if road.state in [State.ON_RELAX_MOVE, State.ON_RELAX_STOP]:
+        if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP):
             road.on_relax_stop()
             bike.anim_wait()

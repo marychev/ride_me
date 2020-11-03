@@ -6,22 +6,21 @@ from conf import SECOND_GAME
 
 class GoEventRoad:
     def __init__(self, status_bar=None, road=None, bike=None, rock=None, finish=None):
-        self.status_bar = status_bar or StatusBar.get_status_bar()
-        self.road = road or StatusBar.get_road()
-        self.bike = bike or StatusBar.get_bike()
-        self.rock = rock or StatusBar.get_rock()
-        self.finish = finish or StatusBar.get_finish()
+        self.set_game_objects(status_bar, road, bike, rock, finish)
 
     def do(self, dt):
         if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
             self.road.set_state(State.ON_GO_STOP)
             return False
+        elif self.road.has_finished():
+            self.status_bar.show_status_finished()
         else:
             self.bike.speed += dt
 
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)
+            self.status_bar.show_status('On Go: ' + self.road.state, self.bike, self.road)
             return True
 
     def set_distances(self):

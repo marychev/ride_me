@@ -51,6 +51,7 @@ class RightButtonWidget(LeftButtonWidget):
             raise 0
 
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
+        print('_bg_animation_manage_events')
         if is_press:
             self.bg_animation.relax_mountains_stop()
             self.bg_animation.go_mountains_start()
