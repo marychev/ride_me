@@ -12,9 +12,14 @@ class RightButtonWidget(LeftButtonWidget):
         super().__init__(**kwargs)
 
         self.register_event_type('on_double_press')
-
         if kwargs.get("on_double_press") is not None:
             self.bind(on_double_press=kwargs.get("on_double_press"))
+
+    def on_touch_down(self, touch):
+        if touch.is_double_tap:
+            self.dispatch('on_double_press', touch)
+            return True
+        return super().on_touch_down(touch)
 
     def on_press(self):
         self.set_objects()
@@ -39,19 +44,19 @@ class RightButtonWidget(LeftButtonWidget):
             # # todo: acceleration
             # extra_acceleration = self.counter.count / 4
             # self.bike.set_acceleration(extra_acceleration)
-
             self.road.on_relax_stop()
             self.road.on_go_start()
         elif is_release:
             self.road.on_go_stop()
             self.road.on_relax_start()
         elif is_double_press:
+            self.road.on_relax_stop()
             self.road.on_jump_start()
         else:
             raise 0
 
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
-        print('_bg_animation_manage_events')
+        # print('_bg_animation_manage_events')
         if is_press:
             self.bg_animation.relax_mountains_stop()
             self.bg_animation.go_mountains_start()

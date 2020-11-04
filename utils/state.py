@@ -1,16 +1,21 @@
 class State:
     NONE = 'None'
-    FINISHED = 'None'
+    FINISH = 'on_finish'
+
     EVENT_ON_WAIT = 'on_wait'
+    ON_WAIT_START = 'on_wait__start'
+    ON_WAIT_MOVE = 'on_wait__move'
+    ON_WAIT_STOP = 'on_wait__stop'
 
     EVENT_ON_JUMP = 'on_jump'
     ON_JUMP_START = 'on_jump__start'
-    ON_JUMP_UP_MOVE = 'on_jump__up__move'
-    ON_JUMP_UP_STOP = 'on_jump__up__stop'
+    ON_JUMP_MOVE = 'on_jump__move'
+    ON_JUMP_STOP = 'on_jump__stop'
 
     EVENT_ON_LANDING = 'on_landing'
-    ON_JUMP_LANDING = 'on_jump__landing'
-    ON_JUMP_LANDING_STOP = 'on_jump__landing__stop'
+    ON_LANDING_START = 'on_landing__start'
+    ON_LANDING_MOVE = 'on_landing__move'
+    ON_LANDING_STOP = 'on_landing__stop'
 
     EVENT_ON_GO = 'on_go'
     ON_GO_START = 'on_go__start'
@@ -30,41 +35,38 @@ class State:
     @classmethod
     def list_states(cls):
         exclude_events = (
-            State.EVENT_ON_JUMP, State.EVENT_ON_GO, State.EVENT_ON_RELAX,
-            State.EVENT_ON_STOP, State.EVENT_ON_WAIT)
+            State.EVENT_ON_JUMP, State.EVENT_ON_LANDING, State.EVENT_ON_RELAX,
+            State.EVENT_ON_GO, State.EVENT_ON_STOP, State.EVENT_ON_WAIT)
         return [
             v for v in list(State.__dict__.values())
-            if type(v) == str and not v.startswith('__') and v not in exclude_events
+            if type(v) == str and v.startswith('on_') and v not in exclude_events
         ]
 
     @classmethod
+    def available_states_wait(cls):
+        return State.ON_LANDING_STOP, \
+               State.ON_WAIT_START, \
+               State.ON_RELAX_STOP  # , State.ON_STOP_STOP
+
+    @classmethod
     def available_states_landing(cls):
-        return (
-            State.NONE,
-            State.ON_JUMP_UP_MOVE, State.ON_JUMP_UP_STOP,
-            State.ON_RELAX_MOVE,
-            State.ON_GO_MOVE,
-            State.ON_STOP_MOVE
-        )
+        return State.NONE, State.ON_JUMP_MOVE, State.ON_JUMP_STOP
 
     @classmethod
     def available_states_jump(cls):
-        return State.ON_RELAX_MOVE, State.NONE
+        return State.ON_WAIT_MOVE, \
+               State.ON_RELAX_MOVE, State.ON_WAIT_STOP
 
     @classmethod
     def available_states_go(cls):
-        return State.ON_RELAX_MOVE, State.ON_RELAX_STOP, State.NONE
+        return State.NONE, State.ON_RELAX_MOVE, State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP
 
     @classmethod
     def available_states_relax(cls):
-        return (
-            State.ON_GO_STOP, State.NONE,
-            State.ON_JUMP_LANDING_STOP
-        )
+        return State.ON_GO_MOVE, State.ON_GO_STOP, \
+               State.ON_LANDING_STOP, \
+               State.ON_WAIT_STOP
 
     @classmethod
     def available_states_stop(cls):
-        return (
-            State.ON_GO_MOVE,
-            State.ON_RELAX_MOVE
-        )
+        return State.ON_GO_MOVE, State.ON_RELAX_MOVE

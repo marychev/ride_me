@@ -6,7 +6,7 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
-from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad, JumpEventRoad, WaitEventRoad
+from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad, JumpEventRoad, WaitEventRoad, LandingEventRoad
 from utils.checks import set_texture_uvpos
 from conf import SECOND_GAME
 from utils.validation import ValidObject
@@ -54,13 +54,16 @@ class Road(Widget):
             del self.last_states[1]
 
     # Events
+
     # -- on wait --
+
     def on_wait(self, dt):
+        # print('on_wait', self.state)
         event = WaitEventRoad(**self.game_objects())
         status_bar = self.get_status_bar()
         bike = self.get_bike()
 
-        if event.start(dt):
+        if event.do(dt):
             status_bar.show_status('On Wait: ' + self.state, bike, self)
             return True
         else:
@@ -69,58 +72,65 @@ class Road(Widget):
             return False
 
     def on_wait_start(self):
-        print('wait', self.state)
-        if self.state in (State.NONE, State.ON_RELAX_STOP, State.ON_STOP_STOP, State.ON_JUMP_LANDING_STOP):
+        print('on_wait_start()', self.state)
+        if self.state in State.available_states_wait():
             Clock.schedule_interval(self.on_wait, SECOND_GAME)
 
-            self.set_state(State.NONE)
+            self.set_state(State.ON_WAIT_START)
             self.get_bike().anim_wait()
         else:
-            print('\nXXX xx x .  wait  . x xx XXX\n', self.state)
+            print('XXX xx x .  wait  . x xx XXX', self.state)
 
     def on_wait_stop(self):
-        print('-- wait stop')
-        if self.state in (State.ON_GO_START, State.ON_JUMP_LANDING):
+        print('on_wait_stop()', self.state)
+        if self.state in (
+                # State.ON_JUMP_LANDING,
+                State.ON_WAIT_START, State.ON_WAIT_MOVE,
+                State.ON_GO_START):
             Clock.unschedule(self.on_wait)
+            self.set_state(State.ON_WAIT_STOP)
         else:
             print('\nXXX xx x .  wait stop . x xx XXX\n', self.state)
 
     # -- on landing --
 
     def on_landing(self, dt):
-        event = JumpEventRoad(**self.game_objects())
+        print('on_landing', self.state)
+        event = LandingEventRoad(**self.game_objects())
         status_bar = self.get_status_bar()
         bike = self.get_bike()
 
-        if event.landing(dt):
+        if event.do(dt):
             status_bar.show_status('On Landing: ' + self.state, bike, self)
             return True
         else:
-            self.on_landing_stop()
             status_bar.show_status('Stop On Landing: ' + self.state, bike, self)
+            self.on_landing_stop()
             return False
 
     def on_landing_start(self):
-        bike = self.get_bike()
-
+        print('--------->>>')
+        print('on_landing_start()', self.state)
         if self.state in State.available_states_landing():
             Clock.schedule_interval(self.on_landing, SECOND_GAME)
 
-            self.set_state(State.ON_JUMP_LANDING)
+            bike = self.get_bike()
+            self.set_state(State.ON_LANDING_START)
             bike and bike.anim_landing()
         else:
-            self.on_landing_stop()
+            # self.on_landing_stop()
             print('\nXXX xx x .  landing  . x xx XXX\n', self.state)
 
     def on_landing_stop(self):
-        if self.state == State.ON_JUMP_LANDING:
+        print('on_landing_stop()', self.state)
+        available_events = (State.ON_LANDING_START, State.ON_LANDING_MOVE)
+        if self.state in available_events:
             Clock.unschedule(self.on_landing)
+            self.set_state(State.ON_LANDING_STOP)
+        elif self.state == State.ON_LANDING_STOP:
             self.on_relax_start()
-            self.set_state(State.ON_JUMP_LANDING_STOP)
-            # move >> self.get_bike().anim_relax()
-        elif self.get_bike().speed <= 0:
-            self.on_wait_start()
-            # move >> self.get_bike().anim_wait()
+
+        print('<<<<<<<< landing STOP', self.state)
 
     # -- on jump up --
 
@@ -139,6 +149,7 @@ class Road(Widget):
             return False
 
     def on_jump_start(self):
+        print('on_jump_start()', self.state)
         if self.state in State.available_states_jump():
             Clock.schedule_interval(self.on_jump, SECOND_GAME)
 
@@ -151,13 +162,17 @@ class Road(Widget):
             print('\nXXX xx x .  jump  . x xx XXX\n')
 
     def on_jump_stop(self):
-        if self.state == State.ON_JUMP_UP_MOVE:
-            # self.get_bike().anim_relax()
+        print('on_jump_stop()', self.state)
+        if self.state == State.ON_JUMP_MOVE:
             Clock.unschedule(self.on_jump)
+
+            self.set_state(State.ON_JUMP_STOP)
+            # self.get_bike().anim_relax()
 
     # -- on go --
 
     def on_go(self, dt):
+        print('go', self.state)
         event = GoEventRoad(**self.game_objects())
         status_bar = self.get_status_bar()
         bike = self.get_bike()
@@ -175,18 +190,20 @@ class Road(Widget):
             return False
 
     def on_go_start(self):
+        print('on_go_start()', self.state)
         if self.state in State.available_states_go():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
 
             self.set_state(State.ON_GO_START)
             self.get_bike().anim_go()
-        else:
-            if self.get_bike().speed <= 0:
-                self.on_wait_start()
-                # self.get_bike().anim_wait()
+        # else:
+        #     if self.get_bike().speed <= 0:
+        #         self.on_wait_start()
+        #         # self.get_bike().anim_wait()
             print('\nXXX xx x .  go  . x xx XXX\n', self.state)
 
     def on_go_stop(self):
+        print('on_go_stop()', self.state)
         if self.state in (State.ON_GO_MOVE, State.ON_GO_START):
             # self.get_bike().anim_relax()
             Clock.unschedule(self.on_go)
@@ -213,23 +230,28 @@ class Road(Widget):
             return False
 
     def on_relax_start(self):
-        print(self.state, '<<<<<<<<<<,')
+        print('\non_relax_start()', self.state)
         if self.state in State.available_states_relax():
             Clock.schedule_interval(self.on_relax, SECOND_GAME)
             self.set_state(State.ON_RELAX_START)
             self.get_bike().anim_relax()
-        else:
-            print('\nXXX xx x .  relax start  . x xx XXX\n', self.state)
+        #else:
+        print('XXX xx x .  relax start  . x xx XXX', self.state)
 
     def on_relax_stop(self):
-        print('III', self.state)
-        if self.state == State.ON_RELAX_MOVE:
+        print('on_relax_stop()', self.state)
+        if self.state in (State.ON_RELAX_MOVE):
             Clock.unschedule(self.on_relax)
+            self.set_state(State.ON_RELAX_STOP)
             self.get_bike().anim_wait()
-        else:
+        elif self.state == State.ON_WAIT_START and self.get_bike().speed <= 0:
+            Clock.unschedule(self.on_relax)
             self.on_wait_start()
-            self.get_bike().anim_wait()
-            print('\nXXX xx x .  relax stop  . x xx XXX\n', self.state)
+        # else:
+        #     # self.on_wait_start()
+        #     # self.get_bike().anim_wait()
+        #     print('\nXXX xx x .  relax stop  . x xx XXX\n', self.state)
+        print('<<<<<<<< relax STOP', self.state)
 
     # -- on stop --
 

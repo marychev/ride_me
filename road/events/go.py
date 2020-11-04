@@ -18,7 +18,7 @@ class GoEventRoad:
             self.bike.speed = 0
             self.bike.acceleration = 0
 
-            self.road.set_state(State.FINISHED)
+            self.road.set_state(State.FINISH)
             return False
         else:
             self.bike.speed += dt

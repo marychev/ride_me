@@ -48,7 +48,7 @@ class BackgroundImageAnimation(Widget):
     # event
     # go_mountains --
     def go_mountains(self, dt):
-        print('go_mountains INNER',  self.get_road().state)
+        # print('go_mountains INNER',  self.get_road().state)
         if self.get_road().has_finished():
             return False
         else:
@@ -60,14 +60,14 @@ class BackgroundImageAnimation(Widget):
             redraw_texture(self, 'mountains_texture')
 
     def go_mountains_start(self):
-        print('go_mountains_start',  self.get_road().state)
+        #print('go_mountains_start',  self.get_road().state)
         road = self.get_road()
         if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
                           State.ON_GO_START, State.NONE):
             Clock.schedule_interval(self.go_mountains, SECOND_GAME)
 
     def go_mountains_stop(self):
-        print('go_mountains_ STOP', self.get_road().state)
+        #print('go_mountains_ STOP', self.get_road().state)
 
         road = StatusBar.get_road()
         if road.state in (State.ON_GO_MOVE, State.ON_GO_START):
@@ -92,16 +92,16 @@ class BackgroundImageAnimation(Widget):
             redraw_texture(self, 'mountains_texture')
 
     def relax_mountains_start(self):
-        print('0 relax_mountains_start')
+        #print('0 relax_mountains_start')
         road = self.get_road()
         bike = self.get_bike()
-        if road.state not in (State.ON_JUMP_UP_MOVE, State.ON_GO_STOP, State.ON_JUMP_LANDING_STOP):
+        if road.state not in (State.ON_JUMP_MOVE, State.ON_GO_STOP, State.ON_LANDING_STOP):
             road.state = State.ON_RELAX_START
             road.on_relax_start()
             bike.anim_relax()
 
     def relax_mountains_stop(self):
-        print('relax_mountains_stop')
+        #print('relax_mountains_stop')
         road = self.get_road()
         bike = self.get_bike()
         if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP):

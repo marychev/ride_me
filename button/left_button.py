@@ -37,11 +37,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     # events --
 
-    def on_touch_down(self, touch):
-        if touch.is_double_tap:
-            self.dispatch('on_double_press', touch)
-            return True
-        return super().on_touch_down(touch)
+
 
     def on_press(self):
         self.set_objects()

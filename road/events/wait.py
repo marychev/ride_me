@@ -3,12 +3,13 @@ from utils.state import State
 
 
 class WaitEventRoad(GoEventRoad):
-    def start(self, dt):
-        can = self.bike.speed <= 0
+    def do(self, dt):
+        can = self.bike.speed <= 0 and self.bike.power < 300
         if can:
             self.bike.speed = 0
-            self.road.set_state(State.NONE)
+            self.bike.power += dt*10
+            self.road.set_state(State.ON_WAIT_MOVE)
         else:
-            self.road.set_state(State.NONE)
+            self.road.set_state(State.ON_WAIT_STOP)
         return can
 
