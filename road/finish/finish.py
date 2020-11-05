@@ -1,3 +1,4 @@
+import os
 from layout.background_image import BackgroundImageAnimation
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
@@ -7,11 +8,15 @@ from utils.validation import ValidObject
 from utils.texture import redraw_texture
 from kivy.core.window import Window
 
-Builder.load_file("road/finish/finish.kv")
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'finish.kv'))
+Builder.load_file(path)
+
+
+texture_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'img/finish.jpg'))
 
 
 class Finish(Widget):
-    texture = ObjectProperty(Image(source='road/finish/img/finish.jpg').texture)
+    texture = ObjectProperty(Image(source=texture_path).texture)
 
     def __init__(self, **kwargs):
         super(Finish, self).__init__(**kwargs)

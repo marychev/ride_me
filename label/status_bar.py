@@ -1,9 +1,11 @@
+import os.path
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
 from screen.utils import get_game_screen
 from kivy.lang import Builder
 
-Builder.load_file("label/status_bar.kv")
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'status_bar.kv'))
+Builder.load_file(path)
 
 
 class StatusBar(Label):
@@ -24,12 +26,12 @@ class StatusBar(Label):
 
     @staticmethod
     def get_finish():
-        print('[WARNING] Try to get a game object from DOM! get_finish')
+        #print('[WARNING] Try to get a game object from DOM! get_finish')
         return get_game_screen().ids.finish if get_game_screen() else None
 
     @staticmethod
     def get_bike():
-        print('[WARNING] Try to get a game object from DOM! get_bike')
+        #print('[WARNING] Try to get a game object from DOM! get_bike')
         return get_game_screen().ids.bike if get_game_screen() else None
 
     @staticmethod
@@ -39,7 +41,7 @@ class StatusBar(Label):
 
     @staticmethod
     def get_status_bar():
-        print('[WARNING] Try to get a game object from DOM! get_status_bar')
+        #print('[WARNING] Try to get a game object from DOM! get_status_bar')
         return get_game_screen().ids.status_bar if get_game_screen() else None
 
     def show_status(self, title, bike, road):

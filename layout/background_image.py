@@ -1,3 +1,4 @@
+import os
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.properties import ObjectProperty
@@ -11,11 +12,17 @@ from utils.state import State
 from conf import SECOND_GAME
 
 
+mountains_texture_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'mountains-1.png'))
+cloud_big_texture_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'cloud-big.png'))
+cloud_middle_texture_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'cloud-middle.png'))
+cloud_min_texture_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'cloud-min.png'))
+
+
 class BackgroundImageAnimation(Widget):
-    mountains_texture = ObjectProperty(Image(source='layout/mountains-1.png').texture)
-    cloud_big_texture = ObjectProperty(Image(source='layout/cloud-big.png').texture)
-    cloud_middle_texture = ObjectProperty(Image(source='layout/cloud-middle.png').texture)
-    cloud_min_texture = ObjectProperty(Image(source='layout/cloud-min.png').texture)
+    mountains_texture = ObjectProperty(Image(source=mountains_texture_path).texture)
+    cloud_big_texture = ObjectProperty(Image(source=cloud_big_texture_path).texture)
+    cloud_middle_texture = ObjectProperty(Image(source=cloud_middle_texture_path).texture)
+    cloud_min_texture = ObjectProperty(Image(source=cloud_min_texture_path).texture)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

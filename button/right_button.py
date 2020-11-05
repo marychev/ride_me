@@ -1,9 +1,11 @@
+import os
 from kivy.clock import Clock
 from kivy.lang import Builder
 from button.left_button import LeftButtonWidget
 from conf import SECOND_GAME
 
-Builder.load_file('button/right_button.kv')
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'right_button.kv'))
+Builder.load_file(path)
 
 
 class RightButtonWidget(LeftButtonWidget):
@@ -44,8 +46,10 @@ class RightButtonWidget(LeftButtonWidget):
             # # todo: acceleration
             # extra_acceleration = self.counter.count / 4
             # self.bike.set_acceleration(extra_acceleration)
+            print('*************')
             self.road.on_relax_stop()
             self.road.on_go_start()
+            print('/////////////////////')
         elif is_release:
             self.road.on_go_stop()
             self.road.on_relax_start()

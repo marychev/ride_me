@@ -4,7 +4,7 @@ from kivy.config import Config
 from kivy.utils import platform
 from kivy.core.window import Window
 
-SECOND_GAME = 1 / 60
+SECOND_GAME = 1.0 / 60.0
 HEIGHT_GAME = 560 + 100
 WIDTH_GAME = 860 + 200
 

@@ -1,10 +1,12 @@
+import os
 from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.image import Image
 from utils.texture import redraw_texture
 from utils.validation import ValidObject
 
-Builder.load_file("road/rock/rock.kv")
+path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'rock.kv'))
+Builder.load_file(path)
 
 
 class Rock(Image):
