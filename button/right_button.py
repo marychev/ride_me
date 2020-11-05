@@ -46,10 +46,9 @@ class RightButtonWidget(LeftButtonWidget):
             # # todo: acceleration
             # extra_acceleration = self.counter.count / 4
             # self.bike.set_acceleration(extra_acceleration)
-            print('*************')
+
             self.road.on_relax_stop()
             self.road.on_go_start()
-            print('/////////////////////')
         elif is_release:
             self.road.on_go_stop()
             self.road.on_relax_start()

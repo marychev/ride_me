@@ -4,7 +4,7 @@ from utils.state import State
 
 class WaitEventRoad(GoEventRoad):
     def do(self, dt):
-        can = self.bike.speed <= 0 and self.bike.power < 300
+        can = self.bike.speed <= 0 and self.bike.power < self.bike.max_power
         if can:
             self.bike.speed = 0
             self.bike.power += dt*10

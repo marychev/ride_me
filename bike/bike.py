@@ -16,14 +16,17 @@ class Bike(Image):
     source = StringProperty('bike/img/bike-1.png')
     acceleration = NumericProperty(0)
     power = NumericProperty(50)
-    max_power = NumericProperty(150)
+    max_power = NumericProperty(150.00)
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
 
     def set_power(self, dt):
-        power = self.power
-        power = power - (dt*100) if int(dt) < 0 else power + (dt*100)
-        self.power = float('{:3.2f}'.format(power))
+        if float(self.power + dt) < float(self.max_power):
+            power = self.power
+            power = power - (dt*100) if int(dt) < 0 else power + (dt*100)
+            self.power = float('{:3.2f}'.format(power))
+        else:
+            self.power = float(self.max_power)
 
     def is_in_sky(self):
         road = self.get_road()

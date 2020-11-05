@@ -38,7 +38,8 @@ class Road(Widget, LandingDispatcher):
         self.register_event_type(State.EVENT_ON_RELAX)
         self.register_event_type(State.EVENT_ON_STOP)
 
-        Clock.schedule_interval(self.on_landing, SECOND_GAME)
+        # Clock.schedule_interval(self.on_landing, SECOND_GAME)
+        self.landing_start()
 
     def get_distance_traveled(self):
         return self.x + self.get_bike().speed
