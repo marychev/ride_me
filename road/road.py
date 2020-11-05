@@ -10,7 +10,7 @@ from kivy.uix.widget import Widget
 from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
-from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad, JumpEventRoad
+from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad
 from road.events import RoadEvents
 from utils.checks import set_texture_uvpos
 from utils.state import State
@@ -60,42 +60,43 @@ class Road(Widget, RoadEvents):
 
     # Events
 
-    # -- on jump up DEV START--
+    # # -- on jump up DEV START--
+    #
+    # def on_jump(self, dt):
+    #     print('JUMP', self.state)
+    #     event = JumpEventRoad(**self.game_objects())
+    #     status_bar = self.get_status_bar()
+    #     bike = self.get_bike()
+    #
+    #     if event.do(dt):
+    #         status_bar.show_status('On Jump: ' + self.state, bike, self)
+    #         return True
+    #     else:
+    #         self.on_jump_stop()
+    #
+    #         # self.on_landing_start()
+    #         Clock.schedule_interval(self.on_landing, SECOND_GAME)
+    #
+    #         status_bar.show_status('Stop On Jump: ' + self.state, bike, self)
+    #         return False
 
-    def on_jump(self, dt):
-        print('JUMP', self.state)
-        event = JumpEventRoad(**self.game_objects())
-        status_bar = self.get_status_bar()
-        bike = self.get_bike()
-
-        if event.do(dt):
-            status_bar.show_status('On Jump: ' + self.state, bike, self)
-            return True
-        else:
-            self.on_jump_stop()
-
-            # self.on_landing_start()
-            Clock.schedule_interval(self.on_landing, SECOND_GAME)
-
-            status_bar.show_status('Stop On Jump: ' + self.state, bike, self)
-            return False
-
-    def on_jump_start(self):
-        print('START jump', self.state)
-        if self.state in (State.ON_RELAX_STOP):
-            self.road.wait_stop()
-            Clock.schedule_interval(self.on_jump, SECOND_GAME)
-            self.set_state(State.ON_JUMP_START)
-            self.get_bike().anim_jump_up()
+    #def on_jump_start(self):
+        # print('START jump', self.state)
+        # if self.state in (State.ON_RELAX_STOP,
+        #                   State.ON_WAIT_MOVE, State.ON_WAIT_STOP):
+        #     self.road.wait_stop()
+        #     Clock.schedule_interval(self.on_jump, SECOND_GAME)
+        #     self.set_state(State.ON_JUMP_START)
+        #     self.get_bike().anim_jump_up()
 
         # else:
         #     # if self.get_bike().speed <= 0:
         #     #     self.on_wait_start()
         #     #     self.get_bike().anim_wait()
 
-    def on_jump_stop(self):
-        print('STOP jump', self.state)
-        # print('on_jump_stop()', self.state)
+    # def on_jump_stop(self):
+    #     print('STOP jump', self.state)
+    #     # print('on_jump_stop()', self.state)
         # if self.state == State.ON_JUMP_MOVE:
         #     Clock.unschedule(self.on_jump)
         #

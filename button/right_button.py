@@ -54,7 +54,7 @@ class RightButtonWidget(LeftButtonWidget):
             self.road.on_relax_start()
         elif is_double_press:
             self.road.on_relax_stop()
-            self.road.on_jump_start()
+            self.road.jump_start()
         else:
             raise 0
 
