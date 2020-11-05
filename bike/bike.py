@@ -1,12 +1,12 @@
 import os
+
 from kivy.animation import Animation
 from kivy.graphics import Color, Rectangle
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
+
 from utils.validation import ValidObject
-from kivy.clock import Clock
-from conf import SECOND_GAME
 
 path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'bike.kv'))
 Builder.load_file(path)

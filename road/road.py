@@ -1,15 +1,17 @@
 import os
+
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty, StringProperty
+from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 
 from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
-from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad, JumpEventRoad, WaitEventRoad, LandingDispatcher
+from road.events import GoEventRoad, RelaxEventRoad, StopEventRoad, JumpEventRoad
+from road.events import RoadEvents
 from utils.checks import set_texture_uvpos
 from utils.state import State
 from utils.validation import ValidObject
@@ -20,7 +22,7 @@ Builder.load_file(KV_PATH)
 TEXTURE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'img/road-01.png'))
 
 
-class Road(Widget, LandingDispatcher):
+class Road(Widget, RoadEvents):
     texture = ObjectProperty(Image(source=TEXTURE_PATH).texture)
     total_way = NumericProperty(3000)
     distance_traveled = NumericProperty(0)
@@ -32,13 +34,11 @@ class Road(Widget, LandingDispatcher):
         super(Road, self).__init__(**kwargs)
         BackgroundImageAnimation.repeat_wrap(self.texture, Window.width / self.texture.width)
 
-        # TODO: IN Progress self.register_event_type(State.EVENT_ON_WAIT)
-        self.register_event_type(State.EVENT_ON_JUMP)
+        # TODO: IN Progress self.register_event_type(State.EVENT_ON_JUMP)
         self.register_event_type(State.EVENT_ON_GO)
         self.register_event_type(State.EVENT_ON_RELAX)
         self.register_event_type(State.EVENT_ON_STOP)
 
-        # Clock.schedule_interval(self.on_landing, SECOND_GAME)
         self.landing_start()
 
     def get_distance_traveled(self):
@@ -60,35 +60,7 @@ class Road(Widget, LandingDispatcher):
 
     # Events
 
-    # -- on wait --
-
-    def on_wait(self, dt):
-        print('on_wait', self.state)
-        event = WaitEventRoad(**self.game_objects())
-        status_bar = self.get_status_bar()
-        bike = self.get_bike()
-
-        if event.do(dt):
-            status_bar.show_status('On Wait: ' + self.state, bike, self)
-            return True
-        else:
-            self.on_wait_stop()
-            status_bar.show_status('Stop On Wait: ' + self.state, bike, self)
-            return False
-
-    def on_wait_start(self):
-        print('START wait', self.state)
-        if self.state in (State.ON_LANDING_STOP):
-            Clock.schedule_interval(self.on_wait, SECOND_GAME)
-            self.set_state(State.ON_WAIT_START)
-            self.get_bike().anim_wait()
-
-    def on_wait_stop(self):
-        print('STOP wait', self.state)
-        Clock.unschedule(self.on_wait)
-        self.set_state(State.ON_WAIT_STOP)
-
-    # -- on jump up --
+    # -- on jump up DEV START--
 
     def on_jump(self, dt):
         print('JUMP', self.state)
@@ -111,7 +83,7 @@ class Road(Widget, LandingDispatcher):
     def on_jump_start(self):
         print('START jump', self.state)
         if self.state in (State.ON_RELAX_STOP):
-            self.on_wait_stop()
+            self.road.wait_stop()
             Clock.schedule_interval(self.on_jump, SECOND_GAME)
             self.set_state(State.ON_JUMP_START)
             self.get_bike().anim_jump_up()
@@ -285,4 +257,4 @@ distance_traveled:    {}
             return StatusBar.get_finish()
 
     def get_road(self):
-        return self
+        return self or StatusBar.get_road()

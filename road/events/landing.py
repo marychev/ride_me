@@ -1,12 +1,11 @@
 from kivy.clock import Clock
-from kivy.event import EventDispatcher
-from utils.state import State
-from label.status_bar import StatusBar
+
 from conf import SECOND_GAME
+from road.events.base import BaseDispatcher
+from utils.state import State
 
 
-class LandingDispatcher(EventDispatcher):
-
+class LandingDispatcher(BaseDispatcher):
     def __init__(self, **kwargs):
         super(LandingDispatcher, self).__init__(**kwargs)
 
@@ -27,14 +26,13 @@ class LandingDispatcher(EventDispatcher):
         # todo: only as temp solution
         if self.bike is None or self.road is None:
             self.set_game_object()
-
         else:
             if self.bike.is_in_sky():
                 self.bike.y -= (dt * self.bike.power) * self.road.gravity
                 self.bike.set_power(dt)
 
                 # todo: need to move into start method
-                # remove all animation
+                # remove all animation (need to call one time)
                 if self.road.state == State.ON_LANDING_START:
                     self.bike.anim_landing()
 
@@ -55,14 +53,8 @@ class LandingDispatcher(EventDispatcher):
                 # check road state after loop and apply needed event
                 # e.g. pass managing elements to other events
                 if self.bike.speed <= 0:
-                    self.road.on_wait_start()
+                    self.road.wait_start()
                 else:
                     self.road.on_relax_start()
 
                 return False
-
-    def set_game_object(self):
-        # todo: only as temp solution
-        self.status_bar = self.get_status_bar()
-        self.road = self.get_road()
-        self.bike = self.get_bike()
