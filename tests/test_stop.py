@@ -22,21 +22,20 @@ class StopTest(GraphicUnitTest):
     def test_stop_start(self):
         self.set_app()
         self.bike.speed = 100
-        # self.road.set_state(State.ON_GO_MOVE)
-        # todo: need to relax
+        self.road.on_go(0.1)
         self.road.stop_start()
         self.assertEqual(self.road.state, State.ON_STOP_START)
 
-    # def test_stop_move(self):
-    #     self.set_app()
-    #     self.bike.speed = 50
-    #     self.road.stop_start()
-    #     self.road.on_stop(.1)
-    #     self.assertEqual(self.road.state, State.ON_STOP_MOVE)
-    #
-    # def test_stop_stop(self):
-    #     self.set_app()
-    #     self.bike.speed = 0
-    #     self.road.on_jump(.1)
-    #     self.road.stop_stop()
-    #     self.assertEqual(self.road.state, State.ON_STOP_STOP)
+    def test_stop_move(self):
+        self.set_app()
+        self.bike.speed = 50
+        self.road.stop_start()
+        self.road.on_stop(.1)
+        self.assertEqual(self.road.state, State.ON_STOP_MOVE)
+
+    def test_stop_stop(self):
+        self.set_app()
+        self.bike.speed = 0
+        self.road.on_stop(.1)
+        self.road.stop_stop()
+        self.assertEqual(self.road.state, State.ON_STOP_STOP)

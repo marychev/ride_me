@@ -1,17 +1,35 @@
 from kivy.clock import Clock
-from label.status_bar import StatusBar
-from utils.state import State
+
 from conf import SECOND_GAME
+from road.events.base import BaseDispatcher
+from utils.state import State
 
 
-class GoEventRoad:
-    def __init__(self, status_bar, road, bike, rock, finish):
-        self.set_game_objects(status_bar, road, bike, rock, finish)
+class GoDispatcher(BaseDispatcher):
 
-    def do(self, dt):
+    def __init__(self, **kwargs):
+        super(GoDispatcher, self).__init__(**kwargs)
+        self.register_event_type(State.EVENT_ON_GO)
+
+    def go_start(self):
+        if self.road.state in (State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
+                               State.ON_RELAX_MOVE, State.ON_RELAX_STOP):
+            Clock.schedule_interval(self.on_go, SECOND_GAME)
+            self.road.set_state(State.ON_GO_START)
+            self.bike.anim_go()
+
+    def go_stop(self):
+        if self.road.state in (State.ON_GO_START, State.ON_GO_MOVE, State.ON_GO_STOP):
+            Clock.unschedule(self.on_go)
+            self.road.set_state(State.ON_GO_STOP)
+            # option
+            self.status_bar and self.status_bar.show_status('Stop On GO: ' + self.road.state, self.bike, self.road)
+
+    def on_go(self, dt):
         if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
-            self.road.set_state(State.ON_GO_STOP)
+            self.go_stop()
+            self.status_bar and self.status_bar.show_status('Stop On GO/COLLISION: ' + self.road.state, self.bike, self.road)
             return False
         elif self.road.has_finished():
             self.bike.power = 0
@@ -19,22 +37,12 @@ class GoEventRoad:
             self.bike.acceleration = 0
 
             self.road.set_state(State.FINISH)
+            self.road.unschedule_events()
+            self.status_bar and self.status_bar.show_status_finished()
             return False
         else:
             self.bike.speed += dt
-
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)
+            self.status_bar and self.status_bar.show_status('On GO: ' + self.road.state, self.bike, self.road)
             return True
-
-    def set_distances(self):
-        self.rock and self.rock.set_x()
-        self.road.set_distance_traveled()
-        self.finish.set_x()
-
-    def set_game_objects(self, status_bar, road, bike, rock, finish):
-        self.status_bar = status_bar
-        self.road = road
-        self.bike = bike
-        self.rock = rock
-        self.finish = finish

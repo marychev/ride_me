@@ -1,11 +1,11 @@
 from kivy.clock import Clock
 from utils.state import State
 from conf import SECOND_GAME
-from .go import GoEventRoad
+from .go import GoDispatcher
 from utils.state import State
 
 
-class RelaxEventRoad(GoEventRoad):
+class RelaxEventRoad(GoDispatcher):
 
     def do(self, dt):
         if self.rock and self.bike.collide_widget(self.rock):

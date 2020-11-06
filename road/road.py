@@ -10,7 +10,7 @@ from kivy.uix.widget import Widget
 from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
-from road.events import GoEventRoad, RelaxEventRoad
+from road.events import RelaxEventRoad
 from road.events import RoadEvents
 from utils.checks import set_texture_uvpos
 from utils.state import State
@@ -34,8 +34,8 @@ class Road(Widget, RoadEvents):
         super(Road, self).__init__(**kwargs)
         BackgroundImageAnimation.repeat_wrap(self.texture, Window.width / self.texture.width)
 
-        # TODO: IN Progress self.register_event_type(State.EVENT_ON_STOP)
-        self.register_event_type(State.EVENT_ON_GO)
+        # TODO: IN Progress self.register_event_type(State.EVENT_ON_STOP) + tests
+        # TODO: IN Progress self.register_event_type(State.EVENT_ON_GO) + tests
         self.register_event_type(State.EVENT_ON_RELAX)
 
         self.landing_start()
@@ -58,44 +58,6 @@ class Road(Widget, RoadEvents):
             del self.last_states[1]
 
     # Events
-    # -- on go --
-
-    def on_go(self, dt):
-        print('go', self.state)
-        event = GoEventRoad(**self.game_objects())
-        status_bar = self.get_status_bar()
-        bike = self.get_bike()
-
-        if event.do(dt):
-            status_bar.show_status('On Go: ' + self.state, bike, self)
-            return True
-        elif self.has_finished():
-            status_bar.show_status_finished()
-            self.unschedule_events()
-            return False
-        else:
-            self.on_go_stop()
-            status_bar.show_status('STOP On Go: ' + self.state, bike, self)
-            return False
-
-    def on_go_start(self):
-        print('START go', self.state)
-        # if self.state in State.available_states_go():
-        #     Clock.schedule_interval(self.on_go, SECOND_GAME)
-        #
-        #     self.set_state(State.ON_GO_START)
-        #     self.get_bike().anim_go()
-        # # else:
-        # #     if self.get_bike().speed <= 0:
-        # #         self.on_wait_start()
-        # #         # self.get_bike().anim_wait()
-
-    def on_go_stop(self):
-        print('STOP go', self.state)
-        # if self.state in (State.ON_GO_MOVE, State.ON_GO_START):
-        #     # self.get_bike().anim_relax()
-        #     Clock.unschedule(self.on_go)
-        #     self.set_state(State.ON_GO_STOP)
 
     # -- on relax --
 
@@ -126,35 +88,6 @@ class Road(Widget, RoadEvents):
             Clock.unschedule(self.on_relax)
             self.set_state(State.ON_RELAX_STOP)
             self.get_bike().anim_wait()
-
-    # -- on stop --
-
-    # def on_stop(self, acceleration):
-    #     event = StopEventRoad(**self.game_objects())
-    #     status_bar = self.get_status_bar()
-    #     bike = self.get_bike()
-    #
-    #     if event.start(acceleration):
-    #         status_bar.show_status('On Stop: ' + self.state, bike, self)
-    #         return True
-    #     elif self.has_finished():
-    #         status_bar.show_status_finished()
-    #         return False
-    #     else:
-    #         status_bar.show_status('Stop On Stop: ' + self.state, bike, self)
-    #         self.on_stop_stop()
-    #         return False
-
-    # def on_stop_start(self):
-    #     if self.state in State.available_states_stop():
-    #         Clock.schedule_interval(self.on_stop, SECOND_GAME)
-    #         self.set_state(State.ON_STOP_START)
-    #         self.get_bike().anim_stop()
-
-    # def on_stop_stop(self):
-    #     if self.state in (State.ON_STOP_START, State.ON_STOP_MOVE):
-    #         Clock.unschedule(self.on_stop)
-    #         self.on_wait_start()
 
     def unschedule_events(self):
         bg_animation = StatusBar.get_background_image_animation()

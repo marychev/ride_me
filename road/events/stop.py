@@ -35,7 +35,7 @@ class StopDispatcher(BaseDispatcher):
         elif float(self.bike.speed) - float(stop_way) <= 0.0:
             self.bike.speed = 0
             self.rock and self.rock.set_x()
-            self.finish.set_x()
+            self.finish and self.finish.set_x()
             self.road.set_state(State.ON_STOP_STOP)
             self.status_bar and self.status_bar.show_status('Stop On Stop' + self.road.state, self.bike, self.road)
             return False

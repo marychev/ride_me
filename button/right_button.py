@@ -48,9 +48,9 @@ class RightButtonWidget(LeftButtonWidget):
             # self.bike.set_acceleration(extra_acceleration)
 
             self.road.on_relax_stop()
-            self.road.on_go_start()
+            self.road.go_start()
         elif is_release:
-            self.road.on_go_stop()
+            self.road.go_stop()
             self.road.on_relax_start()
         elif is_double_press:
             self.road.on_relax_stop()
