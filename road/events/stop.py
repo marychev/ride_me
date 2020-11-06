@@ -13,7 +13,7 @@ class StopDispatcher(BaseDispatcher):
 
     @classmethod
     def start_states_list(cls):
-        return (State.ON_RELAX_MOVE,
+        return (State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
                 State.ON_GO_MOVE)
 
     @classmethod
@@ -51,6 +51,7 @@ class StopDispatcher(BaseDispatcher):
         else:
             self.bike.speed -= stop_way
             self.set_distances()
+
             self.road.set_state(State.ON_STOP_MOVE)
             self.status_bar and self.status_bar.show_status('On Stop: ' + self.road.state, self.bike, self.road)
             return True

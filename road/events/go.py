@@ -15,7 +15,8 @@ class GoDispatcher(BaseDispatcher):
     def start_states_list(cls):
         return (State.ON_LANDING_STOP,
                 State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
-                State.ON_RELAX_MOVE, State.ON_RELAX_STOP)
+                State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
+                State.ON_STOP_MOVE)
 
     @classmethod
     def stop_states_list(cls):
