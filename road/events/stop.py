@@ -18,7 +18,7 @@ class StopDispatcher(BaseDispatcher):
 
     @classmethod
     def stop_states_list(cls):
-        return State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP
+        return (State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP)
 
     def stop_start(self):
         if self.road.state in StopDispatcher.start_states_list():
@@ -40,12 +40,15 @@ class StopDispatcher(BaseDispatcher):
             self.status_bar and self.status_bar.show_status('Stop On Stop: COLLISION' + self.road.state, self.bike, self.road)
             return False
 
-        elif float(self.bike.speed) - float(stop_way) <= 0.0:
+        elif float(self.bike.speed) - float(stop_way) <= 0.0 and not self.bike.is_in_sky():
             self.bike.speed = 0
             self.rock and self.rock.set_x()
             self.finish and self.finish.set_x()
             self.road.set_state(State.ON_STOP_STOP)
             self.status_bar and self.status_bar.show_status('Stop On Stop' + self.road.state, self.bike, self.road)
+            return False
+
+        elif self.bike.is_in_sky():
             return False
 
         else:

@@ -33,7 +33,7 @@ class JumpDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_JUMP_STOP)
 
     def on_jump(self, dt):
-        if int(self.bike.power) > 0:
+        if int(self.bike.power) > 0 and self.road.state != State.ON_LANDING_MOVE:
             self.bike.y += dt * self.bike.power
             self.bike.set_power(-dt)
 

@@ -45,6 +45,8 @@ class GoDispatcher(BaseDispatcher):
             self.go_stop()
             self.road_finish()
             return False
+        elif self.bike.is_in_sky():
+            return False
         else:
             self.bike.speed += dt
             self.set_distances()
