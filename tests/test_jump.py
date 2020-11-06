@@ -29,3 +29,21 @@ class JumpTest(BaseGameScreenGUITest):
         self.road.on_jump(.1)
         self.road.jump_stop()
         self.assertEqual(self.road.state, State.ON_JUMP_STOP)
+
+    def test_go_events_for_move_state_should_fail(self):
+        self.set_app()
+        self.bike.y = self.road.y + 100
+        self.road.on_landing(.1)
+        self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+
+        self.road.go_start()
+        self.assertNotEqual(self.road.state, State.ON_GO_START)
+        self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+
+        self.road.on_go(.1)
+        self.assertNotEqual(self.road.state, State.ON_GO_MOVE)
+        self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+
+        self.road.go_stop()
+        self.assertNotEqual(self.road.state, State.ON_GO_STOP)
+        self.assertEqual(self.road.state, State.ON_LANDING_MOVE)

@@ -15,7 +15,8 @@ class LandingDispatcher(BaseDispatcher):
     @classmethod
     def start_states_list(cls):
         return (State.NONE,
-                State.ON_JUMP_MOVE, State.ON_JUMP_STOP)
+                # State.ON_JUMP_MOVE,
+                State.ON_JUMP_STOP)
 
     @classmethod
     def stop_states_list(cls):
@@ -29,6 +30,7 @@ class LandingDispatcher(BaseDispatcher):
             self.bike and self.bike.anim_landing()
 
     def landing_stop(self):
+        # if self.road.state in LandingDispatcher.stop_states_list():
         Clock.unschedule(self.on_landing)
         self.road.set_state(State.ON_LANDING_STOP)
 
@@ -37,7 +39,7 @@ class LandingDispatcher(BaseDispatcher):
         if self.bike is None or self.road is None:
             self.set_game_object()
         else:
-            if self.bike.is_in_sky():
+            if self.bike.is_in_sky() and self.road.state != State.ON_JUMP_MOVE:
                 self.bike.y -= (dt * self.bike.power) * self.road.gravity
                 self.bike.set_power(dt)
 
@@ -52,6 +54,8 @@ class LandingDispatcher(BaseDispatcher):
                 # todo: only as temp solution
                 self.status_bar and self.status_bar.show_status('On Landing: ' + self.road.state, self.bike, self.road)
                 return True
+            elif self.bike.is_in_sky() and self.road.state == State.ON_JUMP_MOVE:
+                return False
             else:
                 self.bike.y = self.road.y
                 self.bike.set_power(self.bike.max_power)
