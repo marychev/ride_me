@@ -22,7 +22,7 @@ class StatusBar(Label):
     @staticmethod
     def get_rock():
         # TODO: TEMP print('[WARNING] Try to get a game object from DOM! get_rock')
-        return get_game_screen().ids.get('rock')
+        return get_game_screen().ids.get('rock') if get_game_screen() else None
 
     @staticmethod
     def get_finish():
