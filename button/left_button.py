@@ -50,11 +50,11 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     def _road_manage_events(self, is_press=False, is_release=False):
         if is_press:
-            self.road.on_relax_stop()
+            self.road.relax_stop()
             self.road.stop_start()
         elif is_release:
             self.road.stop_stop()
-            self.road.on_relax_start()
+            self.road.relax_start()
         else:
             raise 0
 

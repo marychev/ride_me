@@ -41,32 +41,3 @@ class State:
             v for v in list(State.__dict__.values())
             if type(v) == str and v.startswith('on_') and v not in exclude_events
         ]
-
-    @classmethod
-    def available_states_wait(cls):
-        return State.ON_LANDING_STOP, \
-               State.ON_WAIT_START, \
-               State.ON_RELAX_STOP  # , State.ON_STOP_STOP
-
-    @classmethod
-    def available_states_landing(cls):
-        return State.NONE, State.ON_JUMP_MOVE, State.ON_JUMP_STOP
-
-    @classmethod
-    def available_states_jump(cls):
-        return State.ON_WAIT_MOVE, \
-               State.ON_RELAX_MOVE, State.ON_WAIT_STOP
-
-    @classmethod
-    def available_states_go(cls):
-        return State.NONE, State.ON_RELAX_MOVE, State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP
-
-    @classmethod
-    def available_states_relax(cls):
-        return State.ON_GO_MOVE, State.ON_GO_STOP, \
-               State.ON_LANDING_STOP, \
-               State.ON_WAIT_STOP
-
-    @classmethod
-    def available_states_stop(cls):
-        return State.ON_GO_MOVE, State.ON_RELAX_MOVE

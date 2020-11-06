@@ -11,15 +11,27 @@ class WaitDispatcher(BaseDispatcher):
         super(WaitDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_WAIT)
 
+    @classmethod
+    def start_states_list(cls):
+        return (State.ON_LANDING_STOP,
+                State.ON_RELAX_STOP)
+
+    @classmethod
+    def stop_states_list(cls):
+        return (State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
+                # fix test_wait
+                State.ON_LANDING_STOP)
+
     def wait_start(self):
-        if self.road.state in (State.ON_LANDING_STOP):
+        if self.road.state in WaitDispatcher.start_states_list():
             Clock.schedule_interval(self.on_wait, SECOND_GAME)
             self.road.set_state(State.ON_WAIT_START)
             self.bike.anim_wait()
 
     def wait_stop(self):
-        Clock.unschedule(self.on_wait)
-        self.road.set_state(State.ON_WAIT_STOP)
+        if self.road.state in WaitDispatcher.stop_states_list():
+            Clock.unschedule(self.on_wait)
+            self.road.set_state(State.ON_WAIT_STOP)
 
     def on_wait(self, dt):
         can = self.bike.speed <= 0 and self.bike.power < self.bike.max_power

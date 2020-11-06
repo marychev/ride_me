@@ -1,21 +1,12 @@
-from kivy.base import EventLoop
-from kivy.tests.common import GraphicUnitTest
-
-from screen.game_screen import GameScreen
 from utils.state import State
+from tests.base_gui_test import BaseGameScreenGUITest
 
 
-class JumpTest(GraphicUnitTest):
+class JumpTest(BaseGameScreenGUITest):
     def set_app(self):
-        self.screen = GameScreen()
-        self.render(self.screen)
-        self.road = self.screen.ids['road']
-        self.bike = self.screen.ids['bike']
+        super().set_app()
 
-        self.bike.y = self.road.y
-        self.bike.speed = 0
         self.bike.power = 150
-        self.bike.max_power = 300
         self.road.landing_stop()
         self.road.wait_start()
         self.road.wait_stop()

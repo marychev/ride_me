@@ -11,15 +11,23 @@ class StopDispatcher(BaseDispatcher):
         super(StopDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_STOP)
 
+    @classmethod
+    def start_states_list(cls):
+        return (State.ON_RELAX_MOVE,
+                State.ON_GO_MOVE)
+
+    @classmethod
+    def stop_states_list(cls):
+        return State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP
+
     def stop_start(self):
-        if self.road.state in (State.ON_RELAX_MOVE,
-                               State.ON_GO_MOVE):
+        if self.road.state in StopDispatcher.start_states_list():
             Clock.schedule_interval(self.on_stop, SECOND_GAME)
             self.road.set_state(State.ON_STOP_START)
             self.bike.anim_stop()
 
     def stop_stop(self):
-        if self.road.state in (State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP):
+        if self.road.state in StopDispatcher.stop_states_list():
             Clock.unschedule(self.on_stop)
             self.road.wait_start()
 
@@ -42,7 +50,7 @@ class StopDispatcher(BaseDispatcher):
 
         else:
             self.bike.speed -= stop_way
-            self.road.set_distances()
+            self.set_distances()
             self.road.set_state(State.ON_STOP_MOVE)
             self.status_bar and self.status_bar.show_status('On Stop: ' + self.road.state, self.bike, self.road)
             return True

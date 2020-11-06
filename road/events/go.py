@@ -11,15 +11,24 @@ class GoDispatcher(BaseDispatcher):
         super(GoDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_GO)
 
+    @classmethod
+    def start_states_list(cls):
+        return (State.ON_LANDING_STOP,
+                State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
+                State.ON_RELAX_MOVE, State.ON_RELAX_STOP)
+
+    @classmethod
+    def stop_states_list(cls):
+        return State.ON_GO_START, State.ON_GO_MOVE, State.ON_GO_STOP
+
     def go_start(self):
-        if self.road.state in (State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
-                               State.ON_RELAX_MOVE, State.ON_RELAX_STOP):
+        if self.road.state in GoDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
             self.road.set_state(State.ON_GO_START)
             self.bike.anim_go()
 
     def go_stop(self):
-        if self.road.state in (State.ON_GO_START, State.ON_GO_MOVE, State.ON_GO_STOP):
+        if self.road.state in GoDispatcher.stop_states_list():
             Clock.unschedule(self.on_go)
             self.road.set_state(State.ON_GO_STOP)
             # option
@@ -32,13 +41,8 @@ class GoDispatcher(BaseDispatcher):
             self.status_bar and self.status_bar.show_status('Stop On GO/COLLISION: ' + self.road.state, self.bike, self.road)
             return False
         elif self.road.has_finished():
-            self.bike.power = 0
-            self.bike.speed = 0
-            self.bike.acceleration = 0
-
-            self.road.set_state(State.FINISH)
-            self.road.unschedule_events()
-            self.status_bar and self.status_bar.show_status_finished()
+            self.go_stop()
+            self.road_finish()
             return False
         else:
             self.bike.speed += dt
@@ -46,3 +50,4 @@ class GoDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_GO_MOVE)
             self.status_bar and self.status_bar.show_status('On GO: ' + self.road.state, self.bike, self.road)
             return True
+

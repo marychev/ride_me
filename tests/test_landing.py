@@ -1,34 +1,14 @@
-from kivy.base import EventLoop
-from kivy.tests.common import GraphicUnitTest
-
-from screen.game_screen import GameScreen
+from tests.base_gui_test import BaseGameScreenGUITest
 from utils.state import State
 
 
-class LandingTest(GraphicUnitTest):
+class LandingTest(BaseGameScreenGUITest):
     def set_app(self):
-        self.screen = GameScreen()
-        self.render(self.screen)
-        self.road = self.screen.ids['road']
-        self.bike = self.screen.ids['bike']
+        super().set_app()
 
-        self.bike.y = self.road.y
-        self.bike.speed = 0
         self.bike.power = 150
-        self.bike.max_power = 300
-        self.road.set_state(State.ON_WAIT_START)
-        self.road.wait_start()
-
-    def test_runtouchapp(self):
-        self.set_app()
-
-        # get your Window instance safely
-        EventLoop.ensure_window()
-        window = EventLoop.window
-
-        # your asserts
-        self.assertEqual(window.children[0], self.screen)
-        self.assertEqual(window.children[0].height, window.height)
+        # self.road.set_state(State.ON_WAIT_START)
+        # self.road.wait_start()
 
     def test_landing_start(self):
         self.set_app()
@@ -50,7 +30,9 @@ class LandingTest(GraphicUnitTest):
 
     def test_start_and_end_landing_success(self):
         self.set_app()
+        self.road.set_state(State.ON_WAIT_START)
         self.assertEqual(self.road.state, State.ON_WAIT_START)
+
         self.bike.y = self.road.y + 10
         self.road.on_landing(.1)
         self.assertEqual(self.road.state, State.ON_LANDING_MOVE)

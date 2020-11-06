@@ -104,16 +104,16 @@ class BackgroundImageAnimation(Widget):
         bike = self.get_bike()
         if road.state not in (State.ON_JUMP_MOVE, State.ON_GO_STOP, State.ON_LANDING_STOP):
             road.state = State.ON_RELAX_START
-            road.on_relax_start()
-            bike.anim_relax()
+            road.relax_start()
+            # bike.anim_relax()
 
     def relax_mountains_stop(self):
         #print('relax_mountains_stop')
         road = self.get_road()
         bike = self.get_bike()
         if road.state in (State.ON_RELAX_MOVE, State.ON_RELAX_STOP):
-            road.on_relax_stop()
-            bike.anim_wait()
+            road.relax_stop()
+            # bike.anim_wait()
 
    # get game objects
 

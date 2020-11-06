@@ -12,11 +12,21 @@ class LandingDispatcher(BaseDispatcher):
         self.register_event_type(State.EVENT_ON_LANDING)
         self.set_game_object()
 
+    @classmethod
+    def start_states_list(cls):
+        return (State.NONE,
+                State.ON_JUMP_MOVE, State.ON_JUMP_STOP)
+
+    @classmethod
+    def stop_states_list(cls):
+        return State.ON_LANDING_STOP, State.ON_LANDING_MOVE, State.ON_LANDING_STOP
+
     def landing_start(self):
-        Clock.schedule_interval(self.on_landing, SECOND_GAME)
-        self.road.set_state(State.ON_LANDING_START)
-        # todo: trouble with access to element
-        self.bike and self.bike.anim_landing()
+        if self.road.state in LandingDispatcher.start_states_list():
+            Clock.schedule_interval(self.on_landing, SECOND_GAME)
+            self.road.set_state(State.ON_LANDING_START)
+            # todo: trouble with access to element
+            self.bike and self.bike.anim_landing()
 
     def landing_stop(self):
         Clock.unschedule(self.on_landing)
@@ -37,6 +47,7 @@ class LandingDispatcher(BaseDispatcher):
                     self.bike.anim_landing()
 
                 self.road.set_state(State.ON_LANDING_MOVE)
+                self.set_distances()
 
                 # todo: only as temp solution
                 self.status_bar and self.status_bar.show_status('On Landing: ' + self.road.state, self.bike, self.road)
@@ -55,6 +66,6 @@ class LandingDispatcher(BaseDispatcher):
                 if self.bike.speed <= 0:
                     self.road.wait_start()
                 else:
-                    self.road.on_relax_start()
+                    self.road.relax_start()
 
                 return False
