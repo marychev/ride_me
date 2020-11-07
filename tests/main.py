@@ -6,6 +6,7 @@ from tests.test_jump import JumpTest
 from tests.test_jump_move import JumpMoveTest
 from tests.test_stop import StopTest
 from tests.test_go import GoTest
+from tests.test_go_background import GoBackgroundTest
 from tests.test_relax import RelaxTest
 from tests.test_runtouchapp import RunTouchAppTest
 

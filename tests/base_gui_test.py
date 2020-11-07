@@ -6,6 +6,7 @@ class BaseGameScreenGUITest(GraphicUnitTest):
     def set_app(self):
         self.screen = GameScreen()
         self.render(self.screen)
+
         self.road = self.screen.ids['road']
         self.bike = self.screen.ids['bike']
 

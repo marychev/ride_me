@@ -5,11 +5,11 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 
 from label.status_bar import StatusBar
-from layout.background_image import BackgroundImageAnimation
 from road.events import RoadEvents
 from utils.checks import set_texture_uvpos
 from utils.dir import abstract_path
 from utils.state import State
+from utils.texture import repeat_texture
 from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('road/road.kv'))
@@ -26,7 +26,7 @@ class Road(Widget, RoadEvents):
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
 
-        BackgroundImageAnimation.repeat_wrap(self.texture, Window.width / self.texture.width)
+        repeat_texture(self.texture, Window.width / self.texture.width)
         self.landing_start()
 
     def get_distance_traveled(self):

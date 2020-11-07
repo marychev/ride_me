@@ -1,12 +1,10 @@
-import os
-from layout.background_image import BackgroundImageAnimation
+from kivy.lang import Builder
+from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
-from kivy.properties import ObjectProperty, NumericProperty
-from kivy.lang import Builder
-from utils.validation import ValidObject
-from utils.texture import redraw_texture
 from utils.dir import abstract_path
+from utils.texture import redraw_texture, repeat_texture
+from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('road/finish/finish.kv'))
 
@@ -16,7 +14,7 @@ class Finish(Widget):
 
     def __init__(self, **kwargs):
         super(Finish, self).__init__(**kwargs)
-        BackgroundImageAnimation.repeat_wrap(self.texture, 8, 8)
+        repeat_texture(self.texture, 8, 8)
 
     def set_x(self):
         self.x = self.get_x()
