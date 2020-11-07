@@ -51,6 +51,8 @@ class KeyboardHandler(object):
         elif keycode[1] == 'left':
             left_btn.state = 'normal'
             left_btn.on_release()
+        elif keycode[1] == 'spacebar':
+            right_btn.on_double_release(self._keyboard)
 
         self.active_key = None
         return True
