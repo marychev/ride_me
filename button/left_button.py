@@ -45,6 +45,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
         self._road_manage_events(is_press=True)
 
     def on_release(self):
+        self.set_objects()
         self.button_state_style()
         self._road_manage_events(is_release=True)
 

@@ -46,6 +46,7 @@ class JumpMoveTest(BaseGameScreenGUITest):
 
     def test_landing_events_for_move_state_should_fail(self):
         self.set_app()
+        self.bike.y = self.road.y + self.road.height*2
         self.road.landing_start()
         self.assertNotEqual(self.road.state, State.ON_LANDING_START)
         self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
@@ -57,21 +58,18 @@ class JumpMoveTest(BaseGameScreenGUITest):
         self.road.landing_stop()
         self.assertNotEqual(self.road.state, State.ON_LANDING_STOP)
         self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-    #
-    # def test_wait_events_for_move_state_should_fail(self):
-    #     self.set_app()
-    #     self.bike.y = self.road.y + 100
-    #     self.road.on_landing(.1)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
-    #
-    #     self.road.wait_start()
-    #     self.assertNotEqual(self.road.state, State.ON_WAIT_START)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
-    #
-    #     self.road.on_wait(.1)
-    #     self.assertNotEqual(self.road.state, State.ON_WAIT_MOVE)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
-    #
-    #     self.road.wait_stop()
-    #     self.assertNotEqual(self.road.state, State.ON_WAIT_STOP)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+
+    def test_wait_events_for_move_state_should_fail(self):
+        self.set_app()
+        self.road.wait_start()
+        self.assertNotEqual(self.road.state, State.ON_WAIT_START)
+        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
+
+        self.road.on_wait(.1)
+        self.assertNotEqual(self.road.state, State.ON_WAIT_MOVE)
+        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
+
+        self.road.wait_stop()
+        self.assertNotEqual(self.road.state, State.ON_WAIT_STOP)
+        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
+

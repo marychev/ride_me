@@ -41,12 +41,15 @@ class GoDispatcher(BaseDispatcher):
             self.go_stop()
             self.status_bar and self.status_bar.show_status('Stop On GO/COLLISION: ' + self.road.state, self.bike, self.road)
             return False
+
         elif self.road.has_finished():
             self.go_stop()
             self.road_finish()
             return False
+
         elif self.bike.is_in_sky():
             return False
+
         else:
             self.bike.speed += dt
             self.set_distances()
