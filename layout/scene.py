@@ -1,9 +1,8 @@
-import os
-from kivy.uix.floatlayout import FloatLayout
 from kivy.lang import Builder
+from kivy.uix.floatlayout import FloatLayout
+from utils.dir import abstract_path
 
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'scene.kv'))
-Builder.load_file(path)
+Builder.load_file(abstract_path('layout/scene.kv'))
 
 
 class Scene(FloatLayout):

@@ -35,6 +35,7 @@ class KeyboardHandler(object):
             left_btn.state = 'down'
             left_btn.on_press()
         elif keycode[1] == 'spacebar' and self.active_key is None:
+            right_btn.state = 'down'
             right_btn.on_double_press(self._keyboard)
 
         self.active_key = keycode[1]
@@ -42,6 +43,7 @@ class KeyboardHandler(object):
 
     def _on_keyboard_up(self, keyboard, keycode):
         print('UP: _on_keyboard_up', self.active_key)
+
         left_btn = self.get_left_btn()
         right_btn = self.get_right_btn()
 
@@ -52,6 +54,7 @@ class KeyboardHandler(object):
             left_btn.state = 'normal'
             left_btn.on_release()
         elif keycode[1] == 'spacebar':
+            right_btn.state = 'normal'
             right_btn.on_double_release(self._keyboard)
 
         self.active_key = None

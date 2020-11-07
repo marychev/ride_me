@@ -1,6 +1,3 @@
-import os
-
-from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
@@ -11,17 +8,15 @@ from label.status_bar import StatusBar
 from layout.background_image import BackgroundImageAnimation
 from road.events import RoadEvents
 from utils.checks import set_texture_uvpos
+from utils.dir import abstract_path
 from utils.state import State
 from utils.validation import ValidObject
 
-KV_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'road.kv'))
-Builder.load_file(KV_PATH)
-
-TEXTURE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'img/road-01.png'))
+Builder.load_file(abstract_path('road/road.kv'))
 
 
 class Road(Widget, RoadEvents):
-    texture = ObjectProperty(Image(source=TEXTURE_PATH).texture)
+    texture = ObjectProperty(Image(source=abstract_path('road/img/road-01.png')).texture)
     total_way = NumericProperty(3000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
@@ -58,18 +53,6 @@ class Road(Widget, RoadEvents):
         self.relax_stop()
         bg_animation.go_mountains_stop()
         bg_animation.relax_mountains_stop()
-
-    def show_status(self, title='ROAD'):
-        return '''
------------------------------------------------ [{}]
-total_way:                    {}
-distance_traveled:    {}
-*left_go:                          {}'''.format(
-            title,
-            self.total_way,
-            self.distance_traveled,
-            self.total_way - self.distance_traveled,
-        )
 
     # get game objects
 

@@ -1,19 +1,17 @@
-import os
-
 from kivy.animation import Animation
 from kivy.graphics import Color, Rectangle
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
 
+from utils.dir import abstract_path
 from utils.validation import ValidObject
 
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'bike.kv'))
-Builder.load_file(path)
+Builder.load_file(abstract_path('bike/bike.kv'))
 
 
 class Bike(Image):
-    source = StringProperty('bike/img/bike-1.png')
+    source = StringProperty(abstract_path('bike/img/bike-1.png'))
     acceleration = NumericProperty(0)
     power = NumericProperty(50)
     max_power = NumericProperty(150.00)
@@ -35,37 +33,37 @@ class Bike(Image):
     # animation
 
     def anim_go(self):
-        self.source = 'bike/img/bike-go.png'
+        self.source = abstract_path('bike/img/bike-go.png')
         anim = Animation(angle=8, duration=.2)
         anim.start(self)
 
     def anim_relax(self):
-        self.source = 'bike/img/bike-relax.png'
+        self.source = abstract_path('bike/img/bike-relax.png')
         anim = Animation(angle=0, duration=.2)
         anim.start(self)
 
     def anim_wait(self):
-        self.source = 'bike/img/bike-wait.png'
+        self.source = abstract_path('bike/img/bike-wait.png')
         anim = Animation(angle=0, duration=.2)
         anim.start(self)
 
     def anim_stop(self):
-        self.source = 'bike/img/bike-stop.png'
+        self.source = abstract_path('bike/img/bike-stop.png')
         anim = Animation(angle=-1, duration=.1)
         anim.start(self)
 
     def anim_jump_up(self):
-        self.source = 'bike/img/bike-jump-up.png'
+        self.source = abstract_path('bike/img/bike-jump-up.png')
         anim = Animation(angle=8, duration=.2)
         anim.start(self)
 
     def anim_landing(self):
-        self.source = 'bike/img/bike-landing.png'
+        self.source = abstract_path('bike/img/bike-landing.png')
         anim = Animation(angle=-8, duration=.2)
         anim.start(self)
 
     def anim_collision(self):
-        self.source = 'bike/img/bike-1.png'
+        self.source = abstract_path('bike/img/bike-1.png')
         anim = Animation(angle=180, duration=.2)
         anim.start(self)
 
@@ -80,22 +78,6 @@ class Bike(Image):
             Rectangle(pos=self.pos, size=self.size)
 
         self.anim_collision()
-
-    # info
-
-    def show_status(self, title='BIKE'):
-        return '''
-------------------------------------------- [{}]
-_acceleration:             {}
-_power:                           {} 
-Speed:                          {}
-Pos:                              {}
-'''.format(
-            title,
-            self.acceleration, self.power,
-            self.speed,
-            self.pos,
-        )
 
     # game objects
 

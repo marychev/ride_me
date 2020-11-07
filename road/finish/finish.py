@@ -6,17 +6,13 @@ from kivy.properties import ObjectProperty, NumericProperty
 from kivy.lang import Builder
 from utils.validation import ValidObject
 from utils.texture import redraw_texture
-from kivy.core.window import Window
+from utils.dir import abstract_path
 
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'finish.kv'))
-Builder.load_file(path)
-
-
-texture_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'img/finish.jpg'))
+Builder.load_file(abstract_path('road/finish/finish.kv'))
 
 
 class Finish(Widget):
-    texture = ObjectProperty(Image(source=texture_path).texture)
+    texture = ObjectProperty(Image(source=abstract_path('road/finish/img/finish.jpg')).texture)
 
     def __init__(self, **kwargs):
         super(Finish, self).__init__(**kwargs)

@@ -1,11 +1,8 @@
-import os
-from kivy.clock import Clock
 from kivy.lang import Builder
 from button.left_button import LeftButtonWidget
-from conf import SECOND_GAME
+from utils.dir import abstract_path
 
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'right_button.kv'))
-Builder.load_file(path)
+Builder.load_file(abstract_path('button/right_button.kv'))
 
 
 class RightButtonWidget(LeftButtonWidget):
@@ -55,32 +52,32 @@ class RightButtonWidget(LeftButtonWidget):
 
     def _road_manage_events(self, is_press=False, is_release=False, is_double_press=False, is_double_release=False):
         if is_press:
-            # # todo: acceleration
-            # extra_acceleration = self.counter.count / 4
-            # self.bike.set_acceleration(extra_acceleration)
+            if not self.bike.is_in_sky():
+                # # todo: acceleration
+                # extra_acceleration = self.counter.count / 4
+                # self.bike.set_acceleration(extra_acceleration)
 
-            self.road.relax_stop()
-            self.road.go_start()
+                self.road.relax_stop()
+                self.road.go_start()
         elif is_release:
-            self.road.go_stop()
-            self.road.landing_stop()
-            self.road.relax_start()
+            if not self.bike.is_in_sky():
+                self.road.landing_stop()
+                self.road.go_stop()
+                self.road.relax_start()
+
         elif is_double_press:
             self.road.relax_stop()
             self.road.jump_start()
+
         elif is_double_release:
-            self.road.jump_stop()
-            self.road.landing_start()
+            if self.bike.is_in_sky():
+                self.road.jump_stop()
+                self.road.landing_start()
         else:
             raise 0
 
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
-        # print('_bg_animation_manage_events')
-        if is_press:
-            self.bg_animation.relax_mountains_stop()
+        if is_press or is_release:
             self.bg_animation.go_mountains_start()
-        elif is_release:
-            self.bg_animation.go_mountains_stop()
-            self.bg_animation.relax_mountains_start()
         else:
             raise 0

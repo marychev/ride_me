@@ -1,10 +1,9 @@
-import os
-from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
+from kivy.uix.screenmanager import Screen
 from screen.game_screen import GameScreen
+from utils.dir import abstract_path
 
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'start_screen.kv'))
-Builder.load_file(path)
+Builder.load_file(abstract_path('screen/start_screen.kv'))
 
 
 class StartScreen(Screen):

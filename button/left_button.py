@@ -1,4 +1,3 @@
-import os
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty
@@ -7,9 +6,9 @@ from kivy.uix.image import Image
 from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from utils.counter import CounterClock
+from utils.dir import abstract_path
 
-path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'left_button.kv'))
-Builder.load_file(path)
+Builder.load_file(abstract_path('button/left_button.kv'))
 
 
 class LeftButtonWidget(ButtonBehavior, Image):
