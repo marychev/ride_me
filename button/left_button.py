@@ -54,8 +54,11 @@ class LeftButtonWidget(ButtonBehavior, Image):
             self.road.relax_stop()
             self.road.stop_start()
         elif is_release:
+            print(0)
             self.road.stop_stop()
+            print(1)
             self.road.relax_start()
+            print(8)
         else:
             raise 0
 

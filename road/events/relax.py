@@ -15,7 +15,8 @@ class RelaxDispatcher(BaseDispatcher):
     def start_states_list(cls):
         return (State.ON_LANDING_STOP,
                 State.ON_GO_STOP,
-                State.ON_WAIT_MOVE, State.ON_WAIT_STOP)
+                State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
+                State.ON_STOP_STOP)
 
     @classmethod
     def stop_states_list(cls):
@@ -23,6 +24,7 @@ class RelaxDispatcher(BaseDispatcher):
                 State.ON_LANDING_STOP)
 
     def relax_start(self):
+        print('RELAX START', self.road.state)
         if self.road.state in RelaxDispatcher.start_states_list():
             Clock.schedule_interval(self.on_relax, SECOND_GAME)
             self.road.set_state(State.ON_RELAX_START)

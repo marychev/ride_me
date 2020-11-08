@@ -37,6 +37,8 @@ class StopDispatcher(BaseDispatcher):
             # e.g. pass managing elements to other events
             if self.bike.speed <= 0:
                 self.road.wait_start()
+            else:
+                self.road.relax_start()
 
     def on_stop(self, dt):
         stop_way = dt * 2
