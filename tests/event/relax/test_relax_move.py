@@ -52,8 +52,11 @@ class RelaxMoveTest(BaseGameScreenGUITest):
         self.assertEqual(self.road.state, State.ON_STOP_START)
         self.road.on_stop(.1)
         self.assertEqual(self.road.state, State.ON_STOP_MOVE)
+
+        self.bike.speed = 0
         self.road.stop_stop()
-        self.assertEqual(self.road.state, State.ON_STOP_STOP)
+        self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
+        self.assertEqual(self.road.state, State.ON_WAIT_START)
 
     # fail events
 
@@ -61,7 +64,7 @@ class RelaxMoveTest(BaseGameScreenGUITest):
         self.set_app()
         self.bike.speed = 0
         self.road.on_stop(.1)
-        self.assertNotEqual(self.road.state, State.ON_RELAX_MOVE)
+        self.assertEqual(self.road.state, State.ON_RELAX_MOVE)
         self.assertNotEqual(self.road.state, State.ON_STOP_MOVE)
 
     def test_landing_events_for_move_state_should_fail(self):

@@ -13,8 +13,10 @@ class WaitDispatcher(BaseDispatcher):
 
     @classmethod
     def start_states_list(cls):
-        return (State.ON_LANDING_STOP,
-                State.ON_RELAX_STOP)
+        return (
+            State.ON_STOP_STOP,
+            State.ON_LANDING_STOP,
+            State.ON_RELAX_STOP)
 
     @classmethod
     def stop_states_list(cls):

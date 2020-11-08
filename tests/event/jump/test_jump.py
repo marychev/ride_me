@@ -30,7 +30,7 @@ class JumpTest(BaseGameScreenGUITest):
         self.road.jump_stop()
         self.assertEqual(self.road.state, State.ON_JUMP_STOP)
 
-    def test_go_events_for_move_state_should_fail(self):
+    def test_go_all_events_for_move_state_should_fail(self):
         self.set_app()
         self.bike.y = self.road.y + 100
         self.road.on_landing(.1)

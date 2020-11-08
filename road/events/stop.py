@@ -18,7 +18,8 @@ class StopDispatcher(BaseDispatcher):
 
     @classmethod
     def stop_states_list(cls):
-        return (State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP)
+        return (State.ON_STOP_START, State.ON_STOP_MOVE)
+                #State.ON_STOP_STOP)
 
     def stop_start(self):
         if self.road.state in StopDispatcher.start_states_list():
@@ -27,26 +28,35 @@ class StopDispatcher(BaseDispatcher):
             self.bike.anim_stop()
 
     def stop_stop(self):
-        if self.bike.speed > 0 and self.road.state in StopDispatcher.stop_states_list():
+        print(self.bike.speed,  self.road.state in StopDispatcher.stop_states_list())
+        if self.road.state in StopDispatcher.stop_states_list():
             Clock.unschedule(self.on_stop)
             self.road.set_state(State.ON_STOP_STOP)
-            self.road.wait_start()
+
+            # check road state after loop and apply needed event
+            # e.g. pass managing elements to other events
+            if self.bike.speed <= 0:
+                self.road.wait_start()
 
     def on_stop(self, dt):
         stop_way = dt * 2
 
+        print('!!!!!!!!!!!!!!!!!!!!', 00)
         if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
+
             self.road.set_state(State.ON_STOP_STOP)
             self.status_bar and self.status_bar.show_status('Stop On Stop: COLLISION' + self.road.state, self.bike, self.road)
             return False
 
-        elif float(self.bike.speed) - float(stop_way) <= 0.0 and not self.bike.is_in_sky():
+        elif (float(self.bike.speed) - float(stop_way) <= 0.0) or (self.bike.speed <= 0)\
+                and not self.bike.is_in_sky():
             self.bike.speed = 0
             self.rock and self.rock.set_x()
             self.finish and self.finish.set_x()
-            self.road.set_state(State.ON_STOP_STOP)
-            self.status_bar and self.status_bar.show_status('Stop On Stop' + self.road.state, self.bike, self.road)
+
+            self.road.stop_stop()
+            self.status_bar and self.status_bar.show_status('Stop On Stop: ' + self.road.state, self.bike, self.road)
             return False
 
         elif self.bike.is_in_sky():
