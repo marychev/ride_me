@@ -13,9 +13,9 @@ class RightButtonWidget(LeftButtonWidget):
         self.register_event_type('on_double_press')
         self.register_event_type('on_double_release')
         if kwargs.get("on_double_press") is not None:
-            self.bind(on_double_press=kwargs.get("on_double_press"))
+            self.bind(on_double_press=kwargs.get('on_double_press'))
         if kwargs.get("on_double_release") is not None:
-            self.bind(on_double_press=kwargs.get("on_double_release"))
+            self.bind(on_double_press=kwargs.get('on_double_release'))
 
     def on_touch_down(self, touch):
         if touch.is_double_tap:
@@ -50,7 +50,8 @@ class RightButtonWidget(LeftButtonWidget):
         self.status_bar or self.set_objects()
         self._road_manage_events(is_double_release=True)
 
-    def _road_manage_events(self, is_press=False, is_release=False, is_double_press=False, is_double_release=False):
+    def _road_manage_events(self, is_press=False, is_release=False,
+                            is_double_press=False, is_double_release=False):
         if is_press:
             if not self.bike.is_in_sky():
                 # # todo: acceleration

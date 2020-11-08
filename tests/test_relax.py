@@ -21,6 +21,6 @@ class RelaxTest(BaseGameScreenGUITest):
 
     def test_relax_stop(self):
         self.set_app()
-        self.bike.speed = 0
+        self.bike.speed = 1
         self.road.relax_stop()
         self.assertEqual(self.road.state, State.ON_RELAX_STOP)

@@ -1,20 +1,19 @@
-from kivy.animation import Animation
 from kivy.graphics import Color, Rectangle
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
-
+from bike.animation import AnimationBike
 from utils.dir import abstract_path
 from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('bike/bike.kv'))
 
 
-class Bike(Image):
+class Bike(Image, AnimationBike):
     source = StringProperty(abstract_path('bike/img/bike-1.png'))
     acceleration = NumericProperty(0)
     power = NumericProperty(50)
-    max_power = NumericProperty(150.00)
+    max_power = NumericProperty(250.00)
     speed = NumericProperty(0)
     max_speed = NumericProperty(60)
 
@@ -29,43 +28,6 @@ class Bike(Image):
     def is_in_sky(self):
         road = self.get_road()
         return road.y < self.y
-
-    # animation
-
-    def anim_go(self):
-        self.source = abstract_path('bike/img/bike-go.png')
-        anim = Animation(angle=8, duration=.2)
-        anim.start(self)
-
-    def anim_relax(self):
-        self.source = abstract_path('bike/img/bike-relax.png')
-        anim = Animation(angle=0, duration=.2)
-        anim.start(self)
-
-    def anim_wait(self):
-        self.source = abstract_path('bike/img/bike-wait.png')
-        anim = Animation(angle=0, duration=.2)
-        anim.start(self)
-
-    def anim_stop(self):
-        self.source = abstract_path('bike/img/bike-stop.png')
-        anim = Animation(angle=-1, duration=.1)
-        anim.start(self)
-
-    def anim_jump_up(self):
-        self.source = abstract_path('bike/img/bike-jump-up.png')
-        anim = Animation(angle=8, duration=.2)
-        anim.start(self)
-
-    def anim_landing(self):
-        self.source = abstract_path('bike/img/bike-landing.png')
-        anim = Animation(angle=-8, duration=.2)
-        anim.start(self)
-
-    def anim_collision(self):
-        self.source = abstract_path('bike/img/bike-1.png')
-        anim = Animation(angle=180, duration=.2)
-        anim.start(self)
 
     # events
 

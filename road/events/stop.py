@@ -27,8 +27,9 @@ class StopDispatcher(BaseDispatcher):
             self.bike.anim_stop()
 
     def stop_stop(self):
-        if self.road.state in StopDispatcher.stop_states_list():
+        if self.bike.speed > 0 and self.road.state in StopDispatcher.stop_states_list():
             Clock.unschedule(self.on_stop)
+            self.road.set_state(State.ON_STOP_STOP)
             self.road.wait_start()
 
     def on_stop(self, dt):

@@ -15,7 +15,7 @@ class GoDispatcher(BaseDispatcher):
     def start_states_list(cls):
         return (State.ON_LANDING_STOP,
                 State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
-                State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
+                State.ON_RELAX_START, State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
                 State.ON_STOP_MOVE)
 
     @classmethod
@@ -32,7 +32,6 @@ class GoDispatcher(BaseDispatcher):
         if self.road.state in GoDispatcher.stop_states_list():
             Clock.unschedule(self.on_go)
             self.road.set_state(State.ON_GO_STOP)
-            # option
             self.status_bar and self.status_bar.show_status('Stop On GO: ' + self.road.state, self.bike, self.road)
 
     def on_go(self, dt):
@@ -52,6 +51,8 @@ class GoDispatcher(BaseDispatcher):
 
         else:
             self.bike.speed += dt
+            self.bike.power -= dt*5
+
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)
             self.status_bar and self.status_bar.show_status('On GO: ' + self.road.state, self.bike, self.road)

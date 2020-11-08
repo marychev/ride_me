@@ -35,6 +35,13 @@ class LandingDispatcher(BaseDispatcher):
             Clock.unschedule(self.on_landing)
             self.road.set_state(State.ON_LANDING_STOP)
 
+            # check road state after loop and apply needed event
+            # e.g. pass managing elements to other events
+            if self.bike.speed <= 0:
+                self.road.wait_start()
+            else:
+                self.road.relax_start()
+
     def on_landing(self, dt):
         if self.road.state != State.ON_JUMP_MOVE:
             # todo: only as temp solution
@@ -61,17 +68,5 @@ class LandingDispatcher(BaseDispatcher):
                 else:
                     self.bike.y = self.road.y
                     self.bike.set_power(self.bike.max_power)
-
-                    self.road.set_state(State.ON_LANDING_STOP)
-
-                    # todo: AND has only as temp solution
-                    self.status_bar and self.status_bar.show_status('Stop On Landing: ' + self.road.state, self.bike, self.road)
-
-                    # check road state after loop and apply needed event
-                    # e.g. pass managing elements to other events
-                    if self.bike.speed <= 0:
-                        self.road.wait_start()
-                    else:
-                        self.road.relax_start()
-
+                    self.landing_stop()
                     return False

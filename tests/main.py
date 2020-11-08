@@ -8,6 +8,7 @@ from tests.test_stop import StopTest
 from tests.test_go import GoTest
 from tests.test_go_background import GoBackgroundTest
 from tests.test_relax import RelaxTest
+from tests.test_relax_move import RelaxMoveTest
 from tests.test_runtouchapp import RunTouchAppTest
 
 if __name__ == '__main__':

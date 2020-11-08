@@ -18,9 +18,7 @@ class WaitDispatcher(BaseDispatcher):
 
     @classmethod
     def stop_states_list(cls):
-        return (State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
-                # fix test_wait
-                State.ON_LANDING_STOP)
+        return State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP
 
     def wait_start(self):
         if self.road.state in WaitDispatcher.start_states_list():
@@ -34,8 +32,7 @@ class WaitDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_WAIT_STOP)
 
     def on_wait(self, dt):
-
-        if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
+        if int(self.bike.speed) <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
             self.bike.speed = 0
             self.bike.power += dt*10
             self.road.set_state(State.ON_WAIT_MOVE)

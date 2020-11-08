@@ -32,8 +32,12 @@ class RelaxDispatcher(BaseDispatcher):
         if self.road.state in RelaxDispatcher.stop_states_list():
             Clock.unschedule(self.on_relax)
             self.road.set_state(State.ON_RELAX_STOP)
-            self.bike.anim_wait()
             self.status_bar and self.status_bar.show_status('Stop On Relax: ' + self.road.state, self.bike, self.road)
+
+            if self.bike.speed <= 0:
+                self.road.wait_start()
+
+            self.bike.anim_wait()
 
     def on_relax(self, dt):
         if self.rock and self.bike.collide_widget(self.rock):
@@ -43,22 +47,27 @@ class RelaxDispatcher(BaseDispatcher):
             return False
 
         elif self.road.has_finished():
-            self.relax_stop()
             self.road_finish()
+            self.relax_stop()
             return False
 
         elif self.bike.speed - dt <= 0:
-            self.relax_stop()
-
             self.bike.speed = 0
             self.rock and self.rock.set_x()
             self.finish and self.finish.set_x()
 
+            self.relax_stop()
             return False
 
         else:
             self.bike.speed -= dt/2
-            self.bike.power += dt
+
+            # self.bike.set_power(dt)
+            if self.bike.power + dt < self.bike.max_power:
+                self.bike.power += dt
+            else:
+                self.bike.power = self.bike.max_power
+
             self.set_distances()
 
             self.road.set_state(State.ON_RELAX_MOVE)

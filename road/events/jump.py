@@ -13,15 +13,17 @@ class JumpDispatcher(BaseDispatcher):
 
     @classmethod
     def start_states_list(cls):
-        return (State.ON_RELAX_STOP,
-                State.ON_WAIT_MOVE, State.ON_WAIT_STOP)
+        return (
+            State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
+            State.ON_WAIT_MOVE, State.ON_WAIT_STOP
+        )
 
     @classmethod
     def stop_states_list(cls):
         return State.ON_JUMP_START, State.ON_JUMP_MOVE, State.ON_JUMP_STOP
 
     def jump_start(self):
-        if self.road.state in JumpDispatcher.start_states_list():
+        if int(self.bike.power) > 0 and self.road.state in JumpDispatcher.start_states_list():
             self.road.wait_stop()
             Clock.schedule_interval(self.on_jump, SECOND_GAME)
             self.road.set_state(State.ON_JUMP_START)
