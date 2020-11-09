@@ -10,8 +10,9 @@ class StopTest(BaseGameScreenGUITest):
 
     def test_stop_start(self):
         self.set_app()
-        self.bike.speed = 100
-        self.road.on_go(0.1)
+
+        self.bike.speed = 10
+        self.road.on_relax(0.1)
         self.road.stop_start()
         self.assertEqual(self.road.state, State.ON_STOP_START)
 

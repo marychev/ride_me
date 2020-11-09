@@ -13,13 +13,11 @@ class StopDispatcher(BaseDispatcher):
 
     @classmethod
     def start_states_list(cls):
-        return (State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
-                State.ON_GO_MOVE)
+        return State.ON_RELAX_MOVE, State.ON_RELAX_STOP
 
     @classmethod
     def stop_states_list(cls):
-        return (State.ON_STOP_START, State.ON_STOP_MOVE)
-                #State.ON_STOP_STOP)
+        return State.ON_STOP_START, State.ON_STOP_MOVE
 
     def stop_start(self):
         if self.road.state in StopDispatcher.start_states_list():
@@ -61,7 +59,7 @@ class StopDispatcher(BaseDispatcher):
             self.status_bar and self.status_bar.show_status('Stop On Stop: ' + self.road.state, self.bike, self.road)
             return False
 
-        elif self.bike.is_in_sky():
+        elif self.bike.is_in_sky() or self.road.state in (State.ON_GO_START, State.ON_GO_MOVE):
             return False
 
         else:
