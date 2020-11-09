@@ -18,7 +18,7 @@ jobs:
 
       - name: Install and activate venv
         run: |
-          cd ride_me,
+          # cd ride_me,
           python3 -m virtualenv venv,
           . venv/bin/activate
 
