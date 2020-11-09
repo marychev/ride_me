@@ -11,9 +11,6 @@ jobs:
     
 
     steps:
-      - name: Upgrade to Python 3
-      - uses: cclauss/Upgrade-to-Python3@0.1.1
-        
       - uses: actions/checkout@v2
       
       - name: Install and activate venv
