@@ -12,14 +12,18 @@ Use packages:
 	python3 -m virtualenv venv
 	. venv/bin/activate
 	pip install -r requirements.txt
+	
 
 
 #### Run game:
-	
+
 	cd ride_me
     . venv/bin/activate
     python main.py 
 
+#### Run tests
+
+    python -m pytest tests/
 
 #### Deploy for android
 
