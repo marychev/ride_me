@@ -1,5 +1,5 @@
 Kivy==1.11.1
 # kivy_examples
 ffpyplayer==4.3.2
-pytest==6.1.2
+pytest
 coverage==5.3
