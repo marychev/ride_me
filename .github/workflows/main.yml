@@ -26,8 +26,9 @@ jobs:
           
       - name: set pythonpath
         run: |
-          echo "::set-env name=PYTHONPATH::home/runner/work/ride_me"
-          # export PYTHONPATH=$PYTHONPATH:/home/runner/work/ride_me
+          echo $pythonLocation
+          echo $PYTHONPATH
+          printenv
 
       - name: Install requirements.txt
         run: |
