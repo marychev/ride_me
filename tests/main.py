@@ -5,8 +5,11 @@ from tests.event.wait.test_wait import WaitTest
 from tests.event.jump.test_jump import JumpTest
 from tests.event.jump.test_jump_move import JumpMoveTest
 from tests.event.stop.test_stop import StopTest
+
 from tests.event.go.test_go import GoTest
+from tests.event.go.test_go_all_evelts_for_landing_events_fail import GoEventAndLandingFailTest
 from tests.event.go.test_go_background import GoBackgroundTest
+
 from tests.event.relax.test_relax import RelaxTest
 from tests.event.relax.test_relax_move import RelaxMoveTest
 from tests.test_runtouchapp import RunTouchAppTest

@@ -1,29 +1,16 @@
 from utils.state import State
-from tests.base_gui_test import BaseGameScreenGUITest
+from tests.event.go.base_go_test import BaseGoTest
 
 
-class GoTest(BaseGameScreenGUITest):
-    def set_app(self):
-        super().set_app()
-        self.bike.speed = 10
-        self.bike.max_speed = 20
-        self.road.landing_stop()
-
+class GoTest(BaseGoTest):
     def test_go_start(self):
         self.set_app()
-
-        self.road.go_start()
-        self.assertEqual(self.road.state, State.ON_GO_START)
+        self.go_start_equal()
 
     def test_go_move(self):
         self.set_app()
-        self.bike.speed = self.bike.max_speed/2
-        self.road.on_go(.1)
-        self.assertEqual(self.road.state, State.ON_GO_MOVE)
+        self.go_move_equal()
 
     def test_go_stop(self):
         self.set_app()
-        self.bike.speed = 0
-        self.road.on_go(.1)
-        self.road.go_stop()
-        self.assertEqual(self.road.state, State.ON_GO_STOP)
+        self.go_stop_equal()
