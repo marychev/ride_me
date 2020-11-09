@@ -16,7 +16,7 @@ class LandingDispatcher(BaseDispatcher):
     def start_states_list(cls):
         return (State.NONE,
                 State.ON_WAIT_START,
-                # State.ON_JUMP_MOVE,
+                State.ON_JUMP_MOVE,
                 State.ON_JUMP_STOP)
 
     @classmethod
@@ -43,6 +43,7 @@ class LandingDispatcher(BaseDispatcher):
                 self.road.relax_start()
 
     def on_landing(self, dt):
+        # todo: only as temp solution fix speed loading page
         if self.road.state != State.ON_JUMP_MOVE:
             # todo: only as temp solution
             if self.bike is None or self.road is None:

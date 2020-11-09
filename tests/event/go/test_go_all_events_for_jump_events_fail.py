@@ -3,6 +3,8 @@ from tests.event.go.test_go import BaseGoTest
 
 
 class GoEventAndJumpFailTest(BaseGoTest):
+    # start
+
     def test_go_start_in_jump_start_should_fail(self):
         self.set_app()
         self.go_start_equal()
@@ -24,6 +26,8 @@ class GoEventAndJumpFailTest(BaseGoTest):
         self.assertNotEqual(self.road.state, State.ON_JUMP_STOP)
         self.assertEqual(self.road.state, State.ON_GO_START)
 
+    # move
+
     def test_go_move_in_jump_start_should_fail(self):
         self.set_app()
         self.go_move_equal()
@@ -44,6 +48,8 @@ class GoEventAndJumpFailTest(BaseGoTest):
         self.road.jump_stop()
         self.assertNotEqual(self.road.state, State.ON_JUMP_STOP)
         self.assertEqual(self.road.state, State.ON_GO_MOVE)
+
+    # stop
 
     def test_go_stop_in_jump_start_should_fail(self):
         self.set_app()

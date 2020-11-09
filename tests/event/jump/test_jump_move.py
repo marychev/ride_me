@@ -1,75 +1,77 @@
-from tests.base_gui_test import BaseGameScreenGUITest
+from tests.event.jump.base_jump_test import BaseJumpTest
 from utils.state import State
 
 
-class JumpMoveTest(BaseGameScreenGUITest):
-    def set_app(self):
-        super(JumpMoveTest, self).set_app()
+class JumpMoveTest(BaseJumpTest):
 
-        self.bike.power = 150
-        self.road.landing_stop()
-        self.road.wait_start()
-        self.road.on_jump(.1)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
+    # FAIL
+    pass
 
-    # def test_go_events_for_move_state_should_fail(self):
+    # start
+    #
+    # def test_jump_start_in_landing_start_should_fail(self):
     #     self.set_app()
-    #     self.bike.y = self.road.y + 100
-    #     self.road.on_landing(.1)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+    #     self.jump_start_equal()
+    #     self.road.jump_start()
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_START)
+    #     self.assertEqual(self.road.state, State.ON_GO_START)
+
+    # def test_go_start_in_jump_move_should_fail(self):
+    #     self.set_app()
+    #     self.go_start_equal()
+    #     self.road.on_jump(.1)
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_MOVE)
+    #     self.assertEqual(self.road.state, State.ON_GO_START)
     #
-    #     self.road.go_start()
-    #     self.assertNotEqual(self.road.state, State.ON_GO_START)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+    # def test_go_start_in_jump_stop_should_fail(self):
+    #     self.set_app()
+    #     self.go_start_equal()
+    #     self.road.jump_stop()
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_STOP)
+    #     self.assertEqual(self.road.state, State.ON_GO_START)
     #
-    #     self.road.on_go(.1)
-    #     self.assertNotEqual(self.road.state, State.ON_GO_MOVE)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+    # # move
     #
-    #     self.road.go_stop()
-    #     self.assertNotEqual(self.road.state, State.ON_GO_STOP)
-    #     self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
-
-    def test_stop_events_for_move_state_should_fail(self):
-        self.set_app()
-        self.road.stop_start()
-        self.assertNotEqual(self.road.state, State.ON_STOP_START)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-        self.road.on_stop(.1)
-        self.assertNotEqual(self.road.state, State.ON_STOP_MOVE)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-        self.road.stop_stop()
-        self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-    def test_landing_events_for_move_state_should_fail(self):
-        self.set_app()
-        self.bike.y = self.road.y + self.road.height*2
-        self.road.landing_start()
-        self.assertNotEqual(self.road.state, State.ON_LANDING_START)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-        self.road.on_landing(.1)
-        self.assertNotEqual(self.road.state, State.ON_LANDING_MOVE)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-        self.road.landing_stop()
-        self.assertNotEqual(self.road.state, State.ON_LANDING_STOP)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-    def test_wait_events_for_move_state_should_fail(self):
-        self.set_app()
-        self.road.wait_start()
-        self.assertNotEqual(self.road.state, State.ON_WAIT_START)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-        self.road.on_wait(.1)
-        self.assertNotEqual(self.road.state, State.ON_WAIT_MOVE)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
-        self.road.wait_stop()
-        self.assertNotEqual(self.road.state, State.ON_WAIT_STOP)
-        self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
-
+    # def test_go_move_in_jump_start_should_fail(self):
+    #     self.set_app()
+    #     self.go_move_equal()
+    #     self.road.jump_start()
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_START)
+    #     self.assertEqual(self.road.state, State.ON_GO_MOVE)
+    #
+    # def test_go_move_in_jump_move_should_fail(self):
+    #     self.set_app()
+    #     self.go_move_equal()
+    #     self.road.on_jump(.1)
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_MOVE)
+    #     self.assertEqual(self.road.state, State.ON_GO_MOVE)
+    #
+    # def test_go_move_in_jump_stop_should_fail(self):
+    #     self.set_app()
+    #     self.go_move_equal()
+    #     self.road.jump_stop()
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_STOP)
+    #     self.assertEqual(self.road.state, State.ON_GO_MOVE)
+    #
+    # # stop
+    #
+    # def test_go_stop_in_jump_start_should_fail(self):
+    #     self.set_app()
+    #     self.go_stop_equal()
+    #     self.road.jump_start()
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_START)
+    #     self.assertEqual(self.road.state, State.ON_GO_STOP)
+    #
+    # def test_go_stop_in_jump_move_should_fail(self):
+    #     self.set_app()
+    #     self.go_stop_equal()
+    #     self.road.on_jump(.1)
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_MOVE)
+    #     self.assertEqual(self.road.state, State.ON_GO_STOP)
+    #
+    # def test_go_stop_in_jump_stop_should_fail(self):
+    #     self.set_app()
+    #     self.go_stop_equal()
+    #     self.road.jump_stop()
+    #     self.assertNotEqual(self.road.state, State.ON_JUMP_STOP)
+    #     self.assertEqual(self.road.state, State.ON_GO_STOP)
