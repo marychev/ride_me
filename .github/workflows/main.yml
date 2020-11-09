@@ -24,7 +24,7 @@ jobs:
 
       - name: Install requirements.txt
         run: |
-          pip install -r requirements.txt
+          pip3 install -r requirements.txt
       
       - name: Tests
         run: |
