@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Install and activate venv
+        run: |
+          cd ride_me,
+          python3 -m virtualenv venv,
+          . venv/bin/activate
+
+      - name: Install requirements.txt
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Tests
+        run: |
+          cd tests,
+          pytest
+      
