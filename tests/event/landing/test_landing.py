@@ -31,7 +31,7 @@ class LandingTest(BaseGameScreenGUITest):
         self.road.set_state(State.ON_WAIT_START)
         self.assertEqual(self.road.state, State.ON_WAIT_START)
 
-        self.bike.y = self.road.y + 10
+        self.bike.y = self.road.y + self.road.height + 10
         self.road.on_landing(.1)
         self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
 

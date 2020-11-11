@@ -2,7 +2,7 @@ from tests.event.jump.base_jump_test import BaseJumpTest
 from utils.state import State
 
 
-class JumpEventAndLandingFailTes(BaseJumpTest):
+class JumpEventAndLandingFailTest(BaseJumpTest):
     # start
 
     def test_jump_start_in_landing_start_should_fail(self):

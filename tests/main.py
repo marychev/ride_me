@@ -4,9 +4,12 @@ from tests.event.landing.test_landing_move import LandingMoveTest
 from tests.event.wait.test_wait import WaitTest
 
 from tests.event.jump.test_jump import JumpTest
-# from tests.event.jump.test_jump_move import JumpMoveTest
-from tests.event.jump.test_jump_events_for_landing_events_fail import JumpEventAndLandingFailTes
+from tests.event.jump.test_jump_events_for_go_events_fail import JumpEventAndGoFailTest
+from tests.event.jump.test_jump_events_for_landing_events_fail import JumpEventAndLandingFailTest
 from tests.event.jump.test_jump_events_for_landing_events_success import JumpEventAndLandingSuccessTest
+from tests.event.jump.test_jump_events_for_relax_events_fail import JumpEventAndRelaxFailTest
+from tests.event.jump.test_jump_events_for_stop_events_fail import JumpEventAndStopFailTest
+from tests.event.jump.test_jump_events_for_wait_events_fail import JumpEventAndWaitFailTest
 
 from tests.event.stop.test_stop import StopTest
 

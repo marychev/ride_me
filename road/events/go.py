@@ -12,6 +12,13 @@ class GoDispatcher(BaseDispatcher):
         self.register_event_type(State.EVENT_ON_GO)
 
     @classmethod
+    def ban_events(cls):
+        return (
+            State.ON_JUMP_START, State.ON_JUMP_MOVE, State.ON_JUMP_STOP,
+            State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
+        )
+
+    @classmethod
     def start_states_list(cls):
         return (State.ON_LANDING_STOP,
                 State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
@@ -46,7 +53,7 @@ class GoDispatcher(BaseDispatcher):
             self.road_finish()
             return False
 
-        elif self.bike.is_in_sky():
+        elif self.bike.is_in_sky() or self.road.state in self.ban_events():
             return False
 
         else:

@@ -11,7 +11,9 @@ class KeyboardHandler(object):
         self._keyboard.bind(on_key_up=self._on_keyboard_up)
 
     def get_left_btn(self):
-        return get_game_screen().ids.left_btn_wrap.children[0]
+        game_screen = get_game_screen()
+        if game_screen:
+            return game_screen.ids.left_btn_wrap.children[0]
 
     def get_right_btn(self):
         return get_game_screen().ids.right_btn_wrap.children[0]
