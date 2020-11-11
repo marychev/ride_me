@@ -1,24 +1,19 @@
-from tests.base_gui_test import BaseGameScreenGUITest
+from tests.event.landing.base_landing_test import BaseLandingTest
 from utils.state import State
 
 
-class LandingTest(BaseGameScreenGUITest):
-    def set_app(self):
-        super(LandingTest, self).set_app()
-
-        self.bike.power = 150
-
+class LandingTest(BaseLandingTest):
     def test_landing_start(self):
         self.set_app()
-        self.bike.y = self.road.y + 200
         self.road.landing_start()
-        self.assertEqual(self.road.state, State.ON_LANDING_START)
 
     def test_landing_move(self):
         self.set_app()
-        self.bike.y = self.road.y + 100
-        self.road.on_landing(.1)
-        self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
+        self.landing_move_equal()
+
+    def test_landing_stop(self):
+        self.set_app()
+        self.landing_stop_equal()
 
     def test_bike_has_landed_already(self):
         self.set_app()

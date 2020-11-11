@@ -12,6 +12,12 @@ class JumpDispatcher(BaseDispatcher):
         self.register_event_type(State.EVENT_ON_JUMP)
 
     @classmethod
+    def bun_events(cls):
+        return (
+            State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP
+        )
+
+    @classmethod
     def start_states_list(cls):
         return (
             State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
@@ -35,7 +41,7 @@ class JumpDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_JUMP_STOP)
 
     def on_jump(self, dt):
-        if int(self.bike.power) > 0 and self.road.state != State.ON_LANDING_MOVE:
+        if int(self.bike.power) > 0 and self.road.state not in self.bun_events():
             self.bike.y += dt * self.bike.power
             self.bike.set_power(-dt)
 
