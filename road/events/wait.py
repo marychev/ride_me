@@ -11,12 +11,11 @@ class WaitDispatcher(BaseDispatcher):
         super(WaitDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_WAIT)
 
-    # @classmethod
-    # def bun_events(cls):
-    #     return (
-    #         State.ON_JUMP_START, State.ON_JUMP_MOVE, State.ON_JUMP_STOP,
-    #         State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP
-    #     )
+    @classmethod
+    def bun_events(cls):
+        return (
+            State.ON_STOP_STOP
+        )
 
     @classmethod
     def start_states_list(cls):
@@ -48,8 +47,10 @@ class WaitDispatcher(BaseDispatcher):
             # todo: fix test landing
             self.status_bar and self.status_bar.show_status('On Wait: ' + self.road.state, self.bike, self.road)
             return True
-        # elif self.road.state in self.bun_events():
-        #     return False
+
+        elif self.road.state in self.bun_events():
+            return False
+
         else:
             self.wait_stop()
             # todo: fix test landing

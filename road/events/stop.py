@@ -1,5 +1,4 @@
 from kivy.clock import Clock
-
 from conf import SECOND_GAME
 from road.events.base import BaseDispatcher
 from utils.state import State

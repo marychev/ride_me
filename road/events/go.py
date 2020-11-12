@@ -16,6 +16,7 @@ class GoDispatcher(BaseDispatcher):
         return (
             State.ON_JUMP_START, State.ON_JUMP_MOVE, State.ON_JUMP_STOP,
             State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
+            State.ON_STOP_MOVE
         )
 
     @classmethod
@@ -23,7 +24,7 @@ class GoDispatcher(BaseDispatcher):
         return (
             State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
             State.ON_RELAX_START, State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
-            State.ON_STOP_MOVE
+            # State.ON_STOP_MOVE
         )
 
     @classmethod
@@ -54,7 +55,11 @@ class GoDispatcher(BaseDispatcher):
             self.road_finish()
             return False
 
-        elif self.bike.is_in_sky() or self.road.state in self.ban_events():
+        elif self.bike.is_in_sky():
+            return False
+
+        elif self.road.state in self.ban_events():
+            self.go_stop()
             return False
 
         else:

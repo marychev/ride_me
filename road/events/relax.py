@@ -61,7 +61,7 @@ class RelaxDispatcher(BaseDispatcher):
             self.relax_stop()
             return False
 
-        elif self.road.state == State.ON_GO_START:
+        elif self.road.state in (State.ON_GO_START, State.ON_STOP_START, State.ON_STOP_MOVE):
             return False
 
         else:
