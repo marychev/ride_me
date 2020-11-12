@@ -16,8 +16,7 @@ class LandingDispatcher(BaseDispatcher):
     def start_states_list(cls):
         return (State.NONE,
                 State.ON_WAIT_START,
-                State.ON_JUMP_MOVE,
-                State.ON_JUMP_STOP)
+                State.ON_JUMP_MOVE, State.ON_JUMP_STOP)
 
     @classmethod
     def stop_states_list(cls):

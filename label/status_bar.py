@@ -38,7 +38,7 @@ class StatusBar(Label):
     @staticmethod
     def get_background_image_animation():
         # print('[WARNING] Try to get a game object from DOM! get_background_image_animation')
-        return get_game_screen().ids.background_image_animation
+        return get_game_screen().ids.background_image_animation if get_game_screen() else None
 
     def show_status(self, title, bike, road):
         self.text = '{}\r{}{}'.format(title, self.show_status_road(), self.show_status_bike())

@@ -1,26 +1,16 @@
 from utils.state import State
-from tests.base_gui_test import BaseGameScreenGUITest
+from tests.event.relax.base_relax_test import BaseRelaxTest
 
 
-class RelaxTest(BaseGameScreenGUITest):
-    def set_app(self):
-        super().set_app()
-        self.bike.speed = 10
-        self.road.landing_stop()
-
+class RelaxTest(BaseRelaxTest):
     def test_relax_start(self):
         self.set_app()
-        self.road.relax_start()
-        self.assertEqual(self.road.state, State.ON_RELAX_START)
+        self.relax_start_equal()
 
     def test_relax_move(self):
         self.set_app()
-        self.bike.speed = 5
-        self.road.on_relax(.1)
-        self.assertEqual(self.road.state, State.ON_RELAX_MOVE)
+        self.relax_move_equal()
 
     def test_relax_stop(self):
         self.set_app()
-        self.bike.speed = 1
-        self.road.relax_stop()
-        self.assertEqual(self.road.state, State.ON_RELAX_STOP)
+        self.relax_stop_equal()

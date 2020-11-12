@@ -32,6 +32,10 @@ from tests.event.go_background.test_go_background import GoBackgroundTest
 
 from tests.event.relax.test_relax import RelaxTest
 from tests.event.relax.test_relax_move import RelaxMoveTest
+from tests.event.relax.test_relax_events_for_jump_events_fail import RelaxEventAndJumpFailTest
+from tests.event.relax.test_relax_events_for_landing_events_fail import RelaxEventAndLandingFailTest
+from tests.event.relax.test_relax_events_for_go_events_fail import RelaxEventAndGoFailTest
+from tests.event.relax.test_relax_events_for_go_events_success import RelaxEventAndGoSuccessTest
 
 from tests.test_runtouchapp import RunTouchAppTest
 

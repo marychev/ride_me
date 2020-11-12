@@ -51,7 +51,7 @@ class Road(Widget, RoadEvents):
         self.jump_stop()
         self.go_stop()
         self.relax_stop()
-        bg_animation.go_mountains_stop()
+        bg_animation and bg_animation.go_mountains_stop()
 
     # get game objects
 
