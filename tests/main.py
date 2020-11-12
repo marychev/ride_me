@@ -36,6 +36,10 @@ from tests.event.relax.test_relax_events_for_jump_events_fail import RelaxEventA
 from tests.event.relax.test_relax_events_for_landing_events_fail import RelaxEventAndLandingFailTest
 from tests.event.relax.test_relax_events_for_go_events_fail import RelaxEventAndGoFailTest
 from tests.event.relax.test_relax_events_for_go_events_success import RelaxEventAndGoSuccessTest
+from tests.event.relax.test_relax_events_for_stop_events_fail import RelaxEventAndStopFailTest
+from tests.event.relax.test_relax_events_for_stop_events_success import RelaxEventAndStopSuccessTest
+from tests.event.relax.test_relax_events_for_wait_events_fail import RelaxEventAndWaitFailTest
+from tests.event.relax.test_relax_events_for_wait_events_success import RelaxEventAndWaitSuccessTest
 
 from tests.test_runtouchapp import RunTouchAppTest
 

@@ -12,6 +12,12 @@ class StopDispatcher(BaseDispatcher):
         self.register_event_type(State.EVENT_ON_STOP)
 
     @classmethod
+    def bun_event(cls):
+        return (
+            State.ON_GO_START, State.ON_GO_MOVE,
+            State.ON_RELAX_START, State.ON_RELAX_MOVE)
+
+    @classmethod
     def start_states_list(cls):
         return State.ON_RELAX_MOVE, State.ON_RELAX_STOP
 
@@ -59,7 +65,7 @@ class StopDispatcher(BaseDispatcher):
             self.status_bar and self.status_bar.show_status('Stop On Stop: ' + self.road.state, self.bike, self.road)
             return False
 
-        elif self.bike.is_in_sky() or self.road.state in (State.ON_GO_START, State.ON_GO_MOVE):
+        elif self.bike.is_in_sky() or self.road.state in StopDispatcher.bun_event():
             return False
 
         else:
