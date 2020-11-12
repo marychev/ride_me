@@ -19,6 +19,7 @@ from tests.event.jump.test_jump_events_for_stop_events_fail import JumpEventAndS
 from tests.event.jump.test_jump_events_for_wait_events_fail import JumpEventAndWaitFailTest
 
 from tests.event.stop.test_stop import StopTest
+from tests.event.stop.test_stop_events_for_jump_events_fail import StopEventAndJumpFailTest
 
 from tests.event.go.test_go import GoTest
 from tests.event.go.test_go_events_for_jump_events_fail import GoEventAndJumpFailTest

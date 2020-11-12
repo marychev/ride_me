@@ -14,14 +14,15 @@ class JumpDispatcher(BaseDispatcher):
     @classmethod
     def bun_events(cls):
         return (
-            State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP
+            State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
+            State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP,
         )
 
     @classmethod
     def start_states_list(cls):
         return (
             State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
-            State.ON_WAIT_MOVE, State.ON_WAIT_STOP
+            State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
         )
 
     @classmethod
