@@ -29,7 +29,7 @@ class WaitEventAndRelaxFailTest(BaseWaitTest):
         self.set_app_move()
         self.road.relax_start()
         self.assertNotEqual(self.road.state, State.ON_RELAX_START)
-        self.assertEqual(self.road.state, State.ON_WAIT_START)
+        self.assertEqual(self.road.state, State.ON_WAIT_MOVE)
 
     def test_wait_move_for_relax_move_should_fail(self):
         self.set_app_move()
