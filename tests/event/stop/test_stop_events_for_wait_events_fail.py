@@ -51,13 +51,6 @@ class StopEventAndWaitFailTest(BaseStopTest):
 
     # stop
 
-    def test_stop_stop_in_wait_start_should_success(self):
-        self.set_app()
-        self.stop_stop_equal()
-        self.road.wait_start()
-        self.assertEqual(self.road.state, State.ON_WAIT_START)
-        self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
-
     def test_stop_stop_in_wait_move_should_fail(self):
         self.set_app()
         self.stop_stop_equal()
@@ -65,12 +58,5 @@ class StopEventAndWaitFailTest(BaseStopTest):
         self.bike.speed = 1
         self.road.on_wait(.1)
         self.assertNotEqual(self.road.state, State.ON_WAIT_MOVE)
-        self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
-        self.assertEqual(self.road.state, State.ON_WAIT_STOP)
-
-    def test_stop_stop_in_wait_stop_should_success(self):
-        self.set_app()
-        self.stop_stop_equal()
-        self.road.wait_stop()
         self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
         self.assertEqual(self.road.state, State.ON_WAIT_STOP)

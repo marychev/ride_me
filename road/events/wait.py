@@ -14,7 +14,7 @@ class WaitDispatcher(BaseDispatcher):
     @classmethod
     def bun_events(cls):
         return (
-            State.ON_STOP_STOP
+            # State.ON_STOP_STOP
         )
 
     @classmethod
@@ -48,8 +48,8 @@ class WaitDispatcher(BaseDispatcher):
             self.status_bar and self.status_bar.show_status('On Wait: ' + self.road.state, self.bike, self.road)
             return True
 
-        elif self.road.state in self.bun_events():
-            return False
+        # elif self.road.state in self.bun_events():
+        #     return False
 
         else:
             self.wait_stop()

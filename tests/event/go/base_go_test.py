@@ -7,6 +7,18 @@ class BaseGoTest(BaseGameScreenGUITest):
         super().set_app()
         self._init_properties()
 
+    def set_app_start(self):
+        self.set_app()
+        self.go_start_equal()
+
+    def set_app_move(self):
+        self.set_app()
+        self.go_move_equal()
+
+    def set_app_stop(self):
+        self.set_app()
+        self.go_stop_equal()
+
     def _init_properties(self):
         self.bike.speed = 10
         self.bike.max_speed = 20

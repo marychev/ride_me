@@ -16,6 +16,7 @@ class JumpDispatcher(BaseDispatcher):
         return (
             State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
             State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP,
+            State.ON_WAIT_START
         )
 
     @classmethod
@@ -50,6 +51,9 @@ class JumpDispatcher(BaseDispatcher):
             self.set_distances()
             self.status_bar and self.status_bar.show_status('On Jump: ' + self.road.state, self.bike, self.road)
             return True
+
+        elif self.road.state in self.bun_events():
+            return False
 
         else:
             self.jump_stop()

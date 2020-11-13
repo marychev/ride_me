@@ -16,7 +16,8 @@ class GoDispatcher(BaseDispatcher):
         return (
             State.ON_JUMP_START, State.ON_JUMP_MOVE, State.ON_JUMP_STOP,
             State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
-            State.ON_STOP_MOVE
+            State.ON_STOP_MOVE,
+            State.ON_WAIT_START,
         )
 
     @classmethod
@@ -32,7 +33,7 @@ class GoDispatcher(BaseDispatcher):
         return State.ON_GO_START, State.ON_GO_MOVE, State.ON_GO_STOP
 
     def go_start(self):
-        if self.road.state in GoDispatcher.start_states_list():
+        if not self.bike.is_in_sky() and self.road.state in GoDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
             self.road.set_state(State.ON_GO_START)
             self.bike.anim_go()

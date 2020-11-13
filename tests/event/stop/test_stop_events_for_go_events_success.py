@@ -11,12 +11,3 @@ class StopEventAndGoSuccessTest(BaseStopTest):
         self.road.on_go(.1)
         self.assertEqual(self.road.state, State.ON_GO_MOVE)
         self.assertNotEqual(self.road.state, State.ON_STOP_START)
-
-    # stop
-
-    def test_stop_stop_in_go_move_should_success(self):
-        self.set_app()
-        self.stop_stop_equal()
-        self.road.on_go(.1)
-        self.assertEqual(self.road.state, State.ON_GO_MOVE)
-        self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
