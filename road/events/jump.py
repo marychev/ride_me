@@ -16,7 +16,7 @@ class JumpDispatcher(BaseDispatcher):
         return (
             State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
             State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP,
-            State.ON_WAIT_START
+            State.ON_WAIT_START,
         )
 
     @classmethod

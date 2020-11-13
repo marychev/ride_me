@@ -9,6 +9,13 @@ from tests.event.landing.test_landing_events_for_relax_events_fail import Landin
 from tests.event.landing.test_landing_events_for_relax_events_success import LandingEventAndRelaxSuccessTest
 
 from tests.event.wait.test_wait import WaitTest
+from tests.event.wait.test_wait_events_for_go_events_fail import WaitEventAndGoFailTest
+from tests.event.wait.test_wait_events_for_go_events_success import WaitEventAndGoSuccessTest
+from tests.event.wait.test_wait_events_for_jump_events_success import WaitEventAndJumpSuccessTest
+from tests.event.wait.test_wait_events_for_jump_events_fail import WaitEventAndJumpFailTest
+from tests.event.wait.test_wait_events_for_landing_events_fail import WaitEventAndLandingFailTest
+from tests.event.wait.test_wait_events_for_stop_events_fail import WaitEventAndStopFailTest
+from tests.event.wait.test_wait_events_for_relax_events_fail import WaitEventAndRelaxFailTest
 
 from tests.event.jump.test_jump import JumpTest
 from tests.event.jump.test_jump_events_for_go_events_fail import JumpEventAndGoFailTest
