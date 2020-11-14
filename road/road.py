@@ -3,7 +3,6 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
-
 from label.status_bar import StatusBar
 from road.events import RoadEvents
 from utils.dir import abstract_path
@@ -23,8 +22,8 @@ road_images = {
 
 
 class Road(Widget, RoadEvents):
-    texture = ObjectProperty(Image(source=road_images.get('road_5')).texture)
-    total_way = NumericProperty(10000)
+    texture = ObjectProperty(Image(source=abstract_path('road/img/road-asphalt-02.jpg')).texture)
+    total_way = NumericProperty(1000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -41,15 +40,6 @@ class Road(Widget, RoadEvents):
 
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
-
-        print('----------------')
-        print(Window.width, int(Window.width / self.texture.width))
-        print(self.size, self.get_bike().speed/self.texture.size[0])
-        print(self.pos)
-        print(self.texture.size)
-        print(self.texture.uvsize)
-        print(self.texture.uvpos)
-
         set_texture_uvpos(self, self.texture.uvpos[0] + self.get_bike().speed/self.texture.size[0], self.texture.uvpos[1])
 
     def has_finished(self):

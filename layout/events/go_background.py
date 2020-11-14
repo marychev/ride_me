@@ -1,12 +1,10 @@
 from kivy.clock import Clock
-from kivy.properties import ObjectProperty
-from kivy.core.window import Window
+from kivy.properties import ObjectProperty, BooleanProperty
 from conf import SECOND_GAME
 from road.events.base import BaseDispatcher
 from road.events.go import GoDispatcher
 from utils.state import State
 from utils.texture import redraw_texture, repeat_texture
-from kivy.animation import Animation
 
 
 class GoBackgroundMockDispatcher(BaseDispatcher):
@@ -14,6 +12,7 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
     cloud_big_texture = ObjectProperty(None)
     cloud_middle_texture = ObjectProperty(None)
     cloud_min_texture = ObjectProperty(None)
+    is_repeat_texture = BooleanProperty(False)
 
     @classmethod
     def start_states_list(cls):
@@ -35,11 +34,11 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
             return False
 
         else:
-            # # DON'T REMOVE
-            # uvpos_x = self.mountains_texture.uvpos[0] + (self.bike.speed * dt)/100.0
-            # self.mountains_texture.uvpos = uvpos_x, self.mountains_texture.uvpos[1]
-            # repeat_texture(self.mountains_texture)
-            # redraw_texture(self, 'mountains_texture')
+            if self.is_repeat_texture:
+                uvpos_x = self.mountains_texture.uvpos[0] + (self.bike.speed * dt)/100.0
+                self.mountains_texture.uvpos = uvpos_x, self.mountains_texture.uvpos[1]
+                repeat_texture(self.mountains_texture)
+                redraw_texture(self, 'mountains_texture')
 
             return True
 

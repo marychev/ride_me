@@ -24,8 +24,6 @@ class Finish(Widget):
         bike = self.get_bike()
         road = self.get_road()
         return (road.total_way - road.distance_traveled) + bike.x + bike.width
-        # return self.pos[0] - bike.speed
-        # return road.total_way - road.distance_traveled
 
     # game objects
 

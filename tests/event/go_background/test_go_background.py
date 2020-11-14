@@ -13,6 +13,7 @@ class GoBackgroundTest(BaseGameScreenGUITest):
     def test_go_mountains_start(self):
         self.set_app()
         old_uvpos = self.background_animation.mountains_texture.uvpos
+        self.background_animation.is_repeat_texture = True
         self.road.go_start()
         self.background_animation.on_go_mountains(.1)
         new_uvpos = self.background_animation.mountains_texture.uvpos
@@ -20,10 +21,11 @@ class GoBackgroundTest(BaseGameScreenGUITest):
 
     def test_on_go_mountains_move(self):
         self.set_app()
+        self.background_animation.is_repeat_texture = True
         old_uvpos = self.background_animation.mountains_texture.uvpos
         self.bike.speed = self.bike.max_speed/2
         self.road.on_go(.1)
-        self.background_animation.on_go_mountains(.1)
+        self.background_animation.on_go_mountains(.5)
         new_uvpos = self.background_animation.mountains_texture.uvpos
         self.assertNotEqual(old_uvpos, new_uvpos)
 

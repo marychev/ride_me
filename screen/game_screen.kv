@@ -27,7 +27,7 @@
                 color: 0,0,0,1
                 x: self.padding_x
                 y: int(Window.height - self.size[1]) - self.padding_y
-                size_hint: .3, .3
+                size_hint: .4, .4
                 text_size: self.size
                 valign: 'top'
                 padding: 5, 5
@@ -38,10 +38,10 @@
                 size: Window.width, 120 # self.height
                 size_hint: None, None
 
-                Rock:
-                    id: rock
-                    pos: 1000, root.ids.road.y
-                    size: 80, 80
+                # Rock:
+                #    id: rock
+                #    pos: 1000, root.ids.road.y
+                #    size: 80, 80
 
                 Finish:
                     id: finish
@@ -51,7 +51,7 @@
 
             Bike:
                 id: bike
-                pos: 120, root.ids.tools.height  + 400
+                pos: 120, root.ids.road.y  + 400
                 size: 120, 120
                 size_hint: None, None
 
