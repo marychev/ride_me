@@ -26,9 +26,4 @@ def background_texture(widget):
         Rectangle(texture=widget.texture, size=widget.size, pos=widget.pos)
 
 
-def set_texture_uvpos(widget, uvpos_x, uvpos_y):
-    widget.texture.uvpos = (uvpos_x, uvpos_y)
-    widget.canvas.before.clear()
-    with widget.canvas.before:
-        Color(1, 1, 1, 1)
-        Rectangle(texture=widget.texture, size=widget.size, pos=widget.pos)
+

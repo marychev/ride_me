@@ -6,18 +6,25 @@ from kivy.uix.widget import Widget
 
 from label.status_bar import StatusBar
 from road.events import RoadEvents
-from utils.checks import set_texture_uvpos
 from utils.dir import abstract_path
 from utils.state import State
-from utils.texture import repeat_texture
+from utils.texture import repeat_texture, set_texture_uvpos
 from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('road/road.kv'))
 
+road_images = {
+    'road_1': abstract_path('road/img/road-01.png'),
+    'road_2': abstract_path('road/img/road-2-1.png'),
+    'road_3': abstract_path('road/img/road-asphalt-0.jpg'),
+    'road_4': abstract_path('road/img/road-asphalt-01.jpg'),
+    'road_5': abstract_path('road/img/road-asphalt-02.jpg')
+}
+
 
 class Road(Widget, RoadEvents):
-    texture = ObjectProperty(Image(source=abstract_path('road/img/road-01.png')).texture)
-    total_way = NumericProperty(3000)
+    texture = ObjectProperty(Image(source=road_images.get('road_5')).texture)
+    total_way = NumericProperty(10000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -26,7 +33,7 @@ class Road(Widget, RoadEvents):
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
 
-        repeat_texture(self.texture, Window.width / self.texture.width)
+        repeat_texture(self.texture, int(Window.width / self.texture.width))
         self.landing_start()
 
     def get_distance_traveled(self):
@@ -34,7 +41,16 @@ class Road(Widget, RoadEvents):
 
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
-        set_texture_uvpos(self, self.texture.uvpos[0] + self.get_bike().speed, self.texture.uvpos[1])
+
+        print('----------------')
+        print(Window.width, int(Window.width / self.texture.width))
+        print(self.size, self.get_bike().speed/self.texture.size[0])
+        print(self.pos)
+        print(self.texture.size)
+        print(self.texture.uvsize)
+        print(self.texture.uvpos)
+
+        set_texture_uvpos(self, self.texture.uvpos[0] + self.get_bike().speed/self.texture.size[0], self.texture.uvpos[1])
 
     def has_finished(self):
         return self.distance_traveled >= self.total_way

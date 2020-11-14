@@ -23,11 +23,11 @@
             StatusBar:
                 id: status_bar
 
-                font_size: 14
+                font_size: 13
                 color: 0,0,0,1
                 x: self.padding_x
                 y: int(Window.height - self.size[1]) - self.padding_y
-                size_hint: .5, .5
+                size_hint: .3, .3
                 text_size: self.size
                 valign: 'top'
                 padding: 5, 5
@@ -35,13 +35,13 @@
             Road:
                 id: road
                 pos: 0, root.ids.tools.height
-                size: Window.width, self.height
+                size: Window.width, 120 # self.height
                 size_hint: None, None
 
-                #Rock:
-                #    id: rock
-                #    pos: 1000, root.ids.tools.height
-                #    size: 80, 80
+                Rock:
+                    id: rock
+                    pos: 1000, root.ids.road.y
+                    size: 80, 80
 
                 Finish:
                     id: finish
@@ -51,13 +51,14 @@
 
             Bike:
                 id: bike
-                pos: 80, root.ids.tools.height  + 400
+                pos: 120, root.ids.tools.height  + 400
                 size: 120, 120
                 size_hint: None, None
 
         Tools:
             id: tools
-            size_hint: 1, .14
+            size_hint: 1, .1
+            height: 40
 
             AnchorLayout:
                 id: left_btn_wrap

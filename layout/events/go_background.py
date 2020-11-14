@@ -1,14 +1,13 @@
 from kivy.clock import Clock
 from kivy.properties import ObjectProperty
-
+from kivy.core.window import Window
 from conf import SECOND_GAME
 from road.events.base import BaseDispatcher
 from road.events.go import GoDispatcher
 from utils.state import State
 from utils.texture import redraw_texture, repeat_texture
+from kivy.animation import Animation
 
-
-# todo: add tests
 
 class GoBackgroundMockDispatcher(BaseDispatcher):
     mountains_texture = ObjectProperty(None)
@@ -36,11 +35,12 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
             return False
 
         else:
-            uvpos_x = self.mountains_texture.uvpos[0] + (self.bike.speed * dt)/10.0
-            self.mountains_texture.uvpos = uvpos_x, self.mountains_texture.uvpos[1]
+            # # DON'T REMOVE
+            # uvpos_x = self.mountains_texture.uvpos[0] + (self.bike.speed * dt)/100.0
+            # self.mountains_texture.uvpos = uvpos_x, self.mountains_texture.uvpos[1]
+            # repeat_texture(self.mountains_texture)
+            # redraw_texture(self, 'mountains_texture')
 
-            repeat_texture(self.mountains_texture)
-            redraw_texture(self, 'mountains_texture')
             return True
 
     def go_mountains_start(self):

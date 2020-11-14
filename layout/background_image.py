@@ -12,7 +12,7 @@ class BackgroundImageAnimation(Widget, GoBackgroundMockDispatcher):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.mountains_texture = image_texture('layout/img/mountains-1.png')
+        self.mountains_texture = image_texture('layout/img/mountains-2.png')
         self.cloud_big_texture = image_texture('layout/img/cloud-big.png')
         self.cloud_middle_texture = image_texture('layout/img/cloud-middle.png')
         self.cloud_min_texture = image_texture('layout/img/cloud-min.png')
