@@ -38,10 +38,17 @@
                 size: Window.width, 120 # self.height
                 size_hint: None, None
 
-                # Rock:
-                #    id: rock
-                #    pos: 1000, root.ids.road.y
-                #    size: 80, 80
+                canvas:
+                    Color:
+                        rgb: .4, .1, .9
+                    Line:
+                        bezier: (100, 100, 200, 100, 300, 100, 405, 110, 500, 110, 600, 110)
+                        width: 2.
+
+                Rock:
+                    id: rock
+                    pos: 1000, root.ids.road.y
+                    size: 80, 80
 
                 Finish:
                     id: finish

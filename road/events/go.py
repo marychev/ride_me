@@ -42,13 +42,13 @@ class GoDispatcher(BaseDispatcher):
         if self.road.state in GoDispatcher.stop_states_list():
             Clock.unschedule(self.on_go)
             self.road.set_state(State.ON_GO_STOP)
-            self.status_bar and self.status_bar.show_status('Stop On GO: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('Stop On GO: ' + self.road.state)
 
     def on_go(self, dt):
         if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
             self.go_stop()
-            self.status_bar and self.status_bar.show_status('Stop On GO/COLLISION: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('Stop On GO/COLLISION: ' + self.road.state)
             return False
 
         elif self.road.has_finished():
@@ -69,6 +69,6 @@ class GoDispatcher(BaseDispatcher):
 
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)
-            self.status_bar and self.status_bar.show_status('On GO: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('On GO: ' + self.road.state)
             return True
 

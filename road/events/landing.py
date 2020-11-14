@@ -61,7 +61,7 @@ class LandingDispatcher(BaseDispatcher):
                     self.set_distances()
 
                     # todo: only as temp solution
-                    self.status_bar and self.status_bar.show_status('On Landing: ' + self.road.state, self.bike, self.road)
+                    self.status_bar and self.status_bar.show_status('On Landing: ' + self.road.state)
                     return True
                 # elif self.bike.is_in_sky() and self.road.state == State.ON_JUMP_MOVE:
                 #     return False

@@ -40,7 +40,7 @@ class StatusBar(Label):
         # print('[WARNING] Try to get a game object from DOM! get_background_image_animation')
         return get_game_screen().ids.background_image_animation if get_game_screen() else None
 
-    def show_status(self, title, bike, road):
+    def show_status(self, title):
         self.text = '{}\r{}{}'.format(title, self.show_status_road(), self.show_status_bike())
 
     def show_status_finished(self):
@@ -52,28 +52,30 @@ class StatusBar(Label):
 
     def show_status_bike(self, title='BIKE'):
         bike = self.get_bike()
-        return '''
+        if bike:
+            return '''
 ------------------------------------------- [{}]
 _acceleration:             {}
 _power:                           {} 
 Speed:                          {}
 Pos:                              {}
 '''.format(
-            title,
-            bike.acceleration, bike.power,
-            bike.speed,
-            bike.pos,
-        )
+                title,
+                bike.acceleration, bike.power,
+                bike.speed,
+                bike.pos,
+            )
 
     def show_status_road(self, title='ROAD'):
         road = self.get_road()
-        return '''
+        if road:
+            return '''
 ----------------------------------------------- [{}]
 total_way:                    {}
 distance_traveled:    {}
 *left_go:                          {}'''.format(
-            title,
-            road.total_way,
-            road.distance_traveled,
-            road.total_way - road.distance_traveled,
-        )
+                title,
+                road.total_way,
+                road.distance_traveled,
+                road.total_way - road.distance_traveled,
+            )

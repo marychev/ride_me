@@ -51,7 +51,7 @@ class StopDispatcher(BaseDispatcher):
             self.bike.collision_rock()
 
             self.road.set_state(State.ON_STOP_STOP)
-            self.status_bar and self.status_bar.show_status('Stop On Stop: COLLISION' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('Stop On Stop: COLLISION' + self.road.state)
             return False
 
         elif (float(self.bike.speed) - float(stop_way) <= 0.0) or (self.bike.speed <= 0)\
@@ -61,7 +61,7 @@ class StopDispatcher(BaseDispatcher):
             self.finish and self.finish.set_x()
 
             self.road.stop_stop()
-            self.status_bar and self.status_bar.show_status('Stop On Stop: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('Stop On Stop: ' + self.road.state)
             return False
 
         elif self.bike.is_in_sky() or self.road.state in StopDispatcher.bun_event():
@@ -72,5 +72,5 @@ class StopDispatcher(BaseDispatcher):
             self.set_distances()
 
             self.road.set_state(State.ON_STOP_MOVE)
-            self.status_bar and self.status_bar.show_status('On Stop: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('On Stop: ' + self.road.state)
             return True

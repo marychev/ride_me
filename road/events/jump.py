@@ -49,7 +49,7 @@ class JumpDispatcher(BaseDispatcher):
 
             self.road.set_state(State.ON_JUMP_MOVE)
             self.set_distances()
-            self.status_bar and self.status_bar.show_status('On Jump: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('On Jump: ' + self.road.state)
             return True
 
         elif self.road.state in self.bun_events():
@@ -58,5 +58,5 @@ class JumpDispatcher(BaseDispatcher):
         else:
             self.jump_stop()
             self.road.landing_start()
-            self.status_bar and self.status_bar.show_status('Stop On Jump: ' + self.road.state, self.bike, self.road)
+            self.status_bar and self.status_bar.show_status('Stop On Jump: ' + self.road.state)
             return False
