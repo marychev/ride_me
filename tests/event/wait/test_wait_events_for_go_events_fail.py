@@ -27,14 +27,14 @@ class WaitEventAndGoFailTest(BaseWaitTest):
 
     def test_wait_move_in_go_start_should_fail(self):
         self.set_app_move()
-        self.bike.y = self.road.y + self.bike.height
+        self.bike.y = self.road.line_points[-1] + self.bike.height
         self.road.go_start()
         self.assertNotEqual(self.road.state, State.ON_GO_START)
         self.assertEqual(self.road.state, State.ON_WAIT_MOVE)
 
     def test_wait_move_in_go_move_should_fail(self):
         self.set_app_move()
-        self.bike.y = self.road.y + self.bike.height
+        self.bike.y = self.road.line_points[-1] + self.bike.height
         self.road.on_go(.1)
         self.assertNotEqual(self.road.state, State.ON_GO_MOVE)
         self.assertEqual(self.road.state, State.ON_WAIT_MOVE)
@@ -50,14 +50,14 @@ class WaitEventAndGoFailTest(BaseWaitTest):
     def test_wait_stop_in_go_start_should_fail(self):
         self.set_app_stop()
 
-        self.bike.y = self.road.y + self.bike.height
+        self.bike.y = self.road.line_points[-1] + self.bike.height
         self.road.go_start()
         self.assertNotEqual(self.road.state, State.ON_GO_START)
         self.assertEqual(self.road.state, State.ON_WAIT_STOP)
 
     def test_wait_stop_in_go_move_should_fail(self):
         self.set_app_stop()
-        self.bike.y = self.road.y + self.bike.height
+        self.bike.y = self.road.line_points[-1] + self.bike.height
         self.road.on_go(.1)
         self.assertNotEqual(self.road.state, State.ON_GO_MOVE)
         self.assertEqual(self.road.state, State.ON_WAIT_STOP)

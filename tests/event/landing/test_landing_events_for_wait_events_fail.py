@@ -9,7 +9,7 @@ class LandingEventAndWaitFailTest(BaseLandingTest):
         self.set_app()
         self.landing_start_equal()
 
-        self.bike.y = self.road.y
+        self.bike.y = self.road.line_points[-1]
         self.bike.power = 0
         self.bike.speed = 0
 

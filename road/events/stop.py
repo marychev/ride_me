@@ -46,7 +46,6 @@ class StopDispatcher(BaseDispatcher):
     def on_stop(self, dt):
         stop_way = dt * 2
 
-        print('!!!!!!!!!!!!!!!!!!!!', 00)
         if self.rock and self.bike.collide_widget(self.rock):
             self.bike.collision_rock()
 

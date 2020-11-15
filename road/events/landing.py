@@ -45,6 +45,7 @@ class LandingDispatcher(BaseDispatcher):
         # todo: only as temp solution fix speed loading page
         if self.road.state != State.ON_JUMP_MOVE:
             # todo: only as temp solution
+            # maybe use self.get_bike()
             if self.bike is None or self.road is None:
                 self.set_game_object()
             else:
@@ -66,7 +67,7 @@ class LandingDispatcher(BaseDispatcher):
                 # elif self.bike.is_in_sky() and self.road.state == State.ON_JUMP_MOVE:
                 #     return False
                 else:
-                    self.bike.y = self.road.y
+                    self.bike.y = self.road.line_points[-1]
                     self.bike.set_power(self.bike.max_power)
                     self.landing_stop()
                     return False

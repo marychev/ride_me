@@ -17,7 +17,7 @@ class LandingTest(BaseLandingTest):
 
     def test_bike_has_landed_already(self):
         self.set_app()
-        self.bike.y = self.road.y
+        self.bike.y = self.road.line_points[-1]
         self.road.on_landing(.1)
         self.assertEqual(self.road.state, State.ON_WAIT_START)
 
@@ -26,12 +26,12 @@ class LandingTest(BaseLandingTest):
         self.road.set_state(State.ON_WAIT_START)
         self.assertEqual(self.road.state, State.ON_WAIT_START)
 
-        self.bike.y = self.road.y + self.road.height + 10
+        self.bike.y = self.road.line_points[-1] + self.road.height + 10
         self.road.on_landing(.1)
         self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
 
         # bike is waiting for something actions Set Stop state
-        self.bike.y = self.road.y
+        self.bike.y = self.road.line_points[-1]
         self.road.on_wait(.1)
         self.assertEqual(self.road.state, State.ON_WAIT_MOVE)
 

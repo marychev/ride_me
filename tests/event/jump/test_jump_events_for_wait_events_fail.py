@@ -15,7 +15,7 @@ class JumpEventAndWaitFailTest(BaseJumpTest):
     def test_jump_start_in_wait_move_should_fail(self):
         self.set_app()
         self.jump_start_equal()
-        self.bike.y = self.road.y + self.road.height
+        self.bike.y = self.road.line_points[-1] + self.road.height
         self.road.on_wait(.1)
         self.assertNotEqual(self.road.state, State.ON_WAIT_MOVE)
         self.assertEqual(self.road.state, State.ON_JUMP_START)

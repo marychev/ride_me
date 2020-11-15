@@ -4,13 +4,6 @@ from utils.state import State
 
 
 class BaseDispatcher(EventDispatcher):
-    status_bar = ObjectProperty(None)
-    road = ObjectProperty(None)
-    rock = ObjectProperty(None)
-    bike = ObjectProperty(None)
-
-    start = ObjectProperty(None)
-    finish = ObjectProperty(None)
 
     def set_distances(self):
         self.rock and self.rock.set_x()

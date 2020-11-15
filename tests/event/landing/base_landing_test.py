@@ -9,16 +9,16 @@ class BaseLandingTest(BaseGameScreenGUITest):
 
     def _init_properties(self):
         self.bike.power = 150
-        self.bike.y = self.road.y + 100
+        self.bike.y = self.road.line_points[-1] + 100
         self.road.landing_start()
 
     def landing_start_equal(self):
-        self.bike.y = self.road.y + 200
+        self.bike.y = self.road.line_points[-1] + 200
         self.road.landing_start()
         self.assertEqual(self.road.state, State.ON_LANDING_START)
 
     def landing_move_equal(self):
-        self.bike.y = self.road.y + 100
+        self.bike.y = self.road.line_points[-1] + 100
         self.road.on_landing(.1)
         self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
 

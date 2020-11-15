@@ -21,7 +21,7 @@ class JumpTest(BaseJumpTest):
 
     def test_go_all_events_for_move_state_should_fail(self):
         self.set_app()
-        self.bike.y = self.road.y + 100
+        self.bike.y = self.road.line_points[-1] + 100
         self.road.on_landing(.1)
         self.assertEqual(self.road.state, State.ON_LANDING_MOVE)
 

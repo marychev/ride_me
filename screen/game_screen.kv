@@ -41,10 +41,10 @@
 
                 canvas:
                     Color:
-                        rgb: .4, .1, .9
+                        rgb: 0, 1, 1
                     Line:
-                        bezier: (100, 100, 200, 100, 300, 100, 405, 110, 500, 110, 600, 110)
-                        width: 2.
+                        bezier: self.line_points
+                        width: 1.
 
                 Start:
                     id: start
@@ -54,7 +54,7 @@
 
                 Rock:
                     id: rock
-                    pos: 1000, root.ids.road.y
+                    pos: 1000, root.ids.road.line_points[-1]
                     size: 80, 80
 
                 Finish:
@@ -69,6 +69,18 @@
                 size: 120, 120
                 size_hint: None, None
 
+                canvas:
+                    Color:
+                        rgb: .4, 0, 1
+                    Line:
+                        bezier: (self.x, self.y, self.x + 400, self.y)
+                        width: 1.
+                    Line:
+                        bezier: (root.ids.bike.x, self.y + root.ids.bike.width/2, self.x + 400, self.y + root.ids.bike.width/2)
+                        width: 1.
+                    Line:
+                        bezier: (root.ids.bike.x, self.y + root.ids.bike.height, self.x + 400, self.y + root.ids.bike.height)
+                        width: 1.
         Tools:
             id: tools
             size_hint: 1, .1

@@ -27,7 +27,18 @@ class Road(Widget, RoadEvents):
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
+
+    line_points = ListProperty([100, 100, 1000, 100])
+
     last_states = ListProperty()
+
+    status_bar = ObjectProperty(None)
+    road = ObjectProperty(None)
+    rock = ObjectProperty(None)
+    bike = ObjectProperty(None)
+
+    start = ObjectProperty(None)
+    finish = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
@@ -60,15 +71,6 @@ class Road(Widget, RoadEvents):
         bg_animation and bg_animation.go_mountains_stop()
 
     # get game objects
-
-    def game_objects(self):
-        return {
-            'status_bar': self.get_status_bar(),
-            'road': self,
-            'bike': self.get_bike(),
-            'rock': self.get_rock(),
-            'start': self.get_start(),
-            'finish': self.get_finish()}
 
     def get_status_bar(self):
         if len(self.children) > 1:

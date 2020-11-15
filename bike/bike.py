@@ -27,7 +27,9 @@ class Bike(Image, AnimationBike):
 
     def is_in_sky(self):
         road = self.get_road()
-        return road.y < self.y
+        print(road.line_points[-1], road.y)
+        # OLD return road.y < self.y
+        return road.line_points[-1] < self.y
 
     # events
 

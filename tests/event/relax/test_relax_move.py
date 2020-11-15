@@ -6,7 +6,7 @@ class RelaxMoveTest(BaseGameScreenGUITest):
     def set_app(self):
         super(RelaxMoveTest, self).set_app()
 
-        self.bike.y = self.road.y
+        self.bike.y = self.road.line_points[-1]
         self.bike.power = 30
         self.bike.speed = 10
 
