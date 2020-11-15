@@ -7,7 +7,6 @@ from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from utils.counter import CounterClock
 from utils.dir import abstract_path
-from road.events.stop import StopDispatcher
 
 Builder.load_file(abstract_path('button/left_button.kv'))
 

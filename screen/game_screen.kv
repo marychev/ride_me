@@ -90,11 +90,16 @@
                 id: left_btn_wrap
                 anchor_x: 'left'
                 anchor_y: 'bottom'
+                Label:
+                    text: "Power: {}".format(root.ids.bike.power)
                 LeftButtonWidget:
+
 
             AnchorLayout:
                 anchor_x: 'center'
                 anchor_y: 'bottom'
+                Label:
+                    text: "State: {}".format(root.ids.road.state)
                 Button:
                     text: 'Back to start'
                     size_hint: .4, .3
@@ -104,4 +109,7 @@
                 id: right_btn_wrap
                 anchor_x: 'right'
                 anchor_y: 'bottom'
+                Label:
+                    text: "Speed: {}".format(root.ids.bike.speed)
+
                 RightButtonWidget:

@@ -23,7 +23,7 @@ road_images = {
 
 class Road(Widget, RoadEvents):
     texture = ObjectProperty(Image(source=road_images['road_5']).texture)
-    total_way = NumericProperty(1000)
+    total_way = NumericProperty(8000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
