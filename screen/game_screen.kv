@@ -21,17 +21,17 @@
             BackgroundImageAnimation:
                 id: background_image_animation
 
-            StatusBar:
-                id: status_bar
+            #StatusBar:
+            #    id: status_bar
 
-                font_size: 13
-                color: 0,0,0,1
-                x: self.padding_x
-                y: int(Window.height - self.size[1]) - self.padding_y
-                size_hint: .4, .4
-                text_size: self.size
-                valign: 'top'
-                padding: 5, 5
+            #    font_size: 13
+            #    color: 0,0,0,1
+            #    x: self.padding_x
+            #    y: int(Window.height - self.size[1]) - self.padding_y
+            #    size_hint: .33, .33
+            #    text_size: self.size
+            #    valign: 'top'
+            #    padding: 5, 5
 
             Road:
                 id: road
@@ -55,7 +55,37 @@
                 Rock:
                     id: rock
                     pos: 1000, root.ids.road.line_points[-1]
-                    size: 80, 80
+                    size: self.texture_size
+
+                Image:
+                    id: puddle
+                    source: 'road/puddle.png'
+                    pos: 300, root.ids.road.line_points[-1]
+                    size: self.texture_size
+
+                    # --outline
+                    canvas.before:
+                        Clear
+                        Color:
+                            rgb: (1, .1, .1, 1)
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
+
+                Image:
+                    id: puddle
+                    source: 'road/lamp.png'
+                    pos: 1000, root.ids.road.line_points[-1]
+                    size: self.texture_size
+
+                    # --outline
+                    canvas.before:
+                        Clear
+                        Color:
+                            rgb: (1, .1, .1, 1)
+                        Line:
+                            width: 1
+                            rectangle: self.x, self.y, self.width, self.height
 
                 Finish:
                     id: finish
@@ -84,32 +114,43 @@
         Tools:
             id: tools
             size_hint: 1, .1
-            height: 40
 
             AnchorLayout:
                 id: left_btn_wrap
                 anchor_x: 'left'
                 anchor_y: 'bottom'
-                Label:
-                    text: "Power: {}".format(root.ids.bike.power)
+
                 LeftButtonWidget:
 
 
             AnchorLayout:
                 anchor_x: 'center'
                 anchor_y: 'bottom'
-                Label:
-                    text: "State: {}".format(root.ids.road.state)
+
+                BoxLayout:
+                    Label:
+                        font_size: 20
+                        markup: True
+                        text: "{:3.2f} [sup]Power[/sup]".format(root.ids.bike.power)
+                    Label:
+                        markup: True
+                        text: "{}".format(root.ids.road.state)
+                    Label:
+                        font_size: 20
+                        markup: True
+                        text:
+                            "[sup]Speed[/sup]{:3.2f}".format(root.ids.bike.speed)
+
                 Button:
-                    text: 'Back to start'
-                    size_hint: .4, .3
+                    text: 'Restart'
+                    size_hint: .2, .3
                     on_press: root.manager.current = 'start'
 
             AnchorLayout:
                 id: right_btn_wrap
                 anchor_x: 'right'
                 anchor_y: 'bottom'
-                Label:
-                    text: "Speed: {}".format(root.ids.bike.speed)
+
+
 
                 RightButtonWidget:

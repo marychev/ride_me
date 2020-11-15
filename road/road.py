@@ -72,11 +72,11 @@ class Road(Widget, RoadEvents):
 
     # get game objects
 
-    def get_status_bar(self):
-        if len(self.children) > 1:
-            return ValidObject.status_bar(self.parent.children[2])
-        else:
-            return StatusBar.get_status_bar()
+    # def get_status_bar(self):
+    #     if len(self.children) > 1:
+    #         return ValidObject.status_bar(self.parent.children[2])
+    #     else:
+    #         return StatusBar.get_status_bar()
 
     def get_tools(self):
         return ValidObject.tools(self.parent.parent.children[0])
@@ -86,14 +86,14 @@ class Road(Widget, RoadEvents):
 
     def get_rock(self):
         if len(self.children) > 1:
-            return ValidObject.rock(self.children[1])
+            return ValidObject.rock(self.children[3])
         else:
             #print('[EXCEPT] the `Rock` item does not exist on the `Road`!')
             pass
 
     def get_start(self):
         if len(self.children) > 1:
-            return ValidObject.start(self.children[2])
+            return ValidObject.start(self.children[4])
         else:
             return StatusBar.get_start()
 

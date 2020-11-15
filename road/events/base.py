@@ -2,7 +2,7 @@ from kivy.event import EventDispatcher
 from kivy.properties import ObjectProperty
 from utils.state import State
 
- 
+
 class BaseDispatcher(EventDispatcher):
     status_bar = ObjectProperty(None)
     road = ObjectProperty(None)
@@ -20,7 +20,7 @@ class BaseDispatcher(EventDispatcher):
 
     def set_game_object(self):
         # todo: only as temp solution
-        self.status_bar = self.get_status_bar()
+        # self.status_bar = self.get_status_bar()
         self.road = self.get_road()
         self.bike = self.get_bike()
         self.rock = self.get_rock()
@@ -36,8 +36,8 @@ class BaseDispatcher(EventDispatcher):
         self.road.unschedule_events()
         self.status_bar and self.status_bar.show_status_finished()
 
-    def get_status_bar(self):
-        raise NotImplementedError
+    # def get_status_bar(self):
+    #     raise NotImplementedError
 
     def get_road(self):
         raise NotImplementedError
