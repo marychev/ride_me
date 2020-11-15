@@ -6,6 +6,7 @@
 #:import Road road.road.Road
 #:import Bike bike.bike.Bike
 #:import Rock road.rock.Rock
+#:import Start road.start.Start
 #:import Finish road.finish.Finish
 #:import StatusBar label.status_bar.StatusBar
 
@@ -45,6 +46,12 @@
                         bezier: (100, 100, 200, 100, 300, 100, 405, 110, 500, 110, 600, 110)
                         width: 2.
 
+                Start:
+                    id: start
+                    pos: 120 + root.ids.bike.width - 50, root.ids.tools.height
+                    size: 50, (root.ids.road.height / 2) + 10
+                    size_hint: None, None
+
                 Rock:
                     id: rock
                     pos: 1000, root.ids.road.y
@@ -53,7 +60,7 @@
                 Finish:
                     id: finish
                     pos: root.ids.road.total_way, root.ids.tools.height
-                    size: 80, root.ids.road.height
+                    size: 120, (root.ids.road.height / 2) + 10
                     size_hint: None, None
 
             Bike:

@@ -8,11 +8,14 @@ class BaseDispatcher(EventDispatcher):
     road = ObjectProperty(None)
     rock = ObjectProperty(None)
     bike = ObjectProperty(None)
+
+    start = ObjectProperty(None)
     finish = ObjectProperty(None)
 
     def set_distances(self):
         self.rock and self.rock.set_x()
         self.road.set_distance_traveled()
+        self.start and self.start.set_x()
         self.finish and self.finish.set_x()
 
     def set_game_object(self):
@@ -21,6 +24,7 @@ class BaseDispatcher(EventDispatcher):
         self.road = self.get_road()
         self.bike = self.get_bike()
         self.rock = self.get_rock()
+        self.start = self.get_start()
         self.finish = self.get_finish()
 
     def road_finish(self):
@@ -41,10 +45,11 @@ class BaseDispatcher(EventDispatcher):
     def get_bike(self):
         raise NotImplementedError
 
-    def get_finish(self):
+    def get_start(self):
         raise NotImplementedError
 
-    # extra game objects
+    def get_finish(self):
+        raise NotImplementedError
 
     def get_rock(self):
         raise NotImplementedError

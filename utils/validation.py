@@ -15,6 +15,13 @@ class ValidObject:
         ValidObject.raise_attr(obj, class_name)
 
     @staticmethod
+    def start(obj):
+        class_name = 'Start'
+        if obj.__class__.__name__ == class_name:
+            return obj
+        ValidObject.raise_attr(obj, class_name)
+
+    @staticmethod
     def finish(obj):
         class_name = 'Finish'
         if obj.__class__.__name__ == class_name:

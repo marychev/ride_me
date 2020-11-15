@@ -22,7 +22,7 @@ road_images = {
 
 
 class Road(Widget, RoadEvents):
-    texture = ObjectProperty(Image(source=abstract_path('road/img/road-asphalt-02.jpg')).texture)
+    texture = ObjectProperty(Image(source=road_images['road_5']).texture)
     total_way = NumericProperty(1000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
@@ -67,6 +67,7 @@ class Road(Widget, RoadEvents):
             'road': self,
             'bike': self.get_bike(),
             'rock': self.get_rock(),
+            'start': self.get_start(),
             'finish': self.get_finish()}
 
     def get_status_bar(self):
@@ -87,6 +88,12 @@ class Road(Widget, RoadEvents):
         else:
             #print('[EXCEPT] the `Rock` item does not exist on the `Road`!')
             pass
+
+    def get_start(self):
+        if len(self.children) > 1:
+            return ValidObject.start(self.children[2])
+        else:
+            return StatusBar.get_start()
 
     def get_finish(self):
         if len(self.children) > 1:

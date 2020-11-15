@@ -26,6 +26,11 @@ class StatusBar(Label):
         return get_game_screen().ids.get('rock') if get_game_screen() else None
 
     @staticmethod
+    def get_start():
+        # print('[WARNING] Try to get a game object from DOM! get_start')
+        return get_game_screen().ids.start if get_game_screen() else None
+
+    @staticmethod
     def get_finish():
         # print('[WARNING] Try to get a game object from DOM! get_finish')
         return get_game_screen().ids.finish if get_game_screen() else None
