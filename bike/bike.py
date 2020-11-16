@@ -27,8 +27,6 @@ class Bike(Image, AnimationBike):
 
     def is_in_sky(self):
         road = self.get_road()
-        print(road.line_points[-1], road.y)
-        # OLD return road.y < self.y
         return road.line_points[-1] < self.y
 
     # events
@@ -50,6 +48,12 @@ class Bike(Image, AnimationBike):
 
     def get_rock(self):
         return ValidObject.rock(self.get_road().children[1])
+
+    def get_puddle(self):
+        return ValidObject.rock(self.get_road().children[2])
+
+    def get_lamp(self):
+        return ValidObject.rock(self.get_road().children[3])
 
     def get_finish(self):
         return ValidObject.finish(self.get_road().children[0])

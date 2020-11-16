@@ -23,7 +23,7 @@ road_images = {
 
 class Road(Widget, RoadEvents):
     texture = ObjectProperty(Image(source=road_images['road_5']).texture)
-    total_way = NumericProperty(8000)
+    total_way = NumericProperty(3000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -35,6 +35,7 @@ class Road(Widget, RoadEvents):
     status_bar = ObjectProperty(None)
     road = ObjectProperty(None)
     rock = ObjectProperty(None)
+    puddle = ObjectProperty(None)
     bike = ObjectProperty(None)
 
     start = ObjectProperty(None)
@@ -89,6 +90,20 @@ class Road(Widget, RoadEvents):
             return ValidObject.rock(self.children[3])
         else:
             #print('[EXCEPT] the `Rock` item does not exist on the `Road`!')
+            pass
+
+    def get_puddle(self):
+        if len(self.children) > 1:
+            return ValidObject.puddle(self.children[2])
+        else:
+            #print('[EXCEPT] the `Puddle` item does not exist on the `Road`!')
+            pass
+
+    def get_lamp(self):
+        if len(self.children) > 1:
+            return ValidObject.lamp(self.children[1])
+        else:
+            #print('[EXCEPT] the `Lamp` item does not exist on the `Road`!')
             pass
 
     def get_start(self):

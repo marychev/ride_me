@@ -7,6 +7,8 @@ class BaseDispatcher(EventDispatcher):
     status_bar = ObjectProperty(None)
     road = ObjectProperty(None)
     rock = ObjectProperty(None)
+    puddle = ObjectProperty(None)
+    lamp = ObjectProperty(None)
     bike = ObjectProperty(None)
 
     start = ObjectProperty(None)
@@ -14,6 +16,8 @@ class BaseDispatcher(EventDispatcher):
 
     def set_distances(self):
         self.rock and self.rock.set_x()
+        self.puddle and self.puddle.set_x()
+        self.lamp and self.lamp.set_x()
         self.road.set_distance_traveled()
         self.start and self.start.set_x()
         self.finish and self.finish.set_x()
@@ -24,6 +28,8 @@ class BaseDispatcher(EventDispatcher):
         self.road = self.get_road()
         self.bike = self.get_bike()
         self.rock = self.get_rock()
+        self.puddle = self.get_puddle()
+        self.lamp = self.get_lamp()
         self.start = self.get_start()
         self.finish = self.get_finish()
 
@@ -52,4 +58,10 @@ class BaseDispatcher(EventDispatcher):
         raise NotImplementedError
 
     def get_rock(self):
+        raise NotImplementedError
+
+    def get_puddle(self):
+        raise NotImplementedError
+
+    def get_lamp(self):
         raise NotImplementedError

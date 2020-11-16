@@ -52,6 +52,14 @@ class BackgroundImageAnimation(Widget, GoBackgroundMockDispatcher):
         if len(self.children) > 1:
             return ValidObject.rock(self.children[1])
 
+    def get_puddle(self):
+        if len(self.children) > 1:
+            return ValidObject.rock(self.children[2])
+
+    def get_lamp(self):
+        if len(self.children) > 1:
+            return ValidObject.rock(self.children[3])
+
     def get_start(self):
         if len(self.children) > 1:
             return ValidObject.start(self.children[2])

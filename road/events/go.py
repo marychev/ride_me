@@ -70,4 +70,3 @@ class GoDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_GO_MOVE)
             self.status_bar and self.status_bar.show_status('On GO: ' + self.road.state)
             return True
-

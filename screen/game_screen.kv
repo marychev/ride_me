@@ -5,10 +5,12 @@
 #:import RightButtonWidget button.right_button.RightButtonWidget
 #:import Road road.road.Road
 #:import Bike bike.bike.Bike
+#:import Puddle road.puddle.Puddle
 #:import Rock road.rock.Rock
+#:import Lamp road.lamp.Lamp
 #:import Start road.start.Start
 #:import Finish road.finish.Finish
-#:import StatusBar label.status_bar.StatusBar
+# todo: #:import StatusBar label.status_bar.StatusBar
 
 
 <GameScreen>:
@@ -21,24 +23,11 @@
             BackgroundImageAnimation:
                 id: background_image_animation
 
-            #StatusBar:
-            #    id: status_bar
-
-            #    font_size: 13
-            #    color: 0,0,0,1
-            #    x: self.padding_x
-            #    y: int(Window.height - self.size[1]) - self.padding_y
-            #    size_hint: .33, .33
-            #    text_size: self.size
-            #    valign: 'top'
-            #    padding: 5, 5
-
             Road:
                 id: road
                 pos: 0, root.ids.tools.height
                 size: Window.width, 120 # self.height
                 size_hint: None, None
-
                 canvas:
                     Color:
                         rgb: 0, 1, 1
@@ -54,38 +43,16 @@
 
                 Rock:
                     id: rock
-                    pos: 1000, root.ids.road.line_points[-1]
+                    pos: 800, root.ids.road.line_points[-1]
                     size: self.texture_size
-
-                Image:
+                Puddle:
                     id: puddle
-                    source: 'road/puddle.png'
-                    pos: 300, root.ids.road.line_points[-1]
+                    pos: 1000, root.ids.road.line_points[-1] - self.height/2
                     size: self.texture_size
-
-                    # --outline
-                    canvas.before:
-                        Clear
-                        Color:
-                            rgb: (1, .1, .1, 1)
-                        Line:
-                            width: 1
-                            rectangle: self.x, self.y, self.width, self.height
-
-                Image:
-                    id: puddle
-                    source: 'road/lamp.png'
-                    pos: 1000, root.ids.road.line_points[-1]
+                Lamp:
+                    id: lamp
+                    pos: 1500, root.ids.road.line_points[-1]
                     size: self.texture_size
-
-                    # --outline
-                    canvas.before:
-                        Clear
-                        Color:
-                            rgb: (1, .1, .1, 1)
-                        Line:
-                            width: 1
-                            rectangle: self.x, self.y, self.width, self.height
 
                 Finish:
                     id: finish
@@ -111,22 +78,19 @@
                     Line:
                         bezier: (root.ids.bike.x, self.y + root.ids.bike.height, self.x + 400, self.y + root.ids.bike.height)
                         width: 1.
+
         Tools:
             id: tools
             size_hint: 1, .1
-
             AnchorLayout:
                 id: left_btn_wrap
                 anchor_x: 'left'
                 anchor_y: 'bottom'
-
                 LeftButtonWidget:
-
 
             AnchorLayout:
                 anchor_x: 'center'
                 anchor_y: 'bottom'
-
                 BoxLayout:
                     Label:
                         font_size: 20
@@ -150,7 +114,4 @@
                 id: right_btn_wrap
                 anchor_x: 'right'
                 anchor_y: 'bottom'
-
-
-
                 RightButtonWidget:
