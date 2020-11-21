@@ -25,23 +25,32 @@ class BaseLevel:
         widgets = [w for w in self.road.children if w.__class__.__name__ == 'Start']
         return ValidObject.start(widgets[0]) if len(widgets) > 0 else None
 
+    def map_start(self):
+        objs = []
+        for m in self.map:
+            if m['name'] == 'Start':
+                objs.append(m)
+        return objs
+
     def create_start(self):
-        obj = self.init_obj('start')[0]
-        pos = obj['pos']
+        pos = self.map_start()[0]['pos']
         size = (50, (self.road.height / 2) + 10)
         return Start.create(pos, size)
 
     def add_start(self):
-        children = [ch.__class__.__name__ for ch in self.road.children]
-        if 'Start' not in children and (self.bike and self.road) and self.road.distance_traveled < self.start_distance:
-            start = self.create_start()
-            self.road.add_widget(start)
+        map_start = self.map_start()[0]
+        if (self.bike and self.road) and not self.road.start:
+            if not self.start() and self.road.distance_traveled < map_start['pos'][0]:
+                start = self.create_start()
+                self.road.add_widget(start)
 
     def remove_start(self):
-        if self.road.distance_traveled > self.start_distance:
+        map_start = self.map_start()[0]
+        if self.road.distance_traveled > map_start['pos'][0] and self.road.start.x < 0:
             self.road.remove_widget(self.road.start)
 
-    # rock
+    # todo: in dev
+    # rocks
 
     def rocks(self):
         widgets = [w for w in self.road.children if w.__class__.__name__ == 'Rock']
@@ -77,34 +86,3 @@ class BaseLevel:
     def finish(self):
         pass
 
-    """
-    # Прямая трасса. 
-    # - добавить возможность Инициализации объекта с карты от пройденного расстояния дороги
-    # - добавить собирание байком очков для увеличения хар-к, и ... 
-    # - Ты можешь установить лучший рекорд на время.
-    
-    #Start:
-    #    id: start
-    #    pos: 120 + root.ids.bike.width - 50, root.ids.road.y
-    #    size: 50, (root.ids.road.height / 2) + 10
-    #    size_hint: None, None
-
-    #Rock:
-    #    id: rock
-    #    pos: 800, root.ids.road.line_points[-1]
-    #    size: self.texture_size
-    #Puddle:
-    #    id: puddle
-    #    pos: 1000, root.ids.road.line_points[-1] - self.height/2
-    #    size: self.texture_size
-    #Lamp:
-    #    id: lamp
-    #    pos: 1500, root.ids.road.line_points[-1]
-    #    size: self.texture_size
-
-    #Finish:
-    #    id: finish
-    #    pos: root.ids.road.total_way, root.ids.tools.height
-    #    size: 120, (root.ids.road.height / 2) + 10
-    #    size_hint: None, None
-    """
