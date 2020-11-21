@@ -23,7 +23,6 @@ class RelaxDispatcher(BaseDispatcher):
                 State.ON_LANDING_STOP)
 
     def relax_start(self):
-        print('RELAX START', self.road.state)
         if self.bike.speed > 0 and self.road.state in RelaxDispatcher.start_states_list():
             Clock.schedule_interval(self.on_relax, SECOND_GAME)
             self.road.set_state(State.ON_RELAX_START)
@@ -33,7 +32,6 @@ class RelaxDispatcher(BaseDispatcher):
         if self.road.state in RelaxDispatcher.stop_states_list():
             Clock.unschedule(self.on_relax)
             self.road.set_state(State.ON_RELAX_STOP)
-            self.status_bar and self.status_bar.show_status('Stop On Relax: ' + self.road.state)
 
             if self.bike.speed <= 0:
                 self.road.wait_start()
@@ -41,21 +39,22 @@ class RelaxDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
     def on_relax(self, dt):
-        if self.rock and self.bike.collide_widget(self.rock):
-            self.bike.collision_rock()
-            self.relax_stop()
-            self.status_bar and self.status_bar.show_status('Stop On Relax: ' + self.road.state)
-            return False
+        # todo: relax
+        # if self.rock and self.bike.collide_widget(self.rock):
+        #     self.bike.collision_rock()
+        #     self.relax_stop()
+        #     return False
 
-        elif self.road.has_finished():
+        if self.road.has_finished():
             self.road_finish()
             self.relax_stop()
             return False
 
         elif self.bike.speed - dt <= 0:
             self.bike.speed = 0
-            self.rock and self.rock.set_x()
-            self.finish and self.finish.set_x()
+
+            # self.rock and self.rock.set_x()
+            # self.finish and self.finish.set_x()
 
             self.relax_stop()
             return False
@@ -75,5 +74,4 @@ class RelaxDispatcher(BaseDispatcher):
             self.set_distances()
 
             self.road.set_state(State.ON_RELAX_MOVE)
-            self.status_bar and self.status_bar.show_status('On Relax: ' + self.road.state)
             return True

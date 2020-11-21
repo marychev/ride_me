@@ -5,6 +5,7 @@ from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 from label.status_bar import StatusBar
 from road.events import RoadEvents
+from level import LevelOne
 from utils.dir import abstract_path
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos
@@ -32,14 +33,13 @@ class Road(Widget, RoadEvents):
 
     last_states = ListProperty()
 
-    status_bar = ObjectProperty(None)
     road = ObjectProperty(None)
-    rock = ObjectProperty(None)
-    puddle = ObjectProperty(None)
     bike = ObjectProperty(None)
 
-    start = ObjectProperty(None)
-    finish = ObjectProperty(None)
+    # rock = ObjectProperty(None)
+    # puddle = ObjectProperty(None)
+    # start = ObjectProperty(None)
+    # finish = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
@@ -53,6 +53,11 @@ class Road(Widget, RoadEvents):
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
         set_texture_uvpos(self, self.texture.uvpos[0] + self.get_bike().speed/self.texture.size[0], self.texture.uvpos[1])
+
+        # remove old objects
+        level = LevelOne(self, self.get_bike())
+        level.remove_start()
+        level.remove_rock()
 
     def has_finished(self):
         return self.distance_traveled >= self.total_way
@@ -73,48 +78,42 @@ class Road(Widget, RoadEvents):
 
     # get game objects
 
-    # def get_status_bar(self):
-    #     if len(self.children) > 1:
-    #         return ValidObject.status_bar(self.parent.children[2])
-    #     else:
-    #         return StatusBar.get_status_bar()
-
     def get_tools(self):
         return ValidObject.tools(self.parent.parent.children[0])
 
     def get_bike(self):
         return self.parent and ValidObject.bike(self.parent.children[0])
 
-    def get_rock(self):
-        if len(self.children) > 1:
-            return ValidObject.rock(self.children[3])
-        else:
-            #print('[EXCEPT] the `Rock` item does not exist on the `Road`!')
-            pass
+    def get_rocks(self):
+        level = LevelOne(self, self.get_bike())
+        rocks = level.rocks()
+        return rocks
 
     def get_puddle(self):
-        if len(self.children) > 1:
-            return ValidObject.puddle(self.children[2])
-        else:
-            #print('[EXCEPT] the `Puddle` item does not exist on the `Road`!')
-            pass
+        pass
+        # if len(self.children) > 2:
+        #     return ValidObject.puddle(self.children[2])
+        # else:
+        #     #print('[EXCEPT] the `Puddle` item does not exist on the `Road`!')
+        #     pass
 
     def get_lamp(self):
-        if len(self.children) > 1:
-            return ValidObject.lamp(self.children[1])
-        else:
-            #print('[EXCEPT] the `Lamp` item does not exist on the `Road`!')
-            pass
+        pass
+        # if len(self.children) > 1:
+        #     return ValidObject.lamp(self.children[1])
+        # else:
+        #     #print('[EXCEPT] the `Lamp` item does not exist on the `Road`!')
+        #     pass
 
     def get_start(self):
-        if len(self.children) > 1:
-            return ValidObject.start(self.children[4])
-        else:
-            return StatusBar.get_start()
+        level = LevelOne(self, self.get_bike())
+        start = level.start()
+        return start
 
     def get_finish(self):
         if len(self.children) > 1:
-            return ValidObject.finish(self.children[0])
+            widgets = [w for w in self.road.children if w.__class__.__name__ == 'Finish']
+            return ValidObject.finish(widgets[0]) if len(widgets) > 0 else None
         else:
             return StatusBar.get_finish()
 

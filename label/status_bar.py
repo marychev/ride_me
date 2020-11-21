@@ -27,13 +27,17 @@ class StatusBar(Label):
 
     @staticmethod
     def get_start():
-        # print('[WARNING] Try to get a game object from DOM! get_start')
-        return get_game_screen().ids.start if get_game_screen() else None
+        try:
+            return get_game_screen().ids.start if get_game_screen() else None
+        except AttributeError:
+            print('[WARNING] Try to get a game object from DOM! get_start.')
 
     @staticmethod
     def get_finish():
-        # print('[WARNING] Try to get a game object from DOM! get_finish')
-        return get_game_screen().ids.finish if get_game_screen() else None
+        try:
+            return get_game_screen().ids.finish if get_game_screen() else None
+        except AttributeError:
+            print('[WARNING] Try to get a game object from DOM! get_finish')
 
     @staticmethod
     def get_bike():

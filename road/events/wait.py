@@ -44,8 +44,6 @@ class WaitDispatcher(BaseDispatcher):
             self.bike.speed = 0
             self.bike.power += dt*10
             self.road.set_state(State.ON_WAIT_MOVE)
-            # todo: fix test landing
-            self.status_bar and self.status_bar.show_status('On Wait: ' + self.road.state)
             return True
 
         # elif self.road.state in self.bun_events():
@@ -53,6 +51,4 @@ class WaitDispatcher(BaseDispatcher):
 
         else:
             self.wait_stop()
-            # todo: fix test landing
-            self.status_bar and self.status_bar.show_status('Stop On Wait: ' + self.road.state)
             return False
