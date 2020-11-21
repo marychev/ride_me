@@ -37,6 +37,11 @@ class Start(Widget):
 
     # game objects
 
+    @staticmethod
+    def widgets_on_road(road):
+        widgets = [ValidObject.start(w) for w in road.children if w.__class__.__name__ == 'Start']
+        return widgets
+
     def get_road(self):
         return ValidObject.road(self.parent.parent.children[1])
 
