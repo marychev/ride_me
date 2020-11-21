@@ -24,7 +24,6 @@ class GoDispatcher(BaseDispatcher):
         return (
             State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
             State.ON_RELAX_START, State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
-            # State.ON_STOP_MOVE
         )
 
     @classmethod
@@ -43,11 +42,9 @@ class GoDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_GO_STOP)
 
     def on_go(self, dt):
-        # todo: return self.rocks collision
-        # if self.rock and self.bike.collide_widget(self.rock):
-        #     self.bike.collision_rock()
-        #     self.go_stop()
-        #     return False
+        if self.bike.on_collision_rock():
+            self.go_stop()
+            return False
 
         if self.road.has_finished():
             self.go_stop()
@@ -62,6 +59,8 @@ class GoDispatcher(BaseDispatcher):
             return False
 
         else:
+            self.bike.on_collision_puddle()
+
             self.bike.speed += dt
             self.bike.power -= dt*5
 

@@ -23,23 +23,15 @@ road_images = {
 
 
 class Road(Widget, RoadEvents):
+    road = ObjectProperty(None)
+    bike = ObjectProperty(None)
     texture = ObjectProperty(Image(source=road_images['road_5']).texture)
-    total_way = NumericProperty(1000)
+    total_way = NumericProperty(420)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
-
     line_points = ListProperty([100, 100, 1000, 100])
-
     last_states = ListProperty()
-
-    road = ObjectProperty(None)
-    bike = ObjectProperty(None)
-
-    # rock = ObjectProperty(None)
-    # puddle = ObjectProperty(None)
-    # start = ObjectProperty(None)
-    # finish = ObjectProperty(None)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
@@ -53,11 +45,7 @@ class Road(Widget, RoadEvents):
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
         set_texture_uvpos(self, self.texture.uvpos[0] + self.get_bike().speed/self.texture.size[0], self.texture.uvpos[1])
-
-        # remove old objects
-        level = LevelOne(self, self.get_bike())
-        level.remove_start()
-        level.remove_rock()
+        self.clear_game_objects()
 
     def has_finished(self):
         return self.distance_traveled >= self.total_way
@@ -76,6 +64,13 @@ class Road(Widget, RoadEvents):
         self.relax_stop()
         bg_animation and bg_animation.go_mountains_stop()
 
+    def clear_game_objects(self):
+        level = LevelOne(self, self.get_bike())
+        level.remove_start()
+        level.remove_rock()
+        level.remove_puddles()
+        level.remove_lamps()
+
     # get game objects
 
     def get_tools(self):
@@ -86,34 +81,23 @@ class Road(Widget, RoadEvents):
 
     def get_rocks(self):
         level = LevelOne(self, self.get_bike())
-        rocks = level.rocks()
-        return rocks
+        return level.rocks()
 
-    def get_puddle(self):
-        pass
-        # if len(self.children) > 2:
-        #     return ValidObject.puddle(self.children[2])
-        # else:
-        #     #print('[EXCEPT] the `Puddle` item does not exist on the `Road`!')
-        #     pass
+    def get_puddles(self):
+        level = LevelOne(self, self.get_bike())
+        return level.puddles()
 
-    def get_lamp(self):
-        pass
-        # if len(self.children) > 1:
-        #     return ValidObject.lamp(self.children[1])
-        # else:
-        #     #print('[EXCEPT] the `Lamp` item does not exist on the `Road`!')
-        #     pass
+    def get_lamps(self):
+        level = LevelOne(self, self.get_bike())
+        return level.lamps()
 
     def get_start(self):
         level = LevelOne(self, self.get_bike())
-        start = level.start()
-        return start
+        return level.start()
 
     def get_finish(self):
         level = LevelOne(self, self.get_bike())
-        finish = level.finish()
-        return finish
+        return level.finish()
 
     def get_road(self):
         return self or StatusBar.get_road()

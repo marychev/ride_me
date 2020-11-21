@@ -5,7 +5,6 @@ from road.events.base import BaseDispatcher
 from road.events.go import GoDispatcher
 from utils.state import State
 from utils.texture import redraw_texture, repeat_texture
-from level import LevelOne
 
 
 class GoBackgroundMockDispatcher(BaseDispatcher):
@@ -31,9 +30,8 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
         elif self.road.state == State.ON_RELAX_STOP:
             return False
 
-        # todo: collision
-        # elif self.rock and self.bike.collide_widget(self.rock):
-        #     return False
+        elif self.bike.get_collision_rock():
+            return False
 
         else:
             if self.is_repeat_texture:
@@ -45,8 +43,6 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
             return True
 
     def go_mountains_start(self):
-        print('>>>>>>>>>>>..', self.get_road().rocks)
-
         self.set_game_object()
         if self.road.state in GoBackgroundMockDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go_mountains, SECOND_GAME)
@@ -57,3 +53,9 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
 
     def get_rocks(self):
         return self.get_road().rocks
+
+    def get_puddles(self):
+        return self.get_road().puddles
+
+    def get_lamps(self):
+        return self.get_road().lamps

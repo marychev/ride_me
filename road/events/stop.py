@@ -46,11 +46,9 @@ class StopDispatcher(BaseDispatcher):
     def on_stop(self, dt):
         stop_way = dt * 2
 
-        # # todo: collision
-        # if self.rock and self.bike.collide_widget(self.rock):
-        #     self.bike.collision_rock()
-        #     self.road.set_state(State.ON_STOP_STOP)
-        #    return False
+        if self.bike.on_collision_rock():
+            self.road.set_state(State.ON_STOP_STOP)
+            return False
 
         if (float(self.bike.speed) - float(stop_way) <= 0.0) or (self.bike.speed <= 0)\
                 and not self.bike.is_in_sky():
@@ -67,6 +65,8 @@ class StopDispatcher(BaseDispatcher):
             return False
 
         else:
+            self.bike.on_collision_puddle()
+
             self.bike.speed -= stop_way
             self.set_distances()
 

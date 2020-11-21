@@ -39,11 +39,9 @@ class RelaxDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
     def on_relax(self, dt):
-        # todo: relax
-        # if self.rock and self.bike.collide_widget(self.rock):
-        #     self.bike.collision_rock()
-        #     self.relax_stop()
-        #     return False
+        if self.bike.on_collision_rock():
+            self.relax_stop()
+            return False
 
         if self.road.has_finished():
             self.road_finish()
@@ -63,6 +61,8 @@ class RelaxDispatcher(BaseDispatcher):
             return False
 
         else:
+            self.bike.on_collision_puddle()
+
             self.bike.speed -= dt/2
 
             # self.bike.set_power(dt)

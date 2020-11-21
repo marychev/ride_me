@@ -11,12 +11,10 @@ class Rock(GameImage):
     source = StringProperty(abstract_path('road/rock/img/rock-1.png'))
 
     @staticmethod
-    def create(pos, size=None):
-        kwargs = {
-            "pos": pos,
-            # "size": self.texture_size
-        }
-        return Rock(**kwargs)
+    def create(pos):
+        rock = Rock(pos=pos)
+        rock.size = rock.texture_size
+        return rock
 
     @staticmethod
     def widgets_on_road(road):
