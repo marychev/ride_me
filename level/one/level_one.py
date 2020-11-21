@@ -14,6 +14,10 @@ TEST_MAP2 = [
         "name": 'Rock',
         "pos": (800, 80),
     },
+    {
+        "name": 'Finish',
+        "pos": (2000, 80),
+    },
 ]
 
 

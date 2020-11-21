@@ -62,13 +62,8 @@ class BaseDispatcher(EventDispatcher):
     def get_finish(self):
         raise NotImplementedError
 
-    # todo: *********
-    # def get_rock(self):
-    #     raise NotImplementedError
-
     def get_rocks(self):
         raise NotImplementedError
-    # todo: *********
 
     def get_puddle(self):
         raise NotImplementedError

@@ -1,9 +1,6 @@
-from kivy.core.window import Window
 from road.start import Start
+from road.finish import Finish
 from road.rock import Rock
-
-
-LINE_REMOVE = Window.width / 2
 
 
 class BaseLevel:
@@ -14,6 +11,7 @@ class BaseLevel:
 
         self.add_start()
         self.add_rock()
+        self.add_finish()
 
     def init_objects(self, name):
         return [m for m in self.map
@@ -47,7 +45,6 @@ class BaseLevel:
         if self.road.distance_traveled > map_start['pos'][0] and self.road.start.x < 0:
             self.road.remove_widget(self.road.start)
 
-    # todo: in dev
     # rocks
 
     def rocks(self):
@@ -66,6 +63,24 @@ class BaseLevel:
         if len(rocks) > 0:
             [self.road.remove_widget(w) for w in rocks if w.pos[0] < 0]
 
-    def finish(self):
-        pass
+    # todo: in dev
+    # finish
 
+    def finish(self):
+        finishes = Finish.widgets_on_road(self.road)
+        return finishes[0] if len(finishes) > 0 else None
+
+    def create_finish(self):
+        pos = self.map_objects('finish')[0]['pos']
+        size = (120, (self.road.height / 2) + 10)
+        return Finish.create(pos, size)
+
+    def add_finish(self):
+        if (self.bike and self.road) and not self.road.finish:
+            map_finish = self.map_objects('finish')[0]
+
+            if self.road.distance_traveled < map_finish['pos'][0]:
+                finish = self.create_finish()
+                self.road.total_way = finish.pos[0]
+                self.road.finish = finish
+                self.road.add_widget(finish)

@@ -24,7 +24,7 @@ road_images = {
 
 class Road(Widget, RoadEvents):
     texture = ObjectProperty(Image(source=road_images['road_5']).texture)
-    total_way = NumericProperty(3000)
+    total_way = NumericProperty(1000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(2)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -111,11 +111,9 @@ class Road(Widget, RoadEvents):
         return start
 
     def get_finish(self):
-        if len(self.children) > 1:
-            widgets = [w for w in self.road.children if w.__class__.__name__ == 'Finish']
-            return ValidObject.finish(widgets[0]) if len(widgets) > 0 else None
-        else:
-            return StatusBar.get_finish()
+        level = LevelOne(self, self.get_bike())
+        finish = level.finish()
+        return finish
 
     def get_road(self):
         return self or StatusBar.get_road()

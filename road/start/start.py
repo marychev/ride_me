@@ -25,6 +25,11 @@ class Start(Widget):
             "size_hint": (None, None)}
         return Start(**kwargs)
 
+    @staticmethod
+    def widgets_on_road(road):
+        widgets = [ValidObject.start(w) for w in road.children if w.__class__.__name__ == 'Start']
+        return widgets
+
     def set_x(self):
         bike = self.get_bike()
         if bike and (self.x + bike.width) > 0:
@@ -36,11 +41,6 @@ class Start(Widget):
         return self.x - bike.speed
 
     # game objects
-
-    @staticmethod
-    def widgets_on_road(road):
-        widgets = [ValidObject.start(w) for w in road.children if w.__class__.__name__ == 'Start']
-        return widgets
 
     def get_road(self):
         return ValidObject.road(self.parent.parent.children[1])
