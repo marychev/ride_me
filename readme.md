@@ -36,3 +36,33 @@ Go to the *buildozer.spec* and edit it, then type, **version**
 
 [Packages source](https://sources.voidlinux.org/) for some broken libs: *sdl2, sdl2_image, sdl2_ttf, sdl_mixer ...* for deployment or building. 
 Path local building libs `YOUR_APP/.buildozer/android/platform/build-armeabi-v7a/packages/`
+
+-----------
+
+# Tasks
+
+> Tests run: failed 4, passed 300/304. - 3:06:123
+
+1. The road state goes to the on_wait_stop state when the power limit is reached.  
+   Two events `on_wait`,` on_wait__move` are constantly alternating.
+   
+2. Correct, flip the `right button`. It goes over the edges.
+
+3. Correct `on_jump` distance at length. The bike is flying too far!
+
+4. Fix bike `on_landing`. The bike flies down too slowly.
+
+5. Fix bike `on_landing`. Impose a height limit when there is more force than needed.
+
+6. After the `on_jump` and `on_landing`, the bike stays on the `on_landing` event.
+   The `on_relax` event should be if `speed` > 0.
+
+7. Fix `restart game` action.
+
+8. Fix the tests of project. 
+   * `landing` - 1
+   * `relax` - 2 
+   * `stop` - 1
+    
+9. The game began to slow down noticeably. Find out and fix.
+ 

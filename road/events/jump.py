@@ -43,6 +43,7 @@ class JumpDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_JUMP_STOP)
 
     def on_jump(self, dt):
+        print('on_jump\r')
         if int(self.bike.power) > 0 and self.road.state not in self.bun_events():
             self.bike.acceleration = dt * self.road.gravity
             self.bike.y += self.bike.acceleration * self.bike.power

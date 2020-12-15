@@ -40,11 +40,14 @@ class WaitDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_WAIT_STOP)
 
     def on_wait(self, dt):
-        if int(self.bike.speed) <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
-            self.bike.speed = 0
-            self.bike.power += dt*10
-            self.road.set_state(State.ON_WAIT_MOVE)
-            return True
+        print('on_wait\r')
+        print(self.road.state)
+        if self.road.state != State.ON_GO_MOVE:
+            if int(self.bike.speed) <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
+                self.bike.speed = 0
+                self.bike.power += dt*10
+                self.road.set_state(State.ON_WAIT_MOVE)
+                return True
 
         # elif self.road.state in self.bun_events():
         #     return False

@@ -23,7 +23,7 @@ class Bike(Image, AnimationBike):
 
         if power < 0:
             self.power = 0.00
-        elif float(power) < float(self.max_power):
+        elif int(power) < int(self.max_power):
             # self.power = float('{:3.2f}'.format(power))
             self.power = power
         else:

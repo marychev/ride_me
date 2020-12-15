@@ -44,7 +44,8 @@ class StopDispatcher(BaseDispatcher):
                 self.road.relax_start()
 
     def on_stop(self, dt):
-        stop_way = dt * 2
+        print('on_stop\r')
+        stop_way = dt * 8
 
         if self.bike.on_collision_rock():
             self.road.set_state(State.ON_STOP_STOP)

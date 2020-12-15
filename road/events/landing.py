@@ -42,6 +42,7 @@ class LandingDispatcher(BaseDispatcher):
                 self.road.relax_start()
 
     def on_landing(self, dt):
+        print('on_landing')
         # todo: only as temp solution fix speed loading page
         if self.road.state != State.ON_JUMP_MOVE:
             # todo: only as temp solution

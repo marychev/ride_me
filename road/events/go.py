@@ -42,6 +42,7 @@ class GoDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_GO_STOP)
 
     def on_go(self, dt):
+        print('on_go\r')
         if self.bike.on_collision_rock():
             self.go_stop()
             return False
@@ -63,13 +64,15 @@ class GoDispatcher(BaseDispatcher):
 
             # print(dt, 'x', self.bike.power, '=', dt * self.bike.power)
             # dt:0.018203228000857052 x power:68.08209114200872 = 1.239313827833115
-            val = dt * float("{0:.1f}".format(self.bike.power))/1.5
+            N_1 = 1.5
+            val = dt * float("{0:.1f}".format(self.bike.power)) / N_1
             print('---', val)
 
             if self.bike.speed < self.bike.max_speed:
                 self.bike.speed += val
                 # self.bike.set_power(-val)
-                self.bike.power -= val
+
+            self.bike.power -= val
 
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)
