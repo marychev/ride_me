@@ -49,9 +49,11 @@ class LandingDispatcher(BaseDispatcher):
             if self.bike is None or self.road is None:
                 self.set_game_object()
             else:
-                if self.bike.is_in_sky():  # and self.road.state != State.ON_JUMP_MOVE:
-                    self.bike.y -= (dt * self.bike.power) * self.road.gravity
-                    self.bike.set_power(dt)
+                if self.bike.is_in_sky():
+
+                    self.bike.acceleration = dt * self.road.gravity
+                    self.bike.y -= self.bike.acceleration * self.bike.power
+                    self.bike.set_power(self.bike.acceleration)
 
                     # todo: need to move into start method
                     # remove all animation (need to call one time)
@@ -61,10 +63,8 @@ class LandingDispatcher(BaseDispatcher):
                     self.road.set_state(State.ON_LANDING_MOVE)
                     self.set_distances()
                     return True
-                # elif self.bike.is_in_sky() and self.road.state == State.ON_JUMP_MOVE:
-                #     return False
+
                 else:
                     self.bike.y = self.road.line_points[-1]
-                    self.bike.set_power(self.bike.max_power)
                     self.landing_stop()
                     return False

@@ -12,18 +12,23 @@ Builder.load_file(abstract_path('bike/bike.kv'))
 class Bike(Image, AnimationBike):
     source = StringProperty(abstract_path('bike/img/bike-1.png'))
     acceleration = NumericProperty(0)
-    power = NumericProperty(50)
-    max_power = NumericProperty(250.00)
+    power = NumericProperty(0)
+    max_power = NumericProperty(200.00)
     speed = NumericProperty(0)
-    max_speed = NumericProperty(60)
+    max_speed = NumericProperty(20)
 
     def set_power(self, dt):
-        if float(self.power + dt) < float(self.max_power):
-            power = self.power
-            power = power - (dt*100) if int(dt) < 0 else power + (dt*100)
-            self.power = float('{:3.2f}'.format(power))
+        power = self.power
+        power = power - dt if int(dt) < 0 else power + dt
+
+        if power < 0:
+            self.power = 0.00
+        elif float(power) < float(self.max_power):
+            # self.power = float('{:3.2f}'.format(power))
+            self.power = power
         else:
-            self.power = float(self.max_power)
+            # self.power = float('{:3.2f}'.format(self.max_power))
+            self.power = self.max_power
 
     def is_in_sky(self):
         road = self.get_road()

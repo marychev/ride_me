@@ -1,7 +1,8 @@
 from kivy.clock import Clock
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ListProperty
 from kivy.uix.behaviors.button import ButtonBehavior
+from kivy.core.window import Window
 from kivy.uix.image import Image
 from conf import SECOND_GAME
 from label.status_bar import StatusBar
@@ -10,10 +11,12 @@ from utils.dir import abstract_path
 
 Builder.load_file(abstract_path('button/left_button.kv'))
 
+BUTTON_WIDTH = int(Window.width / 9)
+
 
 class LeftButtonWidget(ButtonBehavior, Image):
     counter = ObjectProperty(CounterClock())
-
+    btn_size = ListProperty([BUTTON_WIDTH, BUTTON_WIDTH])
     status_bar = ObjectProperty(None)
     road = ObjectProperty(None)
     bike = ObjectProperty(None)
@@ -53,11 +56,8 @@ class LeftButtonWidget(ButtonBehavior, Image):
             self.road.relax_stop()
             self.road.stop_start()
         elif is_release:
-            print(0)
             self.road.stop_stop()
-            print(1)
             self.road.relax_start()
-            print(8)
         else:
             raise 0
 

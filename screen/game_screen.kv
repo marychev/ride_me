@@ -32,7 +32,7 @@
 
             Bike:
                 id: bike
-                pos: 120, root.ids.road.y  + 400
+                pos: 120, root.ids.road.y  + 50
                 size: 120, 120
                 size_hint: None, None
 
@@ -74,7 +74,11 @@
                         markup: True
                         text:
                             "[sup]Speed[/sup]{:3.2f}".format(root.ids.bike.speed)
-
+                    Label:
+                        font_size: 20
+                        markup: True
+                        text:
+                            "[sup]Acceleration[/sup]{:3.2f}".format(root.ids.bike.acceleration)
                 Button:
                     text: 'Restart'
                     size_hint: .2, .3

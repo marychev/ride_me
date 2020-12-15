@@ -61,8 +61,15 @@ class GoDispatcher(BaseDispatcher):
         else:
             self.bike.on_collision_puddle()
 
-            self.bike.speed += dt
-            self.bike.power -= dt*5
+            # print(dt, 'x', self.bike.power, '=', dt * self.bike.power)
+            # dt:0.018203228000857052 x power:68.08209114200872 = 1.239313827833115
+            val = dt * float("{0:.1f}".format(self.bike.power))/1.5
+            print('---', val)
+
+            if self.bike.speed < self.bike.max_speed:
+                self.bike.speed += val
+                # self.bike.set_power(-val)
+                self.bike.power -= val
 
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)

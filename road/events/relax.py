@@ -63,11 +63,11 @@ class RelaxDispatcher(BaseDispatcher):
         else:
             self.bike.on_collision_puddle()
 
-            self.bike.speed -= dt/2
+            self.bike.speed -= dt/1.5
 
             # self.bike.set_power(dt)
             if self.bike.power + dt < self.bike.max_power:
-                self.bike.power += dt
+                self.bike.power += dt*10
             else:
                 self.bike.power = self.bike.max_power
 

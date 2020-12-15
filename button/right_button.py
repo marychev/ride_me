@@ -54,12 +54,9 @@ class RightButtonWidget(LeftButtonWidget):
                             is_double_press=False, is_double_release=False):
         if is_press:
             if not self.bike.is_in_sky():
-                # # todo: acceleration
-                # extra_acceleration = self.counter.count / 4
-                # self.bike.set_acceleration(extra_acceleration)
-
                 self.road.relax_stop()
                 self.road.go_start()
+
         elif is_release:
             if not self.bike.is_in_sky():
                 self.road.landing_stop()
