@@ -50,10 +50,11 @@ class JumpDispatcher(BaseDispatcher):
 
         elif int(self.bike.power) > 0 \
                 and self.road.state not in self.bun_events() \
-                and (self.bike.y < self.bike.height * 2.2):
+                and (self.bike.y < self.bike.height * 2.4):
+
             self.bike.acceleration = dt * self.road.gravity
-            self.bike.y += self.bike.acceleration * self.bike.max_power/2
-            self.bike.power -= self.bike.acceleration * self.bike.max_power/4
+            self.bike.y += self.bike.acceleration * self.bike.max_power / 4
+            self.bike.power -= self.bike.acceleration
 
             self.road.set_state(State.ON_JUMP_MOVE)
             self.set_distances()

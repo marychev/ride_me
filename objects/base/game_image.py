@@ -6,6 +6,10 @@ from utils.validation import ValidObject
 
 class GameImage(Image):
 
+    @classmethod
+    def to_map(cls, pos):
+        return {"name": cls.__name__, "pos": pos}
+
     def set_x(self):
         self.x = self.get_x()
         redraw_texture(self)

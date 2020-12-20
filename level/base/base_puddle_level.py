@@ -1,4 +1,4 @@
-from road.puddle import Puddle
+from objects.puddle.puddle import Puddle
 
 
 class BasePuddleLevel:

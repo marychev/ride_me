@@ -43,8 +43,8 @@ Path local building libs `YOUR_APP/.buildozer/android/platform/build-armeabi-v7a
 
 > Tests run: failed 4, passed 300/304. - 3:06:123
 
-1. The road state goes to the on_wait_stop state when the power limit is reached.  
-   Two events `on_wait`,` on_wait__move` are constantly alternating.
+1. ~~The road state goes to the `on_wait_stop` state when the power limit is reached.  
+   Two events `on_wait`, ` on_wait__move` are constantly alternating.~~
    
 2. Correct, flip the `right button`. It goes over the edges.
 
@@ -60,7 +60,7 @@ Path local building libs `YOUR_APP/.buildozer/android/platform/build-armeabi-v7a
 7. Fix `restart game` action.
 
 8. ~~Fix the tests of project.~~ 
-   * _Tests run: passed 303 - 1:48:798_   
+   * _Tests run: passed 303 - 1:48:798_ 
    -[x] `landing` - 1
    -[x] `relax` - 2 
    -[x] `stop` - 1

@@ -1,14 +1,15 @@
 from kivy.lang import Builder
 from kivy.properties import StringProperty
-from road.base.game_image import GameImage
+from objects.base.game_image import GameImage
 from utils.dir import abstract_path
 from utils.validation import ValidObject
 
-Builder.load_file(abstract_path('road/puddle/puddle.kv'))
+_dir = 'objects/puddle'
+Builder.load_file(abstract_path('{}/puddle.kv'.format(_dir)))
 
 
 class Puddle(GameImage):
-    source = StringProperty(abstract_path('road/puddle/img/puddle.png'))
+    source = StringProperty(abstract_path('{}/img/puddle.png'.format(_dir)))
 
     @staticmethod
     def create(pos):

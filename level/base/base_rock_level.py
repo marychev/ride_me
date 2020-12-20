@@ -1,4 +1,4 @@
-from road.rock import Rock
+from objects.rock.rock import Rock
 
 
 class BaseRockLevel:

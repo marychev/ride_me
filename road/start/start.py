@@ -36,6 +36,10 @@ class Start(Widget):
             self.x = self.get_x()
             redraw_texture(self)
 
+    @classmethod
+    def to_map(cls, pos):
+        return {"name": cls.__name__, "pos": pos}
+
     def get_x(self):
         bike = self.get_bike()
         return self.x - bike.speed

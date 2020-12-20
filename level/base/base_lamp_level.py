@@ -1,4 +1,4 @@
-from road.lamp import Lamp
+from objects.lamp.lamp import Lamp
 
 
 class BaseLampLevel:
