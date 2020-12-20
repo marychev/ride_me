@@ -12,12 +12,6 @@ class WaitDispatcher(BaseDispatcher):
         self.register_event_type(State.EVENT_ON_WAIT)
 
     @classmethod
-    def bun_events(cls):
-        return (
-            # State.ON_STOP_STOP
-        )
-
-    @classmethod
     def start_states_list(cls):
         return (
             State.ON_STOP_STOP,
@@ -35,6 +29,7 @@ class WaitDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
     def wait_stop(self):
+        print('stop wait')
         if self.road.state in WaitDispatcher.stop_states_list():
             Clock.unschedule(self.on_wait)
             self.road.set_state(State.ON_WAIT_STOP)
@@ -43,15 +38,12 @@ class WaitDispatcher(BaseDispatcher):
         print('on_wait\r')
         print(self.road.state)
         if self.road.state != State.ON_GO_MOVE:
-            if int(self.bike.speed) <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
+            if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
                 self.bike.speed = 0
-                self.bike.power += dt*10
+                self.bike.power += dt*20
                 self.road.set_state(State.ON_WAIT_MOVE)
                 return True
 
-        # elif self.road.state in self.bun_events():
-        #     return False
-
-        else:
-            self.wait_stop()
-            return False
+            else:
+                self.wait_stop()
+                return False

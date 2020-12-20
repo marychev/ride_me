@@ -35,4 +35,4 @@ class LevelOne(BaseLevel):
     """ Straight track """
 
     def __init__(self, road, bike):
-        super().__init__(road, bike, TEST_MAP2)
+        super().__init__(road, bike, MAP)

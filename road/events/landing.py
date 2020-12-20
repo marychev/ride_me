@@ -52,8 +52,8 @@ class LandingDispatcher(BaseDispatcher):
             else:
                 if self.bike.is_in_sky():
 
-                    self.bike.acceleration = dt * self.road.gravity
-                    self.bike.y -= self.bike.acceleration * self.bike.power
+                    self.bike.acceleration += dt * self.road.gravity
+                    self.bike.y -= self.bike.acceleration
                     self.bike.set_power(self.bike.acceleration)
 
                     # todo: need to move into start method

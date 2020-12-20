@@ -17,6 +17,7 @@ class JumpDispatcher(BaseDispatcher):
             State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP,
             State.ON_STOP_START, State.ON_STOP_MOVE, State.ON_STOP_STOP,
             State.ON_WAIT_START,
+            State.ON_RELAX_MOVE
         )
 
     @classmethod
@@ -43,18 +44,20 @@ class JumpDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_JUMP_STOP)
 
     def on_jump(self, dt):
-        print('on_jump\r')
-        if int(self.bike.power) > 0 and self.road.state not in self.bun_events():
+        print('on_jump\r', self.bike.y, self.bike.height)
+        if self.road.state in self.bun_events():
+            return False
+
+        elif int(self.bike.power) > 0 \
+                and self.road.state not in self.bun_events() \
+                and (self.bike.y < self.bike.height * 2.2):
             self.bike.acceleration = dt * self.road.gravity
-            self.bike.y += self.bike.acceleration * self.bike.power
-            self.bike.set_power(-self.bike.acceleration*10)
+            self.bike.y += self.bike.acceleration * self.bike.max_power/2
+            self.bike.power -= self.bike.acceleration * self.bike.max_power/4
 
             self.road.set_state(State.ON_JUMP_MOVE)
             self.set_distances()
             return True
-
-        elif self.road.state in self.bun_events():
-            return False
 
         else:
             self.jump_stop()

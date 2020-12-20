@@ -50,19 +50,21 @@ Path local building libs `YOUR_APP/.buildozer/android/platform/build-armeabi-v7a
 
 3. Correct `on_jump` distance at length. The bike is flying too far!
 
-4. Fix bike `on_landing`. The bike flies down too slowly.
-
-5. Fix bike `on_landing`. Impose a height limit when there is more force than needed.
+4. ~~Fix bike `on_landing`. The bike flies down too slowly.~~
+5. ~~Fix bike `on_landing`. Impose a height limit when there is more force than needed.~~
+   * _Tests run: passed 303 - 1:20:821_
 
 6. After the `on_jump` and `on_landing`, the bike stays on the `on_landing` event.
    The `on_relax` event should be if `speed` > 0.
 
 7. Fix `restart game` action.
 
-8. Fix the tests of project. 
-   * `landing` - 1
-   * `relax` - 2 
-   * `stop` - 1
+8. ~~Fix the tests of project.~~ 
+   * _Tests run: passed 303 - 1:48:798_   
+   -[x] `landing` - 1
+   -[x] `relax` - 2 
+   -[x] `stop` - 1
+   
     
 9. The game began to slow down noticeably. Find out and fix.
  

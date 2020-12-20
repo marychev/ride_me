@@ -32,6 +32,7 @@ class RelaxEventAndJumpFailTest(BaseRelaxTest):
     def test_relax_move_in_jump_start_should_fail(self):
         self.set_app()
         self.relax_move_equal()
+        self.bike.power = 0
         self.road.jump_start()
         self.assertNotEqual(self.road.state, State.ON_JUMP_START)
         self.assertEqual(self.road.state, State.ON_RELAX_MOVE)
