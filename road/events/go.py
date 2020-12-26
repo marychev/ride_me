@@ -43,6 +43,9 @@ class GoDispatcher(BaseDispatcher):
             Clock.unschedule(self.on_go)
             self.road.set_state(State.ON_GO_STOP)
 
+            background = self.road.get_background()
+            background.go_mountains_stop()
+
     def on_go(self, dt):
         print('on_go', 'state:{}'.format(self.road.state))
         if self.bike.on_collision_rock():

@@ -38,6 +38,9 @@ class WaitDispatcher(BaseDispatcher):
             Clock.unschedule(self.on_wait)
             self.road.set_state(State.ON_WAIT_STOP)
 
+            background = self.road.get_background()
+            background.go_mountains_stop()
+
     def on_wait(self, dt):
         print('on_wait', 'state: {}'.format(self.road.state))
         if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():

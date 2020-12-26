@@ -79,6 +79,9 @@ class Road(Widget, RoadEvents):
     def get_bike(self):
         return self.parent and ValidObject.bike(self.parent.children[0])
 
+    def get_background(self):
+        return self.parent and ValidObject.background(self.parent.children[2])
+
     def get_rocks(self):
         level = LevelOne(self, self.get_bike())
         return level.rocks()

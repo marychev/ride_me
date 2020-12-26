@@ -35,6 +35,10 @@ class RelaxDispatcher(BaseDispatcher):
             Clock.unschedule(self.on_relax)
             self.road.set_state(State.ON_RELAX_STOP)
 
+            background = self.road.get_background()
+            background.go_mountains_stop()
+            print('+ relax_stop')
+
             if self.bike.speed <= 0:
                 self.road.wait_start()
 
