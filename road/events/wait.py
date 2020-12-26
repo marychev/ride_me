@@ -31,15 +31,15 @@ class WaitDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_WAIT_START)
             self.bike.anim_wait()
 
+            background = self.road.get_background()
+            background.go_mountains_stop()
+
     def wait_stop(self):
         print('wait_stop => ', self.road.state)
         if self.bike.power >= self.bike.max_power and self.road.state in WaitDispatcher.stop_states_list():
             print('+ wait_stop')
             Clock.unschedule(self.on_wait)
             self.road.set_state(State.ON_WAIT_STOP)
-
-            background = self.road.get_background()
-            background.go_mountains_stop()
 
     def on_wait(self, dt):
         print('on_wait', 'state: {}'.format(self.road.state))

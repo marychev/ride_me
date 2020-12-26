@@ -14,7 +14,7 @@
         Scene:
             id: scene
 
-            BackgroundImageAnimation:
+            Background:
                 id: background_image_animation
 
             Road:
@@ -52,11 +52,16 @@
         Tools:
             id: tools
             size_hint: 1, .1
+
             AnchorLayout:
                 id: left_btn_wrap
                 anchor_x: 'left'
                 anchor_y: 'bottom'
                 LeftButtonWidget:
+                    Label:
+                        markup: True
+                        pos: self.parent.pos
+                        text: "[b]      stop:[/b]\n [size=11]{}[/size]".format(root.ids.road.state)
 
             AnchorLayout:
                 anchor_x: 'center'
@@ -65,20 +70,17 @@
                     Label:
                         font_size: 20
                         markup: True
-                        text: "{:3.2f} [sup]Power[/sup]".format(root.ids.bike.power)
-                    Label:
-                        markup: True
-                        text: "{}".format(root.ids.road.state)
+                        text: root.ids.tools.indicator_power(root.ids.bike.power)
                     Label:
                         font_size: 20
                         markup: True
-                        text:
-                            "[sup]Speed[/sup]{:3.2f}".format(root.ids.bike.speed)
+                        text: root.ids.tools.indicator_speed(root.ids.bike.speed)
                     Label:
                         font_size: 20
                         markup: True
                         text:
                             "[sup]Acceleration[/sup]{:3.2f}".format(root.ids.bike.acceleration)
+
                 Button:
                     text: 'Restart'
                     size_hint: .2, .3
@@ -89,3 +91,7 @@
                 anchor_x: 'right'
                 anchor_y: 'bottom'
                 RightButtonWidget:
+
+                    Label:
+                        pos: self.parent.pos
+                        text: 'go'

@@ -1,5 +1,4 @@
 class ValidObject:
-
     @staticmethod
     def road(obj):
         class_name = 'Road'
@@ -58,7 +57,7 @@ class ValidObject:
 
     @staticmethod
     def background(obj):
-        class_name = 'BackgroundImageAnimation'
+        class_name = 'Background'
         if obj.__class__.__name__ == class_name:
             return obj
         ValidObject.raise_attr(obj, class_name)

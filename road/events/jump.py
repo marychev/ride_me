@@ -59,7 +59,10 @@ class JumpDispatcher(BaseDispatcher):
             self.bike.power -= self.bike.acceleration
 
             if self.bike.speed > 0:
-                self.bike.speed -= self.bike.acceleration
+                if self.bike.speed > self.bike.max_speed / 3:
+                    self.bike.speed -= self.bike.acceleration
+                else:
+                    self.bike.speed -= dt
 
             self.road.set_state(State.ON_JUMP_MOVE)
             self.set_distances()

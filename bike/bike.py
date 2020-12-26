@@ -61,6 +61,12 @@ class Bike(Image, AnimationBike):
         puddle = self.get_collision_puddle()
         if puddle and self.collide_widget(puddle):
             self.anim_collision()
+
+            if self.speed > 0 or self.power > 0:
+                self.acceleration -= self.acceleration / 100
+                self.speed -= self.max_speed / 1000
+                self.power -= self.max_power / 1000
+
             return True
 
         return False

@@ -36,13 +36,28 @@ TEST_MAP = [
     Rock.to_map((8800, 0)),
 
     Lamp.to_map((10000, 0)),
-    Puddle.to_map((10350, 0)),
-    Puddle.to_map((10700, 0)),
-    Puddle.to_map((10950, 0)),
+    Puddle.to_map((10400, 0)),
+    Puddle.to_map((10800, 0)),
+    Puddle.to_map((11200, 0)),
 
     Lamp.to_map((12000, 0)),
+    Rock.to_map((12500, 0)),
+    Rock.to_map((13000, 0)),
+    Rock.to_map((13980, 0)),
+
     Lamp.to_map((14000, 0)),
+    Puddle.to_map((14400, 0)),
+    Rock.to_map((14800, 0)),
+    Puddle.to_map((15100, 0)),
+    Puddle.to_map((15400, 0)),
+
     Lamp.to_map((16000, 0)),
+    Puddle.to_map((16400, 0)),
+    Puddle.to_map((16800, 0)),
+    Puddle.to_map((17200, 0)),
+    Puddle.to_map((17600, 0)),
+    Puddle.to_map((18000, 0)),
+
     Lamp.to_map((18000, 0)),
     Lamp.to_map((200000, 0)),
 

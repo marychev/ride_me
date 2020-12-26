@@ -36,6 +36,8 @@ class LandingDispatcher(BaseDispatcher):
             Clock.unschedule(self.on_landing)
             self.road.set_state(State.ON_LANDING_STOP)
 
+            self.bike.speed -= self.bike.max_speed / 200
+
             # check road state after loop and apply needed event
             # e.g. pass managing elements to other events
             if self.bike.speed <= 0:

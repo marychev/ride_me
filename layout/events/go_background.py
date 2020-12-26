@@ -16,7 +16,6 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
 
     @classmethod
     def start_states_list(cls):
-        # return GoDispatcher.start_states_list() + (State.ON_GO_START, )
         return (
             State.ON_GO_START, State.ON_GO_MOVE,
             State.ON_RELAX_START, State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
@@ -30,12 +29,15 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
         print('GoBackgroundMockDispatcher:on_go_mountains => ', self.road and self.road.state)
         self.road or self.set_game_object()
         if self.road.has_finished():
+            self.go_mountains_stop()
             return False
 
-        elif self.road.state == State.ON_RELAX_STOP:
+        elif self.road.state in (State.ON_RELAX_STOP, State.ON_WAIT_MOVE, State.ON_WAIT_STOP):
+            self.go_mountains_stop()
             return False
 
         elif self.bike.get_collision_rock():
+            self.go_mountains_stop()
             return False
 
         else:

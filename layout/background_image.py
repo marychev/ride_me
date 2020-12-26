@@ -7,7 +7,7 @@ from utils.texture import redraw_texture, repeat_texture, image_texture
 from utils.validation import ValidObject
 
 
-class BackgroundImageAnimation(Widget, GoBackgroundMockDispatcher):
+class Background(Widget, GoBackgroundMockDispatcher):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -26,7 +26,7 @@ class BackgroundImageAnimation(Widget, GoBackgroundMockDispatcher):
     # clouds textures --
 
     def scroll_textures_clouds(self, dt):
-        # print('BackgroundImageAnimation:scroll_textures_clouds')
+        # print('Background:scroll_textures_clouds')
 
         def __set_ivpos(texture):
             return (texture.uvpos[0] + dt / 2.0) % Window.width, texture.uvpos[1]

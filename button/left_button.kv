@@ -1,7 +1,8 @@
 <LeftButtonWidget>:
     id: left_btn
-    icon_size: 50, 10
     size_hint: None, None
+
+    # icon_size: 50, 10
 
     canvas:
         Clear
@@ -9,11 +10,12 @@
             rgba: .1, .1, .1, 1
         Ellipse:
             pos: self.pos
-            size: self.btn_size
+            # size: self.size[1], self.size[1]
+            # size: self.btn_size
 
-    canvas.after:
-        Color:
-            rgb: 255, 0, 0
-        Rectangle:
-            pos: self.x + self.btn_size[0] / 4, self.y + self.btn_size[1] / 2 - (self.icon_size[1] / 2)
-            size: self.btn_size[0] / 2, self.icon_size[1]
+    #canvas.after:
+    #    Color:
+    #        rgb: 255, 0, 0
+    #    Rectangle:
+    #        pos: self.x + self.btn_size[0] / 4, self.y + self.btn_size[1] / 2 - (self.icon_size[1] / 2)
+    #        size: self.btn_size[0] / 2, self.icon_size[1]

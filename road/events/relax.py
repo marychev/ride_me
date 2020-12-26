@@ -25,6 +25,7 @@ class RelaxDispatcher(BaseDispatcher):
     def relax_start(self):
         print('relax_start => ', self.road.state)
         if self.bike.speed > 0 and self.road.state in RelaxDispatcher.start_states_list():
+            print('+ relax_start')
             Clock.schedule_interval(self.on_relax, SECOND_GAME)
             self.road.set_state(State.ON_RELAX_START)
             self.bike.anim_relax()
@@ -45,7 +46,7 @@ class RelaxDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
     def on_relax(self, dt):
-        print('on_landing')
+        print('on_relax')
         if self.bike.on_collision_rock():
             self.relax_stop()
             return False

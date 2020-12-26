@@ -12,7 +12,7 @@
             size: self.size
 
 
-<BackgroundImageAnimation>
+<Background>
     canvas.before:
         Color:
             rgb: (1, 1, 1)
@@ -23,12 +23,12 @@
         Rectangle:
             texture: self.cloud_min_texture
             size: self.width, self.cloud_min_texture.height
-            pos: self.x, self.y + self.height + 30
+            pos: self.x, self.y + self.height
         Rectangle:
             texture: self.cloud_middle_texture
             size: self.width, self.cloud_middle_texture.height
-            pos: 0, self.y + self.height + 50
+            pos: 0, self.y + self.height + 20
         Rectangle:
             texture: self.cloud_big_texture
             size: self.width, self.cloud_big_texture.height
-            pos: 0, self.y + self.height
+            pos: 0, self.y + self.height - 30
