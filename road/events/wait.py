@@ -20,30 +20,33 @@ class WaitDispatcher(BaseDispatcher):
 
     @classmethod
     def stop_states_list(cls):
-        return State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP
+        return (State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
+                State.ON_GO_MOVE)
 
     def wait_start(self):
+        print('wait_start')
         if self.road.state in WaitDispatcher.start_states_list():
+            print('+ wait_start')
             Clock.schedule_interval(self.on_wait, SECOND_GAME)
             self.road.set_state(State.ON_WAIT_START)
             self.bike.anim_wait()
 
     def wait_stop(self):
-        print('stop wait')
-        if self.road.state in WaitDispatcher.stop_states_list():
+        print('wait_stop => ', self.road.state)
+        if self.bike.power >= self.bike.max_power and self.road.state in WaitDispatcher.stop_states_list():
+            print('+ wait_stop')
             Clock.unschedule(self.on_wait)
             self.road.set_state(State.ON_WAIT_STOP)
 
     def on_wait(self, dt):
-        print('on_wait\r')
-        print(self.road.state)
-        if self.road.state != State.ON_GO_MOVE:
-            if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
-                self.bike.speed = 0
-                self.bike.power += dt*20
-                self.road.set_state(State.ON_WAIT_MOVE)
-                return True
+        print('on_wait', 'state: {}'.format(self.road.state))
+        if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
+            print('+ on_wait')
+            self.bike.speed = 0
+            self.bike.power += dt*20
+            self.road.set_state(State.ON_WAIT_MOVE)
+            return True
 
-            else:
-                self.wait_stop()
-                return False
+        else:
+            self.wait_stop()
+            return False

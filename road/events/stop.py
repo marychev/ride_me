@@ -25,13 +25,14 @@ class StopDispatcher(BaseDispatcher):
         return State.ON_STOP_START, State.ON_STOP_MOVE
 
     def stop_start(self):
+        print('stop_start')
         if self.road.state in StopDispatcher.start_states_list():
             Clock.schedule_interval(self.on_stop, SECOND_GAME)
             self.road.set_state(State.ON_STOP_START)
             self.bike.anim_stop()
 
     def stop_stop(self):
-        print(self.bike.speed,  self.road.state in StopDispatcher.stop_states_list())
+        print('stop_stop => ', self.road.state,  self.road.state in StopDispatcher.stop_states_list())
         if self.road.state in StopDispatcher.stop_states_list():
             Clock.unschedule(self.on_stop)
             self.road.set_state(State.ON_STOP_STOP)
@@ -44,8 +45,8 @@ class StopDispatcher(BaseDispatcher):
                 self.road.relax_start()
 
     def on_stop(self, dt):
-        print('on_stop\r')
-        stop_way = dt * 8
+        print('on_stop')
+        stop_way = dt * 12
 
         if self.bike.on_collision_rock():
             self.road.set_state(State.ON_STOP_STOP)

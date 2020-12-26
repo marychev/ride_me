@@ -23,6 +23,7 @@ class LandingDispatcher(BaseDispatcher):
         return State.ON_LANDING_START, State.ON_LANDING_MOVE, State.ON_LANDING_STOP
 
     def landing_start(self):
+        print('landing_start')
         if self.road.state in LandingDispatcher.start_states_list():
             Clock.schedule_interval(self.on_landing, SECOND_GAME)
             self.road.set_state(State.ON_LANDING_START)
@@ -30,6 +31,7 @@ class LandingDispatcher(BaseDispatcher):
             self.bike and self.bike.anim_landing()
 
     def landing_stop(self):
+        print('landing_stop')
         if self.road.state in LandingDispatcher.stop_states_list():
             Clock.unschedule(self.on_landing)
             self.road.set_state(State.ON_LANDING_STOP)

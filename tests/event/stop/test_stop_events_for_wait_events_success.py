@@ -15,6 +15,7 @@ class StopEventAndWaitSuccessTest(BaseStopTest):
     def test_stop_stop_in_wait_stop_should_success(self):
         self.set_app()
         self.stop_stop_equal()
+        self.bike.power = self.bike.max_power
         self.road.wait_stop()
         self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
         self.assertEqual(self.road.state, State.ON_WAIT_STOP)

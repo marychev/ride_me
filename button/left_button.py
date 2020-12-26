@@ -24,6 +24,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
 
     @classmethod
     def set_objects(cls):
+        print('Left/RightButtonWidget: set object')
         cls.status_bar = StatusBar()
         cls.road = cls.status_bar.get_road()
         cls.bike = cls.status_bar.get_bike()
@@ -42,16 +43,19 @@ class LeftButtonWidget(ButtonBehavior, Image):
     # events --
 
     def on_press(self):
+        print('BTN: on_press')
         self.set_objects()
         self.button_state_style()
         self._road_manage_events(is_press=True)
 
     def on_release(self):
+        print('BTN: on_release')
         self.set_objects()
         self.button_state_style()
         self._road_manage_events(is_release=True)
 
     def _road_manage_events(self, is_press=False, is_release=False):
+        print('BTN: _road_manage_events')
         if is_press:
             self.road.relax_stop()
             self.road.stop_start()
@@ -62,6 +66,7 @@ class LeftButtonWidget(ButtonBehavior, Image):
             raise 0
 
     def _bg_animation_manage_events(self, is_press=False, is_release=False):
+        print('BTN: _bg_animation_manage_events')
         if self.bike.speed <= 0:
             Clock.unschedule(self.bg_animation.relax_mountains)
             Clock.schedule_interval(self.bg_animation.stop_mountains, SECOND_GAME)

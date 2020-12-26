@@ -22,6 +22,8 @@ class GoEventAndWaitFailTest(BaseGoTest):
     def test_go_start_in_wait_stop_should_fail(self):
         self.set_app()
         self.go_start_equal()
+
+        self.bike.power = self.bike.max_power / 2
         self.road.wait_stop()
         self.assertNotEqual(self.road.state, State.ON_WAIT_STOP)
         self.assertEqual(self.road.state, State.ON_GO_START)

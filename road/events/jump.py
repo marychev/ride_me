@@ -32,6 +32,7 @@ class JumpDispatcher(BaseDispatcher):
         return State.ON_JUMP_START, State.ON_JUMP_MOVE, State.ON_JUMP_STOP
 
     def jump_start(self):
+        print('jump_start')
         if int(self.bike.power) > 0 and self.road.state in JumpDispatcher.start_states_list():
             self.road.wait_stop()
             Clock.schedule_interval(self.on_jump, SECOND_GAME)
@@ -39,12 +40,13 @@ class JumpDispatcher(BaseDispatcher):
             self.bike.anim_jump_up()
 
     def jump_stop(self):
+        print('jump_stop')
         if self.road.state in JumpDispatcher.stop_states_list():
             Clock.unschedule(self.on_jump)
             self.road.set_state(State.ON_JUMP_STOP)
 
     def on_jump(self, dt):
-        print('on_jump\r', self.bike.y, self.bike.height)
+        print('on_jump', self.bike.y, self.bike.height)
         if self.road.state in self.bun_events():
             return False
 
@@ -53,8 +55,11 @@ class JumpDispatcher(BaseDispatcher):
                 and (self.bike.y < self.bike.height * 2.4):
 
             self.bike.acceleration = dt * self.road.gravity
-            self.bike.y += self.bike.acceleration * self.bike.max_power / 4
+            self.bike.y += self.bike.acceleration * self.bike.max_power / 5
             self.bike.power -= self.bike.acceleration
+
+            if self.bike.speed > 0:
+                self.bike.speed -= self.bike.acceleration
 
             self.road.set_state(State.ON_JUMP_MOVE)
             self.set_distances()

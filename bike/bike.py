@@ -11,12 +11,13 @@ Builder.load_file(abstract_path('bike/bike.kv'))
 
 class Bike(Image, AnimationBike):
     source = StringProperty(abstract_path('bike/img/bike-1.png'))
-    acceleration = NumericProperty(0)
-    power = NumericProperty(0)
+    acceleration = NumericProperty(0.00)
+    power = NumericProperty(0.00)
     max_power = NumericProperty(200.00)
-    speed = NumericProperty(0)
-    max_speed = NumericProperty(20)
+    speed = NumericProperty(0.00)
+    max_speed = NumericProperty(20.00)
 
+    # todo: fix + tests
     def set_power(self, dt):
         power = self.power
         power = power - dt if int(dt) < 0 else power + dt

@@ -8,7 +8,7 @@ class BaseJumpTest(BaseGameScreenGUITest):
         self._init_properties()
 
     def _init_properties(self):
-        self.bike.power = 150
+        self.bike.power = self.bike.max_power
         self.road.landing_stop()
         self.road.wait_start()
         self.road.wait_stop()

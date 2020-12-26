@@ -26,5 +26,6 @@ class BaseStopTest(BaseGameScreenGUITest):
 
     def stop_stop_equal(self):
         self.road.stop_stop()
+        self.bike.speed = 0
         self.assertNotEqual(self.road.state, State.ON_STOP_STOP)
         self.assertEqual(self.road.state, State.ON_WAIT_START)

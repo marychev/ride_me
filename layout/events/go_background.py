@@ -23,6 +23,7 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
         return GoDispatcher.stop_states_list()
 
     def on_go_mountains(self, dt):
+        print('GoBackgroundMockDispatcher:on_go_mountains')
         self.road or self.set_game_object()
         if self.road.has_finished():
             return False
@@ -43,11 +44,13 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
             return True
 
     def go_mountains_start(self):
+        print('GoBackgroundMockDispatcher:go_mountains_start')
         self.set_game_object()
         if self.road.state in GoBackgroundMockDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go_mountains, SECOND_GAME)
 
     def go_mountains_stop(self):
+        print('GoBackgroundMockDispatcher:go_mountains_stop')
         if self.road.state in GoBackgroundMockDispatcher.stop_states_list():
             Clock.unschedule(self.on_go_mountains)
 
