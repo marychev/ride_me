@@ -2,7 +2,6 @@ from objects.rock.rock import Rock
 
 
 class BaseRockLevel:
-
     def rocks(self):
         return Rock.widgets_on_road(self.road)
 

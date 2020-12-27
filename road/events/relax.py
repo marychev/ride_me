@@ -57,11 +57,7 @@ class RelaxDispatcher(BaseDispatcher):
             return False
 
         elif self.bike.speed - dt <= 0:
-            self.bike.speed = 0
-
-            # self.rock and self.rock.set_x()
-            # self.finish and self.finish.set_x()
-
+            self.bike.set_speed(0)
             self.relax_stop()
             return False
 
@@ -71,15 +67,8 @@ class RelaxDispatcher(BaseDispatcher):
         else:
             self.bike.on_collision_puddle()
 
-            self.bike.speed -= dt * 2
-
-            # self.bike.set_power(dt)
-            if self.bike.power + dt < self.bike.max_power:
-                self.bike.power += dt*10
-            else:
-                self.bike.power = self.bike.max_power
-
+            self.bike.set_speed(self.bike.speed - (dt * 2))
+            self.bike.set_power(self.bike.power + (dt * 10))
             self.set_distances()
-
             self.road.set_state(State.ON_RELAX_MOVE)
             return True

@@ -58,7 +58,8 @@ class LandingDispatcher(BaseDispatcher):
 
                     self.bike.acceleration = dt * self.road.gravity
                     self.bike.y -= self.bike.acceleration * self.bike.max_power / 4
-                    self.bike.power += self.bike.acceleration
+
+                    self.bike.set_power(self.bike.power + self.bike.acceleration)
 
                     # todo: need to move into start method
                     # remove all animation (need to call one time)
