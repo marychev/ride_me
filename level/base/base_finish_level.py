@@ -1,4 +1,4 @@
-from road.finish import Finish
+from objects.finish.finish import Finish
 
 
 class BaseFinishLevel:

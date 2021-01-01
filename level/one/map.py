@@ -1,5 +1,5 @@
-from road.start.start import Start
-from road.finish.finish import Finish
+from objects.start.start import Start
+from objects.finish.finish import Finish
 from objects.lamp.lamp import Lamp
 from objects.rock.rock import Rock
 from objects.puddle.puddle import Puddle

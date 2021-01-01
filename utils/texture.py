@@ -10,6 +10,7 @@ def image_texture(source):
 def redraw_texture(widget, name='texture'):
     texture = widget.property(name)
     texture.dispatch(widget)
+    print('.. redraw_texture', name)
 
 
 def repeat_texture(texture, uvsize_x=1, uvsize_y=-1):

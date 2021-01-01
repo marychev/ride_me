@@ -92,7 +92,8 @@ class Road(Widget, RoadEvents):
 
     def get_lamps(self):
         level = LevelOne(self, self.get_bike())
-        return level.lamps()
+        lamps = level.lamps()
+        return lamps
 
     def get_start(self):
         level = LevelOne(self, self.get_bike())

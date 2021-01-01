@@ -5,7 +5,9 @@ from level.base.base_lamp_level import BaseLampLevel
 from level.base.base_finish_level import BaseFinishLevel
 
 
-class LevelGameObjects(BaseStartLevel, BaseFinishLevel, BaseRockLevel, BasePuddleLevel, BaseLampLevel):
+class LevelGameObjects(BaseStartLevel, BaseFinishLevel,
+                       BaseRockLevel, BasePuddleLevel,
+                       BaseLampLevel):
     pass
 
 
@@ -29,5 +31,5 @@ class BaseLevel(LevelGameObjects):
         self.add_start()
         self.add_rock()
         self.add_puddle()
-        self.add_lamp()
+        self.add_lamps()
         self.add_finish()

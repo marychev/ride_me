@@ -1,4 +1,4 @@
-from road.start import Start
+from objects.start.start import Start
 
 
 class BaseStartLevel:

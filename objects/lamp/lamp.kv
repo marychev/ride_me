@@ -1,7 +1,13 @@
-<Puddle>:
+<Lamp>:
     # --outline
     canvas.before:
         Clear
+        Color:
+            rgb: 1, 1, 1
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            texture: self.texture
         Color:
             rgb: (1, .1, .1, 1)
         Line:
