@@ -47,6 +47,7 @@ class GoEventAndWaitFailTest(BaseGoTest):
     def test_go_move_in_wait_stop_should_fail(self):
         self.set_app()
         self.go_move_equal()
+        # self.bike.speed = self.bike.max_speed / 2
         self.road.wait_stop()
         self.assertNotEqual(self.road.state, State.ON_WAIT_STOP)
         self.assertEqual(self.road.state, State.ON_GO_MOVE)

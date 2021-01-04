@@ -5,14 +5,20 @@ class BaseRockLevel:
     def rocks(self):
         return Rock.widgets_on_road(self.road)
 
-    def create_rocks(self):
-        return [Rock.create(pos=(o['pos'][0], self.road.line_points[-1])) for o in self.init_objects('rock')]
+    def create_rock(self, pos):
+        if len(self.rocks()) < len(self.init_objects('rock')):
+            pos_y = self.road.line_points[-1] if pos[1] <= 0 else pos[1]
+            return Rock.create(pos=(pos[0], pos_y))
 
-    def add_rock(self):
-        if len(Rock.widgets_on_road(self.road)) == 0 and (self.bike and self.road):
-            [self.road.add_widget(rock) for rock in self.create_rocks()]
+    def add_rock(self, widget):
+        if (self.bike and self.road) and (len(self.rocks()) < len(self.init_objects('rock'))):
+            self.road.add_widget(widget)
+
+    def add_rocks(self):
+        new_map_objects = self.new_map_objects(road_objects=self.rocks(), map_objects=self.init_objects('rock'))
+        if (self.bike and self.road) and (len(self.rocks()) < len(self.init_objects('rock'))):
+            create_rocks = [self.create_rock(obj['pos']) for obj in new_map_objects]
+            [self.add_rock(w) for w in create_rocks]
 
     def remove_rock(self):
-        rocks = Rock.widgets_on_road(self.road)
-        if len(rocks) > 0:
-            [self.road.remove_widget(w) for w in rocks if w.pos[0] < 0]
+        self.remove_widgets(self.rocks())

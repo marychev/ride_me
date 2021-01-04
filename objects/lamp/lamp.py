@@ -1,4 +1,3 @@
-from kivy.lang import Builder
 from kivy.uix.image import Image
 from kivy.properties import ObjectProperty
 from objects.base.game_image import GameImage
@@ -6,13 +5,8 @@ from utils.dir import abstract_path
 from utils.validation import ValidObject
 
 
-_dir = 'objects/lamp'
-Builder.load_file(abstract_path('{}/lamp.kv'.format(_dir)))
-
-
 class Lamp(GameImage):
-    IMG = Image(source=abstract_path('{}/img/lamp.png'.format(_dir)))
-    TEXTURE = IMG.texture
+    TEXTURE = Image(source=abstract_path('objects/lamp/img/lamp.png')).texture
     texture = ObjectProperty(TEXTURE)
 
     @classmethod

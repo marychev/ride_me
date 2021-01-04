@@ -12,7 +12,7 @@ Builder.load_file(abstract_path('bike/bike.kv'))
 class Bike(Image, AnimationBike):
     source = StringProperty(abstract_path('bike/img/bike-1.png'))
     acceleration = NumericProperty(0.00)
-    power = NumericProperty(30.00)
+    power = NumericProperty(50.00)
     max_power = NumericProperty(200.00)
     speed = NumericProperty(0.00)
     max_speed = NumericProperty(20.00)

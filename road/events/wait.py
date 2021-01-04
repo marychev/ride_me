@@ -21,7 +21,8 @@ class WaitDispatcher(BaseDispatcher):
     @classmethod
     def stop_states_list(cls):
         return (State.ON_WAIT_START, State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
-                State.ON_GO_MOVE)
+                # State.ON_GO_MOVE
+                )
 
     def wait_start(self):
         print('wait_start')
@@ -36,7 +37,7 @@ class WaitDispatcher(BaseDispatcher):
 
     def wait_stop(self):
         print('wait_stop => ', self.road.state)
-        if self.bike.power >= self.bike.max_power and self.road.state in WaitDispatcher.stop_states_list():
+        if self.bike.power >= self.bike.max_power or self.road.state in WaitDispatcher.stop_states_list():
             print('+ wait_stop')
             Clock.unschedule(self.on_wait)
             self.road.set_state(State.ON_WAIT_STOP)

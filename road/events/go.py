@@ -22,7 +22,8 @@ class GoDispatcher(BaseDispatcher):
     @classmethod
     def start_states_list(cls):
         return (
-            State.ON_WAIT_MOVE, State.ON_WAIT_STOP,
+            State.ON_WAIT_MOVE,
+            State.ON_WAIT_STOP,
             State.ON_RELAX_START, State.ON_RELAX_MOVE, State.ON_RELAX_STOP,
         )
 
@@ -32,6 +33,11 @@ class GoDispatcher(BaseDispatcher):
 
     def go_start(self):
         print('go_start')
+        # todo: It was fixed for tests. It was checked by logs
+        if State.ON_WAIT_MOVE in self.road.last_states:
+            Clock.unschedule(self.road.on_wait)
+
+        print(self.road.events())
         if not self.bike.is_in_sky() and self.road.state in GoDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
             self.road.set_state(State.ON_GO_START)

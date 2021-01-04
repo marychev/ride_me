@@ -6,18 +6,17 @@ from objects.puddle.puddle import Puddle
 
 
 MAP = [
-    Lamp.to_map((130, 125)),
     Start.to_map((190, 60)),
-    Rock.to_map((800, 0)),
 
-    Lamp.to_map((1000, 0)),
-    Puddle.to_map((1400, 0)),
+    Lamp.to_map((600, 0)),
+    #Puddle.to_map((1000, 0)),
 
     Lamp.to_map((2000, 0)),
-    Rock.to_map((2200, 0)),
-    Puddle.to_map((2300, 0)),
+    Lamp.to_map((4500, 0)),
+    Lamp.to_map((5000, 0)),
+    # Lamp.to_map((8000, 0)),
 
-    Finish.to_map((3000, 80)),
+    Finish.to_map((6000, 80)),
 ]
 
 
@@ -59,6 +58,12 @@ TEST_MAP = [
     Puddle.to_map((18000, 0)),
 
     Lamp.to_map((18000, 0)),
+    Puddle.to_map((18400, 0)),
+    Puddle.to_map((18800, 0)),
+    Puddle.to_map((19200, 0)),
+    Puddle.to_map((19600, 0)),
+    Puddle.to_map((19990, 0)),
+
     Lamp.to_map((200000, 0)),
 
     Finish.to_map((21000, 60))

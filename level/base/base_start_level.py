@@ -21,9 +21,12 @@ class BaseStartLevel:
                 self.road.add_widget(start)
 
     def remove_start(self):
-        map_start = self.map_objects('start')[0]
-        if self.road.distance_traveled > map_start['pos'][0] and self.road.start.x < 0:
-            self.road.remove_widget(self.road.start)
+        try:
+            map_start = self.map_objects('start')[0]
+            if self.road.distance_traveled > map_start['pos'][0] and self.road.start.x < 0:
+                self.road.remove_widget(self.road.start)
+        except IndexError:
+            print('IndexError-remove-start')
 
     def map_objects(self, name):
         raise NotImplementedError

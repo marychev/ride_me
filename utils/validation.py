@@ -1,4 +1,5 @@
 class ValidObject:
+
     @staticmethod
     def road(obj):
         class_name = 'Road'
@@ -61,14 +62,6 @@ class ValidObject:
         if obj.__class__.__name__ == class_name:
             return obj
         ValidObject.raise_attr(obj, class_name)
-
-
-    # @staticmethod
-    # def status_bar(obj):
-    #     class_name = 'StatusBar'
-    #     if obj.__class__.__name__ == class_name:
-    #         return obj
-    #     ValidObject.raise_attr(obj, class_name)
 
     @staticmethod
     def raise_attr(obj, expected_name):

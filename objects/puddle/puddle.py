@@ -1,17 +1,12 @@
-from kivy.lang import Builder
 from kivy.properties import ObjectProperty
 from kivy.uix.image import Image
 from objects.base.game_image import GameImage
 from utils.dir import abstract_path
 from utils.validation import ValidObject
 
-_dir = 'objects/puddle'
-Builder.load_file(abstract_path('{}/puddle.kv'.format(_dir)))
-
 
 class Puddle(GameImage):
-    IMG = Image(source=abstract_path('{}/img/puddle.png'.format(_dir)))
-    TEXTURE = IMG.texture
+    TEXTURE = Image(source=abstract_path('objects/puddle/img/puddle.png')).texture
     texture = ObjectProperty(TEXTURE)
 
     @staticmethod

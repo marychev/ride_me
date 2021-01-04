@@ -77,7 +77,9 @@ class Road(Widget, RoadEvents):
         return ValidObject.tools(self.parent.parent.children[0])
 
     def get_bike(self):
-        return self.parent and ValidObject.bike(self.parent.children[0])
+        if not self.bike:
+            self.bike = self.parent and ValidObject.bike(self.parent.children[0])
+        return self.bike
 
     def get_background(self):
         return self.parent and ValidObject.background(self.parent.children[2])

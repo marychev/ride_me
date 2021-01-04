@@ -1,0 +1,157 @@
+on_wait state: on_wait__move
++ on_wait
+DOWN: _on_keyboard_down None right
+Right BTN: on_press
+Left/RightButtonWidget: set object
+Right BTN: _road_manage_events
+relax_stop
+
+WARN "проверить нет ли активного события (ON_WAIT). Должно быть relax_stop!"
+ Если есть go_start удалить это событие ON_WAIT
+go_start
+Right BTN: _bg_animation_manage_events
+GoBackgroundMockDispatcher:go_mountains_start
+on_wait state: on_go__start
+
+ERROR
++ on_wait
+ERROR
+on_go state:on_wait__move
+ERROR
+.. .. .. redraw_texture texture <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>
+
+
+INIT OBJECTS:  lamp [{'name': 'Lamp', 'pos': (600, 0)}]
+1.5265612076188317
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+[<objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: [{'name': 'Lamp', 'pos': (600, 0)}]
+ + + + ADD + + + [600, 100]
+.. .. .. redraw_texture texture <objects.start.start.Start object at 0x7fb6f8078978>
+GoBackgroundMockDispatcher:on_go_mountains =>  on_go__move
+on_wait state: on_go__move
+wait_stop =>  on_go__move
+on_go state:on_go__move
+.. .. .. redraw_texture texture <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>
+
+
+
+INIT OBJECTS:  lamp [{'name': 'Lamp', 'pos': (600, 0)}]
+557.5867327361098
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+ERROR Создается очень много объектов
+ Check the `create` method
+[<objects.lamp.lamp.Lamp object at 0x7fb6e9f7eb38>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9ba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec18>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec88>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e9e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ea58>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e828>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e898>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e6d8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e748>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e518>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e5f8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e588>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e128>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e438>, <objects.lamp.lamp.Lamp object at 0x7fb6eab259e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e358>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9f98>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9dd8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e278>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e2e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e208>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e048>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e0b8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9e48>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad96d8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9eb8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9cf8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9d68>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c88>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c18>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9b38>, <objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: [{'name': 'Lamp', 'pos': (600, 0)}]
+ + + + ADD + + + [600, 100]
+IndexError-remove-start
+GoBackgroundMockDispatcher:on_go_mountains =>  on_go__move
+DOWN: _on_keyboard_down right right
+on_go state:on_go__move
+.. .. .. redraw_texture texture <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>
+
+
+
+INIT OBJECTS:  lamp [{'name': 'Lamp', 'pos': (600, 0)}]
+578.2030975170316
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+[<objects.lamp.lamp.Lamp object at 0x7fb6e9f7ecf8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eb38>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9ba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec18>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec88>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e9e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ea58>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e828>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e898>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e6d8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e748>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e518>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e5f8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e588>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e128>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e438>, <objects.lamp.lamp.Lamp object at 0x7fb6eab259e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e358>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9f98>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9dd8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e278>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e2e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e208>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e048>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e0b8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9e48>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad96d8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9eb8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9cf8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9d68>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c88>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c18>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9b38>, <objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: [{'name': 'Lamp', 'pos': (600, 0)}]
+ + + + ADD + + + [600, 100]
+IndexError-remove-start
+GoBackgroundMockDispatcher:on_go_mountains =>  on_go__move
+on_go state:on_go__move
+.. .. .. redraw_texture texture <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>
+
+
+
+INIT OBJECTS:  lamp [{'name': 'Lamp', 'pos': (600, 0)}]
+598.8194622979534
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+[<objects.lamp.lamp.Lamp object at 0x7fb6e9f7e7b8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ecf8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eb38>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9ba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec18>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec88>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e9e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ea58>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e828>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e898>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e6d8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e748>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e518>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e5f8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e588>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e128>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e438>, <objects.lamp.lamp.Lamp object at 0x7fb6eab259e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e358>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9f98>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9dd8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e278>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e2e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e208>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e048>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e0b8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9e48>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad96d8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9eb8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9cf8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9d68>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c88>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c18>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9b38>, <objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: [{'name': 'Lamp', 'pos': (600, 0)}]
+ + + + ADD + + + [600, 100]
+IndexError-remove-start
+GoBackgroundMockDispatcher:on_go_mountains =>  on_go__move
+DOWN: _on_keyboard_down right right
+on_go state:on_go__move
+.. .. .. redraw_texture texture <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>
+
+
+
+INIT OBJECTS:  lamp []
+619.4358270788751
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+[<objects.lamp.lamp.Lamp object at 0x7fb6eaad9f28>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e7b8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ecf8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eb38>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9ba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec18>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec88>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e9e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ea58>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e828>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e898>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e6d8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e748>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e518>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e5f8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e588>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e128>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e438>, <objects.lamp.lamp.Lamp object at 0x7fb6eab259e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e358>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9f98>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9dd8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e278>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e2e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e208>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e048>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e0b8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9e48>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad96d8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9eb8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9cf8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9d68>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c88>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c18>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9b38>, <objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: []
+IndexError-remove-start
+ . . road_objects BEFORE:  [<objects.lamp.lamp.Lamp object at 0x7fb6eaad9f28>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e7b8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ecf8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eb38>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9ba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec18>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ec88>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7eba8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e9e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7ea58>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e828>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e898>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e6d8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e748>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e518>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e5f8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e588>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e128>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e438>, <objects.lamp.lamp.Lamp object at 0x7fb6eab259e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e358>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9f98>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9dd8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9908>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e278>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e2e8>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e208>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e048>, <objects.lamp.lamp.Lamp object at 0x7fb6e9f7e0b8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9e48>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad96d8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9eb8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9cf8>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9d68>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c88>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9c18>, <objects.lamp.lamp.Lamp object at 0x7fb6eaad9b38>, <objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [600, 100] 619.4358270788751
+x x x remove_widget x x x [-19.43582707887515, 100] 619.4358270788751
+ . . self.lamps: AFTER []
+GoBackgroundMockDispatcher:on_go_mountains =>  on_go__move
+on_go state:on_go__move
+
+
+
+INIT OBJECTS:  lamp []
+780.8840823916291
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+[<objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: []
+IndexError-remove-start
+
+
+
+GoBackgroundMockDispatcher:on_go_mountains =>  on_relax__move
+on_relax
+INIT OBJECTS:  lamp []
+800.6997125276287
+[<objects.lamp.lamp.Lamp object at 0x7fb6eab25978>]
+[<objects.finish.finish.Finish object at 0x7fb6eab25a58>, <objects.start.start.Start object at 0x7fb6f8078978>]
+------------------------------------------------------------
+>> >> new_map_objects: []
+IndexError-remove-start

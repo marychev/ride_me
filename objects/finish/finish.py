@@ -12,10 +12,6 @@ class Finish(Start):
     def widgets_on_road(road):
         return [ValidObject.finish(w) for w in road.children if w.__class__.__name__ == 'Finish']
 
-    def set_x(self):
-        self.x = self.get_x()
-        redraw_texture(self)
-
     def get_x(self):
         bike = self.get_bike()
         road = self.get_road()

@@ -10,7 +10,15 @@ def image_texture(source):
 def redraw_texture(widget, name='texture'):
     texture = widget.property(name)
     texture.dispatch(widget)
-    print('.. redraw_texture', name)
+
+    if hasattr(widget, 'texture'):
+        widget.canvas.clear()
+        with widget.canvas:
+            Color(rgb=(1, 1, 1))
+            Rectangle(pos=widget.pos, size=widget.size, texture=widget.texture)
+
+    if name not in ['cloud_big_texture', 'cloud_min_texture', 'cloud_middle_texture']:
+        print('.. .. .. redraw_texture', name, widget)
 
 
 def repeat_texture(texture, uvsize_x=1, uvsize_y=-1):

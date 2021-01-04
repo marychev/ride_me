@@ -1,4 +1,5 @@
 from objects.lamp.lamp import Lamp
+from kivy.uix.label import Label
 
 
 class BaseLampLevel:
@@ -6,22 +7,30 @@ class BaseLampLevel:
     def lamps(self):
         return Lamp.widgets_on_road(self.road)
 
+    def new_map_lamps(self):
+        return self.new_map_objects(road_objects=self.lamps(), map_objects=self.init_objects('lamp'))
+
     def create_lamp(self, pos):
+        # if len(self.lamps()) < len(self.init_objects('lamp')):
         pos_y = self.road.line_points[-1] if pos[1] <= 0 else pos[1]
         return Lamp.create(pos=(pos[0], pos_y))
 
-    def create_lamps(self):
-        return [self.create_lamp(obj['pos']) for obj in self.init_objects('lamp')]
-
     def add_lamp(self, lamp):
-        if self.bike and self.road:
+        # print(self.bike, self.road, lamp, len(self.lamps()), len(self.init_objects('lamp')))
+        label = Label(pos=lamp.pos, text=str(lamp.pos))
+        if self.bike and self.road and lamp:
+            print(' + + + ADD + + +', lamp.pos)
+            # self.road.add_widget(label)
             self.road.add_widget(lamp)
 
     def add_lamps(self):
-        if len(self.lamps()) == 0:
-            [self.add_lamp(lamp) for lamp in self.create_lamps()]
+        new_map_objects = self.new_map_objects(road_objects=self.lamps(), map_objects=self.init_objects('lamp'))
+        print('>> >> new_map_objects:', new_map_objects)
+
+        if len(new_map_objects) > 0:
+            create_lamps = [self.create_lamp(obj['pos']) for obj in new_map_objects]
+            [self.add_lamp(lamp) for lamp in create_lamps]
 
     def remove_lamps(self):
-        lamps = self.lamps()
-        if len(lamps) > 0:
-            [self.road.remove_widget(w) for w in lamps if w.pos[0] < 0]
+        if self.road.distance_traveled > 0:
+            self.remove_widgets(self.lamps())
