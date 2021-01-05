@@ -16,9 +16,11 @@ class BasePuddleLevel:
             self.road.add_widget(widget)
 
     def add_puddles(self):
-        new_map_objects = self.new_map_objects(road_objects=self.puddles(), map_objects=self.init_objects('puddle'))
+        road_objects = self.puddles() and self.puddles()[:]
+        map_objects = self.init_objects('puddle') and self.init_objects('puddle')[:]
+        new_map_objects = self.new_map_objects(road_objects=road_objects, map_objects=map_objects)
 
-        if (len(new_map_objects) > 0) and (len(self.puddles()) < len(self.init_objects('puddle'))):
+        if new_map_objects and len(new_map_objects) > 0 and len(road_objects) < len(map_objects):
             create_puddles = [self.create_puddle(obj['pos']) for obj in new_map_objects]
             [self.add_puddle(w) for w in create_puddles]
 

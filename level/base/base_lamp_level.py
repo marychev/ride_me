@@ -1,5 +1,6 @@
 from objects.lamp.lamp import Lamp
-from kivy.uix.label import Label
+from kivy.core.window import Window
+from utils.texture import redraw_texture
 
 
 class BaseLampLevel:
@@ -11,26 +12,34 @@ class BaseLampLevel:
         return self.new_map_objects(road_objects=self.lamps(), map_objects=self.init_objects('lamp'))
 
     def create_lamp(self, pos):
-        # if len(self.lamps()) < len(self.init_objects('lamp')):
         pos_y = self.road.line_points[-1] if pos[1] <= 0 else pos[1]
-        return Lamp.create(pos=(pos[0], pos_y))
+        pos_x = pos[0]
+
+        if pos_x > Window.width:
+            pos_x -= Window.width
+
+        print('CREATE:', pos_x, pos_y)
+        lamp = Lamp.create(pos=(pos_x, pos_y))
+        redraw_texture(lamp)
+
+        return lamp
 
     def add_lamp(self, lamp):
-        # print(self.bike, self.road, lamp, len(self.lamps()), len(self.init_objects('lamp')))
-        label = Label(pos=lamp.pos, text=str(lamp.pos))
         if self.bike and self.road and lamp:
-            print(' + + + ADD + + +', lamp.pos)
-            # self.road.add_widget(label)
+            print(' + + + ADD LAMP + + +', lamp.pos)
             self.road.add_widget(lamp)
 
     def add_lamps(self):
-        new_map_objects = self.new_map_objects(road_objects=self.lamps(), map_objects=self.init_objects('lamp'))
+        road_lamps = self.lamps() and self.lamps()[:]
+        map_lamps = self.init_objects('lamp') and self.init_objects('lamp')[:]
+        new_map_objects = self.new_map_objects(road_objects=road_lamps, map_objects=map_lamps)
         print('>> >> new_map_objects:', new_map_objects)
 
-        if len(new_map_objects) > 0:
+        if new_map_objects and len(new_map_objects) > 0:
             create_lamps = [self.create_lamp(obj['pos']) for obj in new_map_objects]
             [self.add_lamp(lamp) for lamp in create_lamps]
 
     def remove_lamps(self):
         if self.road.distance_traveled > 0:
-            self.remove_widgets(self.lamps())
+            pass
+            # self.remove_widgets(self.lamps())

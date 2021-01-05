@@ -24,46 +24,56 @@ class BaseLevel(LevelGameObjects):
 
     def init_objects(self, name):
 
-        if self.exist_to_map(name):
+        if self.exist_to_map(name) and self.bike:
             objs = [
                 m for m in self.map_objects(name)
-                if 0 < int(self.road.distance_traveled + Window.width) - int(m['pos'][0]) <= int(Window.width)]
-            print('INIT OBJECTS: ', name, objs)
-            print(self.road.distance_traveled)
-            print(self.road.lamps)
-            print(self.road.children)
-            print('------'*10)
-            return objs
+                if 0 < self.get_pos_x() < m['pos'][0] and (
+                        0 < self.road.distance_traveled + Window.width - m['pos'][0] <= Window.width)]
+
+            if len(objs) > 0:
+                print('')
+                print('')
+                print('Distance/view: ', self.road.distance_traveled, self.get_pos_x())
+                print('INIT OBJECTS: ', name, objs)
+                print('. . First MAP obj: ', objs[0])
+                print('. .Road lamps', self.lamps())
+                print('. . First road obj', self.lamps() and self.lamps()[0].pos)
+                print('. . Road children:', self.road.children)
+                print()
+                return objs
 
     def new_map_objects(self, road_objects, map_objects):
         new_objects = []
         if len(road_objects) == 0:
             new_objects = map_objects
-        elif len(map_objects) > 0:
+
+        elif map_objects and len(map_objects) > 0 and len(road_objects) > 0:
             for ro in road_objects:
-                new_objects = [mo for mo in map_objects if ro.pos[0] != mo['pos'][0]]
+                print('. . . ro-hash: ', ro.__hash__(), ro.pos[0])
+                new_objects = [mo for mo in map_objects if self.get_pos_x() > ro.pos[0] and ro.pos[0] != mo['pos'][0]]
+
         return new_objects
 
     def map_objects(self, name):
         return [m for m in self.map if
                 m['name'] == name.title() and int(self.road.distance_traveled) <= int(m['pos'][0])]
 
+    def get_pos_x(self):
+        return self.road.distance_traveled if self.road.distance_traveled < Window.width else self.road.distance_traveled - Window.width
+
     def can_remove_widget(self, widget):
-        return self.road.distance_traveled > widget.pos[0] or widget.pos[0] < 0
+        return self.get_pos_x() > widget.pos[0] or widget.pos[0] < 0
 
     def remove_widget(self, widget):
         if self.can_remove_widget(widget):
             self.road.remove_widget(widget)
-            print('x x x remove_widget x x x', widget.pos, self.road.distance_traveled)
 
     def remove_widgets(self, road_objects):
-        print()
-        if len(road_objects) > 0:
-            # [self.road.remove_widget(w) for w in road_objects if w.pos[0] < 0]
-            if self.can_remove_widget(road_objects[0]):
-                print(' . . road_objects BEFORE: ', road_objects)
-                [self.remove_widget(w) for w in road_objects]
-                print(' . . self.lamps: AFTER', self.lamps())
+        if len(road_objects) > 0 and self.can_remove_widget(road_objects[0]):
+            print('x x x remove_widget x x x', road_objects[0].pos, self.get_pos_x())
+            print(' . . road_objects BEFORE: ', road_objects)
+            [self.remove_widget(w) for w in road_objects]
+            print(' . . self.lamps: AFTER', self.lamps())
 
     def add_game_objects(self):
         self.add_start()

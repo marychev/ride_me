@@ -15,8 +15,11 @@ class BaseRockLevel:
             self.road.add_widget(widget)
 
     def add_rocks(self):
-        new_map_objects = self.new_map_objects(road_objects=self.rocks(), map_objects=self.init_objects('rock'))
-        if (self.bike and self.road) and (len(self.rocks()) < len(self.init_objects('rock'))):
+        road_objects = self.rocks() and self.rocks()[:]
+        map_objects = self.init_objects('rock') and self.init_objects('rock')[:]
+        new_map_objects = self.new_map_objects(road_objects=road_objects, map_objects=map_objects)
+
+        if (self.bike and self.road) and (road_objects and len(road_objects) < len(map_objects)):
             create_rocks = [self.create_rock(obj['pos']) for obj in new_map_objects]
             [self.add_rock(w) for w in create_rocks]
 

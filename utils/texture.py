@@ -11,6 +11,7 @@ def redraw_texture(widget, name='texture'):
     texture = widget.property(name)
     texture.dispatch(widget)
 
+    # TODO: Stop is here now
     if hasattr(widget, 'texture'):
         widget.canvas.clear()
         with widget.canvas:
