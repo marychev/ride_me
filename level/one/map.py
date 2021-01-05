@@ -12,9 +12,9 @@ MAP = [
     #Puddle.to_map((1000, 0)),
 
     Lamp.to_map((2000, 0)),
+
+    # TODO: Not appear! In dev
     Lamp.to_map((4500, 0)),
-    # Lamp.to_map((5000, 0)),
-    # Lamp.to_map((8000, 0)),
 
     Finish.to_map((6000, 80)),
 ]

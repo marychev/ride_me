@@ -17,6 +17,7 @@ class BaseLevel(LevelGameObjects):
         self.road = road
         self.bike = bike
         self.map = map_json
+
         self.add_game_objects()
 
     def exist_to_map(self, name):
@@ -31,15 +32,15 @@ class BaseLevel(LevelGameObjects):
                         0 < self.road.distance_traveled + Window.width - m['pos'][0] <= Window.width)]
 
             if len(objs) > 0:
-                print('')
-                print('')
-                print('Distance/view: ', self.road.distance_traveled, self.get_pos_x())
-                print('INIT OBJECTS: ', name, objs)
-                print('. . First MAP obj: ', objs[0])
-                print('. .Road lamps', self.lamps())
-                print('. . First road obj', self.lamps() and self.lamps()[0].pos)
-                print('. . Road children:', self.road.children)
-                print()
+                # print('')
+                # print('')
+                # print('Distance/view: ', self.road.distance_traveled, self.get_pos_x())
+                # print('INIT OBJECTS: ', name, objs)
+                # print('. . First MAP obj: ', objs[0])
+                # print('. .Road lamps', self.lamps())
+                # print('. . First road obj', self.lamps() and self.lamps()[0].pos)
+                # print('. . Road children:', self.road.children)
+                # print()
                 return objs
 
     def new_map_objects(self, road_objects, map_objects):
@@ -50,7 +51,7 @@ class BaseLevel(LevelGameObjects):
         elif map_objects and len(map_objects) > 0 and len(road_objects) > 0:
             for ro in road_objects:
                 print('. . . ro-hash: ', ro.__hash__(), ro.pos[0])
-                new_objects = [mo for mo in map_objects if self.get_pos_x() > ro.pos[0] and ro.pos[0] != mo['pos'][0]]
+                new_objects = [mo for mo in map_objects if self.get_pos_x() > ro.pos[0] != mo['pos'][0]]
 
         return new_objects
 
@@ -70,10 +71,7 @@ class BaseLevel(LevelGameObjects):
 
     def remove_widgets(self, road_objects):
         if len(road_objects) > 0 and self.can_remove_widget(road_objects[0]):
-            print('x x x remove_widget x x x', road_objects[0].pos, self.get_pos_x())
-            print(' . . road_objects BEFORE: ', road_objects)
             [self.remove_widget(w) for w in road_objects]
-            print(' . . self.lamps: AFTER', self.lamps())
 
     def add_game_objects(self):
         self.add_start()
