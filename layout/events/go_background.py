@@ -26,7 +26,7 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
         return GoDispatcher.stop_states_list()
 
     def on_go_mountains(self, dt):
-        print('GoBackgroundMockDispatcher:on_go_mountains => ', self.road and self.road.state)
+        # print('GoBackgroundMockDispatcher:on_go_mountains => ', self.road and self.road.state)
         self.road or self.set_game_object()
         if self.road.has_finished():
             self.go_mountains_stop()
@@ -42,7 +42,7 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
 
         else:
             if self.is_repeat_texture:
-                print('+ GoBackgroundMockDispatcher:on_go_mountains')
+                # print('+ GoBackgroundMockDispatcher:on_go_mountains')
                 uvpos_x = self.mountains_texture.uvpos[0] + (self.bike.speed * dt)/100.0
                 self.mountains_texture.uvpos = uvpos_x, self.mountains_texture.uvpos[1]
                 repeat_texture(self.mountains_texture)
@@ -51,21 +51,21 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
             return True
 
     def go_mountains_start(self):
-        print('GoBackgroundMockDispatcher:go_mountains_start')
+        # print('GoBackgroundMockDispatcher:go_mountains_start')
         self.set_game_object()
         if self.road.state in GoBackgroundMockDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go_mountains, SECOND_GAME)
 
     def go_mountains_stop(self):
-        print('GoBackgroundMockDispatcher:go_mountains_stop')
+        # print('GoBackgroundMockDispatcher:go_mountains_stop')
         if self.road and self.road.state in GoBackgroundMockDispatcher.stop_states_list():
             Clock.unschedule(self.on_go_mountains)
 
     def get_rocks(self):
-        return self.get_road().rocks
+        return self.road.rocks
 
     def get_puddles(self):
-        return self.get_road().puddles
+        return self.road.puddles
 
     def get_lamps(self):
-        return self.get_road().lamps
+        return self.road.lamps

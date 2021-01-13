@@ -8,18 +8,13 @@ class GameImage(Widget):
 
     @classmethod
     def create(cls, pos, size=None):
-        print('CREATE:', pos, cls)
+        print('CREATE: {} pos: {}'.format(cls, pos))
         size = size if size else cls.TEXTURE.size
-
         kwargs = {
             "pos": pos,
             "size": size,
             "size_hint": (None, None)}
-
-        widget = cls(**kwargs)
-        redraw_texture(widget)
-
-        return widget
+        return cls(**kwargs)
 
     @classmethod
     def to_map(cls, pos):
@@ -30,9 +25,14 @@ class GameImage(Widget):
         return self.x - bike.speed if bike else self.x
 
     def set_x(self):
-        if (self.x > 0) and (self.get_road().distance_traveled + Window.width) >= self.x:
+        road = self.get_road()
+        if road and (self.x > 0) and road and (road.distance_traveled + Window.width) >= self.x:
             self.x = self.get_x()
             redraw_texture(self)
+
+    def level_map_objects(self, name):
+        road = self.get_road()
+        return road and road.level.map_objects(name)[:]
 
     # general elements and functions
 

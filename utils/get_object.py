@@ -30,3 +30,9 @@ class GetObject:
         except AttributeError:
             return None
 
+    @property
+    def background(self):
+        try:
+            return self.road.parent and ValidObject.background(self.road.parent.children[2])
+        except AttributeError:
+            return None

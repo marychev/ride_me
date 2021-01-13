@@ -41,9 +41,12 @@ class Bike(Image, AnimationBike):
     # collision rock
 
     def get_collision_rock(self):
-        for rock in self.get_road().rocks:
-            if rock and self.collide_widget(rock):
-                return rock
+        # rocks = self.get_road() and self.get_road().rocks[:]
+        # if rocks and len(rocks):
+        #     for rock in rocks:
+        #         if rock and self.collide_widget(rock):
+        #             return rock
+        return None
 
     def on_collision_rock(self):
         rock = self.get_collision_rock()
@@ -55,9 +58,10 @@ class Bike(Image, AnimationBike):
     # collision puddle
 
     def get_collision_puddle(self):
-        for puddle in self.get_road().puddles:
-            if puddle and self.collide_widget(puddle):
-                return puddle
+        # for puddle in self.get_road().puddles:
+        #     if puddle and self.collide_widget(puddle):
+        #         return puddle
+        return None
 
     def on_collision_puddle(self):
         puddle = self.get_collision_puddle()
