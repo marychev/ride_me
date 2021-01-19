@@ -3,9 +3,6 @@ from utils.dir import abstract_path
 
 
 class AnimationBike:
-    def __init__(self):
-        self.source = ''
-
     def anim_go(self):
         self.source = abstract_path('bike/img/bike-go.png')
         anim = Animation(angle=8, duration=.2)

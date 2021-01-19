@@ -47,10 +47,6 @@ class RelaxDispatcher(BaseDispatcher):
 
     def on_relax(self, dt):
         print('on_relax')
-        if self.bike.on_collision_rock():
-            self.relax_stop()
-            return False
-
         if self.road.has_finished():
             self.road_finish()
             self.relax_stop()
@@ -65,8 +61,6 @@ class RelaxDispatcher(BaseDispatcher):
             return False
 
         else:
-            self.bike.on_collision_puddle()
-
             self.bike.set_speed(self.bike.speed - (dt * 2))
             self.bike.set_power(self.bike.power + (dt * 10))
             self.set_distances()

@@ -16,11 +16,12 @@ class GetObject:
 
     @property
     def bike(self):
-        try:
-            bike = self.road.bike if self.road.bike else StatusBar.get_bike()
-            return ValidObject.bike(bike)
-        except AttributeError:
-            return None
+        if hasattr(self.road, 'bike') and self.road.bike:
+            return self.road.bike
+        elif hasattr(self.road, 'parent') and self.road.parent and len(self.road.parent.children) > 0:
+            for o in self.road.parent.children[:]:
+                if o.__class__.__name__ == 'Bike':
+                    return ValidObject.bike(o)
 
     @property
     def tools(self):

@@ -2,12 +2,12 @@ from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
 
-from layout.events.go_background import GoBackgroundMockDispatcher
+from layout.events.go_background import GoBackgroundDispatcher
 from utils.texture import redraw_texture, repeat_texture, image_texture
 from utils.validation import ValidObject
 
 
-class Background(Widget, GoBackgroundMockDispatcher):
+class Background(Widget, GoBackgroundDispatcher):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -27,7 +27,6 @@ class Background(Widget, GoBackgroundMockDispatcher):
 
     def scroll_textures_clouds(self, dt):
         # print('Background:scroll_textures_clouds')
-
         def __set_ivpos(texture):
             return (texture.uvpos[0] + dt / 2.0) % Window.width, texture.uvpos[1]
 
@@ -44,23 +43,8 @@ class Background(Widget, GoBackgroundMockDispatcher):
     def get_road(self):
         return ValidObject.road(self.parent.children[1])
 
-    # def get_status_bar(self):
-    #     return ValidObject.status_bar(self.parent.children[2])
-
     def get_bike(self):
-        return ValidObject.bike(self.parent.children[0])  # if self.parent else StatusBar.get_bike()
-
-    def get_rock(self):
-        if len(self.children) > 1:
-            return ValidObject.rock(self.children[1])
-
-    def get_puddle(self):
-        if len(self.children) > 1:
-            return ValidObject.rock(self.children[2])
-
-    def get_lamp(self):
-        if len(self.children) > 1:
-            return ValidObject.rock(self.children[3])
+        return ValidObject.bike(self.parent.children[0])
 
     def get_start(self):
         if len(self.children) > 1:

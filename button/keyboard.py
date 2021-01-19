@@ -16,7 +16,9 @@ class KeyboardHandler(object):
             return game_screen.ids.left_btn_wrap.children[0]
 
     def get_right_btn(self):
-        return get_game_screen().ids.right_btn_wrap.children[0]
+        game_screen = get_game_screen()
+        if game_screen:
+            return game_screen.ids.right_btn_wrap.children[0]
 
     def _keyboard_closed(self):
         print('CLOSED: _keyboard_closed')

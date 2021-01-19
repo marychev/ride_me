@@ -1,19 +1,3 @@
-# from level.base.base_start_level import BaseStartLevel
-# from level.base.base_rock_level import BaseRockLevel
-# from level.base.base_puddle_level import BasePuddleLevel
-# from objects.lamp.lamp import Lamp
-# from level.base.base_finish_level import BaseFinishLevel
-
-
-class LevelGameObjects(
-    # BaseStartLevel, BaseFinishLevel,
-    # Lamp,
-    # #BaseRockLevel, BasePuddleLevel
-):
-    pass
-
-
-# class BaseLevel(LevelGameObjects):
 class BaseLevel:
 
     def __init__(self, road, bike, map_json, **kwargs):
@@ -22,7 +6,7 @@ class BaseLevel:
         self.bike = bike
         self.map = map_json
 
-        self.add_game_objects()
+        print('BASE LEVEL::INIT', self)
 
     def exist_to_map(self, name):
         return name.title() in list(set(el.get('name') for el in self.map))
@@ -35,18 +19,8 @@ class BaseLevel:
         return not visible_zone.collide_point(widget.x, visible_zone.y)
 
     def _remove_widget(self, widget):
-        if self.can_remove_widget(widget):
-            self.road.remove_widget(widget)
+        self.can_remove_widget(widget) and self.road.remove_widget(widget)
 
     def remove_widgets(self, road_objects):
         if len(road_objects) > 0 and self.road.distance_traveled > 0:
             [self._remove_widget(w) for w in road_objects]
-
-    def add_game_objects(self):
-        # self.add_start()
-        # self.exist_to_map('rock') and self.add_rocks()
-        # self.exist_to_map('puddle') and self.add_puddles()
-        # self.exist_to_map('lamp') and self.add_lamps()
-        # self.exist_to_map('lamp') and Lamp().add_game_objects()
-        # self.add_finish()
-        print('ADD OBJECTS')

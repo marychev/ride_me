@@ -32,28 +32,23 @@ class RightButtonWidget(LeftButtonWidget):
         return super().on_touch_up(touch)
 
     def on_press(self):
-        print('Right BTN: on_press')
-        self.set_objects()
-        self.button_state_style()
-        self.counter.start()
-        self._road_manage_events(is_press=True)
-        self._bg_animation_manage_events(is_press=True)
+        super().on_press()
+        self._background_manage_events(is_press=True)
 
     def on_release(self):
-        print('Right BTN: on_release')
-        self.button_state_style()
-        self.counter.stop()
-        self._road_manage_events(is_release=True)
-        self._bg_animation_manage_events(is_release=True)
+        super().on_release()
+        self._background_manage_events(is_release=True)
 
     def on_double_press(self, touch):
         print('Right BTN: on_double_press')
-        self.status_bar or self.set_objects()
+        if not self.bike and not self.road:
+            self.set_objects()
         self._road_manage_events(is_double_press=True)
 
     def on_double_release(self, touch):
         print('Right BTN: on_double_release')
-        self.status_bar or self.set_objects()
+        if not self.bike and not self.road:
+            self.set_objects()
         self._road_manage_events(is_double_release=True)
 
     def _road_manage_events(self, is_press=False, is_release=False,
@@ -81,9 +76,7 @@ class RightButtonWidget(LeftButtonWidget):
         else:
             raise 0
 
-    def _bg_animation_manage_events(self, is_press=False, is_release=False):
-        print('Right BTN: _bg_animation_manage_events')
-        if is_press or is_release:
-            self.bg_animation.go_mountains_start()
-        else:
-            raise 0
+    def _background_manage_events(self, is_press=False, is_release=False):
+        print('Right BTN: _background_manage_events')
+        if self.background.is_repeat_texture and (is_press or is_release):
+            self.background.go_mountains_start()

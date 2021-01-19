@@ -1,5 +1,8 @@
+from kivy.app import App
+from kivy.clock import Clock
 from kivy.event import EventDispatcher
-from kivy.properties import ObjectProperty, ListProperty
+from kivy.properties import ObjectProperty
+
 from utils.state import State
 
 
@@ -7,11 +10,19 @@ class BaseDispatcher(EventDispatcher):
     road = ObjectProperty(None)
     bike = ObjectProperty(None)
 
-    # start = ObjectProperty(None)
-    # finish = ObjectProperty(None)
-    # rocks = ListProperty([])
-    # puddles = ListProperty([])
-    # lamps = ListProperty([])
+    def __init__(self, **kwargs):
+        super(BaseDispatcher, self).__init__(**kwargs)
+        Clock.schedule_once(self.after_init)
+
+    def after_init(self, dt):
+        print('[after_init--BaseDispatcher--]')
+        app = App.get_running_app()
+        root_ids = app and app.root.current_screen.ids
+        if root_ids:
+            if not self.bike and root_ids.get('bike'):
+                self.bike = root_ids['bike']
+            if not self.road and root_ids.get('road'):
+                self.road = root_ids['road']
 
     def set_distances(self):
         self.road.set_distance_traveled()
@@ -26,15 +37,6 @@ class BaseDispatcher(EventDispatcher):
         #
         # self.finish and self.finish.set_x()
 
-    def set_game_object(self):
-        self.road = self.get_road()
-        self.bike = self.get_bike()
-        # self.start = self.get_start()
-        # self.finish = self.get_finish()
-        # self.rocks = self.get_rocks()
-        # self.puddles = self.get_puddles()
-        # self.lamps = self.get_lamps()
-
     def road_finish(self):
         self.bike.power = 0
         self.bike.speed = 0
@@ -43,23 +45,3 @@ class BaseDispatcher(EventDispatcher):
         self.road.set_state(State.FINISH)
         self.road.unschedule_events()
 
-    def get_road(self):
-        raise NotImplementedError
-
-    def get_bike(self):
-        raise NotImplementedError
-
-    # def get_start(self):
-    #     raise NotImplementedError
-    #
-    # def get_finish(self):
-    #     raise NotImplementedError
-    #
-    # def get_rocks(self):
-    #     raise NotImplementedError
-    #
-    # def get_puddles(self):
-    #     raise NotImplementedError
-    #
-    # def get_lamps(self):
-    #     raise NotImplementedError

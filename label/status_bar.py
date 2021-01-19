@@ -1,14 +1,15 @@
-from kivy.lang import Builder
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
 from screen.utils import get_game_screen
-from utils.dir import abstract_path
-
-Builder.load_file(abstract_path('label/status_bar.kv'))
 
 
 class StatusBar(Label):
     text = StringProperty('Start Game!')
+
+    @staticmethod
+    def get_scene():
+        # print('[WARNING] Try to get a game object from DOM! get_status_bar')
+        return get_game_screen()
 
     @staticmethod
     def get_status_bar():
@@ -45,9 +46,9 @@ class StatusBar(Label):
         return get_game_screen().ids.bike if get_game_screen() else None
 
     @staticmethod
-    def get_background_image_animation():
+    def get_background():
         # print('[WARNING] Try to get a game object from DOM! get_background_image_animation')
-        return get_game_screen().ids.background_image_animation if get_game_screen() else None
+        return get_game_screen().ids.background if get_game_screen() else None
 
     def show_status(self, title):
         self.text = '{}\r{}{}'.format(title, self.show_status_road(), self.show_status_bike())

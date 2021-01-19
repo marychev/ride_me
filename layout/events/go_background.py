@@ -3,11 +3,13 @@ from kivy.properties import ObjectProperty, BooleanProperty
 from conf import SECOND_GAME
 from road.events.base import BaseDispatcher
 from road.events.go import GoDispatcher
+from utils.validation import ValidObject
 from utils.state import State
 from utils.texture import redraw_texture, repeat_texture
+from utils.get_object import GetObject
 
 
-class GoBackgroundMockDispatcher(BaseDispatcher):
+class GoBackgroundDispatcher(BaseDispatcher):
     mountains_texture = ObjectProperty(None)
     cloud_big_texture = ObjectProperty(None)
     cloud_middle_texture = ObjectProperty(None)
@@ -27,7 +29,12 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
 
     def on_go_mountains(self, dt):
         # print('GoBackgroundMockDispatcher:on_go_mountains => ', self.road and self.road.state)
-        self.road or self.set_game_object()
+
+        if self.road is None and self.parent.__class__.__name__ == 'Scene' and len(self.parent.children) > 0:
+            self.road = ValidObject.road(self.parent.children[1])
+        if self.bike is None:
+            self.bike = GetObject(road=self.road).bike
+
         if self.road.has_finished():
             self.go_mountains_stop()
             return False
@@ -51,21 +58,10 @@ class GoBackgroundMockDispatcher(BaseDispatcher):
             return True
 
     def go_mountains_start(self):
-        # print('GoBackgroundMockDispatcher:go_mountains_start')
-        self.set_game_object()
-        if self.road.state in GoBackgroundMockDispatcher.start_states_list():
+        if self.is_repeat_texture and self.road.state in GoBackgroundDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go_mountains, SECOND_GAME)
 
     def go_mountains_stop(self):
         # print('GoBackgroundMockDispatcher:go_mountains_stop')
-        if self.road and self.road.state in GoBackgroundMockDispatcher.stop_states_list():
+        if self.road and self.road.state in GoBackgroundDispatcher.stop_states_list():
             Clock.unschedule(self.on_go_mountains)
-
-    def get_rocks(self):
-        return self.road.rocks
-
-    def get_puddles(self):
-        return self.road.puddles
-
-    def get_lamps(self):
-        return self.road.lamps

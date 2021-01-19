@@ -18,20 +18,18 @@ class Bike(Image, AnimationBike):
     max_speed = NumericProperty(20.00)
 
     def set_power(self, value):
-        if value <= 0:
-            self.power = 0
-        elif value > self.max_power:
-            self.power = self.max_power
-        else:
-            self.power = value
+        self.power = self._max_val(value, self.max_power)
 
     def set_speed(self, value):
-        if value <= 0:
-            self.speed = 0
-        elif value > self.max_speed:
-            self.speed = self.max_speed
+        self.speed = self._max_val(value, self.max_speed)
+
+    def _max_val(self, val, max_val):
+        if val <= 0:
+            return 0
+        elif val > max_val:
+            return max_val
         else:
-            self.speed = value
+            return val
 
     def is_in_sky(self):
         road = self.get_road()

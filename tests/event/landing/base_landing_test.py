@@ -14,6 +14,8 @@ class BaseLandingTest(BaseGameScreenGUITest):
 
     def landing_start_equal(self):
         self.bike.y = self.road.line_points[-1] + 200
+
+        self.road.set_state(State.ON_JUMP_STOP)
         self.road.landing_start()
         self.assertEqual(self.road.state, State.ON_LANDING_START)
 

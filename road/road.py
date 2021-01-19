@@ -3,14 +3,13 @@ from kivy.lang import Builder
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
 from kivy.uix.image import Image
 from kivy.uix.widget import Widget
-from label.status_bar import StatusBar
+
+from level.one.level_one import LevelOne
 from road.events import RoadEvents
 from utils.dir import abstract_path
+from utils.get_object import GetObject
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos
-from utils.validation import ValidObject
-from level.one.level_one import LevelOne
-from utils.get_object import GetObject
 
 Builder.load_file(abstract_path('road/road.kv'))
 
@@ -24,12 +23,10 @@ road_images = {
 
 
 class Road(Widget, RoadEvents):
-    road = ObjectProperty(None)
-    bike = ObjectProperty(None)
     level = ObjectProperty(None)
 
     texture = ObjectProperty(Image(source=road_images['road_5']).texture)
-    total_way = NumericProperty(800000)
+    total_way = NumericProperty(88888888)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(9.0)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -39,18 +36,21 @@ class Road(Widget, RoadEvents):
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
 
-        self.level = LevelOne(self, self.get_bike())
+        self.road = self
+        self.bike = self.get_bike()
+        self.level = LevelOne(self, self.bike)
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
+
+        # todo: auto-define
         self.landing_start()
 
     def get_distance_traveled(self):
-        return self.x + self.get_bike().speed
+        return self.x + self.bike.speed
 
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
-        set_texture_uvpos(self, self.texture.uvpos[0] + self.get_bike().speed/self.texture.size[0], self.texture.uvpos[1])
-        # self.clear_game_objects()
+        set_texture_uvpos(self, self.texture.uvpos[0] + self.bike.speed / self.texture.size[0], self.texture.uvpos[1])
 
     def has_finished(self):
         return self.distance_traveled >= self.total_way
@@ -63,57 +63,22 @@ class Road(Widget, RoadEvents):
             del self.last_states[1]
 
     def unschedule_events(self):
-        # bg_animation = StatusBar.get_background_image_animation()
         background = self.get_background()
         self.jump_stop()
         self.go_stop()
         self.relax_stop()
-        # bg_animation and bg_animation.go_mountains_stop()
         background.go_mountains_stop()
-
-    # def clear_game_objects(self):
-    #     # self.level.remove_start()
-    #     # self.level.remove_rock()
-    #     # self.level.remove_puddles()
-    #     # self.level.remove_lamps()
-    #     print('CLEAR ALL OBJECTS')
 
     # get game objects
 
+    def get_road(self):
+        return self
+
     def get_tools(self):
-        # return ValidObject.tools(self.parent.parent.children[0])
         return GetObject(road=self).tools
 
     def get_bike(self):
-        # TODO: fix test
-        # if not self.bike:
-        #     self.bike = self.parent and ValidObject.bike(self.parent.children[0])
-        # return self.bike
         return GetObject(road=self).bike
 
     def get_background(self):
-        # return self.parent and ValidObject.background(self.parent.children[2])
         return GetObject(road=self).background
-
-    # def get_rocks(self):
-    #     return self.level.rocks()
-    #
-    # def get_puddles(self):
-    #     return self.level.puddles()
-    #
-    # def get_lamps(self):
-    #     return self.level.lamps()
-    #
-    # def get_start(self):
-    #     print('start')
-    #     if not self.level:
-    #         self.level = LevelOne(self, self.get_bike())
-    #     return self.level.start()
-    #
-    # def get_finish(self):
-    #     print('finish')
-    #     return self.level.finish()
-    #
-    def get_road(self):
-        return self or StatusBar.get_road()
-

@@ -37,7 +37,6 @@ class GoDispatcher(BaseDispatcher):
         if State.ON_WAIT_MOVE in self.road.last_states:
             Clock.unschedule(self.road.on_wait)
 
-        print(self.road.events())
         if not self.bike.is_in_sky() and self.road.state in GoDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
             self.road.set_state(State.ON_GO_START)
@@ -72,13 +71,13 @@ class GoDispatcher(BaseDispatcher):
 
         else:
             self.bike.on_collision_puddle()
+
             val = dt * (self.bike.power + self.bike.acceleration)
             self.bike.acceleration = self.bike.power / 100
-
-            if self.bike.speed < self.bike.max_speed:
-                self.bike.speed += val
-
             self.bike.set_power(self.bike.power - val)
+            if self.bike.speed < self.bike.max_speed:
+                self.bike.set_speed(self.bike.speed + val)
+
             self.set_distances()
             self.road.set_state(State.ON_GO_MOVE)
             return True
