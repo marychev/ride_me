@@ -69,7 +69,10 @@ class LeftButtonWidget(ButtonBehavior, Image):
     def _background_manage_events(self, is_press=False, is_release=False):
         print('BTN: _background_manage_events')
         if self.bike.speed <= 0:
-            Clock.unschedule(self.background.relax_mountains)
+            # Clock.unschedule(self.background.relax_mountains)
+            if hasattr(self.background.relax_mountains, 'cancel'):
+                self.background.relax_mountains.cancel()
+
             Clock.schedule_interval(self.background.stop_mountains, SECOND_GAME)
         else:
             raise 0

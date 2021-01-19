@@ -39,15 +39,18 @@ class WaitDispatcher(BaseDispatcher):
         print('wait_stop => ', self.road.state)
         if self.bike.power >= self.bike.max_power or self.road.state in WaitDispatcher.stop_states_list():
             print('+ wait_stop')
-            Clock.unschedule(self.on_wait)
+            #  Clock.unschedule(self.on_wait)
+            if hasattr(self.on_wait, 'cancel'):
+                self.on_wait.cancel()
+
             self.road.set_state(State.ON_WAIT_STOP)
 
     def on_wait(self, dt):
         print('on_wait', 'state: {}'.format(self.road.state), self.road.last_states)
         if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
             print('+ on_wait')
-            self.bike.speed = 0
-            self.bike.power += dt*20
+            self.bike.set_speed(0)
+            self.bike.set_power(self.bike.power + (dt*20))
             self.road.set_state(State.ON_WAIT_MOVE)
             return True
 

@@ -17,12 +17,12 @@ class BaseDispatcher(EventDispatcher):
     def after_init(self, dt):
         print('[after_init--BaseDispatcher--]')
         app = App.get_running_app()
-        root_ids = app and app.root.current_screen.ids
-        if root_ids:
-            if not self.bike and root_ids.get('bike'):
-                self.bike = root_ids['bike']
-            if not self.road and root_ids.get('road'):
-                self.road = root_ids['road']
+        ids = app and app.root.current_screen.ids
+        if ids:
+            if not self.bike and ids['bike']:
+                self.bike = ids['bike']
+            if not self.road and ids['road']:
+                self.road = ids['road']
 
     def set_distances(self):
         self.road.set_distance_traveled()
@@ -34,7 +34,6 @@ class BaseDispatcher(EventDispatcher):
         #     [puddle.set_x() for puddle in self.puddles]
         # if len(self.lamps) > 0:
         #     [lamp.set_x() for lamp in self.lamps]
-        #
         # self.finish and self.finish.set_x()
 
     def road_finish(self):

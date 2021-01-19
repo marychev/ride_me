@@ -8,8 +8,8 @@ from utils.state import State
 class JumpDispatcher(BaseDispatcher):
 
     def __init__(self, **kwargs):
-        super(JumpDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_JUMP)
+        super(JumpDispatcher, self).__init__(**kwargs)
 
     @classmethod
     def bun_events(cls):
@@ -42,7 +42,11 @@ class JumpDispatcher(BaseDispatcher):
     def jump_stop(self):
         print('jump_stop')
         if self.road.state in JumpDispatcher.stop_states_list():
-            Clock.unschedule(self.on_jump)
+
+            # Clock.unschedule(self.on_jump)
+            if hasattr(self.on_jump, 'cancel'):
+                self.on_jump.cancel()
+
             self.road.set_state(State.ON_JUMP_STOP)
 
     def on_jump(self, dt):

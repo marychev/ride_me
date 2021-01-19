@@ -1,7 +1,6 @@
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
-from kivy.uix.image import Image
 from kivy.uix.widget import Widget
 
 from level.one.level_one import LevelOne
@@ -9,29 +8,20 @@ from road.events import RoadEvents
 from utils.dir import abstract_path
 from utils.get_object import GetObject
 from utils.state import State
-from utils.texture import repeat_texture, set_texture_uvpos
+from utils.texture import repeat_texture, set_texture_uvpos, image_texture
 
 Builder.load_file(abstract_path('road/road.kv'))
-
-road_images = {
-    'road_1': abstract_path('road/img/road-01.png'),
-    'road_2': abstract_path('road/img/road-2-1.png'),
-    'road_3': abstract_path('road/img/road-asphalt-0.jpg'),
-    'road_4': abstract_path('road/img/road-asphalt-01.jpg'),
-    'road_5': abstract_path('road/img/road-asphalt-02.jpg')
-}
 
 
 class Road(Widget, RoadEvents):
     level = ObjectProperty(None)
-
-    texture = ObjectProperty(Image(source=road_images['road_5']).texture)
-    total_way = NumericProperty(88888888)
+    texture = ObjectProperty(image_texture('road/img/road-asphalt.jpg'))
+    total_way = NumericProperty(80000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(9.0)
     state = OptionProperty(State.NONE, options=State.list_states())
-    line_points = ListProperty([100, 100, 1000, 100])
     last_states = ListProperty()
+    line_points = ListProperty([100, 100, 1000, 100])
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
@@ -39,6 +29,11 @@ class Road(Widget, RoadEvents):
         self.road = self
         self.bike = self.get_bike()
         self.level = LevelOne(self, self.bike)
+
+        # set level's options, textures, ...
+        if self.level:
+            self.texture = self.level.road_texture
+            # !! self.road.total_way = finish.pos[0]
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
 

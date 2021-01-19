@@ -34,7 +34,11 @@ class StopDispatcher(BaseDispatcher):
     def stop_stop(self):
         print('stop_stop => ', self.road.state,  self.road.state in StopDispatcher.stop_states_list())
         if self.road.state in StopDispatcher.stop_states_list():
-            Clock.unschedule(self.on_stop)
+
+            # Clock.unschedule(self.on_stop)
+            if hasattr(self.on_stop, 'cancel'):
+                self.on_stop.cancel()
+
             self.road.set_state(State.ON_STOP_STOP)
 
             # check road state after loop and apply needed event

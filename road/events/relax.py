@@ -7,8 +7,8 @@ from utils.state import State
 class RelaxDispatcher(BaseDispatcher):
 
     def __init__(self, **kwargs):
-        super(RelaxDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_RELAX)
+        super(RelaxDispatcher, self).__init__(**kwargs)
 
     @classmethod
     def start_states_list(cls):
@@ -31,9 +31,13 @@ class RelaxDispatcher(BaseDispatcher):
             self.bike.anim_relax()
 
     def relax_stop(self):
-        print('relax_stop')
+        print('relax_stop', self.road.state, self.on_relax)
         if self.road.state in RelaxDispatcher.stop_states_list():
+            # todo: fix. bike can't jump up!
             Clock.unschedule(self.on_relax)
+            # if hasattr(self.on_relax, 'cancel'):
+            #     self.on_relax.cancel()
+
             self.road.set_state(State.ON_RELAX_STOP)
 
             background = self.road.get_background()

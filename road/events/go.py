@@ -7,8 +7,8 @@ from utils.state import State
 class GoDispatcher(BaseDispatcher):
 
     def __init__(self, **kwargs):
-        super(GoDispatcher, self).__init__(**kwargs)
         self.register_event_type(State.EVENT_ON_GO)
+        super(GoDispatcher, self).__init__(**kwargs)
 
     @classmethod
     def ban_events(cls):
@@ -35,7 +35,9 @@ class GoDispatcher(BaseDispatcher):
         print('go_start')
         # todo: It was fixed for tests. It was checked by logs
         if State.ON_WAIT_MOVE in self.road.last_states:
-            Clock.unschedule(self.road.on_wait)
+            # Clock.unschedule(self.road.on_wait)
+            if hasattr(self.road.on_wait, 'cancel'):
+                self.road.on_wait.cancel()
 
         if not self.bike.is_in_sky() and self.road.state in GoDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
@@ -45,7 +47,11 @@ class GoDispatcher(BaseDispatcher):
     def go_stop(self):
         print('go_stop')
         if self.road.state in GoDispatcher.stop_states_list():
+            # todo: fix actions: go->relax->go
             Clock.unschedule(self.on_go)
+            # if hasattr(self.on_go, 'cancel'):
+            #     self.on_go.cancel()
+
             self.road.set_state(State.ON_GO_STOP)
 
             background = self.road.get_background()

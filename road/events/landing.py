@@ -7,6 +7,11 @@ from utils.get_object import GetObject
 
 
 class LandingDispatcher(BaseDispatcher):
+
+    def __init__(self, **kwargs):
+        self.register_event_type(State.EVENT_ON_LANDING)
+        super(LandingDispatcher, self).__init__(**kwargs)
+
     @classmethod
     def start_states_list(cls):
         return (State.NONE,
@@ -28,7 +33,10 @@ class LandingDispatcher(BaseDispatcher):
     def landing_stop(self):
         print('landing_stop')
         if self.road.state in LandingDispatcher.stop_states_list():
-            Clock.unschedule(self.on_landing)
+            # Clock.unschedule(self.on_landing)
+            if hasattr(self.on_landing, 'cancel'):
+                self.on_landing.cancel()
+
             self.road.set_state(State.ON_LANDING_STOP)
 
             self.bike.speed -= self.bike.max_speed / 200
