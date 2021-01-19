@@ -8,91 +8,124 @@
 
 
 <GameScreen>:
-    BoxLayout:
-        orientation: 'vertical'
+    Scene:
+        id: scene
 
-        Scene:
-            id: scene
+        Background:
+            id: background
 
-            Background:
-                id: background
+        Road:
+            id: road
+            pos: 0, root.ids.tools.height
+            size: Window.width, 120 # self.height
+            size_hint: None, None
 
-            Road:
-                id: road
-                pos: 0, root.ids.tools.height
-                size: Window.width, 120 # self.height
+            # road line points
+            canvas:
+                Color:
+                    rgb: 0, 0, 0
+                Line:
+                    bezier: self.line_points
+                    width: 1.
+
+        Bike:
+            id: bike
+            pos: 120, root.ids.road.y  + 100
+            size: 120, 120
+            size_hint: None, None
+
+            #canvas:
+            #    Color:
+            #        rgb: .4, 0, 1
+            #    Line:
+            #        bezier: (self.x, self.y, self.x + 400, self.y)
+            #        width: 1.
+            #    Line:
+            #        bezier: (root.ids.bike.x, self.y + root.ids.bike.width/2, self.x + 400, self.y + root.ids.bike.width/2)
+            #        width: 1.
+            #    Line:
+            #        bezier: (root.ids.bike.x, self.y + root.ids.bike.height, self.x + 400, self.y + root.ids.bike.height)
+            #        width: 1.
+
+    Tools:
+        id: tools
+        size_hint: 1, .09
+
+        AnchorLayout:
+            id: left_btn_wrap
+            anchor_x: 'left'
+            anchor_y: 'bottom'
+            LeftButtonWidget:
+                Label:
+                    markup: True
+                    pos: self.parent.pos
+                    text: "[b]      stop:[/b]\n [size=11]{}[/size]".format(root.ids.road.state)
+
+        AnchorLayout:
+            anchor_x: 'center'
+            anchor_y: 'bottom'
+            BoxLayout:
+                Label:
+                    font_size: 20
+                    markup: True
+                    text: root.ids.tools.indicator_power(root.ids.bike.power)
+                Label:
+                    font_size: 20
+                    markup: True
+                    text:
+                        "[sup]Acceleration[/sup]{:3.2f}".format(root.ids.bike.acceleration)
+                Label:
+                    font_size: 20
+                    markup: True
+                    text: root.ids.tools.indicator_speed(root.ids.bike.speed)
+
+
+            Button:
+                text: 'Restart'
+                size_hint: .2, .3
+                on_press: root.manager.current = 'start'
+
+        AnchorLayout:
+            id: right_btn_wrap
+            anchor_x: 'right'
+            anchor_y: 'bottom'
+            RightButtonWidget:
+                Label:
+                    pos: self.parent.pos
+                    text: 'go'
+
+        # devtools
+        FloatLayout:
+            size_hint: None, None
+            size: 1, 1
+            Widget:
+                id: devtools
                 size_hint: None, None
+                size: Window.width / 2, Window.height / 2
+                pos: 1, Window.height/2 - 1
 
-                canvas:
+                canvas.before:
                     Color:
-                        rgb: 0, 1, 1
-                    Line:
-                        bezier: self.line_points
-                        width: 1.
+                        rgba: (0, 0, 0, .9)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 
-            Bike:
-                id: bike
-                pos: 120, root.ids.road.y  + 100
-                size: 120, 120
-                size_hint: None, None
-
-                canvas:
-                    Color:
-                        rgb: .4, 0, 1
-                    Line:
-                        bezier: (self.x, self.y, self.x + 400, self.y)
-                        width: 1.
-                    Line:
-                        bezier: (root.ids.bike.x, self.y + root.ids.bike.width/2, self.x + 400, self.y + root.ids.bike.width/2)
-                        width: 1.
-                    Line:
-                        bezier: (root.ids.bike.x, self.y + root.ids.bike.height, self.x + 400, self.y + root.ids.bike.height)
-                        width: 1.
-
-        Tools:
-            id: tools
-            size_hint: 1, .1
-
-            AnchorLayout:
-                id: left_btn_wrap
-                anchor_x: 'left'
-                anchor_y: 'bottom'
-                LeftButtonWidget:
-                    Label:
-                        markup: True
-                        pos: self.parent.pos
-                        text: "[b]      stop:[/b]\n [size=11]{}[/size]".format(root.ids.road.state)
-
-            AnchorLayout:
-                anchor_x: 'center'
-                anchor_y: 'bottom'
-                BoxLayout:
-                    Label:
-                        font_size: 20
-                        markup: True
-                        text: root.ids.tools.indicator_power(root.ids.bike.power)
-                    Label:
-                        font_size: 20
-                        markup: True
-                        text:
-                            "[sup]Acceleration[/sup]{:3.2f}".format(root.ids.bike.acceleration)
-                    Label:
-                        font_size: 20
-                        markup: True
-                        text: root.ids.tools.indicator_speed(root.ids.bike.speed)
-
+                Label:
+                    text: "Dev Tools:[size=11] {} / {}[/size]".format(self.pos, root.ids.devtools.pos)
+                    markup: True
+                    pos: 50, int(Window.height/1.12)
 
                 Button:
-                    text: 'Restart'
-                    size_hint: .2, .3
-                    on_press: root.manager.current = 'start'
+                    id: btn_show_map
+                    text: "Show map"
+                    pos: 10,  int(Window.height/1.11)
+                    size: 80, 30
+                    font_size: 11
+                    on_press: root.ids.scene.update_map_text()
 
-            AnchorLayout:
-                id: right_btn_wrap
-                anchor_x: 'right'
-                anchor_y: 'bottom'
-                RightButtonWidget:
-
-                    Label:
-                        pos: self.parent.pos
-                        text: 'go'
+                Label:
+                    id: line_map
+                    text: root.ids.scene.map_text()
+                    markup: True
+                    pos: 80, int(Window.height/1.25)

@@ -1,5 +1,5 @@
 from level.base.base_level import BaseLevel
-from level.one.map import MAP
+from level.one.map import MAP, TEST_MAP
 from utils.texture import image_texture
 
 

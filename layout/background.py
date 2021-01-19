@@ -11,6 +11,7 @@ from utils.validation import ValidObject
 class Background(Widget, GoBackgroundDispatcher):
     texture = ObjectProperty(None)
     is_repeat_texture = BooleanProperty(False)
+
     cloud_big_texture = ObjectProperty(None)
     cloud_middle_texture = ObjectProperty(None)
     cloud_min_texture = ObjectProperty(None)

@@ -6,11 +6,11 @@ from objects.puddle.puddle import Puddle
 
 
 MAP = [
-    # Start.to_map((190, 60)),
-    # Lamp.to_map((600, 0)),
-    # Lamp.to_map((1200, 0)),
+    Start.to_map((190, 60)),
+    Lamp.to_map((600, 0)),
+    Lamp.to_map((1200, 0)),
     # # TODO: Not appear! In dev
-    # Lamp.to_map((2000, 0)),
+    Lamp.to_map((2000, 0)),
     Finish.to_map((5000, 80)),
 ]
 

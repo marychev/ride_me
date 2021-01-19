@@ -57,6 +57,13 @@ class ValidObject:
         ValidObject.raise_attr(obj, class_name)
 
     @staticmethod
+    def devtools(obj):
+        # class_name = 'Scene'
+        if obj['id'] == 'devtools':
+            return obj
+        ValidObject.raise_attr(obj, 'devtools')
+
+    @staticmethod
     def background(obj):
         class_name = 'Background'
         if obj.__class__.__name__ == class_name:

@@ -17,18 +17,16 @@
         Color:
             rgb: (1, 1, 1)
         Rectangle:
-            texture: self.texture
-            size: self.width, self.height
-            pos: self.x, self.y + 120
-        Rectangle:
             texture: self.cloud_min_texture
             size: self.width, self.cloud_min_texture.height
-            pos: self.x, self.y + self.height
+            pos: self.x, self.y + self.height - 35
         Rectangle:
             texture: self.cloud_middle_texture
             size: self.width, self.cloud_middle_texture.height
-            pos: 0, self.y + self.height + 20
+            pos: 0, self.y + self.height - 50
+
+    canvas.after:
         Rectangle:
             texture: self.cloud_big_texture
             size: self.width, self.cloud_big_texture.height
-            pos: 0, self.y + self.height - 30
+            pos: 0, self.y + self.height - 100
