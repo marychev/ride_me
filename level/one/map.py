@@ -6,7 +6,7 @@ from objects.puddle.puddle import Puddle
 
 
 MAP = [
-    Start.to_map((0, 60)),
+    Start.to_map((190, 60)),
     Lamp.to_map((600, 0)),
     Lamp.to_map((1200, 0)),
     # # TODO: Not appear! In dev

@@ -98,6 +98,7 @@
         FloatLayout:
             size_hint: None, None
             size: 1, 1
+
             Widget:
                 id: devtools
                 size_hint: None, None
@@ -113,6 +114,15 @@
                     text: "Dev Tools:[size=11] {} / {}[/size]".format(self.pos, root.ids.devtools.pos)
                     markup: True
                     pos: 40, int(Window.height/1.11)
+                Button:
+                    id: btn_show_map
+                    text: "Show map"
+                    pos: 0,  int(Window.height/1.11)
+                    size: 80, 30
+                    font_size: 11
+                    on_press: root.ids.scene.update_map_text()
+
+                # center
                 Slider:
                     id: slider_map
                     min: 0
@@ -125,15 +135,7 @@
                     pos: root.ids.slider_map.pos[0] + self.width, root.ids.slider_map.pos[1] + 10
                     font_size: 9
 
-                Button:
-                    id: btn_show_map
-                    text: "Show map"
-                    pos: 0,  int(Window.height/1.11)
-                    size: 80, 30
-                    font_size: 11
-                    on_press: root.ids.scene.update_map_text()
-
-
+                # right
                 Label:
                     id: line_map
                     text: str(self.center) + root.ids.scene.map_text()
