@@ -11,12 +11,13 @@ class Scene(FloatLayout):
         road = self.parent.ids['road']
         return """[size=9]
         [i]# todo: create < slider to map >[/i] 
-        DT: {}
-        [color=ff3333]{}[/color]
-        {}[/size]""".format(
-            road.distance_traveled,
-            '      |     '.join([e['name'].lower() for e in road.level.map]),
-            '   |   '.join([str(e['pos']) for e in road.level.map])
+        >>> {dt:10.2f} ---> {tw}
+        [color=ff3333]{name}[/color]
+        {pos}[/size]""".format(
+            dt=road.distance_traveled,
+            tw=road.total_way,
+            name='      |     '.join([e['name'].lower() for e in road.level.map]),
+            pos='   |   '.join([str(e['pos']) for e in road.level.map])
         )
 
     def update_map_text(self):

@@ -16,7 +16,7 @@ Builder.load_file(abstract_path('road/road.kv'))
 class Road(Widget, RoadEvents):
     level = ObjectProperty(None)
     texture = ObjectProperty(image_texture('road/img/road-asphalt.jpg'))
-    total_way = NumericProperty(80000)
+    total_way = NumericProperty(20000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(9.0)
     state = OptionProperty(State.NONE, options=State.list_states())
