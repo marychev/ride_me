@@ -16,7 +16,7 @@ Builder.load_file(abstract_path('road/road.kv'))
 class Road(Widget, RoadEvents):
     level = ObjectProperty(None)
     texture = ObjectProperty(image_texture('road/img/road-asphalt.jpg'))
-    total_way = NumericProperty(5000)
+    total_way = NumericProperty(20000)
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(9.0)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -63,6 +63,15 @@ class Road(Widget, RoadEvents):
         self.go_stop()
         self.relax_stop()
         background.go_mountains_stop()
+
+    def passed(self, pos):
+        return int(self.distance_traveled) > (pos[0])
+
+    def visible(self, pos):
+        return int(self.distance_traveled) < int(pos[0]) < int(self.distance_traveled) + int(Window.width)
+
+    def future(self, pos):
+        return int(self.distance_traveled) + int(Window.width) < int(pos[0])
 
     # get game objects
 
