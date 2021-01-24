@@ -1,19 +1,17 @@
-from kivy.lang import Builder
 from kivy.cache import Cache
-from kivy.uix.floatlayout import FloatLayout
-from utils.dir import abstract_path
 from kivy.core.window import Window
-from kivy.uix.image import Image
-Builder.load_file(abstract_path('layout/scene.kv'))
-
+from kivy.uix.floatlayout import FloatLayout
 from objects.start import Start
 from objects.lamp.lamp import Lamp
 from objects.puddle.puddle import Puddle
 
+from utils.dir import abstract_path
+from kivy.lang import Builder
+Builder.load_file(abstract_path('layout/scene.kv'))
+
 
 CACHE_NAME = 'installed'
 Cache.register(CACHE_NAME, limit=10)
-
 Cache.remove(CACHE_NAME)
 
 
@@ -57,21 +55,7 @@ class Scene(FloatLayout):
         for ro in road.children[:]:
             if ro.__class__.__name__ in [Start.__name__, Lamp.__name__, Puddle.__name__] \
                     and Cache.get(CACHE_NAME, ro.sid) and ro.pos[0]+ro.width > 0:
-
                 ro.set_x()
 
-        self.update_devtools_text()
-
-    def update_devtools_text(self):
-        road = self.parent.ids['road']
         devtools = self.parent.ids['devtools']
-        line_map = devtools.ids['line_map']
-        line_map.text = devtools.map_text()
-
-        btn_add = devtools.ids['btn_add_map_elements']
-        btn_add.text = f'Add to Map: {len(road.level.visible_map_elem())}'
-
-        slider_map = devtools.ids['slider_map']
-        slider_map.value = road.distance_traveled
-        slider_map_label = devtools.ids['slider_map_label']
-        slider_map_label.text = f'{int(slider_map.value)} => {int(road.total_way)}'
+        devtools.update_context()

@@ -1,16 +1,14 @@
 from kivy.core.window import Window
-from kivy.lang import Builder
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
 from kivy.uix.widget import Widget
-
 from level.one.level_one import LevelOne
 from road.events import RoadEvents
-from utils.dir import abstract_path
 from utils.get_object import GetObject
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos, image_texture
-from utils.validation import ValidObject
 
+from kivy.lang import Builder
+from utils.dir import abstract_path
 Builder.load_file(abstract_path('road/road.kv'))
 
 
@@ -34,7 +32,7 @@ class Road(Widget, RoadEvents):
         # set level's options, textures, ...
         if self.level:
             self.texture = self.level.road_texture
-            # !! self.road.total_way = finish.pos[0]
+            self.road.total_way = self.level.map[-1]['pos'][0]
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
 

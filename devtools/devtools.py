@@ -35,6 +35,19 @@ class DevTools(Widget):
             for i, e in enumerate(self.road.level.map)]
         return ', '.join([e for e in res])
 
+    def update_context(self):
+        road = self.road
+        line_map = self.ids['line_map']
+        line_map.text = self.map_text()
+
+        btn_add = self.ids['btn_add_map_elements']
+        btn_add.text = f'Add to Map: {len(road.level.visible_map_elem())}'
+
+        slider_map = self.ids['slider_map']
+        slider_map.value = road.distance_traveled
+        slider_map_label = self.ids['slider_map_label']
+        slider_map_label.text = f'{int(slider_map.value)} => {int(road.total_way)}'
+
     # todo:  slider_map
     def slider_map_max(self):
         if not self.road and self.parent:

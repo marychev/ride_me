@@ -25,7 +25,7 @@
         pos: 0,  int(Window.height/1.11)
         size: 80, 30
         font_size: 11
-        on_press: root.scene.update_devtools_text()
+        on_press: root.devtools.update_context()
     Button:
         id: btn_add_map_elements
         text: f"Add to Map: {len(root.road.level.visible_map_elem())}"
