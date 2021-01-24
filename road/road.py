@@ -9,6 +9,7 @@ from utils.dir import abstract_path
 from utils.get_object import GetObject
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos, image_texture
+from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('road/road.kv'))
 
@@ -46,6 +47,9 @@ class Road(Widget, RoadEvents):
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
         set_texture_uvpos(self, self.texture.uvpos[0] + self.bike.speed / self.texture.size[0], self.texture.uvpos[1])
+
+        scene = self.parent
+        scene.add_to_map()
 
     def has_finished(self):
         return self.distance_traveled >= self.total_way
