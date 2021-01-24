@@ -50,7 +50,7 @@ class Road(Widget, RoadEvents):
 
         # todo: dev
         scene = self.parent
-        scene.add_to_map()
+        scene.add_map_elements()
 
     def has_finished(self):
         return self.distance_traveled >= self.total_way

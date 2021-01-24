@@ -35,8 +35,8 @@ class Scene(FloatLayout):
             road.add_widget(widget)
             Cache.append(CACHE_NAME, widget.sid, widget)
 
-    def add_to_map(self):
-        print('ADD TO MAP ELEMENTS')
+    def add_map_elements(self):
+        print('ADD MAP ELEMENTS ONTO ROAD')
         road = self.parent.ids['road']
         map_elems = road.level.visible_map_elem()
         road_elems = road.children[:]
@@ -68,7 +68,7 @@ class Scene(FloatLayout):
         line_map = devtools.ids['line_map']
         line_map.text = devtools.map_text()
 
-        btn_add = devtools.ids['btn_add_to_map']
+        btn_add = devtools.ids['btn_add_map_elements']
         btn_add.text = f'Add to Map: {len(road.level.visible_map_elem())}'
 
         slider_map = devtools.ids['slider_map']
