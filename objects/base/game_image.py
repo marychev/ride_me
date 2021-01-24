@@ -1,16 +1,23 @@
 from kivy.core.window import Window
+from kivy.properties import StringProperty
 from kivy.uix.widget import Widget
 from utils.texture import redraw_texture
 from utils.get_object import GetObject
 
 
 class GameImage(Widget):
+    sid = StringProperty('')
+
+    @classmethod
+    def init_sid(cls, pos):
+        return f'{cls.__name__.lower()}_{pos[0]}_{pos[1]}'
 
     @classmethod
     def create(cls, pos, size=None):
         print('CREATE: {} pos: {}'.format(cls, pos))
         size = size if size else cls.TEXTURE.size
         kwargs = {
+            "sid": cls.init_sid(pos),
             "pos": pos,
             "size": size,
             "size_hint": (None, None)}
@@ -26,7 +33,7 @@ class GameImage(Widget):
 
     def set_x(self):
         road = self.get_road()
-        if road and (self.x > 0) and road and (road.distance_traveled + Window.width) >= self.x:
+        if road and (road.distance_traveled + Window.width) >= self.x and (self.x+self.width/1.4 > 0):
             self.x = self.get_x()
             redraw_texture(self)
 

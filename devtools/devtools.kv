@@ -25,8 +25,9 @@
         pos: 0,  int(Window.height/1.11)
         size: 80, 30
         font_size: 11
-        on_press: root.scene.update_map_text()
+        on_press: root.scene.update_devtools_text()
     Button:
+        id: btn_add_to_map
         text: f"Add to Map: {len(root.road.level.visible_map_elem())}"
         pos: 0,  int(Window.height/1.2)
         size: 80, 30
@@ -37,12 +38,13 @@
     Slider:
         id: slider_map
         min: 0
-        max: root.devtools.slider_map_max()  # root.road.total_way if root.road else 0
-        value: root.road.distance_traveled if root.road else 0
+        max: root.devtools.slider_map_max()
+        value: root.road.distance_traveled
         pos: 200, int(Window.height/1.11)-30
         width: root.devtools.size[0]/3
     Label:
-        text: f"{int(root.ids.slider_map.value)} => {int(root.road.total_way)}" if root.road and root.ids.slider_map else "Slider of map road undefined"
+        id: slider_map_label
+        text: f"{int(root.ids.slider_map.value)} => {int(root.road.total_way)}"   if root.road else "Slider of map road undefined"
         pos: root.ids.slider_map.pos[0] + self.width, root.ids.slider_map.pos[1] + 10
         font_size: 9
 

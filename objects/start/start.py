@@ -7,7 +7,8 @@ from utils.texture import redraw_texture, repeat_texture
 
 
 class Start(GameImage):
-    TEXTURE = Image(source=abstract_path('objects/finish/img/finish.jpg')).texture
+    img = Image(source=abstract_path('objects/finish/img/finish.jpg'))
+    TEXTURE = img.texture
     texture = ObjectProperty(TEXTURE)
 
     def __init__(self, **kwargs):

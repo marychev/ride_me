@@ -6,7 +6,8 @@ from utils.validation import ValidObject
 
 
 class Puddle(GameImage):
-    TEXTURE = Image(source=abstract_path('objects/puddle/img/puddle.png')).texture
+    img = Image(source=abstract_path('objects/puddle/img/puddle.png'))
+    TEXTURE = img.texture
     texture = ObjectProperty(TEXTURE)
 
     @staticmethod

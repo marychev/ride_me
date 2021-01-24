@@ -48,6 +48,7 @@ class Road(Widget, RoadEvents):
         self.distance_traveled += self.get_distance_traveled()
         set_texture_uvpos(self, self.texture.uvpos[0] + self.bike.speed / self.texture.size[0], self.texture.uvpos[1])
 
+        # todo: dev
         scene = self.parent
         scene.add_to_map()
 

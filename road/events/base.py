@@ -26,15 +26,7 @@ class BaseDispatcher(EventDispatcher):
 
     def set_distances(self):
         self.road.set_distance_traveled()
-
         # self.start and self.start.set_x()
-        # if len(self.rocks) > 0:
-        #     [rock.set_x() for rock in self.rocks]
-        # if len(self.puddles) > 0:
-        #     [puddle.set_x() for puddle in self.puddles]
-        # if len(self.lamps) > 0:
-        #     [lamp.set_x() for lamp in self.lamps]
-        # self.finish and self.finish.set_x()
 
     def road_finish(self):
         self.bike.power = 0
