@@ -37,8 +37,6 @@ class MapRoadTest(BaseWaitTest):
         # second position
         road_names = [r.__class__.__name__ for r in self.road.children[:]]
         second_map_names = [t['name'] for t in TESTMAP[2:3]]
-        print([r.__class__.__name__ for r in self.road.children])
-        print(second_map_names)
         self.assertEqual(road_names[-1], second_map_names[0])
 
         # thirty position

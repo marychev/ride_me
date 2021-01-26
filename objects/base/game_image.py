@@ -8,16 +8,19 @@ from utils.get_object import GetObject
 class GameImage(Widget):
     sid = StringProperty('')
 
+    def __str__(self):
+        return self.sid
+
     @classmethod
     def init_sid(cls, pos):
         return f'{cls.__name__.lower()}_{pos[0]}_{pos[1]}'
 
     @classmethod
-    def create(cls, pos, size=None):
+    def create(cls, sid, pos, size=None):
         print('CREATE: {} pos: {}'.format(cls, pos))
         size = size if size else cls.TEXTURE.size
         kwargs = {
-            "sid": cls.init_sid(pos),
+            "sid": sid,
             "pos": pos,
             "size": size,
             "size_hint": (None, None)}

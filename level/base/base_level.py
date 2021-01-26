@@ -18,8 +18,7 @@ class BaseLevel:
         return [me for me in self.road.level.map if self.road.visible(me['pos'])]
 
     def can_remove_widget(self, widget):
-        visible_zone = [w for w in self.road.children if w.__class__.__name__ == 'VisibleZone'][0]
-        return not visible_zone.collide_point(widget.x, visible_zone.y)
+        return widget.pos[0] < 0
 
     def _remove_widget(self, widget):
         self.can_remove_widget(widget) and self.road.remove_widget(widget)

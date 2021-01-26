@@ -10,8 +10,8 @@ Builder.load_file(abstract_path('{}/rock.kv'.format(_dir)))
 
 
 class Rock(GameImage):
-    IMG = Image(source=abstract_path('{}/img/rock-1.png'.format(_dir)))
-    TEXTURE = IMG.texture
+    img = Image(source=abstract_path('{}/img/rock-1.png'.format(_dir)))
+    TEXTURE = img.texture
     texture = ObjectProperty(TEXTURE)
 
     @staticmethod
