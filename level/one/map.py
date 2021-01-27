@@ -1,8 +1,4 @@
-from objects.start.start import Start
-from objects.finish.finish import Finish
-from objects.lamp.lamp import Lamp
-from objects.rock.rock import Rock
-from objects.puddle.puddle import Puddle
+from objects import Start, Finish, Lamp, Puddle, Rock
 
 
 MAP = [
@@ -14,7 +10,7 @@ MAP = [
     Puddle.to_map((2300, 0)),
     Lamp.to_map((3500, 0)),
     Lamp.to_map((4000, 0)),
-    Finish.to_map((5000, 80)),
+    Finish.to_map((5000, 60)),
 ]
 
 

@@ -1,7 +1,6 @@
 from kivy.lang import Builder
-from objects.start.start import Start
+from objects import Start
 from utils.dir import abstract_path
-from utils.texture import redraw_texture
 from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('objects/finish/finish.kv'))

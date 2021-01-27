@@ -10,6 +10,6 @@ class LevelOne(BaseLevel):
     background_texture = image_texture('layout/img/mountains-2.png')
 
     def __init__(self, road, bike):
-        super().__init__(road, bike, TEST_MAP)
+        super().__init__(road, bike, MAP)
 
 

@@ -1,4 +1,4 @@
-from objects.start.start import Start
+from objects import Start
 
 
 class BaseStartLevel:

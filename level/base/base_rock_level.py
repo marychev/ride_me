@@ -1,5 +1,4 @@
-from objects.rock.rock import Rock
-from road.visible_zone import VisibleZone
+from objects import Rock
 
 
 class BaseRockLevel:
@@ -37,7 +36,7 @@ class BaseRockLevel:
         # if (self.bike and self.road) and (road_objects and len(road_objects) < len(map_objects)):
         #     create_rocks = [self.create_rock(obj['pos']) for obj in new_map_objects]
         #     [self.add_rock(w) for w in create_rocks]
-        zone = VisibleZone.current_visible_zone(self.road)
+        # zone = VisibleZone.current_visible_zone(self.road)
         res_map_rocks = self.map_objects('rock')[:]
 
         if self.bike and len(self.road.rocks) <= len(res_map_rocks):

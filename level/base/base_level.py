@@ -1,3 +1,7 @@
+from kivy.cache import Cache
+from layout.scene import CACHE_NAME
+
+
 class BaseLevel:
 
     def __init__(self, road, bike, map_json, **kwargs):
@@ -17,11 +21,10 @@ class BaseLevel:
     def visible_map_elem(self):
         return [me for me in self.road.level.map if self.road.visible(me['pos'])]
 
-    def can_remove_widget(self, widget):
-        return widget.pos[0] < 0
-
     def _remove_widget(self, widget):
-        self.can_remove_widget(widget) and self.road.remove_widget(widget)
+        if widget.x < 0:
+            Cache.remove(CACHE_NAME, widget.sid)
+            self.road.remove_widget(widget)
 
     def remove_widgets(self, road_objects):
         if len(road_objects) > 0 and self.road.distance_traveled > 0:

@@ -1,4 +1,4 @@
-from objects.finish.finish import Finish
+from objects import Finish
 
 
 class BaseFinishLevel:

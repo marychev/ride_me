@@ -1,4 +1,4 @@
-from objects.puddle.puddle import Puddle
+from objects import Puddle
 
 
 class BasePuddleLevel:

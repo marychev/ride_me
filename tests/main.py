@@ -1,4 +1,5 @@
 # It's import all the tests:
+# Tests Events
 from tests.event.landing.test_landing import LandingTest
 from tests.event.landing.test_landing_events_for_go_events_fail import LandingEventAndGoFailTest
 from tests.event.landing.test_landing_events_for_stop_events_fail import LandingEventAndStopFailTest
@@ -57,7 +58,13 @@ from tests.event.relax.test_relax_events_for_stop_events_success import RelaxEve
 from tests.event.relax.test_relax_events_for_wait_events_fail import RelaxEventAndWaitFailTest
 from tests.event.relax.test_relax_events_for_wait_events_success import RelaxEventAndWaitSuccessTest
 
+# Tests Level
+from tests.level.test_map_road import MapRoadTest
+
 from tests.test_runtouchapp import RunTouchAppTest
+
+
+
 
 
 if __name__ == '__main__':
