@@ -56,10 +56,10 @@ class Bike(Image, AnimationBike):
     # collision puddle
 
     def get_collision_puddle(self):
-        # for puddle in self.get_road().puddles:
-        #     if puddle and self.collide_widget(puddle):
-        #         return puddle
-        return None
+        puddles = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == 'Puddle']
+        for puddle in puddles:
+            if puddle and self.collide_widget(puddle):
+                return puddle
 
     def on_collision_puddle(self):
         puddle = self.get_collision_puddle()
@@ -70,7 +70,6 @@ class Bike(Image, AnimationBike):
                 self.acceleration -= self.acceleration / 100
                 self.set_speed(self.speed - (self.max_speed / 1000))
                 self.set_power(self.power - (self.max_power / 1000))
-
             return True
 
         return False
