@@ -39,12 +39,10 @@ class Bike(Image, AnimationBike):
     # collision rock
 
     def get_collision_rock(self):
-        # rocks = self.get_road() and self.get_road().rocks[:]
-        # if rocks and len(rocks):
-        #     for rock in rocks:
-        #         if rock and self.collide_widget(rock):
-        #             return rock
-        return None
+        rocks = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == 'Rock']
+        for rock in rocks:
+            if rock and self.collide_widget(rock):
+                return rock
 
     def on_collision_rock(self):
         rock = self.get_collision_rock()
@@ -70,8 +68,8 @@ class Bike(Image, AnimationBike):
                 self.acceleration -= self.acceleration / 100
                 self.set_speed(self.speed - (self.max_speed / 1000))
                 self.set_power(self.power - (self.max_power / 1000))
-            return True
 
+            return True
         return False
 
     def _collision(self):

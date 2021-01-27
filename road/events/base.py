@@ -26,7 +26,6 @@ class BaseDispatcher(EventDispatcher):
 
     def set_distances(self):
         self.road.set_distance_traveled()
-        # self.start and self.start.set_x()
 
     def road_finish(self):
         self.bike.power = 0
