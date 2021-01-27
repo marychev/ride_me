@@ -35,7 +35,7 @@ class Bike(Image, AnimationBike):
         road = self.get_road()
         return road.line_points[-1] < self.y
 
-    # collisions
+    # Collisions
     # collision rock
 
     def get_collision_rock(self):
