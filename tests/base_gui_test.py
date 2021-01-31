@@ -6,7 +6,7 @@ from kivy.cache import Cache
 
 class BaseGameScreenGUITest(GraphicUnitTest):
     def set_app(self):
-        self.screen = GameScreen()
+        self.screen = GameScreen(name='game')
         self.render(self.screen)
 
         Cache.register(CACHE_NAME, limit=1000)

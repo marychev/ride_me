@@ -32,32 +32,36 @@ class Scene(FloatLayout):
             Cache.append(CACHE_NAME, widget.sid, widget)
 
     def define_and_add_map_elements(self):
-        road = self.parent.ids['road']
-        road_elems = road.children[:]
-        list_classes = [Start.__name__, Lamp.__name__, Puddle.__name__, Rock.__name__, Finish.__name__]
+        if hasattr(self.parent, 'ids'):
+            road = self.parent.ids['road']
+            road_elems = road.children[:]
+            list_classes = [Start.__name__, Lamp.__name__, Puddle.__name__, Rock.__name__, Finish.__name__]
 
-        if len(road_elems) >= 0:
-            map_elems = road.level.visible_map_elem()
-            for me in map_elems:
-                if road.visible(me['pos']):
-                    if me['name'] in [Start.__name__, Finish.__name__]:
-                        self.add_to_road(me, Start, (80, 70))
-                        self.add_to_road(me, Finish, (80, 70))
-                    elif me['name'] == Lamp.__name__:
-                        self.add_to_road(me, Lamp, Lamp.img.texture_size)
-                    elif me['name'] == Puddle.__name__:
-                        self.add_to_road(me, Puddle, Puddle.img.texture_size)
-                    elif me['name'] == Rock.__name__:
-                        self.add_to_road(me, Rock, Rock.img.texture_size)
+            if len(road_elems) >= 0:
+                map_elems = road.level.visible_map_elem()
+                for me in map_elems:
+                    if road.visible(me['pos']):
+                        if me['name'] in [Start.__name__, Finish.__name__]:
+                            self.add_to_road(me, Start, (80, 70))
+                            self.add_to_road(me, Finish, (80, 70))
+                        elif me['name'] == Lamp.__name__:
+                            self.add_to_road(me, Lamp, Lamp.img.texture_size)
+                        elif me['name'] == Puddle.__name__:
+                            self.add_to_road(me, Puddle, Puddle.img.texture_size)
+                        elif me['name'] == Rock.__name__:
+                            self.add_to_road(me, Rock, Rock.img.texture_size)
 
-        # set x for exist elements at road
-        for ro in road.children[:]:
-            if ro.__class__.__name__ in list_classes and Scene.get_cache(ro.sid) and ro.pos[0]+ro.width > 0:
-                ro.set_x()
+            # set x for exist elements at road
+            for ro in road.children[:]:
+                if ro.__class__.__name__ in list_classes and Scene.get_cache(ro.sid) and ro.pos[0]+ro.width > 0:
+                    ro.set_x()
 
-        # clear old game objects
-        road.level.remove_widgets(road_elems)
+            # clear old game objects
+            road.level.remove_widgets(road_elems)
 
-        # # ACTIVATE DEVTOOLS
-        # devtools = self.parent.ids['devtools']
-        # devtools.update_context()
+            # ACTIVATE DEVTOOLS
+            try:
+                devtools = self.parent.ids['devtools']
+                devtools.update_context()
+            except KeyError:
+                pass

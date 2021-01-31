@@ -36,4 +36,8 @@ class GetObject:
         try:
             return self.road.parent and ValidObject.background(self.road.parent.children[2])
         except AttributeError:
+            print('except background AttributeError')
+            return None
+        except IndexError:
+            print('except background IndexError')
             return None

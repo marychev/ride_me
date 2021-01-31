@@ -33,7 +33,8 @@ class Bike(Image, AnimationBike):
 
     def is_in_sky(self):
         road = self.get_road()
-        return road.line_points[-1] < self.y
+        if road:
+            return road.line_points[-1] < self.y
 
     # Collisions
     # collision rock
@@ -81,13 +82,14 @@ class Bike(Image, AnimationBike):
 
     def draw_collision_rectangle(self):
         with self.canvas:
-            Color(rgba=(1, 0, 0, .2))
-            Rectangle(pos=self.pos, size=self.size)
+            Color(rgba=(1, 0, 0, .2), group="background")
+            Rectangle(pos=self.pos, size=self.size, group="background")
 
     # game objects
 
     def get_road(self):
-        return ValidObject.road(self.parent.children[1])
+        if self.parent:
+            return ValidObject.road(self.parent.children[1])
 
     def get_finish(self):
         return ValidObject.finish(self.get_road().children[0])

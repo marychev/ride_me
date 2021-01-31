@@ -27,7 +27,8 @@ class Road(Widget, RoadEvents):
         super(Road, self).__init__(**kwargs)
 
         self.road = self
-        self.bike = self.get_bike()
+        if not self.bike:
+            self.bike = self.get_bike()
         self.level = LevelOne(self, self.bike)
 
         # set level's options, textures, ...

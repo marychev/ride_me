@@ -3,14 +3,14 @@ from objects import Start, Finish, Lamp, Puddle, Rock
 
 MAP = [
     Start.to_map((190, 60)),
-    Lamp.to_map((600, 80)),
+    # Lamp.to_map((600, 80)),
     Lamp.to_map((1200, 80)),
-    Puddle.to_map((1500, 80)),
+    # Puddle.to_map((1500, 80)),
     Rock.to_map((2000, 80)),
     Puddle.to_map((3500, 80)),
-    Lamp.to_map((3000, 80)),
-    Lamp.to_map((4000, 80)),
-    Finish.to_map((8000, 60)),
+    # Lamp.to_map((3800, 80)),
+    # Lamp.to_map((4000, 80)),
+    Finish.to_map((6000, 60)),
 ]
 
 

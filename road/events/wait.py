@@ -33,7 +33,7 @@ class WaitDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
             background = self.road.get_background()
-            background.go_mountains_stop()
+            background and background.go_mountains_stop()
 
     def wait_stop(self):
         print('wait_stop => ', self.road.state)
@@ -46,9 +46,9 @@ class WaitDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_WAIT_STOP)
 
     def on_wait(self, dt):
-        print('on_wait', 'state: {}'.format(self.road.state), self.road.last_states)
+        # print('on_wait', 'state: {}'.format(self.road.state), self.road.last_states)
         if self.bike.speed <= 0 and self.bike.power < self.bike.max_power and not self.bike.is_in_sky():
-            print('+ on_wait')
+            # print('+ on_wait')
             self.bike.set_speed(0)
             self.bike.set_power(self.bike.power + (dt*20))
             self.road.set_state(State.ON_WAIT_MOVE)
