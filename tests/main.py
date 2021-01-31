@@ -61,6 +61,9 @@ from tests.event.relax.test_relax_events_for_wait_events_success import RelaxEve
 # Tests Level
 from tests.level.test_map_road import MapRoadTest
 
+# Tests Screens
+from tests.screen.test_restart_game_screen import RestartGameScreenTest
+
 from tests.test_runtouchapp import RunTouchAppTest
 
 

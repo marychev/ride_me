@@ -50,7 +50,7 @@ class RelaxDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
     def on_relax(self, dt):
-        print('on_relax')
+        #print('on_relax')
         if self.bike.on_collision_rock():
             self.relax_stop()
             return False

@@ -21,9 +21,8 @@ class Scene(FloatLayout):
         road = self.parent.ids['road']
         sid = gowid.init_sid(map_elem['pos'])
 
-        if map_elem['name'] == gowid.__name__ and not Scene.get_cache(sid):
-            # road.clear_widgets()
-            # print('.. .. add to road', map_elem, str(gowid), map_elem['pos'], map_elem['pos'][1] == 0)
+        if map_elem['name'] == gowid.__name__ and not Scene.get_cache(sid) and road.distance_traveled+size[0] < map_elem['pos'][0]:
+            # print('.. .. add to road', map_elem, str(gowid), map_elem['pos'], road.distance_traveled, road.visible(map_elem['pos']))
             x = Window.width if road.distance_traveled > 0 else map_elem['pos'][0]
             y = map_elem['pos'][1] if map_elem['pos'][1] > 0 else road.line_points[-1]
             widget = gowid.create(sid, (x, y), size)
@@ -56,7 +55,6 @@ class Scene(FloatLayout):
                 if ro.__class__.__name__ in list_classes and Scene.get_cache(ro.sid) and ro.pos[0]+ro.width > 0:
                     ro.set_x()
 
-            # clear old game objects
             road.level.remove_widgets(road_elems)
 
             # ACTIVATE DEVTOOLS
