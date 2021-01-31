@@ -7,6 +7,7 @@ from kivy.uix.image import Image
 from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from utils.dir import abstract_path
+from utils.get_object import GetObject
 
 Builder.load_file(abstract_path('button/left_button.kv'))
 
@@ -44,16 +45,20 @@ class LeftButtonWidget(ButtonBehavior, Image):
         if not self.bike and not self.road:
             self.set_objects()
 
-        self.button_state_style()
-        self._road_manage_events(is_press=True)
+        start_timer = GetObject(self.road).start_timer
+        if start_timer.text == '':
+            self.button_state_style()
+            self._road_manage_events(is_press=True)
 
     def on_release(self):
         print('BTN: on_release')
         if not self.bike and not self.road:
             self.set_objects()
 
-        self.button_state_style()
-        self._road_manage_events(is_release=True)
+        start_timer = GetObject(self.road).start_timer
+        if start_timer.text == '':
+            self.button_state_style()
+            self._road_manage_events(is_release=True)
 
     def _road_manage_events(self, is_press=False, is_release=False):
         print('BTN: _road_manage_events')

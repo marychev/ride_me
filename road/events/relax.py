@@ -41,7 +41,7 @@ class RelaxDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_RELAX_STOP)
 
             background = self.road.get_background()
-            background.go_mountains_stop()
+            background and background.go_mountains_stop()
             print('+ relax_stop')
 
             if self.bike.speed <= 0:

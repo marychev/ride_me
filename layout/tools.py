@@ -22,5 +22,6 @@ class Tools(BoxLayout, KeyboardHandler):
 
     def get_bike(self):
         if not self.bike:
-            self.bike = ValidObject.bike(self.parent.children[1].children[0])
+            screen = ValidObject.screen(self.parent)
+            self.bike = ValidObject.bike(screen.ids['bike'])
         return self.bike

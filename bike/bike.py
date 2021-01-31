@@ -89,7 +89,9 @@ class Bike(Image, AnimationBike):
 
     def get_road(self):
         if self.parent:
-            return ValidObject.road(self.parent.children[1])
+            for el in self.parent.children[:]:
+                if el.__class__.__name__ == 'Road':
+                    return ValidObject.road(el)
 
     def get_finish(self):
         return ValidObject.finish(self.get_road().children[0])

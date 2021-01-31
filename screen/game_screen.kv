@@ -7,6 +7,7 @@
 #:import Bike bike.bike.Bike
 # #:import DevTools devtools.devtools.DevTools
 
+#:import time time
 
 <GameScreen>:
     Scene:
@@ -31,9 +32,14 @@
 
         Bike:
             id: bike
-            pos: 120, root.ids.road.y  + 100
+            pos: 120, root.ids.road.y  + 300
             size: 120, 120
             size_hint: None, None
+
+        Label:
+            id: start_timer
+            text: str(root.ids.scene.do_start_timer())
+            font_size: 120
 
     Tools:
         id: tools

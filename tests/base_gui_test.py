@@ -2,6 +2,7 @@ from kivy.tests.common import GraphicUnitTest
 from screen.game_screen import GameScreen
 from layout.scene import CACHE_NAME
 from kivy.cache import Cache
+from utils.get_object import GetObject
 
 
 class BaseGameScreenGUITest(GraphicUnitTest):
@@ -13,6 +14,9 @@ class BaseGameScreenGUITest(GraphicUnitTest):
 
         self.road = self.screen.ids['road']
         self.bike = self.screen.ids['bike']
+
+        start_timer = GetObject(self.road).start_timer
+        start_timer.text = ''
 
         # default value
         self.bike.y = self.road.line_points[-1]

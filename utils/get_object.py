@@ -24,6 +24,11 @@ class GetObject:
                     return ValidObject.bike(o)
 
     @property
+    def scene(self):
+        if hasattr(self.road, 'parent') and self.road.parent:
+            return ValidObject.scene(self.road.parent)
+
+    @property
     def tools(self):
         try:
             tools = self.road.parent and self.road.parent.parent.parent.children[0]
@@ -41,3 +46,8 @@ class GetObject:
         except IndexError:
             print('except background IndexError')
             return None
+
+    @property
+    def start_timer(self):
+        if hasattr(self.road, 'parent') and self.road.parent:
+            return GetObject(self.road).scene.parent.ids['start_timer']
