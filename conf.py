@@ -1,5 +1,5 @@
 import kivy
-kivy.require('2.0.0')
+#kivy.require('2.0.0')
 from kivy.config import Config
 from kivy.utils import platform
 from kivy.core.window import Window
