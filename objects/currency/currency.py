@@ -1,11 +1,9 @@
+from kivy.animation import Animation
+from kivy.graphics import Color, Ellipse
+from kivy.properties import BooleanProperty
 from kivy.properties import ObjectProperty
-from kivy.uix.image import Image
-from objects.base.game_image import GameImage
-from utils.dir import abstract_path
-from utils.validation import ValidObject
 from kivy.uix.label import Label
-from kivy.graphics import Color, Rectangle, Ellipse
-from kivy.properties import ReferenceListProperty, NumericProperty, StringProperty, ListProperty
+from objects.base.game_image import GameImage
 from utils.color import Color as UC
 
 
@@ -14,7 +12,8 @@ class Currency(GameImage):
     TEXTURE = None
     texture = ObjectProperty(TEXTURE)
     label = ObjectProperty(None)
-    units = '[color={}]&bl;r[/color][color={}]m&br;[/color]'.format(UC.GREEN_R, UC.PURPLE)
+    collected = BooleanProperty(False)
+    units = '[color={}]&bl;[b]r[/color][color={}]m[/b]&br;[/color]'.format(UC.GREEN_R, UC.PURPLE)
     color_label = 0, 0, 0, 1
 
     def __init__(self, **kwargs):
@@ -34,6 +33,12 @@ class Currency(GameImage):
             Color(*self.color_label)
             Ellipse(size=self.size, pos=self.pos)
 
-    @staticmethod
-    def widgets_on_road(road):
-        return [ValidObject.puddle(w) for w in road.children if w.__class__.__name__ == 'Currency']
+    def on_collision(self, bike):
+        if bike.collide_widget(self) and not self.collected:
+            bike.collected_currency += 1
+            self.color_label = 1, .6, 0, 1
+            self.collected = True
+            anim = Animation(y=self.y + 1000, duration=.2)
+            anim.start(self)
+            return True
+        return False

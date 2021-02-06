@@ -29,15 +29,10 @@ class StartScreen(Screen):
         bike = screen.ids['bike']
         start_timer = screen.ids['start_timer']
 
-        if not start_timer.text:
-            scene.remove_widget(start_timer)
-            start_timer = Label(markup=True, font_size=120)
-            screen.ids['start_timer'] = start_timer
-            scene.add_widget(start_timer)
-
         bike.speed = 0
         bike.acceleration = 0
-        bike.y = 300
+        bike.collected_currency = 0
+        bike.y = 800
         bike.canvas.remove_group("background")
         bike.anim_landing()
 
@@ -46,6 +41,12 @@ class StartScreen(Screen):
         road.clear_widgets()
         road.distance_traveled = 0
         road.set_distance_traveled()
+
+        if not start_timer.text:
+            scene.remove_widget(start_timer)
+            start_timer = Label(markup=True, font_size=120)
+            screen.ids['start_timer'] = start_timer
+            scene.add_widget(start_timer)
 
         start_timer.font_size = 120
         scene.do_start_timer()

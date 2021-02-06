@@ -24,7 +24,7 @@ class Finish(Start):
             road.level.name,
             road.total_way,
             bike.finish_dt - bike.start_dt,
-            Currency.units, 0)
+            Currency.units, bike.currency)
 
     def get_x(self):
         bike = self.get_bike()

@@ -1,7 +1,6 @@
 from level.base.base_level import BaseLevel
 from level.one.map import MAP, TEST_MAP
 from utils.texture import image_texture
-from kivy.properties import StringProperty
 
 
 class LevelOne(BaseLevel):
@@ -12,6 +11,6 @@ class LevelOne(BaseLevel):
     name = 'I. Asphalt and mountains'
 
     def __init__(self, road, bike):
-        super().__init__(road, bike, MAP)
+        super().__init__(road, bike, TEST_MAP)
 
 

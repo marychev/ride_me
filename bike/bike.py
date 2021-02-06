@@ -1,4 +1,3 @@
-from kivy.graphics import Color, Rectangle
 from kivy.lang import Builder
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
@@ -19,6 +18,9 @@ class Bike(Image, AnimationBike):
 
     start_dt = NumericProperty(0.00)
     finish_dt = NumericProperty(0.00)
+
+    collected_currency = NumericProperty(0)
+    currency = NumericProperty(0)
 
     def set_power(self, value):
         self.power = self._max_val(value, self.max_power)
@@ -47,62 +49,22 @@ class Bike(Image, AnimationBike):
             if w and self.collide_widget(w):
                 return w
 
-    # collision rock
-
     def on_collision_rock(self):
         rock = self.get_collisions('Rock')
-        if rock and self.collide_widget(rock):
-            self._collision()
-            return True
-        return False
-
-    # collision currency
+        return rock and rock.on_collision(self)
 
     def on_collision_currency(self):
         currency = self.get_collisions('Currency')
-        if currency and self.collide_widget(currency):
-            self.anim_collision()
-            from kivy.animation import Animation
-            currency.color_label = 1, .6, 0, 1
-            anim = Animation(y=currency.y+1000, duration=.2)
-            anim.start(currency)
-            return True
-        return False
-
-    # collision puddle
+        return currency and currency.on_collision(self)
 
     def on_collision_puddle(self):
         puddle = self.get_collisions('Puddle')
-        if puddle and self.collide_widget(puddle):
-            self.anim_collision()
+        return puddle and puddle.on_collision(self)
 
-            if self.speed > 0 or self.power > 0:
-                self.acceleration -= self.acceleration / 100
-                self.set_speed(self.speed - (self.max_speed / 1000))
-                self.set_power(self.power - (self.max_power / 1000))
-
-            return True
-        return False
-
-    def _collision(self):
-        self.speed = 0
-        self.power = 0
-        self.acceleration = 0
-        self.draw_collision_rectangle()
-        self.anim_collision()
-
-    def draw_collision_rectangle(self):
-        with self.canvas:
-            Color(rgba=(1, 0, 0, .2), group="background")
-            Rectangle(pos=self.pos, size=self.size, group="background")
-
-    # game objects
+    # Game objects
 
     def get_road(self):
         if self.parent:
             for el in self.parent.children[:]:
                 if el.__class__.__name__ == 'Road':
                     return ValidObject.road(el)
-
-    def get_finish(self):
-        return ValidObject.finish(self.get_road().children[0])
