@@ -3,10 +3,9 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.event import EventDispatcher
 from kivy.properties import ObjectProperty
-from kivy.uix.label import Label
 from objects import Finish
-from utils.get_object import GetObject
 from utils.state import State
+from label.curtain import Curtain
 
 
 class BaseDispatcher(EventDispatcher):
@@ -41,10 +40,6 @@ class BaseDispatcher(EventDispatcher):
         self.road.unschedule_events()
 
         # show finish information
-        screen = GetObject(self.road).screen
-        scene = GetObject(self.road).scene
-        start_timer = Label(markup=True, font_size=20)
-        start_timer.text = Finish.start_timer_text(self.road, self.bike)
-        screen.ids['start_timer'] = start_timer
-        scene.add_widget(start_timer)
-        scene.start_timer_draw_background()
+        curtain = Curtain(road=self.road)
+        curtain.text = Finish.curtain_text(self.road, self.bike)
+        curtain.add_to_game_screen()

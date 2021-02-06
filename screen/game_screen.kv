@@ -5,6 +5,7 @@
 #:import RightButtonWidget button.right_button.RightButtonWidget
 #:import Road road.road.Road
 #:import Bike bike.bike.Bike
+#:import Curtain label.curtain.Curtain
 # #:import DevTools devtools.devtools.DevTools
 
 #:import time time
@@ -36,10 +37,11 @@
             size: 120, 120
             size_hint: None, None
 
-        Label:
-            id: start_timer
-            text: str(root.ids.scene.do_start_timer())
-            font_size: 120
+        Curtain:
+            id: curtain
+            scene: root.ids.scene
+            road: root.ids.road
+            text: str(self.do_start_timer())
 
     Tools:
         id: tools

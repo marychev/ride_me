@@ -53,6 +53,6 @@ class GetObject:
             return None
 
     @property
-    def start_timer(self):
+    def curtain(self):
         if hasattr(self.road, 'parent') and self.road.parent:
-            return GetObject(self.road).scene.parent.ids['start_timer']
+            return GetObject(self.road).scene.parent.ids['curtain']

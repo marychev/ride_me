@@ -18,15 +18,15 @@ class RightButtonWidget(LeftButtonWidget):
             self.bind(on_double_press=kwargs.get('on_double_release'))
 
     def on_touch_down(self, touch):
-        print('on_touch_down')
-        if touch.is_double_tap:
+        if touch.is_double_tap and self.collide_point(*touch.pos):
+            print('on_touch_down')
             self.dispatch('on_double_press', touch)
             return True
         return super().on_touch_down(touch)
 
     def on_touch_up(self, touch):
-        print('on_touch_up')
-        if touch.is_double_tap:
+        if touch.is_double_tap and self.collide_point(*touch.pos):
+            print('on_touch_up')
             self.dispatch('on_double_release', touch)
             return True
         return super().on_touch_up(touch)

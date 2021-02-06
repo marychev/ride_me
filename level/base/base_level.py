@@ -9,8 +9,6 @@ class BaseLevel:
         self.bike = bike
         self.map = map_json
 
-        print('BASE LEVEL::INIT', self)
-
     def exist_to_map(self, name):
         return name.title() in list(set(el.get('name') for el in self.map))
 

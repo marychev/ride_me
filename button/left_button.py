@@ -45,8 +45,8 @@ class LeftButtonWidget(ButtonBehavior, Image):
         if not self.bike and not self.road:
             self.set_objects()
 
-        start_timer = GetObject(self.road).start_timer
-        if start_timer.text == '':
+        curtain = GetObject(self.road).curtain
+        if curtain.text == '':
             self.button_state_style()
             self._road_manage_events(is_press=True)
 
@@ -55,8 +55,8 @@ class LeftButtonWidget(ButtonBehavior, Image):
         if not self.bike and not self.road:
             self.set_objects()
 
-        start_timer = GetObject(self.road).start_timer
-        if start_timer.text == '':
+        curtain = GetObject(self.road).curtain
+        if curtain.text == '':
             self.button_state_style()
             self._road_manage_events(is_release=True)
 

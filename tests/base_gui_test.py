@@ -15,8 +15,8 @@ class BaseGameScreenGUITest(GraphicUnitTest):
         self.road = self.screen.ids['road']
         self.bike = self.screen.ids['bike']
 
-        start_timer = GetObject(self.road).start_timer
-        start_timer.text = ''
+        curtain = GetObject(self.road).curtain
+        curtain.text = ''
 
         # default value
         self.bike.y = self.road.line_points[-1]

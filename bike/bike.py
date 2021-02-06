@@ -38,16 +38,14 @@ class Bike(Image, AnimationBike):
 
     def is_in_sky(self):
         road = self.get_road()
-        if road:
-            return road.line_points[-1] < self.y
+        if road: return road.line_points[-1] < self.y
 
     # Collisions
 
     def get_collisions(self, class_name):
-        child = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == class_name]
-        for w in child:
-            if w and self.collide_widget(w):
-                return w
+        children = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == class_name]
+        for w in children:
+            if w and self.collide_widget(w): return w
 
     def on_collision_rock(self):
         rock = self.get_collisions('Rock')
@@ -66,5 +64,4 @@ class Bike(Image, AnimationBike):
     def get_road(self):
         if self.parent:
             for el in self.parent.children[:]:
-                if el.__class__.__name__ == 'Road':
-                    return ValidObject.road(el)
+                if el.__class__.__name__ == 'Road': return ValidObject.road(el)

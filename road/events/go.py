@@ -34,14 +34,14 @@ class GoDispatcher(BaseDispatcher):
 
     def go_start(self):
         print('go_start')
-        start_timer = GetObject(self.road).start_timer
+        curtain = GetObject(self.road).curtain
 
         # todo: It was fixed for tests. It was checked by logs
         if State.ON_WAIT_MOVE in self.road.last_states:
             if hasattr(self.road.on_wait, 'cancel'):
                 self.road.on_wait.cancel()
 
-        if start_timer.text == '' and not self.bike.is_in_sky() and self.road.state in GoDispatcher.start_states_list():
+        if curtain.text == '' and not self.bike.is_in_sky() and self.road.state in GoDispatcher.start_states_list():
             Clock.schedule_interval(self.on_go, SECOND_GAME)
             self.road.set_state(State.ON_GO_START)
             self.bike.anim_go()
