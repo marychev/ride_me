@@ -8,6 +8,8 @@ class Color:
     YELLOW_GREEN = 'b0f12e'
     GREEN = '0ac10a'
     GREEN_LIGHT = '20e813'
+    GREEN_R = '489c56'
+    PURPLE = 'b15fc5'
 
 
 def switcher_color(min_value, max_value):

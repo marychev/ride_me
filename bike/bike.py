@@ -17,6 +17,9 @@ class Bike(Image, AnimationBike):
     speed = NumericProperty(0.00)
     max_speed = NumericProperty(20.00)
 
+    start_dt = NumericProperty(0.00)
+    finish_dt = NumericProperty(0.00)
+
     def set_power(self, value):
         self.power = self._max_val(value, self.max_power)
 
@@ -37,31 +40,39 @@ class Bike(Image, AnimationBike):
             return road.line_points[-1] < self.y
 
     # Collisions
+
+    def get_collisions(self, class_name):
+        child = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == class_name]
+        for w in child:
+            if w and self.collide_widget(w):
+                return w
+
     # collision rock
 
-    def get_collision_rock(self):
-        rocks = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == 'Rock']
-        for rock in rocks:
-            if rock and self.collide_widget(rock):
-                return rock
-
     def on_collision_rock(self):
-        rock = self.get_collision_rock()
+        rock = self.get_collisions('Rock')
         if rock and self.collide_widget(rock):
             self._collision()
             return True
         return False
 
+    # collision currency
+
+    def on_collision_currency(self):
+        currency = self.get_collisions('Currency')
+        if currency and self.collide_widget(currency):
+            self.anim_collision()
+            from kivy.animation import Animation
+            currency.color_label = 1, .6, 0, 1
+            anim = Animation(y=currency.y+1000, duration=.2)
+            anim.start(currency)
+            return True
+        return False
+
     # collision puddle
 
-    def get_collision_puddle(self):
-        puddles = [ro for ro in self.get_road().children[:] if ro.__class__.__name__ == 'Puddle']
-        for puddle in puddles:
-            if puddle and self.collide_widget(puddle):
-                return puddle
-
     def on_collision_puddle(self):
-        puddle = self.get_collision_puddle()
+        puddle = self.get_collisions('Puddle')
         if puddle and self.collide_widget(puddle):
             self.anim_collision()
 

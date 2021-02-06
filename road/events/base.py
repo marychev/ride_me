@@ -1,8 +1,13 @@
+import time
+
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.event import EventDispatcher
 from kivy.properties import ObjectProperty
+from kivy.uix.label import Label
 
+from objects import Finish
+from utils.get_object import GetObject
 from utils.state import State
 
 
@@ -31,7 +36,18 @@ class BaseDispatcher(EventDispatcher):
         self.bike.power = 0
         self.bike.speed = 0
         self.bike.acceleration = 0
+        self.bike.finish_dt = time.time()
 
         self.road.set_state(State.FINISH)
         self.road.unschedule_events()
 
+        # show finish information
+        screen = GetObject(self.road).screen
+        scene = GetObject(self.road).scene
+
+        start_timer = Label(markup=True, font_size=20)
+        start_timer.text = Finish.start_timer_text(self.road, self.bike)
+        screen.ids['start_timer'] = start_timer
+
+        scene.add_widget(start_timer)
+        scene.start_timer_draw_background()

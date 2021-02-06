@@ -36,7 +36,7 @@ class GoBackgroundDispatcher(BaseDispatcher):
 
         if self.road.has_finished() or (
                 self.road.state in (State.ON_RELAX_STOP, State.ON_WAIT_MOVE, State.ON_WAIT_STOP)
-        ) or self.bike.get_collision_rock():
+        ) or self.bike.get_collisions('Rock'):
             self.go_mountains_stop()
             return False
 

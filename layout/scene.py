@@ -1,11 +1,13 @@
+import time
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.floatlayout import FloatLayout
 from kivy.cache import Cache
-from objects import Start, Finish, Lamp, Puddle, Rock
+from objects import Start, Finish, Lamp, Puddle, Rock, Currency
 from utils.dir import abstract_path
 from kivy.clock import Clock
 from kivy.graphics import Color, Rectangle
+from utils.get_object import GetObject
 
 Builder.load_file(abstract_path('layout/scene.kv'))
 
@@ -40,7 +42,8 @@ class Scene(FloatLayout):
         if hasattr(self.parent, 'ids'):
             road = self.parent.ids['road']
             road_elems = road.children[:]
-            list_classes = [Start.__name__, Lamp.__name__, Puddle.__name__, Rock.__name__, Finish.__name__]
+            list_classes = [Start.__name__, Lamp.__name__, Puddle.__name__, Rock.__name__, Finish.__name__,
+                            Currency.__name__]
 
             if len(road_elems) >= 0:
                 map_elems = road.level.visible_map_elem()
@@ -55,6 +58,8 @@ class Scene(FloatLayout):
                             self.add_to_road(me, Puddle, Puddle.img.texture_size)
                         elif me['name'] == Rock.__name__:
                             self.add_to_road(me, Rock, Rock.img.texture_size)
+                        elif me['name'] == Currency.__name__:
+                            self.add_to_road(me, Currency, (60, 60))
 
             # set x for exist elements at road
             for ro in road.children[:]:
@@ -70,6 +75,7 @@ class Scene(FloatLayout):
             except KeyError:
                 pass
 
+    # start timer game object
     def start_timer(self, dt):
         start_timer = self.parent.ids['start_timer']
 
@@ -82,6 +88,10 @@ class Scene(FloatLayout):
 
             start_timer.text = ''
             self.remove_widget(start_timer)
+
+            bike = GetObject(self.parent.ids['road']).bike
+            bike.start_dt = time.time()
+
             return False
 
         start_timer.stop -= 1

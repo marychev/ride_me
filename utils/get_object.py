@@ -24,6 +24,11 @@ class GetObject:
                     return ValidObject.bike(o)
 
     @property
+    def screen(self):
+        if hasattr(self.road, 'parent') and self.road.parent.parent:
+            return ValidObject.screen(self.road.parent.parent)
+
+    @property
     def scene(self):
         if hasattr(self.road, 'parent') and self.road.parent:
             return ValidObject.scene(self.road.parent)

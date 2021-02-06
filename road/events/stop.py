@@ -67,6 +67,7 @@ class StopDispatcher(BaseDispatcher):
 
         else:
             self.bike.on_collision_puddle()
+            self.bike.on_collision_currency()
 
             self.bike.set_speed(self.bike.speed - stop_way)
             self.set_distances()

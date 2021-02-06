@@ -3,3 +3,4 @@ from objects.finish.finish import Finish
 from objects.lamp.lamp import Lamp
 from objects.puddle.puddle import Puddle
 from objects.rock.rock import Rock
+from objects.currency.currency import Currency

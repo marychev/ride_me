@@ -39,5 +39,5 @@ class State:
             State.EVENT_ON_GO, State.EVENT_ON_STOP, State.EVENT_ON_WAIT)
         return [
             v for v in list(State.__dict__.values())
-            if type(v) == str and v.startswith('on_') and v not in exclude_events
+            if type(v) == str and (v.startswith('on_') or v == State.NONE) and v not in exclude_events
         ]

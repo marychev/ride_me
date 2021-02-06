@@ -57,6 +57,8 @@ class LandingDispatcher(BaseDispatcher):
                 self.bike = GetObject(road=self.road).bike
 
             if self.bike.is_in_sky():
+                self.bike.on_collision_currency()
+
                 self.bike.acceleration = dt * self.road.gravity
                 self.bike.y -= self.bike.acceleration * self.bike.max_power / 4
 

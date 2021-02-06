@@ -79,6 +79,7 @@ class GoDispatcher(BaseDispatcher):
 
         else:
             self.bike.on_collision_puddle()
+            self.bike.on_collision_currency()
 
             val = dt * (self.bike.power + self.bike.acceleration)
             self.bike.acceleration = self.bike.power / 100

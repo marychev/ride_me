@@ -57,6 +57,7 @@ class JumpDispatcher(BaseDispatcher):
         elif int(self.bike.power) > 0 \
                 and self.road.state not in self.bun_events() \
                 and (self.bike.y < self.bike.height * 2.4):
+            self.bike.on_collision_currency()
 
             self.bike.acceleration += (dt * self.road.gravity) / 10
             self.bike.y = self.bike.y + (self.bike.acceleration * self.bike.max_power / 5)

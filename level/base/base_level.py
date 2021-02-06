@@ -4,8 +4,7 @@ from layout.scene import CACHE_NAME
 
 class BaseLevel:
 
-    def __init__(self, road, bike, map_json, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, road, bike, map_json):
         self.road = road
         self.bike = bike
         self.map = map_json
