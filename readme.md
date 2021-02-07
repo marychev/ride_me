@@ -1,5 +1,12 @@
-# RideMe game with using Kivy framework.
+# Ride me
+> **Ride me** is a BMX bike race. 
+> You can improve your bike handling skills, 
+> upgrade the performance of your bike 
+> and set new records on the tracks. Come on!
 
+![alt text](rm-icon.png "Logo Ride_Me")
+
+### RideMe game with using Kivy framework.
 Use packages:
 * Kivy: https://kivy.org/#home
 * Buildozer: https://github.com/kivy/buildozer

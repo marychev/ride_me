@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = Ride ME
+title = Ride me
 
 # (str) Package name
 package.name = rideme
@@ -49,7 +49,7 @@ requirements = python3,kivy
 #icon.filename = %(source.dir)s/data/icon.png
 
 # (str) Supported orientation (one of landscape, sensorLandscape, portrait or all)
-orientation = landscape
+orientation = sensorLandscape
 
 # (list) List of service to declare
 #services = NAME:ENTRYPOINT_TO_PY,NAME2:ENTRYPOINT2_TO_PY
@@ -58,21 +58,20 @@ orientation = landscape
 # OSX Specific
 #
 
-#
-# author = © Copyright Info
+author = © Mikhail Marychev
 
 # change the major version of python used by the app
 osx.python_version = 3
 
 # Kivy version to use
-osx.kivy_version = 1.11.1
+osx.kivy_version = 2.0.0
 
 #
 # Android specific
 #
 
 # (bool) Indicate if the application should be fullscreen or not
-fullscreen = 0
+fullscreen = 1
 
 # (string) Presplash background color (for android toolchain)
 # Supported formats are: #RRGGBB #AARRGGBB or one of the following names:

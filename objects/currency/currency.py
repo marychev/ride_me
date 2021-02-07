@@ -14,7 +14,7 @@ class Currency(GameImage):
     label = ObjectProperty(None)
     collected = BooleanProperty(False)
     units = '[color={}]&bl;[b]r[/color][color={}]m[/b]&br;[/color]'.format(UC.GREEN_R, UC.PURPLE)
-    color_label = 0, 0, 0, 1
+    color_label = .1, .1, .1, 1
 
     def __init__(self, **kwargs):
         super(Currency, self).__init__(**kwargs)

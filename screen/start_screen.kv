@@ -8,17 +8,28 @@
 
         Button:
             text: 'GO'
-            font_size: 80
-            size_hint: .4, .6
+            font_size: 42
+            size_hint: .4, .4
             pos_hint: {'x': .3, 'y': .2}
             on_press: root.manager.current = 'game'
 
         Button:
             text: 'Restart game'
-            font_size: 42
-            size_hint: .4, .6
+            size_hint: .4, .4
             pos_hint: {'x': .3, 'y': .2}
             on_press: root.restart_game()
+
+        Button:
+            text: 'Open Settings'
+            size_hint: .4, .3
+            pos_hint: {'x': .3, 'y': .2}
+            on_press: app.open_settings()
+
+        Button:
+            text: 'Pause'
+            size_hint: .4, .3
+            pos_hint: {'x': .3, 'y': .2}
+            on_press: app.on_pause()
 
         AnchorLayout:
             anchor_x: 'center'
