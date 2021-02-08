@@ -33,7 +33,7 @@ class WaitDispatcher(BaseDispatcher):
             self.bike.anim_wait()
 
             background = self.road.get_background()
-            background and background.go_mountains_stop()
+            background.go_mountains_stop()
 
     def wait_stop(self):
         print('wait_stop => ', self.road.state)

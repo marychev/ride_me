@@ -19,9 +19,7 @@ class GetObject:
         if hasattr(self.road, 'bike') and self.road.bike:
             return self.road.bike
         elif hasattr(self.road, 'parent') and self.road.parent and len(self.road.parent.children) > 0:
-            for o in self.road.parent.children[:]:
-                if o.__class__.__name__ == 'Bike':
-                    return ValidObject.bike(o)
+            return ValidObject.bike(self.get_child(self.road.parent, 'Bike'))
 
     @property
     def screen(self):
@@ -43,16 +41,17 @@ class GetObject:
 
     @property
     def background(self):
-        try:
-            return self.road.parent and ValidObject.background(self.road.parent.children[2])
-        except AttributeError:
-            print('except background AttributeError')
-            return None
-        except IndexError:
-            print('except background IndexError')
-            return None
+        if self.road.parent:
+            return ValidObject.background(self.get_child(self.road.parent, 'Background'))
 
     @property
     def curtain(self):
         if hasattr(self.road, 'parent') and self.road.parent:
             return GetObject(self.road).scene.parent.ids['curtain']
+
+    @staticmethod
+    def get_child(parent, name):
+        for w in parent.children[:]:
+            if w.__class__.__name__ == name.title():
+                return w
+

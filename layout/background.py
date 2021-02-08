@@ -1,7 +1,7 @@
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.window import Window
-from kivy.properties import ObjectProperty, BooleanProperty
+from kivy.properties import ObjectProperty, BooleanProperty, StringProperty
 from kivy.uix.widget import Widget
 from layout.events.go_background import GoBackgroundDispatcher
 from utils.texture import redraw_texture, image_texture, repeat_texture
@@ -9,6 +9,7 @@ from utils.validation import ValidObject
 
 
 class Background(Widget, GoBackgroundDispatcher):
+    sid = StringProperty('background')
     texture = ObjectProperty(None)
     is_repeat_texture = BooleanProperty(False)
 
@@ -19,8 +20,6 @@ class Background(Widget, GoBackgroundDispatcher):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_once(self.after_init)
-
-        self.texture = image_texture('layout/img/default.png')
 
         self.cloud_big_texture = image_texture('layout/img/cloud-big.png')
         self.cloud_middle_texture = image_texture('layout/img/cloud-middle.png')
@@ -36,8 +35,12 @@ class Background(Widget, GoBackgroundDispatcher):
         print('[after_init--BaseDispatcher--2]')
         app = App.get_running_app()
         ids = app and app.root.current_screen.ids
-        if ids and ids['road']:
-            self.texture = ids['road'].level.background_texture
+        ids and self.set_texture(ids['road'])
+
+    def set_texture(self, road):
+        """ self.texture = image_texture('layout/img/default.png') """
+        if not self.texture:
+            self.texture = road.level.background_texture
 
     # clouds textures --
 

@@ -4,6 +4,8 @@ from kivy.uix.image import Image
 from bike.animation import AnimationBike
 from utils.dir import abstract_path
 from utils.validation import ValidObject
+from utils.get_object import GetObject
+
 
 Builder.load_file(abstract_path('bike/bike.kv'))
 
@@ -62,6 +64,4 @@ class Bike(Image, AnimationBike):
     # Game objects
 
     def get_road(self):
-        if self.parent:
-            for el in self.parent.children[:]:
-                if el.__class__.__name__ == 'Road': return ValidObject.road(el)
+        return self.parent and ValidObject.road(GetObject.get_child(self.parent, 'Road'))

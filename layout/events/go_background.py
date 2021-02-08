@@ -24,12 +24,7 @@ class GoBackgroundDispatcher(BaseDispatcher):
     def on_go_mountains(self, dt):
         # print('GoBackgroundMockDispatcher:on_go_mountains => ', self.road and self.road.state)
         if self.road is None and self.parent.__class__.__name__ == 'Scene' and len(self.parent.children) > 0:
-            road = None
-            for el in self.parent.children[:]:
-                if el.__class__.__name__ == 'Road':
-                    road = el
-                    break
-            self.road = ValidObject.road(road)
+            self.road = ValidObject.road(GetObject.get_child(self.parent, 'Road'))
 
         if self.bike is None:
             self.bike = GetObject(road=self.road).bike
