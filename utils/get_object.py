@@ -34,7 +34,7 @@ class GetObject:
     @property
     def tools(self):
         try:
-            tools = self.road.parent and self.road.parent.parent.parent.children[0]
+            tools = self.road.parent and GetObject.get_child(self.road.parent.parent.parent, 'Tools')
             return ValidObject.tools(tools)
         except AttributeError:
             return None
@@ -50,8 +50,8 @@ class GetObject:
             return GetObject(self.road).scene.parent.ids['curtain']
 
     @staticmethod
-    def get_child(parent, name):
+    def get_child(parent, class_name):
         for w in parent.children[:]:
-            if w.__class__.__name__ == name.title():
+            if w.__class__.__name__ == class_name:
                 return w
 

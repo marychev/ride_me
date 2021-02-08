@@ -4,6 +4,9 @@ from kivy.uix.screenmanager import ScreenManager, WipeTransition
 from screen.game_screen import GameScreen
 from screen.start_screen import StartScreen
 from screen.menu_screen import MenuScreen
+from screen.bikes_screen import BikesScreen
+from screen.maps_screen import MapsScreen
+from screen.shop_screen import ShopScreen
 import re
 import cProfile
 
@@ -28,6 +31,9 @@ class RideMeApp(App):
     def build(self):
         self.sm = ScreenManager(transition=WipeTransition())
         self.sm.add_widget(MenuScreen(name='menu'))
+        self.sm.add_widget(BikesScreen(name='bikes'))
+        self.sm.add_widget(MapsScreen(name='maps'))
+        self.sm.add_widget(ShopScreen(name='shop'))
         self.sm.add_widget(GameScreen(name='game'))
         self.sm.add_widget(StartScreen(name='start'))
         return self.sm

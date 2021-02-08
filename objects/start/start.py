@@ -14,7 +14,3 @@ class Start(GameImage):
     def __init__(self, **kwargs):
         super(Start, self).__init__(**kwargs)
         repeat_texture(self.texture, 8, 8)
-
-    @staticmethod
-    def widgets_on_road(road):
-        return [ValidObject.start(w) for w in road.children if w.__class__.__name__ == 'Start']

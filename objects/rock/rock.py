@@ -6,6 +6,7 @@ from kivy.uix.image import Image
 from objects.base.game_image import GameImage
 from utils.dir import abstract_path
 from utils.validation import ValidObject
+from utils.get_object import GetObject
 from label.curtain import Curtain
 
 _dir = 'objects/rock'
@@ -33,7 +34,7 @@ class Rock(GameImage):
         self.draw_collision_rectangle(bike)
 
         # show finish information
-        road = ValidObject.road(bike.parent.children[1])
+        road = ValidObject.road(GetObject.get_child(bike.parent, 'Road'))
         curtain = Curtain(road=road, font_size=20)
         curtain.text = curtain.collision_text_rock()
         curtain.add_to_game_screen()

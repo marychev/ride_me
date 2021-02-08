@@ -1,4 +1,4 @@
-<MenuScreen>:
+<BikesScreen>:
     BoxLayout:
         BoxLayout:
             orientation: 'vertical'
@@ -10,8 +10,7 @@
             Button:
                 size_hint: .8, .6
                 text: "Bike"
-                on_press: app.sm.current = 'bikes'
-
+                disabled: True
             Button:
                 size_hint: .8, .6
                 text: "Maps"
@@ -20,24 +19,22 @@
                 size_hint: .8, .6
                 text: "Shop"
                 on_press: app.sm.current = 'shop'
+
             Label:
                 text: " "
 
             Button:
                 size_hint: .5, 1
                 pos_hint: {'left': 1, 'bottom': 1}
-                text: "Cancel"
-                on_press: app.sm.current = 'game'
+                text: "Menu"
+                on_press: app.sm.current = 'menu'
 
         BoxLayout:
             orientation: 'vertical'
             size_hint: .5, 1
 
             Label:
-                text: "No bike"
-
-            Label:
-                text: "No map"
+                text: "<< SLIDER WITH BIKES >>"
 
         BoxLayout:
             orientation: 'vertical'
@@ -56,6 +53,6 @@
             Button:
                 size_hint: .5, 1
                 pos_hint: {'right': 1, 'bottom': 1}
-                text: "Go"
-                on_press: app.sm.current = 'start'
+                text: "Ok"
+                # on_press: app.sm.current = 'start'
 

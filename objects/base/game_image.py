@@ -47,7 +47,7 @@ class GameImage(Widget):
     # general elements and functions
 
     def get_road(self):
-        _road = self.parent and self.parent.parent.children[1]
+        _road = self.parent and GetObject.get_child(self.parent.parent, 'Road')
         return GetObject(road=_road).road
 
     def get_bike(self):

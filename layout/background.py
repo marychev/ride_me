@@ -6,6 +6,7 @@ from kivy.uix.widget import Widget
 from layout.events.go_background import GoBackgroundDispatcher
 from utils.texture import redraw_texture, image_texture, repeat_texture
 from utils.validation import ValidObject
+from utils.get_object import GetObject
 
 
 class Background(Widget, GoBackgroundDispatcher):
@@ -60,15 +61,8 @@ class Background(Widget, GoBackgroundDispatcher):
     # get game objects --
 
     def get_road(self):
-        return self.parent and ValidObject.road(self.parent.children[1])
+        return self.parent and ValidObject.road(GetObject.get_child(self.parent, 'Road'))
 
     def get_bike(self):
-        return ValidObject.bike(self.parent.children[0])
+        return ValidObject.bike(GetObject.get_child(self.parent, 'Bike'))
 
-    # def get_start(self):
-    #     if len(self.children) > 1:
-    #         return ValidObject.start(self.children[2])
-    #
-    # def get_finish(self):
-    #     if len(self.children) > 1:
-    #         return ValidObject.finish(self.children[0])
