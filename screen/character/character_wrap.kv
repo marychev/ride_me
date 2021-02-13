@@ -1,0 +1,50 @@
+<CharacterWrap>:
+    id: character_wrap
+    orientation: "vertical"
+    title: self.title
+
+    BoxLayout:
+        id: power_lb
+        character_wrap: self.parent.parent
+        Button:
+            height: 40
+            width: 40
+            size_hint: None, None
+            text: "|"
+        Label:
+            text: str(character_wrap.title)
+        Button:
+            height: 40
+            width: 40
+            size_hint: None, None
+            text: "+"
+
+    FloatLayout:
+        id: progress_wrap
+        orientation: "vertical"
+        progress_wrap: root.ids.progress_wrap
+
+        ProgressBar:
+            # size_hint: 1, None
+            # width: progress_wrap.width
+            x: root.pos[0]
+            y: root.pos[1] + 50
+            min: 0
+            value: 80
+            max: 100
+
+    FloatLayout:
+        progress_wrap: root.ids.progress_wrap
+
+        Label:
+            pos: progress_wrap.x - 40, progress_wrap.y-40
+            size_hint: None, None
+            text: "0"
+        Label:
+            text: "80"
+            pos: progress_wrap.x + 160, progress_wrap.y-40
+            size_hint: None, None
+        Label:
+            text: "100"
+            pos: progress_wrap.x + 200, progress_wrap.y-40
+            size_hint: None, None

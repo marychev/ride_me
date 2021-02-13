@@ -1,5 +1,9 @@
+#:import Window kivy.core.window.Window
+#:import CharacterWrap screen.character.character_wrap.CharacterWrap
+
 <BikesScreen>:
     BoxLayout:
+        # the left panel
         BoxLayout:
             orientation: 'vertical'
             size_hint: .25, 1
@@ -29,27 +33,47 @@
                 text: "Menu"
                 on_press: app.sm.current = 'menu'
 
+        # the center panel
         BoxLayout:
             orientation: 'vertical'
             size_hint: .5, 1
 
             Label:
-                text: "<< SLIDER WITH BIKES >>"
+                size_hint: 1, .2
+                text: "BIKES"
 
+            Carousel:
+                direction: 'right'
+                AsyncImage:
+                    source: './bike/img/bike-landing.png'
+                    Label:
+                        text: "Description\nSolar tlar the bike onto with others lar the bike onto with others he bike onto with others words thi road/"
+                        halign: 'left'
+                        valign: 'top'
+
+                AsyncImage:
+                    source: './bike/img/bike-1.png'
+                    Label:
+                        text: "Description\nSolar the bike onto with others lar the bike onto with others lar the bike onto with others words thi road/"
+                        halign: 'left'
+                        valign: 'top'
+
+        # the right panel
         BoxLayout:
-            orientation: 'vertical'
+            orientation: "vertical"
             size_hint: .25, 1
 
             Label:
-                text: " "
-            Label:
-                text: "...."
-            Label:
-                text: "...."
-            Label:
-                text: "...."
-            Label:
-                text: " "
+                text: "[rm]: 0248"
+            CharacterWrap:
+                title: "Power:"
+            CharacterWrap:
+                title: "Speed:"
+            CharacterWrap:
+                title: "Acceleration:"
+            CharacterWrap:
+                title: "Agility:"
+
             Button:
                 size_hint: .5, 1
                 pos_hint: {'right': 1, 'bottom': 1}
