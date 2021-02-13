@@ -1,22 +1,23 @@
+<CharBtn@Button>:
+    height: 40
+    width: 40
+    size_hint: None, None
+    disabled: True
+    opacity: 0.2
+
+
 <CharacterWrap>:
     id: character_wrap
     orientation: "vertical"
     title: self.title
 
     BoxLayout:
-        id: power_lb
         character_wrap: self.parent.parent
-        Button:
-            height: 40
-            width: 40
-            size_hint: None, None
+        CharBtn:
             text: "|"
         Label:
             text: str(character_wrap.title)
-        Button:
-            height: 40
-            width: 40
-            size_hint: None, None
+        CharBtn:
             text: "+"
 
     FloatLayout:
@@ -25,10 +26,7 @@
         progress_wrap: root.ids.progress_wrap
 
         ProgressBar:
-            # size_hint: 1, None
-            # width: progress_wrap.width
-            x: root.pos[0]
-            y: root.pos[1] + 50
+            pos: root.pos[0], root.pos[1] + 50
             min: 0
             value: 80
             max: 100

@@ -1,5 +1,11 @@
 #:import Window kivy.core.window.Window
-#:import CharacterWrap screen.character.character_wrap.CharacterWrap
+#:import CharacterWrap screen.ui.character_wrap.CharacterWrap
+#:import MenuCarousel screen.ui.menu_carousel.MenuCarousel
+
+
+<MenuButton@Button>:
+    size_hint: .8, .6
+
 
 <BikesScreen>:
     BoxLayout:
@@ -11,16 +17,13 @@
 
             Label:
                 text: " "
-            Button:
-                size_hint: .8, .6
+            MenuButton:
                 text: "Bike"
                 disabled: True
-            Button:
-                size_hint: .8, .6
+            MenuButton:
                 text: "Maps"
                 on_press: app.sm.current = 'maps'
-            Button:
-                size_hint: .8, .6
+            MenuButton:
                 text: "Shop"
                 on_press: app.sm.current = 'shop'
 
@@ -39,24 +42,13 @@
             size_hint: .5, 1
 
             Label:
-                size_hint: 1, .2
+                id: title
+                size_hint: 1, .1
                 text: "BIKES"
 
-            Carousel:
-                direction: 'right'
-                AsyncImage:
-                    source: './bike/img/bike-landing.png'
-                    Label:
-                        text: "Description\nSolar tlar the bike onto with others lar the bike onto with others he bike onto with others words thi road/"
-                        halign: 'left'
-                        valign: 'top'
+            FloatLayout:
+                MenuCarousel
 
-                AsyncImage:
-                    source: './bike/img/bike-1.png'
-                    Label:
-                        text: "Description\nSolar the bike onto with others lar the bike onto with others lar the bike onto with others words thi road/"
-                        halign: 'left'
-                        valign: 'top'
 
         # the right panel
         BoxLayout:
