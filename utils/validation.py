@@ -2,87 +2,64 @@ class ValidObject:
 
     @staticmethod
     def road(obj):
-        class_name = 'Road'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Road')
 
     @staticmethod
     def rock(obj):
-        class_name = 'Rock'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Rock')
 
     @staticmethod
     def puddle(obj):
-        class_name = 'Puddle'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Puddle')
 
     @staticmethod
     def lamp(obj):
-        class_name = 'Lamp'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Lamp')
 
     @staticmethod
     def start(obj):
-        class_name = 'Start'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Start')
 
     @staticmethod
     def finish(obj):
-        class_name = 'Finish'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Finish')
 
     @staticmethod
     def bike(obj):
-        class_name = 'Bike'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Bike')
 
     @staticmethod
     def tools(obj):
-        class_name = 'Tools'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Tools')
 
     @staticmethod
     def devtools(obj):
-        # class_name = 'Scene'
         if obj['id'] == 'devtools':
             return obj
         ValidObject.raise_attr(obj, 'devtools')
 
     @staticmethod
     def background(obj):
-        class_name = 'Background'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
-
-    @staticmethod
-    def screen(obj):
-        class_name = 'GameScreen'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Background')
 
     @staticmethod
     def scene(obj):
-        class_name = 'Scene'
-        if obj.__class__.__name__ == class_name:
-            return obj
-        ValidObject.raise_attr(obj, class_name)
+        return ValidObject._valid(obj, 'Scene')
+
+    @staticmethod
+    def screen(obj):
+        return ValidObject._valid(obj, 'GameScreen')
+
+    @staticmethod
+    def bikes_screen(obj):
+        return ValidObject._valid(obj, 'BikesScreen')
+
+    @staticmethod
+    def _valid(widget, class_name):
+        if widget.__class__.__name__ == class_name:
+            return widget
+        else:
+            ValidObject.raise_attr(widget, class_name)
 
     @staticmethod
     def raise_attr(obj, expected_name):

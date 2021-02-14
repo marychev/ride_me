@@ -1,6 +1,7 @@
 #:import Window kivy.core.window.Window
 #:import CharacterWrap screen.ui.character_wrap.CharacterWrap
 #:import MenuCarousel screen.ui.menu_carousel.MenuCarousel
+#:import BIKES bike.bikes.BIKES
 
 
 <MenuButton@Button>:
@@ -9,6 +10,7 @@
 
 <BikesScreen>:
     BoxLayout:
+
         # the left panel
         BoxLayout:
             orientation: 'vertical'
@@ -38,17 +40,17 @@
 
         # the center panel
         BoxLayout:
+            id: center_block
             orientation: 'vertical'
             size_hint: .5, 1
 
-            Label:
-                id: title
-                size_hint: 1, .1
-                text: "BIKES"
-
             FloatLayout:
-                MenuCarousel
-
+                Label:
+                    id: title
+                    font_size: 36
+                    pos: self.parent.x, self.parent.y + 280
+                    text: BIKES[0]['title']
+                MenuCarousel:
 
         # the right panel
         BoxLayout:
