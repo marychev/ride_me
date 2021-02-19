@@ -1,3 +1,12 @@
+#:import BorderImage kivy.graphics.vertex_instructions.BorderImage
+#:import Line kivy.graphics.vertex_instructions.Line
+#:import Rectangle kivy.graphics.vertex_instructions.Rectangle
+#:import Currency objects.currency.currency.Currency
+
+<MenuButton@Button>:
+    size_hint: .8, .6
+
+
 <CharBtn@Button>:
     height: 40
     width: 40
@@ -7,23 +16,20 @@
 
 
 <CharacterWrap>:
-    id: character_wrap
     orientation: "vertical"
     title: self.title
 
     BoxLayout:
-        character_wrap: self.parent.parent
         CharBtn:
             text: "|"
         Label:
-            text: str(character_wrap.title)
+            text: str(root.title)
         CharBtn:
             text: "+"
 
     FloatLayout:
-        id: progress_wrap
         orientation: "vertical"
-        progress_wrap: root.ids.progress_wrap
+        progress_wrap: self
 
         ProgressBar:
             pos: root.pos[0], root.pos[1] + 50
@@ -31,18 +37,23 @@
             value: 80
             max: 100
 
-    FloatLayout:
-        progress_wrap: root.ids.progress_wrap
+            canvas:
+                Color:
+                    rgba: 0, 0, 0, .9
+                Line:
+                    points: self.x, self.y+19, self.x + self.parent.width, self.y+19
+                    width: 3
 
+    FloatLayout:
         Label:
-            pos: progress_wrap.x - 40, progress_wrap.y-40
+            pos: self.parent.parent.x - 40, self.parent.parent.y  # other a state -40
             size_hint: None, None
             text: "0"
         Label:
-            text: "80"
-            pos: progress_wrap.x + 160, progress_wrap.y-40
+            text: "0"
+            pos: self.parent.parent.x + 160, self.parent.parent.y
             size_hint: None, None
         Label:
-            text: "100"
-            pos: progress_wrap.x + 200, progress_wrap.y-40
+            text: "0"
+            pos: self.parent.parent.x + 200, self.parent.parent.y
             size_hint: None, None

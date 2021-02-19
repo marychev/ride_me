@@ -1,45 +1,23 @@
+#:import CharacterWrap screen.ui.character_wrap.CharacterWrap
+
+
 <ShopScreen>:
     BoxLayout:
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-            spacing: 4
-
-            Label:
-                text: " "
-            Button:
-                size_hint: .8, .6
-                text: "Bike"
-                on_press: app.sm.current = 'bikes'
-            Button:
-                size_hint: .8, .6
-                text: "Maps"
-                on_press: app.sm.current = 'maps'
-            Button:
-                size_hint: .8, .6
-                text: "Shop"
+        LeftPanel:
+            LeftPanelMenuBikes:
+            LeftPanelMenuMaps
+            LeftPanelMenuShop
                 disabled: True
-
             Label:
                 text: " "
+            LeftPanelBtn:
 
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'left': 1, 'bottom': 1}
-                text: "Menu"
-                on_press: app.sm.current = 'menu'
-
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .5, 1
-
-            Label:
-                text: "Shop, shop, shop, shop, shop, shop, shop ...."
-
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-
+        CenterPanel:
+            FloatLayout:
+                CenterPanelTitle:
+                    id: title
+                    text: "Show closed"
+        RightPanel:
             Label:
                 text: " "
             Label:
@@ -50,9 +28,4 @@
                 text: "...."
             Label:
                 text: " "
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'right': 1, 'bottom': 1}
-                text: "Ok"
-                # on_press: app.sm.current = 'start'
-
+            RightPanelBtn

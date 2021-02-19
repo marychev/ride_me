@@ -55,6 +55,10 @@ class ValidObject:
         return ValidObject._valid(obj, 'BikesScreen')
 
     @staticmethod
+    def maps_screen(obj):
+        return ValidObject._valid(obj, 'MapsScreen')
+
+    @staticmethod
     def _valid(widget, class_name):
         if widget.__class__.__name__ == class_name:
             return widget

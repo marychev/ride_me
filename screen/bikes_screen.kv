@@ -1,76 +1,37 @@
-#:import Window kivy.core.window.Window
 #:import CharacterWrap screen.ui.character_wrap.CharacterWrap
-#:import MenuCarousel screen.ui.menu_carousel.MenuCarousel
+#:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
 #:import BIKES bike.bikes.BIKES
-
-
-<MenuButton@Button>:
-    size_hint: .8, .6
 
 
 <BikesScreen>:
     BoxLayout:
-
-        # the left panel
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-            spacing: 4
-
-            Label:
-                text: " "
-            MenuButton:
-                text: "Bike"
+        LeftPanel:
+            LeftPanelMenuBikes:
                 disabled: True
-            MenuButton:
-                text: "Maps"
-                on_press: app.sm.current = 'maps'
-            MenuButton:
-                text: "Shop"
-                on_press: app.sm.current = 'shop'
-
+            LeftPanelMenuMaps
+            LeftPanelMenuShop
             Label:
                 text: " "
-
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'left': 1, 'bottom': 1}
-                text: "Menu"
-                on_press: app.sm.current = 'menu'
-
-        # the center panel
-        BoxLayout:
-            id: center_block
-            orientation: 'vertical'
-            size_hint: .5, 1
-
+            LeftPanelBtn:
+        CenterPanel:
             FloatLayout:
-                Label:
+                CenterPanelTitle:
                     id: title
-                    font_size: 36
-                    pos: self.parent.x, self.parent.y + 280
                     text: BIKES[0]['title']
-                MenuCarousel:
-
-        # the right panel
-        BoxLayout:
-            orientation: "vertical"
-            size_hint: .25, 1
-
-            Label:
-                text: "[rm]: 0248"
+                BikeMenuCarousel:
+        RightPanel:
+            RightPanelTitle
             CharacterWrap:
+                id: character_wrap_power
                 title: "Power:"
             CharacterWrap:
+                id: character_wrap_speed
                 title: "Speed:"
             CharacterWrap:
+                id: character_wrap_acceleration
                 title: "Acceleration:"
             CharacterWrap:
+                id: character_wrap_agility
                 title: "Agility:"
-
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'right': 1, 'bottom': 1}
-                text: "Ok"
-                # on_press: app.sm.current = 'start'
+            RightPanelBtn
 

@@ -1,57 +1,35 @@
+#:import CharacterWrap screen.ui.character_wrap.CharacterWrap
+#:import MapMenuCarousel screen.ui.menu_carousel.MapMenuCarousel
+#:import MAPS level.maps.MAPS
+
+
 <MapsScreen>:
     BoxLayout:
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-            spacing: 4
-
-            Label:
-                text: " "
-            Button:
-                size_hint: .8, .6
-                text: "Bike"
-                on_press: app.sm.current = 'bikes'
-            Button:
-                size_hint: .8, .6
-                text: "Maps"
+        LeftPanel:
+            LeftPanelMenuBikes:
+            LeftPanelMenuMaps
                 disabled: True
-            Button:
-                size_hint: .8, .6
-                text: "Shop"
-                on_press: app.sm.current = 'shop'
+            LeftPanelMenuShop
             Label:
                 text: " "
+            LeftPanelBtn:
+        CenterPanel:
+            FloatLayout:
+                CenterPanelTitle:
+                    id: title
+                    text: MAPS[0]['title']
+                MapMenuCarousel:
 
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'left': 1, 'bottom': 1}
-                text: "Menu"
-                on_press: app.sm.current = 'menu'
-
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .5, 1
-
-            Label:
-                text: "<< THE List Of the MAPS >>"
-
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-
-            Label:
-                text: " "
-            Label:
-                text: "...."
+        RightPanel:
+            RightPanelTitle
+            CharacterWrap:
+                id: character_wrap_record
+                title: "Record: {}".format(0.00)
             Label:
                 text: "...."
             Label:
                 text: "...."
             Label:
                 text: " "
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'right': 1, 'bottom': 1}
-                text: "Ok"
-                # on_press: app.sm.current = 'start'
+            RightPanelBtn
 

@@ -6,8 +6,9 @@ from utils.texture import image_texture
 class LevelOne(BaseLevel):
     """ Straight track """
 
+    BACKGROUND_TEXTURE = 'layout/img/mountains-2.png'
     road_texture = image_texture('road/img/road-l1.jpg')
-    background_texture = image_texture('layout/img/mountains-2.png')
+    background_texture = image_texture(BACKGROUND_TEXTURE)
     name = 'I. Asphalt and mountains'
 
     def __init__(self, road, bike):

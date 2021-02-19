@@ -1,0 +1,64 @@
+# Center panel
+
+<CenterPanel@BoxLayout>:
+    id: center_block
+    orientation: 'vertical'
+    size_hint: .5, 1
+
+
+<CenterPanelTitle@Label>:
+    id: title
+    font_size: 36
+    pos: self.parent.x, self.parent.y + 280
+
+
+# Right panel
+
+<RightPanel@BoxLayout>:
+    id: right_block
+    orientation: "vertical"
+    size_hint: .25, 1
+
+
+<RightPanelTitle@Label>:
+    text: "{}: 0248".format(Currency.units)
+    markup: True
+
+
+<RightPanelBtn@Button>:
+    size_hint: .5, 1
+    pos_hint: {'right': 1, 'bottom': 1}
+    text: "Ok"
+    # on_press: app.sm.current = 'start'
+
+
+# LeftPanel
+
+<LeftPanelMenuBikes@MenuButton>:
+    text: "Bikes"
+    on_press: app.sm.current = 'bikes'
+
+
+<LeftPanelMenuMaps@MenuButton>:
+    text: "Maps"
+    on_press: app.sm.current = 'maps'
+
+
+<LeftPanelMenuShop@MenuButton>:
+    text: "Shop"
+    on_press: app.sm.current = 'shop'
+
+
+<LeftPanel@BoxLayout>:
+    id: center_panel
+    orientation: 'vertical'
+    size_hint: .25, 1
+    spacing: 4
+    Label:
+        text: " "
+
+<LeftPanelBtn@Button>:
+    size_hint: .5, 1
+    pos_hint: {'left': 1, 'bottom': 1}
+    text: "Menu"
+    on_press: app.sm.current = 'menu'
