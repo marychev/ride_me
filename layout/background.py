@@ -36,7 +36,7 @@ class Background(Widget, GoBackgroundDispatcher):
         print('[after_init--BaseDispatcher--2]')
         app = App.get_running_app()
         ids = app and app.root.current_screen.ids
-        ids and self.set_texture(ids['road'])
+        ids and hasattr(ids, 'road') and self.set_texture(ids['road'])
 
     def set_texture(self, road):
         """ self.texture = image_texture('layout/img/default.png') """

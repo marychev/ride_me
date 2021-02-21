@@ -21,7 +21,7 @@ class BaseDispatcher(EventDispatcher):
         app = App.get_running_app()
         ids = app and app.root.current_screen.ids
         if ids:
-            if not self.bike and ids['bike']:
+            if not self.bike and hasattr(ids, 'bike') and ids['bike']:
                 self.bike = ids['bike']
             if not self.road and ids['road']:
                 self.road = ids['road']

@@ -1,4 +1,5 @@
 #:import CharacterWrap screen.ui.character_wrap.CharacterWrap
+#:import LeftPanelMenuBikes screen.ui.panel.LeftPanelMenuBikes
 #:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
 #:import BIKES bike.bikes.BIKES
 
@@ -12,7 +13,11 @@
             LeftPanelMenuShop
             Label:
                 text: " "
+
             LeftPanelBtn:
+                disabled: False
+                on_press: app.sm.current = 'menu'
+
         CenterPanel:
             FloatLayout:
                 CenterPanelTitle:
@@ -33,5 +38,5 @@
             CharacterWrap:
                 id: character_wrap_agility
                 title: "Agility:"
-            RightPanelBtn
-
+            RightPanelBtn:
+                disabled: False

@@ -1,50 +1,29 @@
+#:import CharacterWrap screen.ui.character_wrap.CharacterWrap
+#:import LeftPanelMenuBikes screen.ui.panel.LeftPanelMenuBikes
+#:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
+
+
 <MenuScreen>:
     BoxLayout:
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-            spacing: 4
-
-            Label:
-                text: " "
-            Button:
-                size_hint: .8, .6
-                text: "Bike"
-                on_press: app.sm.current = 'bikes'
-
-            Button:
-                size_hint: .8, .6
-                text: "Maps"
-                on_press: app.sm.current = 'maps'
-            Button:
-                size_hint: .8, .6
-                text: "Shop"
-                on_press: app.sm.current = 'shop'
+        LeftPanel:
+            LeftPanelMenuBikes:
+            LeftPanelMenuMaps
+            LeftPanelMenuShop
             Label:
                 text: " "
 
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'left': 1, 'bottom': 1}
-                text: "Cancel"
-                on_press: app.sm.current = 'game'
+            LeftPanelBtn:
+                disabled: False
+                on_press: app.sm.current = 'start'
 
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .5, 1
-
+        CenterPanel:
             Label:
                 text: "No bike"
-
             Label:
                 text: "No map"
 
-        BoxLayout:
-            orientation: 'vertical'
-            size_hint: .25, 1
-
-            Label:
-                text: " "
+        RightPanel:
+            RightPanelTitle
             Label:
                 text: "...."
             Label:
@@ -53,9 +32,5 @@
                 text: "...."
             Label:
                 text: " "
-            Button:
-                size_hint: .5, 1
-                pos_hint: {'right': 1, 'bottom': 1}
-                text: "Go"
-                on_press: app.sm.current = 'start'
+            RightPanelBtn
 
