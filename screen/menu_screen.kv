@@ -1,14 +1,16 @@
 #:import CharacterWrap screen.ui.character_wrap.CharacterWrap
-#:import LeftPanelMenuBikes screen.ui.panel.LeftPanelMenuBikes
 #:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
+#:import LeftPanelMenuBikes screen.ui.panel_button.LeftPanelMenuBikes
+#:import RightPanelBtn screen.ui.bottom_button.RightPanelBtn
 
 
 <MenuScreen>:
     BoxLayout:
         LeftPanel:
             LeftPanelMenuBikes:
-            LeftPanelMenuMaps
-            LeftPanelMenuShop
+                id: left_panel_menu_bikes
+            LeftPanelMenuMaps:
+            LeftPanelMenuShop:
             Label:
                 text: " "
 
@@ -17,13 +19,16 @@
                 on_press: app.sm.current = 'start'
 
         CenterPanel:
+            id: center_panel
             Label:
                 text: "No bike"
             Label:
                 text: "No map"
 
         RightPanel:
-            RightPanelTitle
+            RightPanelTitle:
+                id: panel_rm
+
             Label:
                 text: "...."
             Label:
@@ -32,5 +37,7 @@
                 text: "...."
             Label:
                 text: " "
-            RightPanelBtn
+            RightPanelBtn:
+                disabled: app.config.get('bike', 'name') == 'None'
+
 

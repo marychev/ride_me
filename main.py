@@ -38,8 +38,48 @@ class RideMeApp(App):
         self.sm.add_widget(StartScreen(name='start'))
         return self.sm
 
+    def build_config(self, config):
+        config.setdefaults('bike', {
+            'rm': '1000',
+            'name': 'None',
+            'power': '0',
+            'speed': '0',
+            'acceleration': '0',
+            'agility': '0'
+        })
+
     def build_settings(self, settings):
-        jsondata = '''[{ "type": "title", "title": "Ride me settings" }]'''
+        jsondata = '''
+        [
+            { "type": "numeric",
+              "title": "rm",
+              "section": "bike",
+              "key": "rm" },
+            { "type": "title", 
+              "title": "Bike settings" },
+            { "type": "string",
+              "title": "Bike name",
+              "section": "bike",
+              "key": "name" },
+            { "type": "numeric",
+              "title": "Power",
+              "section": "bike",
+              "key": "power" },
+            { "type": "numeric",
+              "title": "Speed",
+              "section": "bike",
+              "key": "speed" },
+            { "type": "numeric",
+              "title": "Acceleration",
+              "section": "bike",
+              "key": "acceleration" },
+            { "type": "numeric",
+              "title": "Agility",
+              "section": "bike",
+              "key": "agility" },
+            { "type": "title", 
+              "title": "Map settings" }
+        ]'''
         settings.add_json_panel('Ride me', self.config, data=jsondata)
 
 

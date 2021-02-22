@@ -14,25 +14,26 @@
 
 <CharacterWrap>:
     orientation: "vertical"
+    item: self.item
     title: self.title
+    value: self.value
+    max: self.max
 
     BoxLayout:
         CharBtn:
             text: "|"
         Label:
-            text: str(root.title)
+            text: "{}".format(root.title)
         CharBtn:
             text: "+"
 
     FloatLayout:
         orientation: "vertical"
-        progress_wrap: self
-
         ProgressBar:
             pos: root.pos[0], root.pos[1] + 50
             min: 0
-            value: 80
-            max: 100
+            value: int(self.parent.parent.value)
+            max: int(self.parent.parent.max)
 
             canvas:
                 Color:
@@ -43,14 +44,14 @@
 
     FloatLayout:
         Label:
-            pos: self.parent.parent.x - 40, self.parent.parent.y  # other a state -40
+            pos: self.parent.parent.x - 40, self.parent.parent.y
             size_hint: None, None
-            text: "0"
+            text: str(root.value)
         Label:
-            text: "0"
+            text: "->"
             pos: self.parent.parent.x + 160, self.parent.parent.y
             size_hint: None, None
         Label:
-            text: "0"
+            text: str(root.max)
             pos: self.parent.parent.x + 200, self.parent.parent.y
             size_hint: None, None

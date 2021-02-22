@@ -21,16 +21,11 @@
 
 
 <RightPanelTitle@Label>:
-    text: "{}: 1.000".format(Currency.units)
+    text: "{}: {}".format(Currency.units, app.config.get('bike', 'rm'))
     markup: True
 
 
-<RightPanelBtn@Button>:
-    size_hint: .5, 1
-    pos_hint: {'right': 1, 'bottom': 1}
-    text: "Ok"
-    disabled: True
-
+# Left panel
 
 <LeftPanel@BoxLayout>:
     id: center_panel

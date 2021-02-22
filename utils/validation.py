@@ -51,12 +51,20 @@ class ValidObject:
         return ValidObject._valid(obj, 'GameScreen')
 
     @staticmethod
+    def menu_screen(obj):
+        return ValidObject._valid(obj, 'MenuScreen')
+
+    @staticmethod
     def bikes_screen(obj):
         return ValidObject._valid(obj, 'BikesScreen')
 
     @staticmethod
     def maps_screen(obj):
         return ValidObject._valid(obj, 'MapsScreen')
+
+    @staticmethod
+    def shop_screen(obj):
+        return ValidObject._valid(obj, 'ShopScreen')
 
     @staticmethod
     def _valid(widget, class_name):

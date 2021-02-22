@@ -1,5 +1,5 @@
 #:import CharacterWrap screen.ui.character_wrap.CharacterWrap
-#:import LeftPanelMenuBikes screen.ui.panel.LeftPanelMenuBikes
+#:import LeftPanelMenuBikes screen.ui.panel_button.LeftPanelMenuBikes
 #:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
 #:import BIKES bike.bikes.BIKES
 
@@ -8,6 +8,7 @@
     BoxLayout:
         LeftPanel:
             LeftPanelMenuBikes:
+                id: left_panel_menu_bikes
                 disabled: True
             LeftPanelMenuMaps
             LeftPanelMenuShop
@@ -25,18 +26,32 @@
                     text: BIKES[0]['title']
                 BikeMenuCarousel:
         RightPanel:
-            RightPanelTitle
+            RightPanelTitle:
+                id: panel_rm
             CharacterWrap:
                 id: character_wrap_power
+                item: BIKES[0]
                 title: "Power:"
+                value: BIKES[0]['power']
+                max: BIKES[0]['power']
             CharacterWrap:
                 id: character_wrap_speed
+                item: BIKES[0]
                 title: "Speed:"
+                value: BIKES[0]['speed']
+                max: BIKES[0]['speed']
             CharacterWrap:
                 id: character_wrap_acceleration
                 title: "Acceleration:"
+                item: BIKES[0]
+                value: BIKES[0]['acceleration']
+                max: BIKES[0]['acceleration']
             CharacterWrap:
                 id: character_wrap_agility
                 title: "Agility:"
+                item: BIKES[0]
+                value: BIKES[0]['agility']
+                max: BIKES[0]['agility']
             RightPanelBtn:
+                text: "Buy"
                 disabled: False
