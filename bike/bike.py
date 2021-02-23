@@ -4,25 +4,37 @@ from kivy.uix.image import Image
 from bike.animation import AnimationBike
 from utils.dir import abstract_path
 from utils.validation import ValidObject
-from utils.get_object import GetObject
-
+from utils.get_object import GetObject, app_config
+from kivy.logger import Logger
 
 Builder.load_file(abstract_path('bike/bike.kv'))
 
 
 class Bike(Image, AnimationBike):
     source = StringProperty(abstract_path('bike/img/default.png'))
-    acceleration = NumericProperty(0.00)
-    power = NumericProperty(150.00)
-    max_power = NumericProperty(200.00)
-    speed = NumericProperty(0.00)
-    max_speed = NumericProperty(20.00)
+    acceleration = NumericProperty(0)
+    power = NumericProperty(0)
+    max_power = NumericProperty(0)
+    speed = NumericProperty(0)
+    max_speed = NumericProperty(0)
+    agility = NumericProperty(0)
 
-    start_dt = NumericProperty(0.00)
-    finish_dt = NumericProperty(0.00)
+    start_dt = NumericProperty(0)
+    finish_dt = NumericProperty(0)
 
     collected_currency = NumericProperty(0)
     currency = NumericProperty(0)
+
+    def __init__(self, **kwargs):
+        super(Bike, self).__init__(**kwargs)
+        self.init_app_config()
+
+    def init_app_config(self):
+        if app_config('bike', 'name') and app_config('bike', 'name') != 'None':
+            self.max_power = app_config('bike', 'power')
+            self.max_speed = app_config('bike', 'speed')
+            self.acceleration = app_config('bike', 'acceleration')
+            self.agility = app_config('bike', 'agility')
 
     def set_power(self, value):
         self.power = self._max_val(value, self.max_power)

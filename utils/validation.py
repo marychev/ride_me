@@ -67,6 +67,10 @@ class ValidObject:
         return ValidObject._valid(obj, 'ShopScreen')
 
     @staticmethod
+    def progress_bar(obj):
+        return ValidObject._valid(obj, 'ProgressBar')
+
+    @staticmethod
     def _valid(widget, class_name):
         if widget.__class__.__name__ == class_name:
             return widget

@@ -47,16 +47,18 @@ class RideMeApp(App):
             'acceleration': '0',
             'agility': '0'
         })
+        config.setdefaults('map', {
+            'name': 'None',
+        })
 
     def build_settings(self, settings):
-        jsondata = '''
-        [
+        jsondata = '''[
             { "type": "numeric",
               "title": "rm",
               "section": "bike",
-              "key": "rm" },
-            { "type": "title", 
-              "title": "Bike settings" },
+              "key": "rm" 
+            },
+            { "type": "title", "title": "Bike settings" },
             { "type": "string",
               "title": "Bike name",
               "section": "bike",
@@ -76,9 +78,13 @@ class RideMeApp(App):
             { "type": "numeric",
               "title": "Agility",
               "section": "bike",
-              "key": "agility" },
-            { "type": "title", 
-              "title": "Map settings" }
+              "key": "agility" 
+            },
+            { "type": "title", "title": "Map settings" },
+            { "type": "string",
+              "title": "Map name",
+              "section": "map",
+              "key": "name" }
         ]'''
         settings.add_json_panel('Ride me', self.config, data=jsondata)
 

@@ -8,7 +8,7 @@ from utils.dir import abstract_path
 from utils.state import State
 from utils.validation import ValidObject
 from label.curtain import Curtain
-
+from road.road import Road
 Builder.load_file(abstract_path('screen/start_screen.kv'))
 
 
@@ -24,8 +24,12 @@ class StartScreen(Screen):
         bike = screen.ids['bike']
         curtain = screen.ids['curtain']
 
+        # road.init_app_config()
+        # bike.init_app_config()
+
+        bike.power = 10
         bike.speed = 0
-        bike.acceleration = 0
+
         bike.collected_currency = 0
         bike.y = 800
         bike.canvas.remove_group("background")
@@ -37,6 +41,7 @@ class StartScreen(Screen):
         road.distance_traveled = 0
         road.set_distance_traveled()
 
+        # todo: error was happened sometimes or timer was not show
         if not curtain.text:
             scene.remove_widget(curtain)
             curtain = Curtain(font_size=120)

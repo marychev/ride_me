@@ -1,3 +1,4 @@
+from kivy.app import App
 from label.status_bar import StatusBar
 from utils.validation import ValidObject
 
@@ -55,3 +56,7 @@ class GetObject:
             if w.__class__.__name__ == class_name:
                 return w
 
+
+def app_config(section, key):
+    app = App.get_running_app()
+    return app and app.config.get(section, key)

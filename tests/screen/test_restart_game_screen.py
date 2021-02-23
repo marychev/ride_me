@@ -8,10 +8,23 @@ from kivy.uix.screenmanager import ScreenManager, WipeTransition
 from layout.scene import CACHE_NAME
 from kivy.cache import Cache
 from utils.validation import ValidObject
+from kivy.config import Config
 
 
 class RestartGameScreenTest(GraphicUnitTest):
     def set_app(self):
+        Config.setdefaults('bike', {
+            'rm': '1000',
+            'name': 'Hell Ride::Test',
+            'power': '200',
+            'speed': '20',
+            'acceleration': '0',
+            'agility': '0'
+        })
+
+        Config.setdefaults('map', {
+            'name': 'Sakura::Test'
+        })
         Cache.register(CACHE_NAME, limit=1000)
 
         self.manager = ScreenManager(transition=WipeTransition())
