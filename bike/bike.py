@@ -1,11 +1,13 @@
+from kivy.app import App
 from kivy.lang import Builder
+from kivy.logger import Logger
 from kivy.properties import NumericProperty, StringProperty
 from kivy.uix.image import Image
 from bike.animation import AnimationBike
+from bike.bikes import get_by_title as get_by_bike_title
 from utils.dir import abstract_path
-from utils.validation import ValidObject
 from utils.get_object import GetObject, app_config
-from kivy.logger import Logger
+from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('bike/bike.kv'))
 
@@ -29,12 +31,41 @@ class Bike(Image, AnimationBike):
         super(Bike, self).__init__(**kwargs)
         self.init_app_config()
 
+    def init_params(self, item):
+        self.source = item['source']
+        self.max_power = item['power']
+        self.max_speed = item['speed']
+        self.acceleration = item['acceleration']
+        self.agility = item['agility']
+
     def init_app_config(self):
         if app_config('bike', 'name') and app_config('bike', 'name') != 'None':
-            self.max_power = app_config('bike', 'power')
-            self.max_speed = app_config('bike', 'speed')
-            self.acceleration = app_config('bike', 'acceleration')
-            self.agility = app_config('bike', 'agility')
+            _bike = get_by_bike_title(app_config('bike', 'name'))
+            bike = {
+                'source': _bike['source'],
+                'power': app_config('bike', 'power'),
+                'speed': app_config('bike', 'speed'),
+                'acceleration': app_config('bike', 'acceleration'),
+                'agility': app_config('bike', 'agility')}
+            self.init_params(bike)
+        else:
+            Logger.warn('Bike: The bike is not installed! Installed the default bike!')
+            bike = get_by_bike_title(0)
+            self.init_params(bike)
+
+    @staticmethod
+    def buy(bike):
+        app = App.get_running_app()
+        res_rm = int(app_config('bike', 'rm')) - int(bike['price'])
+        if res_rm > 0:
+            app.config.set('bike', 'name', bike['title'])
+            app.config.set('bike', 'power', bike['power'])
+            app.config.set('bike', 'speed', bike['speed'])
+            app.config.set('bike', 'acceleration', bike['acceleration'])
+            app.config.set('bike', 'agility', bike['agility'])
+            app.config.set('bike', 'rm', res_rm)
+            return True
+        return False
 
     def set_power(self, value):
         self.power = self._max_val(value, self.max_power)

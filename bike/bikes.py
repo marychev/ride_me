@@ -15,8 +15,8 @@ BIKES = [
     {
         "title": "Geisha",
         "source": "./bike/img/bike-relax.png",
-        "power": "150",
-        "speed": "10",
+        "power": "140",
+        "speed": "15",
         "acceleration": "0",
         "agility": "0",
         "price": "992",
@@ -26,10 +26,10 @@ BIKES = [
     {
         "title": "Default",
         "source": "./bike/img/bike-1.png",
-        "power": "150",
-        "speed": "10",
-        "acceleration": "0",
-        "agility": "0",
+        "power": "130",
+        "speed": "12",
+        "acceleration": "1",
+        "agility": "1",
         "price": "992",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
     }
@@ -37,6 +37,7 @@ BIKES = [
 
 
 def get_by_title(value):
+    if type(value) is int:  return BIKES[value]
     for b in BIKES:
         if b['title'] == value:
             return b

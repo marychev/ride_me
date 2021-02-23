@@ -23,10 +23,10 @@ class RideMeApp(App):
     # def on_stop(self):
     #     self.profile.disable()
     #     self.profile.dump_stats('myapp.profile')
-
-    def on_pause(self):
-        cProfile.run('re.compile("foo|bar")')
-        return True
+    #
+    # def on_pause(self):
+    #     cProfile.run('re.compile("foo|bar")')
+    #     return True
 
     def build(self):
         self.sm = ScreenManager(transition=WipeTransition())

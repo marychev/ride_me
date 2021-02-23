@@ -3,10 +3,11 @@ from kivy.lang import Builder
 from kivy.logger import Logger
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
 from kivy.uix.widget import Widget
+
 from level.one.level_one import LevelOne
 from road.events import RoadEvents
 from utils.dir import abstract_path
-from utils.get_object import GetObject, app_config
+from utils.get_object import GetObject
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos, image_texture
 from utils.validation import ValidObject
@@ -17,7 +18,7 @@ Builder.load_file(abstract_path('road/road.kv'))
 class Road(Widget, RoadEvents):
     level = ObjectProperty(None)
     texture = ObjectProperty(image_texture('road/img/road-asphalt.png'))
-    total_way = NumericProperty(200000)   # todo: need to fix tests
+    total_way = NumericProperty(0)         # todo: need to fix tests
     distance_traveled = NumericProperty(0)
     gravity = NumericProperty(9.0)
     state = OptionProperty(State.NONE, options=State.list_states())
@@ -26,19 +27,19 @@ class Road(Widget, RoadEvents):
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
-
-        self.road = self
         self.bike = self.bike if self.bike else self.get_bike()
-
         self.init_app_config()
 
-        # todo: auto-define
-        self.landing_start()
+        if self.bike:
+            self.set_state(State.NONE)
+            self.landing_start()
 
     def init_app_config(self):
-        self.road.bike = self.bike = self.bike if self.bike else self.get_bike()
-
-        self.level = LevelOne(self, self.bike)   # todo: fix here init with app config
+        if not self.level:
+            self.set_state(State.INIT)
+            self.road = self
+            self.bike = self.bike if self.bike else self.get_bike()
+            self.level = LevelOne(self, self.bike)                      # todo: fix here init with app config
         if self.level:
             self.texture = self.level.road_texture
             self.total_way = self.road.total_way = self.level.map[-1]['pos'][0]
@@ -49,14 +50,13 @@ class Road(Widget, RoadEvents):
         try:
             return self.x + self.bike.speed
         except AttributeError as e:
-            text = 'Bike doesnt exist. Set the bike! {}'.format(e)
+            text = '{}.\n\tCause: Bike does not exist.\n\tTip: Need to set the bike.'.format(e)
             Logger.exception(text)
             raise AttributeError(text)
 
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
         set_texture_uvpos(self, self.texture.uvpos[0] + self.bike.speed / self.texture.size[0], self.texture.uvpos[1])
-        # todo: dev
         ValidObject.scene(self.parent).define_and_add_map_elements()
 
     def has_finished(self):

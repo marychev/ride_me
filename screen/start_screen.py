@@ -1,14 +1,14 @@
 from kivy.cache import Cache
 from kivy.clock import Clock
 from kivy.lang import Builder
-from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
+
+from label.curtain import Curtain
 from layout.scene import CACHE_NAME
 from utils.dir import abstract_path
 from utils.state import State
 from utils.validation import ValidObject
-from label.curtain import Curtain
-from road.road import Road
+
 Builder.load_file(abstract_path('screen/start_screen.kv'))
 
 
@@ -24,11 +24,9 @@ class StartScreen(Screen):
         bike = screen.ids['bike']
         curtain = screen.ids['curtain']
 
-        # road.init_app_config()
-        # bike.init_app_config()
-
-        bike.power = 10
-        bike.speed = 0
+        road.bike = bike
+        road.init_app_config()
+        bike.init_app_config()
 
         bike.collected_currency = 0
         bike.y = 800

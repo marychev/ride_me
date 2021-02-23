@@ -1,5 +1,6 @@
 class State:
     NONE = 'None'
+    INIT = 'Init'
     FINISH = 'on_finish'
 
     EVENT_ON_WAIT = 'on_wait'
@@ -39,5 +40,5 @@ class State:
             State.EVENT_ON_GO, State.EVENT_ON_STOP, State.EVENT_ON_WAIT)
         return [
             v for v in list(State.__dict__.values())
-            if type(v) == str and (v.startswith('on_') or v == State.NONE) and v not in exclude_events
+            if type(v) == str and (v.startswith('on_') or v in (State.NONE, State.INIT)) and v not in exclude_events
         ]

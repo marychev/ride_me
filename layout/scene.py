@@ -7,6 +7,7 @@ from objects import Start, Finish, Lamp, Puddle, Rock, Currency
 from utils.dir import abstract_path
 from kivy.clock import Clock
 from utils.get_object import GetObject
+from kivy.logger import Logger
 
 Builder.load_file(abstract_path('layout/scene.kv'))
 
@@ -71,8 +72,8 @@ class Scene(FloatLayout):
         try:
             devtools = self.parent.ids['devtools']
             devtools.update_context()
-        except KeyError:
-            pass
+        except KeyError as e:
+            Logger.warning('DevTools was not initial. {}'.format(e))
 
     def _add_visible_map_elems(self):
         road = self.parent.ids['road']

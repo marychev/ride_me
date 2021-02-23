@@ -3,11 +3,13 @@ from screen.game_screen import GameScreen
 from layout.scene import CACHE_NAME
 from kivy.cache import Cache
 from utils.get_object import GetObject
+from utils.state import State
 from kivy.config import Config
 
 
 class BaseGameScreenGUITest(GraphicUnitTest):
-    def set_app(self):
+    @staticmethod
+    def setdefaults_config():
         Config.setdefaults('bike', {
             'rm': '1000',
             'name': 'Hell Ride::Test',
@@ -21,6 +23,9 @@ class BaseGameScreenGUITest(GraphicUnitTest):
             'name': 'Sakura::Test'
         })
 
+    def set_app(self):
+        BaseGameScreenGUITest.setdefaults_config()
+
         self.screen = GameScreen(name='game')
         self.render(self.screen)
 
@@ -28,6 +33,7 @@ class BaseGameScreenGUITest(GraphicUnitTest):
 
         self.road = self.screen.ids['road']
         self.bike = self.screen.ids['bike']
+        self.road.bike = self.bike
 
         self.road.init_app_config()
         self.bike.init_app_config()
@@ -36,7 +42,8 @@ class BaseGameScreenGUITest(GraphicUnitTest):
         curtain.text = ''
 
         # default value
-        self.road.state = 'on_landing__start'
+        self.bike.x = 800
+        self.road.set_state(State.ON_LANDING_START)
 
         self.bike.y = self.road.line_points[-1]
         self.bike.speed = 0

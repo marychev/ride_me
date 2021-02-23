@@ -4,6 +4,8 @@ from kivy.properties import StringProperty, NumericProperty, BooleanProperty, Di
 from kivy.uix.button import Button
 from bike.bikes import get_by_title as get_bike_by_title
 from utils.validation import ValidObject
+from utils.get_object import app_config
+from bike.bike import Bike
 
 
 class PanelBtn(Button):
@@ -29,20 +31,10 @@ class RightPanelBtn(PanelBtn):
         if 'BikesScreen' == _screen.__class__.__name__:
             if app.config.get('bike', 'name') == 'None':
                 bike = get_bike_by_title(bikes_screen.ids['title'].text)
-                rm = int(app.config.get('bike', 'rm')) - int(bike['price'])
+                rest_rm = int(app_config('bike', 'rm')) - int(bike['price'])
 
-                # buy the bike
-                if rm > 0:
-                    # change app config params
-                    app.config.set('bike', 'name', bike['title'])
-                    app.config.set('bike', 'power', bike['power'])
-                    app.config.set('bike', 'speed', bike['speed'])
-                    app.config.set('bike', 'acceleration', bike['acceleration'])
-                    app.config.set('bike', 'agility', bike['agility'])
-                    app.config.set('bike', 'rm', rm)
-
-                    # change visual config bike params
-                    self.change_rm(screens, rm)
+                if Bike.buy(bike):
+                    self.change_rm(screens, rest_rm)
                     self.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike['power'])
                     self.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike['speed'])
                     self.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike['acceleration'])

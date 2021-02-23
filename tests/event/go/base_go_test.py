@@ -22,7 +22,6 @@ class BaseGoTest(BaseGameScreenGUITest):
     def _init_properties(self):
         self.bike.speed = 10
         self.bike.max_speed = 20
-        self.road.bike = self.bike
         self.road.landing_stop()
 
     def go_start_equal(self):
