@@ -42,7 +42,7 @@ class Road(Widget, RoadEvents):
             self.level = LevelOne(self, self.bike)                      # todo: fix here init with app config
         if self.level:
             self.texture = self.level.road_texture
-            self.total_way = self.road.total_way = self.level.map[-1]['pos'][0]
+            self.total_way = self.road.total_way = self.level.total_way(self.level.map)
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
 

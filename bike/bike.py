@@ -6,7 +6,8 @@ from kivy.uix.image import Image
 from bike.animation import AnimationBike
 from bike.bikes import get_by_title as get_by_bike_title
 from utils.dir import abstract_path
-from utils.get_object import GetObject, app_config
+from utils.get_object import GetObject
+from utils.init import app_config
 from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('bike/bike.kv'))

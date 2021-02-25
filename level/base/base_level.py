@@ -1,5 +1,7 @@
 from kivy.cache import Cache
 from layout.scene import CACHE_NAME
+from kivy.app import App
+from utils.init import app_config
 
 
 class BaseLevel:
@@ -26,3 +28,20 @@ class BaseLevel:
     def remove_widgets(self, road_objects):
         if len(road_objects) > 0 and self.road.distance_traveled > 0:
             [self._remove_widget(w) for w in road_objects]
+
+    @staticmethod
+    def total_way(map):
+        return map[-1]['pos'][0]
+
+    @staticmethod
+    def buy(map):
+        app = App.get_running_app()
+        res_rm = int(app_config('bike', 'rm')) - int(map['price'])
+        if res_rm > 0:
+            app.config.set('map', 'name', map['title'])
+            app.config.set('map', 'level', map['level'])
+            app.config.set('map', 'map', map['map'])
+            app.config.set('map', 'total_way', map['total_way'])
+            app.config.set('bike', 'rm', res_rm)
+            return True
+        return False

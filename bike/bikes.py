@@ -1,3 +1,6 @@
+from utils.init import get_item_by_title_or_index
+
+
 BIKES = [
     {
         "title": "Hell Ride",
@@ -37,7 +40,4 @@ BIKES = [
 
 
 def get_by_title(value):
-    if type(value) is int:  return BIKES[value]
-    for b in BIKES:
-        if b['title'] == value:
-            return b
+    return get_item_by_title_or_index(BIKES, value)

@@ -43,7 +43,7 @@ MAP = [
     Puddle.to_map((9900, 80)),
 
     Currency.to_map((9950, 200)),
-    Finish.to_map((10000, 60)),
+    Finish.to_map((12000, 60)),
 ]
 
 
@@ -73,5 +73,5 @@ TEST_MAP = [
     Currency.to_map((9000, 180)),
     Puddle.to_map((9200, 0)),
 
-    Finish.to_map((10000, 80))
+    Finish.to_map((13000, 80))
 ]

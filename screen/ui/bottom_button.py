@@ -3,9 +3,11 @@ from kivy.app import App
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty, DictProperty
 from kivy.uix.button import Button
 from bike.bikes import get_by_title as get_bike_by_title
+from level.maps import get_by_title as get_map_by_title
 from utils.validation import ValidObject
-from utils.get_object import app_config
+from utils.init import app_config, calc_rest_rm
 from bike.bike import Bike
+from level.base.base_level import BaseLevel
 
 
 class PanelBtn(Button):
@@ -20,8 +22,6 @@ class RightPanelBtn(PanelBtn):
 
     def on_press(self, *args, **kwargs):
         _screen = self.parent.parent.parent
-        app = App.get_running_app()
-
         menu_screen = ValidObject.menu_screen(_screen.manager.get_screen('menu'))
         bikes_screen = ValidObject.bikes_screen(_screen.manager.get_screen('bikes'))
         maps_screen = ValidObject.maps_screen(_screen.manager.get_screen('maps'))
@@ -29,23 +29,36 @@ class RightPanelBtn(PanelBtn):
         screens = [menu_screen, bikes_screen, maps_screen, shop_screen]
 
         if 'BikesScreen' == _screen.__class__.__name__:
-            if app.config.get('bike', 'name') == 'None':
+            if app_config('bike', 'name') == 'None':
                 bike = get_bike_by_title(bikes_screen.ids['title'].text)
-                rest_rm = int(app_config('bike', 'rm')) - int(bike['price'])
-
+                rest_rm = calc_rest_rm(bike['price'])
                 if Bike.buy(bike):
                     self.change_rm(screens, rest_rm)
                     self.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike['power'])
                     self.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike['speed'])
                     self.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike['acceleration'])
                     self.change_character_wrap(bikes_screen.ids['character_wrap_agility'], bike['agility'])
-
                     self.cancel_animation_button(screens, 'left_panel_menu_bikes')
 
-                    self.text = 'Ok'
-                    self.disabled = True
+                    self.init_item(menu_screen.init_bike)
 
-                    menu_screen.init_bike()
+        elif 'MapsScreen' == _screen.__class__.__name__:
+            if app_config('map', 'name') == 'None':
+                map = get_map_by_title(maps_screen.ids['title'].text)
+                rest_rm = calc_rest_rm(map['price'])
+                if BaseLevel.buy(map):
+                    self.change_rm(screens, rest_rm)
+                    self.change_character_wrap(maps_screen.ids['character_wrap_level'], map['level'])
+                    self.change_character_wrap(maps_screen.ids['character_wrap_map'], map['map'])
+                    self.change_character_wrap(maps_screen.ids['character_wrap_total_way'], map['total_way'])
+                    self.cancel_animation_button(screens, 'left_panel_menu_maps')
+
+                    self.init_item(menu_screen.init_map)
+
+    def init_item(self, cb_init):
+        self.text = 'Ok'
+        self.disabled = True
+        cb_init()
 
     @staticmethod
     def cancel_animation_button(screens, sid):
@@ -60,7 +73,11 @@ class RightPanelBtn(PanelBtn):
     def change_character_wrap(character_wrap, value):
         progress_bar = ValidObject.progress_bar(character_wrap.children[1].children[0])
         buttons = [character_wrap.children[2].children[0], character_wrap.children[2].children[2]]
-        character_wrap.value = progress_bar.value = int(value)
-        character_wrap.max = progress_bar.max = int(value)
+
+        if type(value) is int:
+            character_wrap.value = progress_bar.value = int(value)
+            character_wrap.max = progress_bar.max = int(value)
+        else:
+            character_wrap.title = value
         buttons[0].disabled = buttons[1].disabled = False
         buttons[0].opacity = buttons[1].opacity = 1

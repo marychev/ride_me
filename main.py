@@ -49,6 +49,9 @@ class RideMeApp(App):
         })
         config.setdefaults('map', {
             'name': 'None',
+            'level': 'None',
+            'map': 'None',
+            'total_way': '0'
         })
 
     def build_settings(self, settings):
@@ -84,7 +87,20 @@ class RideMeApp(App):
             { "type": "string",
               "title": "Map name",
               "section": "map",
-              "key": "name" }
+              "key": "name" },
+            { "type": "string",
+              "title": "Level",
+              "section": "map",
+              "key": "level" },
+            { "type": "numeric",
+              "title": "Map #",
+              "section": "map",
+              "key": "map" },
+            { "type": "numeric",
+              "title": "Total way",
+              "section": "map",
+              "key": "total_way" 
+            }
         ]'''
         settings.add_json_panel('Ride me', self.config, data=jsondata)
 

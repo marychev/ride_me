@@ -4,7 +4,7 @@ from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty, ListProperty, ReferenceListProperty, \
     NumericProperty, BooleanProperty, OptionProperty
 from kivy.uix.button import Button
-
+from utils.init import app_config
 from utils.dir import abstract_path
 
 Builder.load_file(abstract_path('screen/ui/panel_button.kv'))
@@ -23,9 +23,6 @@ class MenuButton(Button):
 
     def on_state(self, instance, value):
         print('My property a changed to', value, instance)
-        print(self.app.root)
-        print(self.app.config.get('bike', 'name'))
-        #if self.state == 'down':
 
     def start_pulsing(self, *args):
         anim = Animation(background_color=[0.1, 0.8, 0.6, 1], duration=.6) \
@@ -46,7 +43,7 @@ class LeftPanelMenuBikes(MenuButton):
 
     def __init__(self, **kwargs):
         super(LeftPanelMenuBikes, self).__init__(**kwargs)
-        if self.app.config.get('bike', 'name') == 'None':
+        if app_config('bike', 'name') == 'None':
             self.start_pulsing()
 
     def on_press(self, screen_name='bikes'):
@@ -55,6 +52,11 @@ class LeftPanelMenuBikes(MenuButton):
 
 class LeftPanelMenuMaps(MenuButton):
     text = StringProperty('Maps')
+
+    def __init__(self, **kwargs):
+        super(LeftPanelMenuMaps, self).__init__(**kwargs)
+        if app_config('map', 'name') == 'None':
+            self.start_pulsing()
 
     def on_press(self, screen_name='maps'):
         super().on_press(screen_name)
