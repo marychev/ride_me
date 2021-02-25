@@ -24,7 +24,7 @@ class MenuButton(Button):
     def on_state(self, instance, value):
         print('My property a changed to', value, instance)
 
-    def start_pulsing(self, *args):
+    def start_pulsing(self):
         anim = Animation(background_color=[0.1, 0.8, 0.6, 1], duration=.6) \
                + Animation(background_color=[0.6, 0.2, 0.7, 1], duration=.6)
         anim.repeat = True

@@ -1,13 +1,15 @@
 from kivy.animation import Animation
-from kivy.app import App
+from kivy.clock import Clock
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty, DictProperty
 from kivy.uix.button import Button
-from bike.bikes import get_by_title as get_bike_by_title
-from level.maps import get_by_title as get_map_by_title
-from utils.validation import ValidObject
-from utils.init import app_config, calc_rest_rm
+
 from bike.bike import Bike
+from bike.bikes import get_by_title as get_bike_by_title
 from level.base.base_level import BaseLevel
+from level.maps import get_by_title as get_map_by_title
+from utils.color import BgAnimation
+from utils.init import app_config, calc_rest_rm
+from utils.validation import ValidObject
 
 
 class PanelBtn(Button):
@@ -20,8 +22,11 @@ class RightPanelBtn(PanelBtn):
     pos_hint = DictProperty({'right': 1, 'bottom': 1})
     text = StringProperty('Ok')
 
+    def _current_screen(self):
+        return self.parent.parent.parent
+
     def on_press(self, *args, **kwargs):
-        _screen = self.parent.parent.parent
+        _screen = self._current_screen()
         menu_screen = ValidObject.menu_screen(_screen.manager.get_screen('menu'))
         bikes_screen = ValidObject.bikes_screen(_screen.manager.get_screen('bikes'))
         maps_screen = ValidObject.maps_screen(_screen.manager.get_screen('maps'))
@@ -59,6 +64,16 @@ class RightPanelBtn(PanelBtn):
         self.text = 'Ok'
         self.disabled = True
         cb_init()
+        Clock.schedule_once(self._create_animation, 0)
+        Clock.schedule_once(self._clear_animation, .6)
+
+    def _create_animation(self, dt):
+        bg = BgAnimation(widget=self._current_screen())
+        bg.anim_color(bg.rgba_success)
+
+    def _clear_animation(self, dt):
+        bg = BgAnimation(widget=self._current_screen())
+        bg.anim_color(bg.rgba_default)
 
     @staticmethod
     def cancel_animation_button(screens, sid):

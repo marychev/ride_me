@@ -1,4 +1,10 @@
+from kivy.utils import get_color_from_hex
+from kivy.graphics import Color as KvColor, Rectangle
+from kivy.core.window import Window
+
+
 class Color:
+    BG_MENU_DEFAULT = '000000'
     RED = 'ff0000'
     RED_LIGHT = 'fb2929'
     ORANGE = 'ff5e00'
@@ -10,6 +16,10 @@ class Color:
     GREEN_LIGHT = '20e813'
     GREEN_R = '489c56'
     PURPLE = 'b15fc5'
+
+    @staticmethod
+    def hex(color):
+        return get_color_from_hex('#{}'.format(color))
 
 
 def switcher_color(min_value, max_value):
@@ -30,3 +40,16 @@ def switcher_color(min_value, max_value):
         color = Color.GREEN
 
     return color
+
+
+class BgAnimation:
+    rgba_success = Color.hex(Color.PURPLE)
+    rgba_default = Color.hex(Color.BG_MENU_DEFAULT)
+
+    def __init__(self, widget):
+        self.widget = widget
+
+    def anim_color(self, rgba):
+        with self.widget.canvas.before:
+            KvColor(*rgba)
+            Rectangle(pos=(0, 0), size=(Window.width, Window.height))
