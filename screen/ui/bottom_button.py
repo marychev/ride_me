@@ -92,6 +92,10 @@ class RightPanelBtn(PanelBtn):
         bg.anim_color(bg.rgba_default)
 
     @staticmethod
+    def format_title_right_panel(character_wrap, value):
+        return '{}: {}'.format(character_wrap.title.split(':')[0], value)
+
+    @staticmethod
     def cancel_animation_button(screens, sid):
         [Animation.cancel_all(s.ids[sid], 'background_color') for s in screens]
 
@@ -101,25 +105,17 @@ class RightPanelBtn(PanelBtn):
             s.ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
 
     @staticmethod
-    def change_character_wrap(character_wrap, value):
+    def change_character_wrap(character_wrap, value, color=UColor.hex(UColor.WHITE)):
         progress_bar = ValidObject.progress_bar(character_wrap.children[1].children[0])
         buttons = [character_wrap.children[2].children[0], character_wrap.children[2].children[2]]
-        if type(value) is int:
-            # character_wrap.value = progress_bar.value = int(value)
-            character_wrap.max = progress_bar.max = int(value)
+        if type(value) is int or type(value) is float:
+            character_wrap.max = progress_bar.max = value
         else:
-            character_wrap.title = '{}: {}'.format(character_wrap.title, value)
+            character_wrap.title = RightPanelBtn.format_title_right_panel(character_wrap, value)
         buttons[0].disabled = buttons[1].disabled = False
         buttons[0].opacity = buttons[1].opacity = 1
 
-        print(character_wrap)
-        # change color of labels on  the right side properties
-        for lbl in character_wrap.children[0].children[:]:
-            if type(lbl) is Label:
-                lbl.color = UColor.hex(UColor.WHITE)
-        for lbl in character_wrap.children[2].children[:]:
-            if type(lbl) is Label:
-                lbl.color = UColor.hex(UColor.WHITE)
+        RightPanelBtn.change_color_labels_right_panel(character_wrap, color)
 
     @staticmethod
     def change_bottom_right_btn(menu_screen):
@@ -128,19 +124,12 @@ class RightPanelBtn(PanelBtn):
             menu_screen.ids['right_panel_btn'].disabled = False
 
     @staticmethod
-    def change_color_labels_right_panel(character_wrap):
-        print(character_wrap)
-        RightPanelBtn._change_color_labels(character_wrap.children[0])
-        RightPanelBtn._change_color_labels(character_wrap.children[2])
-        # for lbl in character_wrap.children[0].children[:]:
-        #     if type(lbl) is Label:
-        #         lbl.color = UColor.hex(UColor.WHITE)
-        # for lbl in character_wrap.children[2].children[:]:
-        #     if type(lbl) is Label:
-        #         lbl.color = UColor.hex(UColor.WHITE)
+    def change_color_labels_right_panel(character_wrap, color):
+        RightPanelBtn._change_color_labels(character_wrap.children[0], color)
+        RightPanelBtn._change_color_labels(character_wrap.children[2], color)
 
     @staticmethod
-    def _change_color_labels(wrap_children, color=UColor.hex(UColor.WHITE)):
+    def _change_color_labels(wrap_children, color):
         for lbl in wrap_children.children[:]:
             if type(lbl) is Label:
                 lbl.color = color
