@@ -24,6 +24,15 @@ MAPS = [
         "price": "7",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
                 "the bike onto with others he bike onto with others words thi road/"
+    },
+    {
+        "title": "Default",
+        "level": LevelOne.__name__,
+        "map": 0,
+        "total_way": LevelOne.total_way(LevelOne.maps[0]),
+        "source": LevelOne.BACKGROUND_TEXTURE,
+        "price": "55",
+        "text": "Description\nSolar tlar the bike onto with others lar the with others"
     }
 ]
 

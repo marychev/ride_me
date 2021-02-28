@@ -2,6 +2,7 @@
 #:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
 #:import LeftPanelMenuBikes screen.ui.panel_button.LeftPanelMenuBikes
 #:import RightPanelBtn screen.ui.bottom_button.RightPanelBtn
+#:import app_config utils.init.app_config
 
 
 <MenuScreen>:
@@ -39,6 +40,6 @@
             Label:
                 text: " "
             RightPanelBtn:
-                disabled: app.config.get('bike', 'name') == 'None'
+                disabled: bool(app_config('bike', 'title'))
 
 

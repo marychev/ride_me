@@ -34,7 +34,7 @@ class RightPanelBtn(PanelBtn):
         screens = [menu_screen, bikes_screen, maps_screen, shop_screen]
 
         if 'BikesScreen' == _screen.__class__.__name__:
-            if app_config('bike', 'name') == 'None':
+            if not app_config('bike', 'title'):
                 bike = get_bike_by_title(bikes_screen.ids['title'].text)
                 rest_rm = calc_rest_rm(bike['price'])
                 if Bike.buy(bike):
@@ -48,7 +48,7 @@ class RightPanelBtn(PanelBtn):
                     self.init_item(menu_screen.init_bike)
 
         elif 'MapsScreen' == _screen.__class__.__name__:
-            if app_config('map', 'name') == 'None':
+            if not app_config('map', 'title'):
                 map = get_map_by_title(maps_screen.ids['title'].text)
                 rest_rm = calc_rest_rm(map['price'])
                 if BaseLevel.buy(map):

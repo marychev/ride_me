@@ -1,5 +1,6 @@
 from conf import *      # <-- don't delete!
 from kivy.app import App
+from kivy.cache import Cache
 from kivy.uix.screenmanager import ScreenManager, WipeTransition
 from screen.game_screen import GameScreen
 from screen.start_screen import StartScreen
@@ -7,6 +8,7 @@ from screen.menu_screen import MenuScreen
 from screen.bikes_screen import BikesScreen
 from screen.maps_screen import MapsScreen
 from screen.shop_screen import ShopScreen
+
 import re
 import cProfile
 
@@ -34,38 +36,50 @@ class RideMeApp(App):
         self.sm.add_widget(BikesScreen(name='bikes'))
         self.sm.add_widget(MapsScreen(name='maps'))
         self.sm.add_widget(ShopScreen(name='shop'))
-        self.sm.add_widget(GameScreen(name='game'))
         self.sm.add_widget(StartScreen(name='start'))
+        self.sm.add_widget(GameScreen(name='game'))
         return self.sm
 
     def build_config(self, config):
-        config.setdefaults('bike', {
-            'rm': '1000',
-            'name': 'None',
-            'power': '0',
-            'speed': '0',
-            'acceleration': '0',
-            'agility': '0'
-        })
-        config.setdefaults('map', {
-            'name': 'None',
-            'level': 'None',
-            'map': 'None',
-            'total_way': '0'
-        })
+        Cache.register('bike')
+        Cache.append('bike', 'rm', 1000)
+        Cache.append('bike', 'title', 'None')
+        Cache.append('bike', 'power', 0)
+        Cache.append('bike', 'speed', 0)
+        Cache.append('bike', 'acceleration', 0)
+        Cache.append('bike', 'agility', 0)
+        # config.setdefaults('bike', {
+        #     'rm': '2020',
+        #     'title': 'None',
+        #     'power': '0',
+        #     'speed': '0',
+        #     'acceleration': '0',
+        #     'agility': '0'})
+
+        Cache.register('map')
+        Cache.append('map', 'title', 'None')
+        Cache.append('map', 'level', 'None')
+        Cache.append('map', 'map', 'None')
+        Cache.append('map', 'total_way', 0)
+        # config.setdefaults('map', {
+        #     'title': 'None',
+        #     'level': 'None',
+        #     'map': 'None',
+        #     'total_way': '0'
+        # })
 
     def build_settings(self, settings):
         jsondata = '''[
             { "type": "numeric",
               "title": "rm",
               "section": "bike",
-              "key": "rm" 
+              "key": "rm"
             },
             { "type": "title", "title": "Bike settings" },
             { "type": "string",
-              "title": "Bike name",
+              "title": "Bike title",
               "section": "bike",
-              "key": "name" },
+              "key": "title" },
             { "type": "numeric",
               "title": "Power",
               "section": "bike",
@@ -81,13 +95,13 @@ class RideMeApp(App):
             { "type": "numeric",
               "title": "Agility",
               "section": "bike",
-              "key": "agility" 
+              "key": "agility"
             },
             { "type": "title", "title": "Map settings" },
             { "type": "string",
-              "title": "Map name",
+              "title": "Map title",
               "section": "map",
-              "key": "name" },
+              "key": "title" },
             { "type": "string",
               "title": "Level",
               "section": "map",
@@ -99,7 +113,7 @@ class RideMeApp(App):
             { "type": "numeric",
               "title": "Total way",
               "section": "map",
-              "key": "total_way" 
+              "key": "total_way"
             }
         ]'''
         settings.add_json_panel('Ride me', self.config, data=jsondata)

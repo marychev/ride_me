@@ -43,7 +43,7 @@ class LeftPanelMenuBikes(MenuButton):
 
     def __init__(self, **kwargs):
         super(LeftPanelMenuBikes, self).__init__(**kwargs)
-        if app_config('bike', 'name') == 'None':
+        if not app_config('bike', 'title'):
             self.start_pulsing()
 
     def on_press(self, screen_name='bikes'):
@@ -55,7 +55,7 @@ class LeftPanelMenuMaps(MenuButton):
 
     def __init__(self, **kwargs):
         super(LeftPanelMenuMaps, self).__init__(**kwargs)
-        if app_config('map', 'name') == 'None':
+        if not app_config('map', 'title'):
             self.start_pulsing()
 
     def on_press(self, screen_name='maps'):

@@ -12,7 +12,7 @@ class BaseGameScreenGUITest(GraphicUnitTest):
     def setdefaults_config():
         Config.setdefaults('bike', {
             'rm': '1000',
-            'name': 'Hell Ride::Test',
+            'title': 'Hell Ride::Test',
             'power': '150',
             'speed': '10',
             'acceleration': '1',
@@ -20,7 +20,7 @@ class BaseGameScreenGUITest(GraphicUnitTest):
         })
 
         Config.setdefaults('map', {
-            'name': 'Sakura::Test'
+            'title': 'Sakura::Test'
         })
 
     def set_app(self):

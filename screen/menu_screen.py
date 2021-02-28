@@ -6,6 +6,8 @@ from kivy.uix.screenmanager import Screen
 from bike.bikes import get_by_title as get_bike_by_title
 from level.maps import get_by_title as get_map_by_title
 from utils.dir import abstract_path
+from utils.init import app_config
+
 
 Builder.load_file(abstract_path('screen/menu_screen.kv'))
 
@@ -13,25 +15,25 @@ Builder.load_file(abstract_path('screen/menu_screen.kv'))
 class MenuScreen(Screen):
     bike = ObjectProperty()
     level = ObjectProperty()
-    map = DictProperty()
+    map = DictProperty(allownone=True)
 
     def __init__(self, **kwargs):
         super(MenuScreen, self).__init__(**kwargs)
-        self.app = App.get_running_app()
-        if self.app.config.get('bike', 'name') != 'None':
+        if app_config('bike', 'title'):
             self.init_bike()
-        if self.app.config.get('map', 'name') != 'None':
+        if app_config('map', 'title'):
             self.init_map()
 
     def init_bike(self):
-        self.bike = get_bike_by_title(self.app.config.get('bike', 'name'))
+        _bike = app_config('bike', 'title')
+        self.bike = get_bike_by_title(_bike)
         label = self.ids['center_panel'].children[1]
-        self._init_item(self.bike, label)
+        self.bike and self._init_item(self.bike, label)
 
     def init_map(self):
-        self.map = get_map_by_title(self.app.config.get('map', 'name'))
+        self.map = get_map_by_title(app_config('map', 'title'))
         label = self.ids['center_panel'].children[0]
-        self._init_item(self.map, label)
+        self.map and self._init_item(self.map, label)
 
     def _init_item(self, item, label):
         self.ids['center_panel'].remove_widget(label)

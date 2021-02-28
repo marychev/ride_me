@@ -33,7 +33,7 @@ BIKES = [
         "speed": "12",
         "acceleration": "1",
         "agility": "1",
-        "price": "992",
+        "price": "800",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
     }
 ]

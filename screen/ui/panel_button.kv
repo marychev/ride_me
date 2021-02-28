@@ -1,3 +1,4 @@
+#:import app_config utils.init.app_config
 # Center panel
 
 <CenterPanel@BoxLayout>:
@@ -21,7 +22,7 @@
 
 
 <RightPanelTitle@Label>:
-    text: "{}: {}".format(Currency.units, app.config.get('bike', 'rm'))
+    text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
     markup: True
 
 

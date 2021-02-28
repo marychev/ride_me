@@ -67,9 +67,6 @@ from tests.screen.test_restart_game_screen import RestartGameScreenTest
 from tests.test_runtouchapp import RunTouchAppTest
 
 
-
-
-
 if __name__ == '__main__':
     import unittest
     unittest.main()

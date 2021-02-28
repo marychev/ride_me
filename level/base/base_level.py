@@ -1,7 +1,7 @@
 from kivy.cache import Cache
 from layout.scene import CACHE_NAME
 from kivy.app import App
-from utils.init import app_config
+from utils.init import app_config, calc_rest_rm
 
 
 class BaseLevel:
@@ -35,13 +35,23 @@ class BaseLevel:
 
     @staticmethod
     def buy(map):
-        app = App.get_running_app()
-        res_rm = int(app_config('bike', 'rm')) - int(map['price'])
-        if res_rm > 0:
-            app.config.set('map', 'name', map['title'])
-            app.config.set('map', 'level', map['level'])
-            app.config.set('map', 'map', map['map'])
-            app.config.set('map', 'total_way', map['total_way'])
-            app.config.set('bike', 'rm', res_rm)
+        rest_rm = calc_rest_rm(map['price'])
+        if rest_rm > 0:
+            BaseLevel.set_config(map, rest_rm)
             return True
         return False
+
+    @staticmethod
+    def set_config(item, rest_rm):
+        Cache.remove('bike', 'rm')
+        Cache.append('bike', 'rm', rest_rm)
+
+        Cache.remove('map', 'title')
+        Cache.remove('map', 'level')
+        Cache.remove('map', 'map')
+        Cache.remove('map', 'total_way')
+        Cache.append('map', 'title', item['title'])
+        Cache.append('map', 'level', item['level'])
+        Cache.append('map', 'map', item['map'])
+        Cache.append('map', 'total_way', item['total_way'])
+
