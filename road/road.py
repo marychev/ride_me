@@ -52,7 +52,8 @@ class Road(Widget, RoadEvents):
                 game_screen = ValidObject.screen(self.parent.parent)
                 _map = get_map_by_title(app_config('map', 'title'))
                 background = game_screen.ids['background']
-                background.texture = image_texture(_map['source'])
+                if background and _map:
+                    background.texture = image_texture(_map['source'])
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
 
