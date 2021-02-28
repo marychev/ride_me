@@ -9,6 +9,7 @@ from utils.dir import abstract_path
 from utils.validation import ValidObject
 from utils.init import app_config
 from utils.color import Color as UColor
+from typing import Union
 
 Builder.load_file(abstract_path('screen/ui/menu_carousel.kv'))
 
@@ -25,9 +26,23 @@ class MenuCarousel(Carousel):
     def _screen(self):
         return self.parent.parent.parent.parent
 
+    def define_color(self, section):
+        return UColor.hex(UColor.WHITE) if app_config(section, 'title') == self.current_slide.item['title']\
+            else UColor.hex(UColor.GRAY)
+
+    def title_active(self):
+        screen = self._screen()
+        return '{}{}'.format(screen.ids['title'].text, ' *')
+
     def on_index(self, *args, **kwargs):
         super(MenuCarousel, self).on_index(*args)
         self.set_title(self.current_slide.item['title'])
+
+    def change_prop_title(self, sid: str, value: Union[int, str], color: UColor):
+        screen = self._screen()
+        RightPanelBtn.change_color_labels_right_panel(screen.ids[sid], color)
+        screen.ids[sid].title = RightPanelBtn.format_title_right_panel(
+            screen.ids[sid], value)
 
 
 class BikeMenuCarousel(MenuCarousel):
@@ -38,6 +53,22 @@ class BikeMenuCarousel(MenuCarousel):
             screen = ValidObject.bikes_screen(self._screen())
             screen.ids['title'].text = value
 
+    def on_index(self, *args, **kwargs):
+        super(BikeMenuCarousel, self).on_index(*args, **kwargs)
+        bikes_screen = ValidObject.bikes_screen(self._screen())
+
+        if app_config('bike', 'title') == self.current_slide.item['title']:
+            bikes_screen.ids['title'].text = self.title_active()
+
+        _bike = get_bike_by_title(self.current_slide.item['title'])
+        color = self.define_color('bike')
+        bikes_screen.ids['title'].color = color
+
+        self.change_prop_title('character_wrap_power', _bike['power'], color)
+        self.change_prop_title('character_wrap_speed', _bike['speed'], color)
+        self.change_prop_title('character_wrap_acceleration', _bike['acceleration'], color)
+        self.change_prop_title('character_wrap_agility', _bike['agility'], color)
+
 
 class MapMenuCarousel(MenuCarousel):
     objects = ListProperty(MAPS)
@@ -47,26 +78,16 @@ class MapMenuCarousel(MenuCarousel):
         maps_screen = ValidObject.maps_screen(self._screen())
 
         if app_config('map', 'title') == self.current_slide.item['title']:
-            color = UColor.hex(UColor.WHITE)
-        else:
-            color = UColor.hex(UColor.GRAY)
+            maps_screen.ids['title'].text = self.title_active()
 
         _map = get_map_by_title(self.current_slide.item['title'])
+        color = self.define_color('map')
         maps_screen.ids['title'].color = color
 
-        RightPanelBtn.change_color_labels_right_panel(maps_screen.ids['character_wrap_record'], color)
-        maps_screen.ids['character_wrap_record'].title = RightPanelBtn.format_title_right_panel(
-            maps_screen.ids['character_wrap_record'], 'dev')
-        RightPanelBtn.change_color_labels_right_panel(maps_screen.ids['character_wrap_level'], color)
-        maps_screen.ids['character_wrap_level'].title = RightPanelBtn.format_title_right_panel(
-            maps_screen.ids['character_wrap_level'], _map['level'])
-        RightPanelBtn.change_color_labels_right_panel(maps_screen.ids['character_wrap_map'], color)
-        maps_screen.ids['character_wrap_map'].title = RightPanelBtn.format_title_right_panel(
-            maps_screen.ids['character_wrap_map'], _map['map'])
-        RightPanelBtn.change_color_labels_right_panel(maps_screen.ids['character_wrap_total_way'], color)
-        maps_screen.ids['character_wrap_total_way'].title = RightPanelBtn.format_title_right_panel(
-            maps_screen.ids['character_wrap_total_way'], _map['total_way'])
-
+        self.change_prop_title('character_wrap_record', '*dev', color)
+        self.change_prop_title('character_wrap_level', _map['level'], color)
+        self.change_prop_title('character_wrap_map', _map['map'], color)
+        self.change_prop_title('character_wrap_total_way', _map['total_way'], color)
 
     def set_title(self, value):
         if self.parent:

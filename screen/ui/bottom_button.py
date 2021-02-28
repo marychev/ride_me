@@ -107,15 +107,19 @@ class RightPanelBtn(PanelBtn):
     @staticmethod
     def change_character_wrap(character_wrap, value, color=UColor.hex(UColor.WHITE)):
         progress_bar = ValidObject.progress_bar(character_wrap.children[1].children[0])
-        buttons = [character_wrap.children[2].children[0], character_wrap.children[2].children[2]]
-        if type(value) is int or type(value) is float:
+        if type(value) is int:
             character_wrap.max = progress_bar.max = value
         else:
             character_wrap.title = RightPanelBtn.format_title_right_panel(character_wrap, value)
-        buttons[0].disabled = buttons[1].disabled = False
-        buttons[0].opacity = buttons[1].opacity = 1
+            RightPanelBtn.prop_buttons_hide(character_wrap)
 
         RightPanelBtn.change_color_labels_right_panel(character_wrap, color)
+
+    @staticmethod
+    def prop_buttons_hide(character_wrap):
+        buttons = [character_wrap.children[2].children[0], character_wrap.children[2].children[2]]
+        buttons[0].disabled = buttons[1].disabled = False
+        buttons[0].opacity = buttons[1].opacity = 1
 
     @staticmethod
     def change_bottom_right_btn(menu_screen):
