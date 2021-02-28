@@ -30,7 +30,7 @@ MAPS = [
         "level": LevelOne.__name__,
         "map": 0,
         "total_way": LevelOne.total_way(LevelOne.maps[0]),
-        "source": LevelOne.BACKGROUND_TEXTURE,
+        "source": LevelOne.BACKGROUND_TEXTURE_DEFAULT,
         "price": "55",
         "text": "Description\nSolar tlar the bike onto with others lar the with others"
     }

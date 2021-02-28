@@ -11,6 +11,8 @@ from utils.get_object import GetObject
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos, image_texture
 from utils.validation import ValidObject
+from utils.init import app_config
+from level.maps import get_by_title as get_map_by_title
 
 Builder.load_file(abstract_path('road/road.kv'))
 
@@ -39,10 +41,18 @@ class Road(Widget, RoadEvents):
             self.set_state(State.INIT)
             self.road = self
             self.bike = self.bike if self.bike else self.get_bike()
+            # TODO: define a Level from App Config
             self.level = LevelOne(self, self.bike)                      # todo: fix here init with app config
         if self.level:
             self.texture = self.level.road_texture
             self.total_way = self.road.total_way = self.level.total_way(self.level.map)
+
+            # set background texture
+            if self.parent:
+                game_screen = ValidObject.screen(self.parent.parent)
+                _map = get_map_by_title(app_config('map', 'title'))
+                background = game_screen.ids['background']
+                background.texture = image_texture(_map['source'])
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
 

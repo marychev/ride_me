@@ -40,7 +40,7 @@ class Background(Widget, GoBackgroundDispatcher):
 
     def set_texture(self, road):
         """ self.texture = image_texture('layout/img/default.png') """
-        if not self.texture:
+        if not self.texture and road:
             self.texture = road.level.background_texture
 
     # clouds textures --

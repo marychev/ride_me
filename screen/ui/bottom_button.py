@@ -38,38 +38,47 @@ class RightPanelBtn(PanelBtn):
                 bike = get_bike_by_title(bikes_screen.ids['title'].text)
                 rest_rm = calc_rest_rm(bike['price'])
                 if Bike.buy(bike):
-                    self.change_rm(screens, rest_rm)
-                    self.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike['power'])
-                    self.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike['speed'])
-                    self.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike['acceleration'])
-                    self.change_character_wrap(bikes_screen.ids['character_wrap_agility'], bike['agility'])
-                    self.cancel_animation_button(screens, 'left_panel_menu_bikes')
+                    RightPanelBtn.change_rm(screens, rest_rm)
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike['power'])
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike['speed'])
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike['acceleration'])
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_agility'], bike['agility'])
+                    RightPanelBtn.cancel_animation_button(screens, 'left_panel_menu_bikes')
 
                     self.init_item(menu_screen.init_bike)
+                    RightPanelBtn.change_bottom_right_btn(menu_screen)
 
         elif 'MapsScreen' == _screen.__class__.__name__:
             if not app_config('map', 'title'):
                 map = get_map_by_title(maps_screen.ids['title'].text)
                 rest_rm = calc_rest_rm(map['price'])
                 if BaseLevel.buy(map):
-                    self.change_rm(screens, rest_rm)
-                    self.change_character_wrap(maps_screen.ids['character_wrap_level'], map['level'])
-                    self.change_character_wrap(maps_screen.ids['character_wrap_map'], map['map'])
-                    self.change_character_wrap(maps_screen.ids['character_wrap_total_way'], map['total_way'])
-                    self.cancel_animation_button(screens, 'left_panel_menu_maps')
+                    RightPanelBtn.change_rm(screens, rest_rm)
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_level'], map['level'])
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_map'], map['map'])
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_total_way'], map['total_way'])
+                    RightPanelBtn.cancel_animation_button(screens, 'left_panel_menu_maps')
 
                     self.init_item(menu_screen.init_map)
+                    RightPanelBtn.change_bottom_right_btn(menu_screen)
+                else:
+                    Clock.schedule_once(self._create_animation_fail, 0)
+                    Clock.schedule_once(self._clear_animation, .5)
 
     def init_item(self, cb_init):
         self.text = 'Ok'
         self.disabled = True
         cb_init()
-        Clock.schedule_once(self._create_animation, 0)
-        Clock.schedule_once(self._clear_animation, .6)
+        Clock.schedule_once(self._create_animation_success, 0)
+        Clock.schedule_once(self._clear_animation, .4)
 
-    def _create_animation(self, dt):
+    def _create_animation_success(self, dt):
         bg = BgAnimation(widget=self._current_screen())
         bg.anim_color(bg.rgba_success)
+
+    def _create_animation_fail(self, dt):
+        bg = BgAnimation(widget=self._current_screen())
+        bg.anim_color(bg.rgba_error)
 
     def _clear_animation(self, dt):
         bg = BgAnimation(widget=self._current_screen())
@@ -96,3 +105,9 @@ class RightPanelBtn(PanelBtn):
             character_wrap.title = value
         buttons[0].disabled = buttons[1].disabled = False
         buttons[0].opacity = buttons[1].opacity = 1
+
+    @staticmethod
+    def change_bottom_right_btn(menu_screen):
+        if app_config('bike', 'title') and app_config('map', 'title'):
+            menu_screen.ids['right_panel_btn'].text = 'Go'
+            menu_screen.ids['right_panel_btn'].disabled = False

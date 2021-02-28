@@ -43,7 +43,8 @@ def switcher_color(min_value, max_value):
 
 
 class BgAnimation:
-    rgba_success = Color.hex(Color.PURPLE)
+    rgba_success = Color.hex(Color.GREEN_R)
+    rgba_error = Color.hex(Color.RED)
     rgba_default = Color.hex(Color.BG_MENU_DEFAULT)
 
     def __init__(self, widget):

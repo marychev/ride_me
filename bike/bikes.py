@@ -9,7 +9,7 @@ BIKES = [
         "speed": "10",
         "acceleration": "3",
         "agility": "5",
-        "price": "992",
+        "price": "920",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
                        "lar the with others lar the  with others lar the with others lar the with"
                        " others lar the with others lar the with others lar\n the with others lar "
@@ -22,7 +22,7 @@ BIKES = [
         "speed": "15",
         "acceleration": "0",
         "agility": "0",
-        "price": "992",
+        "price": "900",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
                  "the bike onto with others he bike onto with others words thi road/"
     },

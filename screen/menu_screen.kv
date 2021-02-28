@@ -40,6 +40,5 @@
             Label:
                 text: " "
             RightPanelBtn:
-                disabled: bool(app_config('bike', 'title'))
-
-
+                id: right_panel_btn
+                disabled: not bool(app_config('bike', 'title'))
