@@ -2,6 +2,7 @@
 #:import Line kivy.graphics.vertex_instructions.Line
 #:import Rectangle kivy.graphics.vertex_instructions.Rectangle
 #:import Currency objects.currency.currency.Currency
+#:import UColor utils.color.Color
 
 
 <CharBtn@Button>:
@@ -22,19 +23,21 @@
     BoxLayout:
         CharBtn:
             text: "|"
+            opacity: 0 if not bool(root.value) else self.opacity
         Label:
             text: "{}".format(root.title)
+            color: UColor.hex(UColor.GRAY)
         CharBtn:
             text: "+"
+            opacity: 0 if not bool(root.value) else self.opacity
 
     FloatLayout:
         orientation: "vertical"
         ProgressBar:
             pos: root.pos[0], root.pos[1] + 50
-            min: 0
-            value: int(self.parent.parent.value)
-            max: int(self.parent.parent.max)
-
+            min:
+            value: int(root.value)
+            max: int(root.max)
             canvas:
                 Color:
                     rgba: 0, 0, 0, .9
@@ -44,14 +47,18 @@
 
     FloatLayout:
         Label:
-            pos: self.parent.parent.x - 40, self.parent.parent.y
+            pos: root.x - 40, root.y
+            text: '' if not bool(root.value) else str(root.value)
             size_hint: None, None
-            text: str(root.value)
+            color: UColor.hex(UColor.GRAY)
         Label:
-            text: "->"
-            pos: self.parent.parent.x + 160, self.parent.parent.y
+            text: '' if not bool(root.value) else 'current / upgrade'
+            pos: root.x + 80, root.y
+            font_size: 11
             size_hint: None, None
+            color: UColor.hex(UColor.GRAY)
         Label:
-            text: str(root.max)
-            pos: self.parent.parent.x + 200, self.parent.parent.y
+            text: '' if not bool(root.value) else str(root.max)
+            pos: root.x + 200, root.y
             size_hint: None, None
+            color: UColor.hex(UColor.GRAY)

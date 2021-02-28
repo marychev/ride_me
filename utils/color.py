@@ -4,7 +4,9 @@ from kivy.core.window import Window
 
 
 class Color:
+    WHITE = 'ffffff'
     BG_MENU_DEFAULT = '000000'
+    GRAY = '333333'
     RED = 'ff0000'
     RED_LIGHT = 'fb2929'
     ORANGE = 'ff5e00'

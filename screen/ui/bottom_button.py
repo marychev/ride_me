@@ -2,12 +2,13 @@ from kivy.animation import Animation
 from kivy.clock import Clock
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty, DictProperty
 from kivy.uix.button import Button
-
+from kivy.uix.label import Label
 from bike.bike import Bike
 from bike.bikes import get_by_title as get_bike_by_title
 from level.base.base_level import BaseLevel
 from level.maps import get_by_title as get_map_by_title
-from utils.color import BgAnimation
+from objects.currency.currency import Currency
+from utils.color import BgAnimation, Color as UColor
 from utils.init import app_config, calc_rest_rm
 from utils.validation import ValidObject
 
@@ -47,6 +48,10 @@ class RightPanelBtn(PanelBtn):
 
                     self.init_item(menu_screen.init_bike)
                     RightPanelBtn.change_bottom_right_btn(menu_screen)
+                    bikes_screen.ids['title'].color = UColor.hex(UColor.WHITE)
+                else:
+                    Clock.schedule_once(self._create_animation_fail, 0)
+                    Clock.schedule_once(self._clear_animation, .5)
 
         elif 'MapsScreen' == _screen.__class__.__name__:
             if not app_config('map', 'title'):
@@ -54,6 +59,7 @@ class RightPanelBtn(PanelBtn):
                 rest_rm = calc_rest_rm(map['price'])
                 if BaseLevel.buy(map):
                     RightPanelBtn.change_rm(screens, rest_rm)
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_record'], '/dev/')
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_level'], map['level'])
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_map'], map['map'])
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_total_way'], map['total_way'])
@@ -61,6 +67,7 @@ class RightPanelBtn(PanelBtn):
 
                     self.init_item(menu_screen.init_map)
                     RightPanelBtn.change_bottom_right_btn(menu_screen)
+                    maps_screen.ids['title'].color = UColor.hex(UColor.WHITE)
                 else:
                     Clock.schedule_once(self._create_animation_fail, 0)
                     Clock.schedule_once(self._clear_animation, .5)
@@ -91,23 +98,49 @@ class RightPanelBtn(PanelBtn):
     @staticmethod
     def change_rm(screens, value):
         for s in screens:
-            s.ids['panel_rm'].text = str(value)
+            s.ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
 
     @staticmethod
     def change_character_wrap(character_wrap, value):
         progress_bar = ValidObject.progress_bar(character_wrap.children[1].children[0])
         buttons = [character_wrap.children[2].children[0], character_wrap.children[2].children[2]]
-
         if type(value) is int:
-            character_wrap.value = progress_bar.value = int(value)
+            # character_wrap.value = progress_bar.value = int(value)
             character_wrap.max = progress_bar.max = int(value)
         else:
-            character_wrap.title = value
+            character_wrap.title = '{}: {}'.format(character_wrap.title, value)
         buttons[0].disabled = buttons[1].disabled = False
         buttons[0].opacity = buttons[1].opacity = 1
+
+        print(character_wrap)
+        # change color of labels on  the right side properties
+        for lbl in character_wrap.children[0].children[:]:
+            if type(lbl) is Label:
+                lbl.color = UColor.hex(UColor.WHITE)
+        for lbl in character_wrap.children[2].children[:]:
+            if type(lbl) is Label:
+                lbl.color = UColor.hex(UColor.WHITE)
 
     @staticmethod
     def change_bottom_right_btn(menu_screen):
         if app_config('bike', 'title') and app_config('map', 'title'):
             menu_screen.ids['right_panel_btn'].text = 'Go'
             menu_screen.ids['right_panel_btn'].disabled = False
+
+    @staticmethod
+    def change_color_labels_right_panel(character_wrap):
+        print(character_wrap)
+        RightPanelBtn._change_color_labels(character_wrap.children[0])
+        RightPanelBtn._change_color_labels(character_wrap.children[2])
+        # for lbl in character_wrap.children[0].children[:]:
+        #     if type(lbl) is Label:
+        #         lbl.color = UColor.hex(UColor.WHITE)
+        # for lbl in character_wrap.children[2].children[:]:
+        #     if type(lbl) is Label:
+        #         lbl.color = UColor.hex(UColor.WHITE)
+
+    @staticmethod
+    def _change_color_labels(wrap_children, color=UColor.hex(UColor.WHITE)):
+        for lbl in wrap_children.children[:]:
+            if type(lbl) is Label:
+                lbl.color = color
