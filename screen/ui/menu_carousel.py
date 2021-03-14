@@ -59,6 +59,11 @@ class BikeMenuCarousel(MenuCarousel):
 
         if app_config('bike', 'title') == self.current_slide.item['title']:
             bikes_screen.ids['title'].text = self.title_active()
+        else:
+            self.char_btn_disabled('character_wrap_power')
+            self.char_btn_disabled('character_wrap_speed')
+            self.char_btn_disabled('character_wrap_acceleration')
+            self.char_btn_disabled('character_wrap_agility')
 
         _bike = get_bike_by_title(self.current_slide.item['title'])
         color = self.define_color('bike')
@@ -68,6 +73,13 @@ class BikeMenuCarousel(MenuCarousel):
         self.change_prop_title('character_wrap_speed', _bike['speed'], color)
         self.change_prop_title('character_wrap_acceleration', _bike['acceleration'], color)
         self.change_prop_title('character_wrap_agility', _bike['agility'], color)
+
+    def char_btn_disabled(self, sid: str):
+        bikes_screen = ValidObject.bikes_screen(self._screen())
+        box_layout = bikes_screen.ids[sid].children[2]
+        left_btn, right_btn = box_layout.children[0], box_layout.children[2]
+        left_btn.disabled = right_btn.disabled = True
+        left_btn.opacity = right_btn.opacity = 0
 
 
 class MapMenuCarousel(MenuCarousel):
@@ -95,3 +107,5 @@ class MapMenuCarousel(MenuCarousel):
             if screen.ids['title']:
                 if screen.ids:
                     screen.ids['title'].text = value
+                    return
+

@@ -5,8 +5,8 @@ BIKES = [
     {
         "title": "Hell Ride",
         "source": "./bike/img/bike-landing.png",
-        "power": "150",
-        "speed": "10",
+        "power": "180",
+        "speed": "20",
         "acceleration": "3",
         "agility": "5",
         "price": "920",
@@ -18,7 +18,7 @@ BIKES = [
     {
         "title": "Geisha",
         "source": "./bike/img/bike-relax.png",
-        "power": "140",
+        "power": "190",
         "speed": "15",
         "acceleration": "0",
         "agility": "0",
@@ -29,8 +29,8 @@ BIKES = [
     {
         "title": "Default",
         "source": "./bike/img/bike-1.png",
-        "power": "130",
-        "speed": "12",
+        "power": "180",
+        "speed": "20",
         "acceleration": "1",
         "agility": "1",
         "price": "800",
