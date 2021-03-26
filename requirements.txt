@@ -3,3 +3,4 @@ Kivy==2.0.0
 ffpyplayer==4.3.2
 pytest==6.2.2
 coverage==5.4
+Cython==0.29.22
