@@ -17,7 +17,7 @@ class GameImage(Widget):
 
     @classmethod
     def create(cls, sid, pos, size=None):
-        print('CREATE: {} pos: {}'.format(cls, pos))
+        #print('CREATE: {} pos: {}'.format(cls, pos))
         size = size if size else cls.TEXTURE.size
         kwargs = {
             "sid": sid,

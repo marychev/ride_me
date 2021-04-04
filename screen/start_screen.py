@@ -2,7 +2,6 @@ from kivy.cache import Cache
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
-
 from label.curtain import Curtain
 from layout.scene import CACHE_NAME
 from utils.dir import abstract_path
@@ -39,11 +38,10 @@ class StartScreen(Screen):
         road.distance_traveled = 0
         road.set_distance_traveled()
 
-        if not curtain.text:
-            scene.remove_widget(curtain)
-            Curtain(font_size=120).add_to_game_screen()
+        # if not curtain.text:
+        #     scene.remove_widget(curtain)
+        Curtain(font_size=120).add_to_game_screen()
         curtain = screen.ids['curtain']
-        curtain.font_size = 120
         curtain.do_start_timer()
 
         Clock.schedule_interval(scene.start_timer, 1)

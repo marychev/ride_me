@@ -47,26 +47,27 @@ class Scene(FloatLayout):
             self._add_visible_map_elems()
             self._update_children_x()
 
-            self.devtools_activate()
+            # self.devtools_activate()
 
     # Curtain's start timer as game object
     def start_timer(self, dt):
         curtain = self.parent.ids['curtain']
-        if curtain.text == '3':
-            curtain.draw_background()
-        elif curtain.text == '2':
-            curtain.draw_background(0.5)
-        elif curtain.text == '1':
-            curtain.draw_background(0.4)
-            curtain.text = ''
-            self.remove_widget(curtain)
+        if curtain:
+            if curtain.text == '3':
+                curtain.draw_background()
+            elif curtain.text == '2':
+                curtain.draw_background(0.5)
+            elif curtain.text == '1':
+                curtain.draw_background(0.4)
+                curtain.text = ''
+                self.remove_widget(curtain)
 
-            bike = GetObject(self.parent.ids['road']).bike
-            bike.start_dt = time.time()
-            return False
+                bike = GetObject(self.parent.ids['road']).bike
+                bike.start_dt = time.time()
+                return False
 
-        curtain.stop -= 1
-        curtain.text = str(curtain.stop)
+            curtain.stop -= 1
+            curtain.text = str(curtain.stop)
 
     def devtools_activate(self):
         try:

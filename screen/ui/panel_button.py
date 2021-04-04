@@ -21,8 +21,8 @@ class MenuButton(Button):
         super(MenuButton, self).__init__(**kwargs)
         self.app = App.get_running_app()
 
-    def on_state(self, instance, value):
-        print('My property a changed to', value, instance)
+    # def on_state(self, instance, value):
+    #     print('My property a changed to', value, instance)
 
     def start_pulsing(self):
         anim = Animation(background_color=[0.1, 0.8, 0.6, 1], duration=.6) \

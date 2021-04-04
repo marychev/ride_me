@@ -5,7 +5,9 @@ from utils.validation import ValidObject
 from utils.color import switcher_color
 
 
-class Tools(BoxLayout, KeyboardHandler):
+# Note: include com-keyboard for testing
+# class Tools(BoxLayout, KeyboardHandler):
+class Tools(BoxLayout):
     bike = ObjectProperty(None)
     right_btn = ObjectProperty(None)
     left_btn = ObjectProperty(None)

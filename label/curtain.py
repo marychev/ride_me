@@ -8,12 +8,11 @@ from utils.get_object import GetObject
 class Curtain(Label):
     sid = StringProperty('curtain')
     markup = BooleanProperty(True)
-    scene = ObjectProperty(None)
-    road = ObjectProperty(None)
+    scene = ObjectProperty()
+    road = ObjectProperty()
     stop = NumericProperty(3)
 
     def do_start_timer(self):
-        self.font_size = 120
         self.text = str(self.stop)
         self.draw_background(0.7)
         return self.text

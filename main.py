@@ -16,7 +16,7 @@ import cProfile
 class RideMeApp(App):
     use_kivy_settings = True
     icon = 'rm-icon.png'
-    title = 'Ride me'
+    title = 'Ride Me'
 
     # def on_start(self):
     #     self.profile = cProfile.Profile()
@@ -48,25 +48,25 @@ class RideMeApp(App):
         Cache.append('bike', 'speed', 0)
         Cache.append('bike', 'acceleration', 0)
         Cache.append('bike', 'agility', 0)
-        # config.setdefaults('bike', {
-        #     'rm': '2020',
-        #     'title': 'None',
-        #     'power': '0',
-        #     'speed': '0',
-        #     'acceleration': '0',
-        #     'agility': '0'})
+        config.setdefaults('bike', {
+            'rm': '1000',
+            'title': 'None',
+            'power': '0',
+            'speed': '0',
+            'acceleration': '0',
+            'agility': '0'})
 
         Cache.register('map')
         Cache.append('map', 'title', 'None')
         Cache.append('map', 'level', 'None')
         Cache.append('map', 'map', 'None')
         Cache.append('map', 'total_way', 0)
-        # config.setdefaults('map', {
-        #     'title': 'None',
-        #     'level': 'None',
-        #     'map': 'None',
-        #     'total_way': '0'
-        # })
+        config.setdefaults('map', {
+            'title': 'None',
+            'level': 'None',
+            'map': 'None',
+            'total_way': '0'
+        })
 
     def build_settings(self, settings):
         jsondata = '''[
