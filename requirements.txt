@@ -2,5 +2,5 @@ Kivy==2.0.0
 # kivy_examples
 ffpyplayer==4.3.2
 pytest==6.2.2
-coverage==5.4
+coverage==5.5
 Cython==0.29.22

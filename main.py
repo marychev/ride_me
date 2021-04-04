@@ -68,55 +68,55 @@ class RideMeApp(App):
             'total_way': '0'
         })
 
-    def build_settings(self, settings):
-        jsondata = '''[
-            { "type": "numeric",
-              "title": "rm",
-              "section": "bike",
-              "key": "rm"
-            },
-            { "type": "title", "title": "Bike settings" },
-            { "type": "string",
-              "title": "Bike title",
-              "section": "bike",
-              "key": "title" },
-            { "type": "numeric",
-              "title": "Power",
-              "section": "bike",
-              "key": "power" },
-            { "type": "numeric",
-              "title": "Speed",
-              "section": "bike",
-              "key": "speed" },
-            { "type": "numeric",
-              "title": "Acceleration",
-              "section": "bike",
-              "key": "acceleration" },
-            { "type": "numeric",
-              "title": "Agility",
-              "section": "bike",
-              "key": "agility"
-            },
-            { "type": "title", "title": "Map settings" },
-            { "type": "string",
-              "title": "Map title",
-              "section": "map",
-              "key": "title" },
-            { "type": "string",
-              "title": "Level",
-              "section": "map",
-              "key": "level" },
-            { "type": "numeric",
-              "title": "Map #",
-              "section": "map",
-              "key": "map" },
-            { "type": "numeric",
-              "title": "Total way",
-              "section": "map",
-              "key": "total_way"
-            }
-        ]'''
-        settings.add_json_panel('Ride me', self.config, data=jsondata)
+    # def build_settings(self, settings):
+    #     jsondata = '''[
+    #         { "type": "numeric",
+    #           "title": "rm",
+    #           "section": "bike",
+    #           "key": "rm"
+    #         },
+    #         { "type": "title", "title": "Bike settings" },
+    #         { "type": "string",
+    #           "title": "Bike title",
+    #           "section": "bike",
+    #           "key": "title" },
+    #         { "type": "numeric",
+    #           "title": "Power",
+    #           "section": "bike",
+    #           "key": "power" },
+    #         { "type": "numeric",
+    #           "title": "Speed",
+    #           "section": "bike",
+    #           "key": "speed" },
+    #         { "type": "numeric",
+    #           "title": "Acceleration",
+    #           "section": "bike",
+    #           "key": "acceleration" },
+    #         { "type": "numeric",
+    #           "title": "Agility",
+    #           "section": "bike",
+    #           "key": "agility"
+    #         },
+    #         { "type": "title", "title": "Map settings" },
+    #         { "type": "string",
+    #           "title": "Map title",
+    #           "section": "map",
+    #           "key": "title" },
+    #         { "type": "string",
+    #           "title": "Level",
+    #           "section": "map",
+    #           "key": "level" },
+    #         { "type": "numeric",
+    #           "title": "Map #",
+    #           "section": "map",
+    #           "key": "map" },
+    #         { "type": "numeric",
+    #           "title": "Total way",
+    #           "section": "map",
+    #           "key": "total_way"
+    #         }
+    #     ]'''
+    #     settings.add_json_panel('Ride me', self.config, data=jsondata)
 
 
 if __name__ == '__main__':
