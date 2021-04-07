@@ -1,6 +1,7 @@
 from kivy.animation import Animation
 from kivy.clock import Clock
-from kivy.properties import StringProperty, NumericProperty, BooleanProperty, DictProperty
+from kivy.core.window import Window
+from kivy.properties import StringProperty, NumericProperty, BooleanProperty, DictProperty, ListProperty
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from bike.bike import Bike
@@ -14,9 +15,10 @@ from utils.validation import ValidObject
 
 
 class PanelBtn(Button):
-    size_hint_x = NumericProperty(0.5)
-    size_hint_y = NumericProperty(1)
     disabled = BooleanProperty(True)
+    height = NumericProperty(int(Window.height / 4))
+    width = NumericProperty(int(Window.height / 4))
+    size_hint = ListProperty([None, None])
 
 
 class RightPanelBtn(PanelBtn):

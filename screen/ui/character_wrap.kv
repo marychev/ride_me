@@ -35,7 +35,6 @@
         orientation: "vertical"
         ProgressBar:
             pos: root.pos[0], root.pos[1] + 50
-            min:
             value: int(root.value)
             max: int(root.max)
             canvas:
@@ -54,7 +53,7 @@
         Label:
             text: '' if not bool(root.value) else 'current / upgrade'
             pos: root.x + 80, root.y
-            font_size: 11
+            font_size: 10
             size_hint: None, None
             color: UColor.hex(UColor.GRAY)
         Label:

@@ -14,6 +14,7 @@
             LeftPanelMenuShop
             Label:
                 text: " "
+
             LeftPanelBtn:
                 disabled: False
                 on_press: app.sm.current = 'menu'
@@ -28,6 +29,7 @@
         RightPanel:
             RightPanelTitle:
                 id: panel_rm
+
             CharacterWrap:
                 id: character_wrap_record
                 title: "Record: -"
@@ -40,7 +42,9 @@
             CharacterWrap:
                 id: character_wrap_total_way
                 title: "Total way: {}".format(MAPS[0]['total_way'])
+
             RightPanelBtn:
                 text: "Buy"
                 disabled: False
+
 

@@ -1,4 +1,7 @@
 #:import app_config utils.init.app_config
+#:import PanelBtn screen.ui.bottom_button.PanelBtn
+
+
 # Center panel
 
 <CenterPanel@BoxLayout>:
@@ -25,6 +28,8 @@
 <RightPanelTitle@Label>:
     text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
     markup: True
+    height: 20
+    size_hint: None, None
 
 
 
@@ -34,13 +39,7 @@
     id: center_panel
     orientation: 'vertical'
     size_hint: .25, 1
-    spacing: 4
-    Label:
-        text: " "
 
-<LeftPanelBtn@Button>:
-    size_hint: .5, 1
+<LeftPanelBtn@PanelBtn>:
     pos_hint: {'left': 1, 'bottom': 1}
     text: "Menu"
-    disabled: True
-
