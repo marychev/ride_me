@@ -1,4 +1,5 @@
 from kivy.animation import Animation
+from kivy.core.window import Window
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty, StringProperty, ListProperty, ReferenceListProperty, \
@@ -11,8 +12,10 @@ Builder.load_file(abstract_path('screen/ui/panel_button.kv'))
 
 
 class MenuButton(Button):
-    size_hint_x = NumericProperty(0.8)
-    size_hint_y = NumericProperty(0.6)
+    width = NumericProperty(int(Window.width/5))
+    height = NumericProperty(int(Window.height/8))
+    size_hint_x = NumericProperty(None)
+    size_hint_y = NumericProperty(None)
     size_hint = ReferenceListProperty(size_hint_x, size_hint_y)
     background_color = ListProperty([.4, .4, .4, 1])
     app = ObjectProperty()

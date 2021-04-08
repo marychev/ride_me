@@ -13,11 +13,6 @@
             LeftPanelMenuMaps:
                 id: left_panel_menu_maps
             LeftPanelMenuShop
-            Label:
-                text: " "
-            LeftPanelBtn:
-                disabled: False
-                on_press: app.sm.current = 'menu'
 
         CenterPanel:
             FloatLayout:
@@ -25,6 +20,7 @@
                     id: title
                     text: BIKES[0]['title']
                 BikeMenuCarousel:
+
         RightPanel:
             RightPanelTitle:
                 id: panel_rm
@@ -52,6 +48,10 @@
                 item: BIKES[0]
                 value: BIKES[0]['agility']
                 max: BIKES[0]['agility']
-            RightPanelBtn:
-                text: "Buy"
-                disabled: False
+
+    LeftPanelBtn:
+        disabled: False
+        on_press: app.sm.current = 'menu'
+    RightPanelBtn:
+        text: "Buy"
+        disabled: False

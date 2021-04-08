@@ -26,7 +26,8 @@ class RightPanelBtn(PanelBtn):
     text = StringProperty('Ok')
 
     def _current_screen(self):
-        return self.parent.parent.parent
+        # OLD:  return self.parent.parent.parent if hasattr(self.parent.parent.parent, 'manager') else None
+        return self.parent if hasattr(self.parent, 'manager') else None
 
     def on_press(self, *args, **kwargs):
         _screen = self._current_screen()

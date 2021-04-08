@@ -12,24 +12,15 @@
                 id: left_panel_menu_maps
                 disabled: True
             LeftPanelMenuShop
-            Label:
-                text: " "
-
-            LeftPanelBtn:
-                disabled: False
-                on_press: app.sm.current = 'menu'
-
         CenterPanel:
             FloatLayout:
                 CenterPanelTitle:
                     id: title
                     text: MAPS[0]['title']
                 MapMenuCarousel:
-
         RightPanel:
             RightPanelTitle:
                 id: panel_rm
-
             CharacterWrap:
                 id: character_wrap_record
                 title: "Record: -"
@@ -42,9 +33,11 @@
             CharacterWrap:
                 id: character_wrap_total_way
                 title: "Total way: {}".format(MAPS[0]['total_way'])
-
-            RightPanelBtn:
-                text: "Buy"
-                disabled: False
+    LeftPanelBtn:
+        disabled: False
+        on_press: app.sm.current = 'menu'
+    RightPanelBtn:
+        text: "Buy"
+        disabled: False
 
 

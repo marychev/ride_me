@@ -7,7 +7,7 @@
 <CenterPanel@BoxLayout>:
     id: center_block
     orientation: 'vertical'
-    size_hint: .5, 1
+    size_hint: .5, .8
 
 
 <CenterPanelTitle@Label>:
@@ -22,24 +22,27 @@
 <RightPanel@BoxLayout>:
     id: right_block
     orientation: "vertical"
+    pos_hint: {'right': 1, 'top': 1}
     size_hint: .25, 1
 
 
 <RightPanelTitle@Label>:
     text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
     markup: True
-    height: 20
+    pos_hint: {'right': 1, 'top': 1}
+    height: 40
     size_hint: None, None
-
 
 
 # Left panel
 
 <LeftPanel@BoxLayout>:
-    id: center_panel
+    id: left_panel
     orientation: 'vertical'
-    size_hint: .25, 1
+    pos_hint: {'left': 1, 'top': 0.62}
+    size_hint: None, None
+    spacing: 4
 
 <LeftPanelBtn@PanelBtn>:
-    pos_hint: {'left': 1, 'bottom': 1}
+    pos_hint: {'x': 0, 'y': 0}
     text: "Menu"

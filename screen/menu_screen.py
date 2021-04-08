@@ -1,4 +1,4 @@
-from kivy.app import App
+# from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import ObjectProperty, DictProperty
 from kivy.uix.image import Image

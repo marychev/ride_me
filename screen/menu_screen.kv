@@ -14,10 +14,6 @@
                 id: left_panel_menu_maps
             LeftPanelMenuShop:
 
-            LeftPanelBtn:
-                disabled: False
-                on_press: app.sm.current = 'start'
-
         CenterPanel:
             id: center_panel
             Label:
@@ -26,13 +22,15 @@
                 text: "No map"
 
         RightPanel:
-            RightPanelTitle:
-                id: panel_rm
+            AnchorLayout:
+                anchor_x: 'right'
+                anchor_y: 'top'
+                RightPanelTitle:
+                    id: panel_rm
 
-            #Label:                text: "...."
-            #Label:                text: "...."
-            #Label:                text: "...."
-
-            RightPanelBtn:
-                id: right_panel_btn
-                disabled: not bool(app_config('bike', 'title'))
+    LeftPanelBtn:
+        disabled: False
+        on_press: app.sm.current = 'start'
+    RightPanelBtn:
+        id: right_panel_btn
+        disabled: not bool(app_config('bike', 'title'))
