@@ -29,10 +29,9 @@ class Curtain(Label):
             bike.__class__.__name__,
             bike.finish_dt - bike.start_dt)
 
-    def add_to_game_screen(self):
+    def add_to_game_screen(self, screen=None, scene=None):
         self.draw_background()
-        screen = GetObject(self.road).screen
-        scene = GetObject(self.road).scene
+        screen = screen or GetObject(self.road).screen
+        scene = scene or GetObject(self.road).scene
         screen.ids[self.sid] = self
         scene.add_widget(self)
-

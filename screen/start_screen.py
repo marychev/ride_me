@@ -45,7 +45,10 @@ class StartScreen(Screen):
         # if not curtain.text:
         #     scene.remove_widget(curtain)
 
-        Curtain(font_size=120).add_to_game_screen()
+        # Fix: v0.0.91 'troubles with the tests'
+        # Curtain(font_size=120).add_to_game_screen()
+        Curtain(font_size=120).add_to_game_screen(screen, scene)
+
         curtain = screen.ids['curtain']
         curtain.do_start_timer()
 

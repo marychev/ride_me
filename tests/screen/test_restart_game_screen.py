@@ -43,7 +43,9 @@ class RestartGameScreenTest(GraphicUnitTest):
         thirty_map_names = [t['name'] for t in TESTMAP[3:4]]
         self.assertEqual(road_names[0], thirty_map_names[0])
 
-        self.manager.get_screen('start').restart_game()
+        screen = self.manager.get_screen('start')
+        screen.restart_game()
+
         self.assertEqual(self.road.distance_traveled, 0)
 
         # start first position
