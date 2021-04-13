@@ -11,8 +11,3 @@ class CharacterWrap(BoxLayout):
     max = NumericProperty(0)
     item = DictProperty(None)
 
-    def __init__(self, **kwargs):
-        super(CharacterWrap, self).__init__(**kwargs)
-        print('-----------------------')
-        print(self)
-        print(kwargs)

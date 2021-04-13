@@ -10,8 +10,8 @@ class SlideLabel(Label):
         self.markup = True
         self.text_size = cm(12), cm(6)
         self.size = self.text_size
-        self.pos = self.pos[0], int(Window.height/10)
-        self.halign = 'center'
+        self.size_hint = None, None
+        self.pos = self.center_x, self.center_y - 80
 
 
 class Slide(Image):

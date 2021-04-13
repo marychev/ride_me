@@ -1,3 +1,4 @@
+#:import Window kivy.core.window.Window
 #:import app_config utils.init.app_config
 #:import PanelBtn screen.ui.bottom_button.PanelBtn
 
@@ -7,14 +8,16 @@
 <CenterPanel@BoxLayout>:
     id: center_block
     orientation: 'vertical'
-    size_hint: .5, .8
+    size_hint: 1, 1
 
 
 <CenterPanelTitle@Label>:
     id: title
     font_size: 36
-    pos: self.parent.x, self.parent.y + 280
+    pos: int(Window.width/2-self.size[0]/2), int(Window.height- self.font_size*2.5)
     color: .2, .2, .2, 1
+    size_hint: None, None
+
 
 
 # Right panel
@@ -23,7 +26,7 @@
     id: right_block
     orientation: "vertical"
     pos_hint: {'right': 1, 'top': 1}
-    size_hint: .25, 1
+    size_hint: .2, .7
 
 
 <RightPanelTitle@Label>:

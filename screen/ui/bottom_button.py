@@ -109,7 +109,7 @@ class RightPanelBtn(PanelBtn):
 
     @staticmethod
     def change_character_wrap(character_wrap, value, color=UColor.hex(UColor.WHITE)):
-        progress_bar = ValidObject.progress_bar(character_wrap.children[1].children[0])
+        progress_bar = ValidObject.progress_bar(character_wrap.children[0].children[0])
         if type(value) is int:
             character_wrap.max = progress_bar.max = value
         else:
@@ -120,7 +120,7 @@ class RightPanelBtn(PanelBtn):
 
     @staticmethod
     def prop_buttons_hide(character_wrap):
-        buttons = [character_wrap.children[2].children[0], character_wrap.children[2].children[2]]
+        buttons = [character_wrap.children[1].children[0], character_wrap.children[1].children[2]]
         buttons[0].disabled = buttons[1].disabled = False
         buttons[0].opacity = buttons[1].opacity = 1
 
@@ -133,7 +133,7 @@ class RightPanelBtn(PanelBtn):
     @staticmethod
     def change_color_labels_right_panel(character_wrap, color):
         RightPanelBtn._change_color_labels(character_wrap.children[0], color)
-        RightPanelBtn._change_color_labels(character_wrap.children[2], color)
+        RightPanelBtn._change_color_labels(character_wrap.children[1], color)
 
     @staticmethod
     def _change_color_labels(wrap_children, color):

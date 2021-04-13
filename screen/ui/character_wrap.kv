@@ -6,15 +6,15 @@
 
 
 <CharBtn@Button>:
-    height: 40
-    width: 40
-    size_hint: None, None
     disabled: True
     opacity: 0.2
 
 
 <CharacterWrap>:
     orientation: "vertical"
+    height: 75
+    width: 300
+    size_hint: None, None
     item: self.item
     title: self.title
     value: self.value
@@ -22,19 +22,19 @@
 
     BoxLayout:
         CharBtn:
-            text: "|"
-            opacity: 0 if not bool(root.value) else self.opacity
+            text: "Current: {}".format(root.value)
+            opacity: 0.5 if not bool(root.value) else self.opacity
         Label:
             text: "{}".format(root.title)
             color: UColor.hex(UColor.GRAY)
         CharBtn:
-            text: "+"
+            text: "Upgrade: {0}".format(root.max)
             opacity: 0 if not bool(root.value) else self.opacity
 
-    FloatLayout:
+    BoxLayout:
         orientation: "vertical"
         ProgressBar:
-            pos: root.pos[0], root.pos[1] + 50
+            pos: root.pos[0], root.pos[1] + 45
             value: int(root.value)
             max: int(root.max)
             canvas:
@@ -43,21 +43,3 @@
                 Line:
                     points: self.x, self.y+19, self.x + self.parent.width, self.y+19
                     width: 3
-
-    FloatLayout:
-        Label:
-            pos: root.x - 40, root.y
-            text: '' if not bool(root.value) else str(root.value)
-            size_hint: None, None
-            color: UColor.hex(UColor.GRAY)
-        Label:
-            text: '' if not bool(root.value) else 'current / upgrade'
-            pos: root.x + 80, root.y
-            font_size: 10
-            size_hint: None, None
-            color: UColor.hex(UColor.GRAY)
-        Label:
-            text: '' if not bool(root.value) else str(root.max)
-            pos: root.x + 200, root.y
-            size_hint: None, None
-            color: UColor.hex(UColor.GRAY)

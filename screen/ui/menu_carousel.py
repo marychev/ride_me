@@ -1,15 +1,17 @@
+from typing import Union
+
 from kivy.lang import Builder
-from kivy.uix.carousel import Carousel
 from kivy.properties import ListProperty
+from kivy.uix.carousel import Carousel
+
 from bike.bikes import BIKES, get_by_title as get_bike_by_title
 from level.maps import MAPS, get_by_title as get_map_by_title
-from screen.ui.slide import Slide
 from screen.ui.bottom_button import RightPanelBtn
-from utils.dir import abstract_path
-from utils.validation import ValidObject
-from utils.init import app_config
+from screen.ui.slide import Slide
 from utils.color import Color as UColor
-from typing import Union
+from utils.dir import abstract_path
+from utils.init import app_config
+from utils.validation import ValidObject
 
 Builder.load_file(abstract_path('screen/ui/menu_carousel.kv'))
 
@@ -76,7 +78,7 @@ class BikeMenuCarousel(MenuCarousel):
 
     def char_btn_disabled(self, sid: str):
         bikes_screen = ValidObject.bikes_screen(self._screen())
-        box_layout = bikes_screen.ids[sid].children[2]
+        box_layout = bikes_screen.ids[sid].children[1]
         left_btn, right_btn = box_layout.children[0], box_layout.children[2]
         left_btn.disabled = right_btn.disabled = True
         left_btn.opacity = right_btn.opacity = 0
