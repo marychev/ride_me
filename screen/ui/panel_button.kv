@@ -21,14 +21,15 @@
 <RightPanel@BoxLayout>:
     id: right_block
     orientation: "vertical"
-    pos_hint: {'right': 1, 'top': 1}
-    size_hint: .2, .7
+    # pos_hint: {'right': .99}
+    pos: Window.width-310, Window.height/4
+    # size_hint: .25, 1
 
 <RightPanelTitle@Label>:
     text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
     markup: True
-    pos_hint: {'right': 1, 'top': 1}
-    height: 40
+    pos_hint: {'x': 0, 'y': 0}
+    height: 30
     size_hint: None, None
 
 # Left panel

@@ -26,7 +26,7 @@ class MenuCarousel(Carousel):
         self.set_title(self.objects[0]['title'])
 
     def _screen(self):
-        return self.parent.parent.parent.parent
+        return self.parent.parent
 
     def define_color(self, section):
         return UColor.hex(UColor.WHITE) if app_config(section, 'title') == self.current_slide.item['title']\
