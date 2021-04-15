@@ -5,49 +5,47 @@
 
 
 <BikesScreen>:
-    BoxLayout:
-        LeftPanel:
-            LeftPanelMenuBikes:
-                id: left_panel_menu_bikes
-                disabled: True
-            LeftPanelMenuMaps:
-                id: left_panel_menu_maps
-            LeftPanelMenuShop
+    CenterPanel:
+        CenterPanelTitle:
+            id: title
+            text: BIKES[0]['title']
+        BikeMenuCarousel:
 
-        CenterPanel:
-            FloatLayout:
-                CenterPanelTitle:
-                    id: title
-                    text: BIKES[0]['title']
-                BikeMenuCarousel:
+    LeftPanel:
+        LeftPanelMenuBikes:
+            id: left_panel_menu_bikes
+            disabled: True
+        LeftPanelMenuMaps:
+            id: left_panel_menu_maps
+        LeftPanelMenuShop
 
-        RightPanel:
-            RightPanelTitle:
-                id: panel_rm
-            CharacterWrap:
-                id: character_wrap_power
-                item: BIKES[0]
-                title: "Power"
-                value: BIKES[0]['power']
-                max: BIKES[0]['power']
-            CharacterWrap:
-                id: character_wrap_speed
-                item: BIKES[0]
-                title: "Speed"
-                value: BIKES[0]['speed']
-                max: BIKES[0]['speed']
-            CharacterWrap:
-                id: character_wrap_acceleration
-                title: "Acceleration"
-                item: BIKES[0]
-                value: BIKES[0]['acceleration']
-                max: BIKES[0]['acceleration']
-            CharacterWrap:
-                id: character_wrap_agility
-                title: "Agility"
-                item: BIKES[0]
-                value: BIKES[0]['agility']
-                max: BIKES[0]['agility']
+    RightPanel:
+        RightPanelTitle:
+            id: panel_rm
+        CharacterWrap:
+            id: character_wrap_power
+            item: BIKES[0]
+            title: "Power"
+            value: BIKES[0]['power']
+            max: BIKES[0]['power']
+        CharacterWrap:
+            id: character_wrap_speed
+            item: BIKES[0]
+            title: "Speed"
+            value: BIKES[0]['speed']
+            max: BIKES[0]['speed']
+        CharacterWrap:
+            id: character_wrap_acceleration
+            title: "Acceleration"
+            item: BIKES[0]
+            value: BIKES[0]['acceleration']
+            max: BIKES[0]['acceleration']
+        CharacterWrap:
+            id: character_wrap_agility
+            title: "Agility"
+            item: BIKES[0]
+            value: BIKES[0]['agility']
+            max: BIKES[0]['agility']
 
     LeftPanelBtn:
         disabled: False

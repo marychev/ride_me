@@ -4,6 +4,7 @@ from kivy.core.window import Window
 from kivy.properties import StringProperty, NumericProperty, BooleanProperty, DictProperty, ListProperty
 from kivy.uix.button import Button
 from kivy.uix.label import Label
+
 from bike.bike import Bike
 from bike.bikes import get_by_title as get_bike_by_title
 from level.base.base_level import BaseLevel

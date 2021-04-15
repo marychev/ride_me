@@ -8,17 +8,13 @@
 <CenterPanel@BoxLayout>:
     id: center_block
     orientation: 'vertical'
-    size_hint: 1, 1
-
 
 <CenterPanelTitle@Label>:
     id: title
     font_size: 36
-    pos: int(Window.width/2-self.size[0]/2), int(Window.height- self.font_size*2.5)
+    pos: 0, int(Window.height - self.font_size*2.2)
     color: .2, .2, .2, 1
-    size_hint: None, None
-
-
+    size_hint: 1, 0
 
 # Right panel
 
@@ -28,14 +24,12 @@
     pos_hint: {'right': 1, 'top': 1}
     size_hint: .2, .7
 
-
 <RightPanelTitle@Label>:
     text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
     markup: True
     pos_hint: {'right': 1, 'top': 1}
     height: 40
     size_hint: None, None
-
 
 # Left panel
 

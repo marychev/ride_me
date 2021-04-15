@@ -2,22 +2,24 @@
 
 
 <ShopScreen>:
-    BoxLayout:
-        LeftPanel:
-            LeftPanelMenuBikes:
-                id: left_panel_menu_bikes
-            LeftPanelMenuMaps:
-                id: left_panel_menu_maps
-            LeftPanelMenuShop
-                disabled: True
-            LeftPanelBtn:
+    LeftPanel:
+        LeftPanelMenuBikes:
+            id: left_panel_menu_bikes
+        LeftPanelMenuMaps:
+            id: left_panel_menu_maps
+        LeftPanelMenuShop
+            disabled: True
 
-        CenterPanel:
-            FloatLayout:
-                CenterPanelTitle:
-                    id: title
-                    text: "Show closed"
-        RightPanel:
+    CenterPanel:
+        CenterPanelTitle:
+            id: title
+            text: "Show closed"
+    RightPanel:
+        AnchorLayout:
+            anchor_x: 'right'
+            anchor_y: 'top'
             RightPanelTitle:
                 id: panel_rm
-            RightPanelBtn
+
+    LeftPanelBtn:
+    RightPanelBtn:

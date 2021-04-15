@@ -6,27 +6,26 @@
 
 
 <MenuScreen>:
-    BoxLayout:
-        LeftPanel:
-            LeftPanelMenuBikes:
-                id: left_panel_menu_bikes
-            LeftPanelMenuMaps:
-                id: left_panel_menu_maps
-            LeftPanelMenuShop:
+    LeftPanel:
+        LeftPanelMenuBikes:
+            id: left_panel_menu_bikes
+        LeftPanelMenuMaps:
+            id: left_panel_menu_maps
+        LeftPanelMenuShop:
 
-        CenterPanel:
-            id: center_panel
-            Label:
-                text: "No bike"
-            Label:
-                text: "No map"
+    CenterPanel:
+        id: center_panel
+        Label:
+            text: "No bike"
+        Label:
+            text: "No map"
 
-        RightPanel:
-            AnchorLayout:
-                anchor_x: 'right'
-                anchor_y: 'top'
-                RightPanelTitle:
-                    id: panel_rm
+    RightPanel:
+        AnchorLayout:
+            anchor_x: 'right'
+            anchor_y: 'top'
+            RightPanelTitle:
+                id: panel_rm
 
     LeftPanelBtn:
         disabled: False

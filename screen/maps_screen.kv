@@ -4,35 +4,36 @@
 
 
 <MapsScreen>:
-    BoxLayout:
-        LeftPanel:
-            LeftPanelMenuBikes:
-                id: left_panel_menu_bikes
-            LeftPanelMenuMaps
-                id: left_panel_menu_maps
-                disabled: True
-            LeftPanelMenuShop
-        CenterPanel:
-            FloatLayout:
-                CenterPanelTitle:
-                    id: title
-                    text: MAPS[0]['title']
-                MapMenuCarousel:
-        RightPanel:
-            RightPanelTitle:
-                id: panel_rm
-            CharacterWrap:
-                id: character_wrap_record
-                title: "Record: -"
-            CharacterWrap:
-                id: character_wrap_level
-                title: "Track: {}".format(MAPS[0]['level'])
-            CharacterWrap:
-                id: character_wrap_map
-                title: "Map: #{}".format(MAPS[0]['map'])
-            CharacterWrap:
-                id: character_wrap_total_way
-                title: "Total way: {}".format(MAPS[0]['total_way'])
+    CenterPanel:
+        CenterPanelTitle:
+            id: title
+            text: MAPS[0]['title']
+        MapMenuCarousel:
+
+    LeftPanel:
+        LeftPanelMenuBikes:
+            id: left_panel_menu_bikes
+        LeftPanelMenuMaps
+            id: left_panel_menu_maps
+            disabled: True
+        LeftPanelMenuShop
+
+    RightPanel:
+        RightPanelTitle:
+            id: panel_rm
+        CharacterWrap:
+            id: character_wrap_record
+            title: "Record: -"
+        CharacterWrap:
+            id: character_wrap_level
+            title: "Track: {}".format(MAPS[0]['level'])
+        CharacterWrap:
+            id: character_wrap_map
+            title: "Map: #{}".format(MAPS[0]['map'])
+        CharacterWrap:
+            id: character_wrap_total_way
+            title: "Total way: {}".format(MAPS[0]['total_way'])
+
     LeftPanelBtn:
         disabled: False
         on_press: app.sm.current = 'menu'
