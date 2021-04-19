@@ -8,14 +8,16 @@
 <CharBtn@Button>:
     disabled: True
     opacity: 0.1
-
+    font_size: '6sp'
+    disabled: True
 
 <CharacterWrap>:
     orientation: "vertical"
-    height: 75
-    width: 300
+    height: '40dp'
+    width: int(Window.width/3.3)
     size_hint: None, None
     item: self.item
+    has_value: self.has_value
     title: self.title
     value: self.value
     max: self.max
@@ -23,23 +25,24 @@
     BoxLayout:
         CharBtn:
             text: "Current: {}".format(root.value)
-            opacity: 0.5 if not bool(root.value) else self.opacity
+            opacity: self.opacity if root.has_value else 0
         Label:
             text: "{}".format(root.title)
             color: UColor.hex(UColor.GRAY)
+            font_size: '9sp'
         CharBtn:
             text: "Upgrade: {0}".format(root.max)
-            opacity: 0 if not bool(root.value) else self.opacity
+            opacity: self.opacity if root.has_value else 0
 
     BoxLayout:
         orientation: "vertical"
         ProgressBar:
-            pos: root.pos[0], root.pos[1] + 45
+            pos: (root.pos[0], root.pos[1] + 45) if root.has_value else (0, 0)
             value: int(root.value)
-            max: int(root.max)
+            max: int(root.max) + 100
             canvas:
                 Color:
                     rgba: 0, 0, 0, .9
                 Line:
-                    points: self.x, self.y+19, self.x + self.parent.width, self.y+19
-                    width: 3
+                    points: self.x, self.y+20, self.x + self.parent.width, self.y+20
+                    width: 2 if root.has_value else 3

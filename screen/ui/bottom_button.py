@@ -17,8 +17,8 @@ from utils.validation import ValidObject
 
 class PanelBtn(Button):
     disabled = BooleanProperty(True)
-    height = NumericProperty(int(Window.height / 4))
-    width = NumericProperty(int(Window.height / 4))
+    height = NumericProperty(int(Window.height / 4.2))
+    width = NumericProperty(int(Window.height / 4.2))
     size_hint = ListProperty([None, None])
 
 

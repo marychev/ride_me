@@ -8,6 +8,8 @@ from kivy.uix.button import Button
 from utils.init import app_config
 from utils.dir import abstract_path
 
+from kivy.metrics import sp
+
 Builder.load_file(abstract_path('screen/ui/panel_button.kv'))
 
 
@@ -18,6 +20,7 @@ class MenuButton(Button):
     size_hint_y = NumericProperty(None)
     size_hint = ReferenceListProperty(size_hint_x, size_hint_y)
     background_color = ListProperty([.4, .4, .4, 1])
+    font_size = sp(14)
     app = ObjectProperty()
 
     def __init__(self, **kwargs):

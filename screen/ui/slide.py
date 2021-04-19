@@ -8,10 +8,13 @@ class SlideLabel(Label):
     def __init__(self, **kwargs):
         super(SlideLabel, self).__init__(**kwargs)
         self.markup = True
-        self.text_size = cm(12), cm(6)
+        self.font_size = '8sp'
+        # self.text_size = cm(12), cm(6)
+        self.text_size = Window.width/2, Window.height/2
         self.size = self.text_size
+
         self.size_hint = None, None
-        self.pos = self.center_x*1.6, self.center_y - 80
+        self.pos = self.center_x, self.center_y/2
 
 
 class Slide(Image):
