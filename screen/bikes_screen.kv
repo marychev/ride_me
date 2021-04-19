@@ -2,13 +2,16 @@
 #:import LeftPanelMenuBikes screen.ui.panel_button.LeftPanelMenuBikes
 #:import BikeMenuCarousel screen.ui.menu_carousel.BikeMenuCarousel
 #:import BIKES bike.bikes.BIKES
+#:import Window kivy.core.window.Window
 
 
 <BikesScreen>:
-    CenterPanel:
-        CenterPanelTitle:
-            id: title
-            text: BIKES[0]['title']
+    RMLayout:
+    TitleScreen:
+        id: title
+        text: BIKES[0]['title']
+
+    CarouselLayout:
         BikeMenuCarousel:
 
     LeftPanel:
@@ -20,8 +23,6 @@
         LeftPanelMenuShop
 
     RightPanel:
-        RightPanelTitle:
-            id: panel_rm
         CharacterWrap:
             id: character_wrap_price
             title: "Price: {} rm".format(BIKES[0]['price'])

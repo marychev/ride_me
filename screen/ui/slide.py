@@ -1,5 +1,5 @@
 from kivy.core.window import Window
-from kivy.metrics import cm
+from conf import FontSize as FS
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 
@@ -8,7 +8,7 @@ class SlideLabel(Label):
     def __init__(self, **kwargs):
         super(SlideLabel, self).__init__(**kwargs)
         self.markup = True
-        self.font_size = '8sp'
+        self.font_size = FS.SMALL.value
         # self.text_size = cm(12), cm(6)
         self.text_size = Window.width/2, Window.height/2
         self.size = self.text_size

@@ -1,20 +1,39 @@
 #:import Window kivy.core.window.Window
 #:import app_config utils.init.app_config
 #:import PanelBtn screen.ui.bottom_button.PanelBtn
+#:import FS conf.FontSize
 
 
-# Center panel
+<TitleScreen@Label>:
+    id: title
+    font_size: FS.H1.value
+    color: .2, .2, .2, 1
+    size_hint: None, None
+    margin_top: 100
+    pos: int(Window.width/2 - self.width/2), int(Window.height - self.margin_top)
 
-<CenterPanel@BoxLayout>:
+
+<RMTitle@Label>:
+    text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
+    markup: True
+    font_size: FS.NORMAL.value
+    size_hint: None, None
+    height: self.font_size
+
+<RMLayout@BoxLayout>:
+    margin_top: 10
+    size_hint: None, None
+    pos: int(Window.width - root.ids.panel_rm.size[0]), int(Window.height - root.ids.panel_rm.size[1] - self.margin_top)
+    RMTitle:
+        id: panel_rm
+
+
+# Carousel
+
+<CarouselLayout@BoxLayout>:
     id: center_block
     orientation: 'vertical'
 
-<CenterPanelTitle@Label>:
-    id: title
-    font_size: '28sp'
-    color: .2, .2, .2, 1
-    size_hint: None, None
-    pos_hint: {'right': .54}
 
 # Right panel
 
@@ -22,16 +41,7 @@
     id: right_block
     orientation: "vertical"
     pos: Window.width - int(Window.width/3.3) - 5, Window.height/4
-    # pos_hint: {'right': .78, 'top': .44}
     size_hint: None, None
-
-<RightPanelTitle@Label>:
-    text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
-    markup: True
-    font_size: '9sp'
-    pos_hint: {'x': .15}
-    size_hint: None, None
-    height: '18dp'
 
 # Left panel
 

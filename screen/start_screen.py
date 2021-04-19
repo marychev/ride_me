@@ -3,6 +3,7 @@ from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 
+from conf import FontSize as FS
 from label.curtain import Curtain
 from layout.scene import CACHE_NAME
 from utils.dir import abstract_path
@@ -47,7 +48,7 @@ class StartScreen(Screen):
 
         # Fix: v0.0.91 'troubles with the tests'
         # Curtain(font_size=120).add_to_game_screen()
-        Curtain(font_size=120).add_to_game_screen(screen, scene)
+        Curtain(font_size=FS.H1.value).add_to_game_screen(screen, scene)
 
         curtain = screen.ids['curtain']
         curtain.do_start_timer()

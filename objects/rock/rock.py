@@ -8,6 +8,7 @@ from utils.dir import abstract_path
 from utils.validation import ValidObject
 from utils.get_object import GetObject
 from label.curtain import Curtain
+from conf import FontSize as FS
 
 _dir = 'objects/rock'
 Builder.load_file(abstract_path('{}/rock.kv'.format(_dir)))
@@ -35,7 +36,7 @@ class Rock(GameImage):
 
         # show finish information
         road = ValidObject.road(GetObject.get_child(bike.parent, 'Road'))
-        curtain = Curtain(road=road, font_size=20)
+        curtain = Curtain(road=road, font_size=FS.H1.value)
         curtain.text = curtain.collision_text_rock()
         curtain.add_to_game_screen()
 

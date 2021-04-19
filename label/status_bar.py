@@ -1,6 +1,7 @@
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
 from screen.utils import get_game_screen
+from conf import FontSize as FS
 
 
 class StatusBar(Label):
@@ -58,7 +59,7 @@ class StatusBar(Label):
         self.size_hint = .99, .88
         self.valign = 'center'
         self.halign = 'center'
-        self.font_size = 42
+        self.font_size = FS.H1.value
 
     def show_status_bike(self, title='BIKE'):
         bike = self.get_bike()

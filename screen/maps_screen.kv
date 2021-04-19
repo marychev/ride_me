@@ -4,10 +4,12 @@
 
 
 <MapsScreen>:
-    CenterPanel:
-        CenterPanelTitle:
-            id: title
-            text: MAPS[0]['title']
+    RMLayout:
+    TitleScreen:
+        id: title
+        text: MAPS[0]['title']
+
+    CarouselLayout:
         MapMenuCarousel:
 
     LeftPanel:
@@ -19,8 +21,6 @@
         LeftPanelMenuShop
 
     RightPanel:
-        RightPanelTitle:
-            id: panel_rm
         CharacterWrap:
             id: character_wrap_price
             title: "Price: {} rm".format(MAPS[0]['price'])

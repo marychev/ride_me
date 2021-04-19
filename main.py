@@ -9,8 +9,8 @@ from screen.bikes_screen import BikesScreen
 from screen.maps_screen import MapsScreen
 from screen.shop_screen import ShopScreen
 
-import re
-import cProfile
+# import re
+# import cProfile
 
 
 class RideMeApp(App):

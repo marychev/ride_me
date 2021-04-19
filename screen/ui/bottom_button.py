@@ -105,8 +105,12 @@ class RightPanelBtn(PanelBtn):
 
     @staticmethod
     def change_rm(screens, value):
+        from utils.get_object import GetObject
+
         for s in screens:
-            s.ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
+            # s.ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
+            GetObject.get_child(s, 'RMLayout').ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
+
 
     @staticmethod
     def change_character_wrap(character_wrap, value, color=UColor.hex(UColor.WHITE)):

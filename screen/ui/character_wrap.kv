@@ -1,15 +1,26 @@
+#:import Factory kivy.factory.Factory
+
 #:import BorderImage kivy.graphics.vertex_instructions.BorderImage
 #:import Line kivy.graphics.vertex_instructions.Line
 #:import Rectangle kivy.graphics.vertex_instructions.Rectangle
 #:import Currency objects.currency.currency.Currency
 #:import UColor utils.color.Color
+#:import FS conf.FontSize
+
+
+<MyPopup@Popup>:
+    auto_dismiss: False
+    Button:
+        text: 'Close me!'
+        on_release: root.dismiss()
 
 
 <CharBtn@Button>:
     disabled: True
     opacity: 0.1
-    font_size: '6sp'
+    font_size: FS.XSMALL.value
     disabled: True
+    on_release: Factory.MyPopup().open()
 
 <CharacterWrap>:
     orientation: "vertical"
@@ -29,7 +40,7 @@
         Label:
             text: "{}".format(root.title)
             color: UColor.hex(UColor.GRAY)
-            font_size: '9sp'
+            font_size: FS.NORMAL.value
         CharBtn:
             text: "Upgrade: {0}".format(root.max)
             opacity: self.opacity if root.has_value else 0

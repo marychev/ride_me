@@ -2,6 +2,11 @@
 
 
 <ShopScreen>:
+    RMLayout:
+    TitleScreen:
+        id: title
+        text: "Show closed"
+
     LeftPanel:
         LeftPanelMenuBikes:
             id: left_panel_menu_bikes
@@ -9,17 +14,7 @@
             id: left_panel_menu_maps
         LeftPanelMenuShop
             disabled: True
-
-    CenterPanel:
-        CenterPanelTitle:
-            id: title
-            text: "Show closed"
-    RightPanel:
-        AnchorLayout:
-            anchor_x: 'right'
-            anchor_y: 'top'
-            RightPanelTitle:
-                id: panel_rm
+    CarouselLayout:
 
     LeftPanelBtn:
     RightPanelBtn:
