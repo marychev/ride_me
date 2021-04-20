@@ -25,30 +25,31 @@
     RightPanel:
         CharacterWrap:
             id: character_wrap_price
-            title: "Price: {} rm".format(BIKES[0]['price'])
+            key: "Price"
+            title: RightPanelBtn.format_title_right_panel(None, self.key, "{} rm".format(BIKES[0]['price']), None)
             has_value: False
         CharacterWrap:
             id: character_wrap_power
-            item: BIKES[0]
+            key: "Power"
             title: "Power"
             value: BIKES[0]['power']
             max: BIKES[0]['power']
         CharacterWrap:
             id: character_wrap_speed
-            item: BIKES[0]
+            key: "Speed"
             title: "Speed"
             value: BIKES[0]['speed']
             max: BIKES[0]['speed']
         CharacterWrap:
             id: character_wrap_acceleration
+            key: "Acceleration"
             title: "Acceleration"
-            item: BIKES[0]
             value: BIKES[0]['acceleration']
             max: BIKES[0]['acceleration']
         CharacterWrap:
             id: character_wrap_agility
+            key: "Agility"
             title: "Agility"
-            item: BIKES[0]
             value: BIKES[0]['agility']
             max: BIKES[0]['agility']
 

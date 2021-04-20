@@ -8,11 +8,29 @@
 #:import FS conf.FontSize
 
 
-<MyPopup@Popup>:
+
+<UpgradePopup@Popup>:
     auto_dismiss: False
-    Button:
-        text: 'Close me!'
-        on_release: root.dismiss()
+    size_hint: .8, .8
+    title: 'Title of the upgrade popup'
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: 'Description of the upgrade popup. \r\n Blas blas bla blablas bla blablas bla blablas bla bla'
+            multiline: True
+            font_size: FS.LEAD.value
+
+        BoxLayout:
+            size_hint_y: .5
+            padding: 10
+            Button:
+                text: 'Ok'
+                on_release: root.dismiss()
+            Button:
+                text: 'Close'
+                on_press: root.dismiss()
 
 
 <CharBtn@Button>:
@@ -20,40 +38,45 @@
     opacity: 0.1
     font_size: FS.XSMALL.value
     disabled: True
-    on_release: Factory.MyPopup().open()
+    size_hint_x: None
+    width: self.size[0]
+    on_release: Factory.UpgradePopup().open()
 
 <CharacterWrap>:
     orientation: "vertical"
     height: '40dp'
-    width: int(Window.width/3.3)
+    width: int(Window.width/4)
     size_hint: None, None
     item: self.item
     has_value: self.has_value
+    key: self.key
     title: self.title
     value: self.value
     max: self.max
 
     BoxLayout:
-        CharBtn:
-            text: "Current: {}".format(root.value)
-            opacity: self.opacity if root.has_value else 0
         Label:
-            text: "{}".format(root.title)
+            text: RightPanelBtn.format_title_right_panel(root, root.key, root.value, root.max) if root.has_value else root.title
             color: UColor.hex(UColor.GRAY)
             font_size: FS.NORMAL.value
+            markup: True
         CharBtn:
-            text: "Upgrade: {0}".format(root.max)
+            text: "Upgrade"
             opacity: self.opacity if root.has_value else 0
+
 
     BoxLayout:
         orientation: "vertical"
         ProgressBar:
-            pos: (root.pos[0], root.pos[1] + 45) if root.has_value else (0, 0)
+            height: root.parent.height - 30
+            size_hint: 1, None
+            # pos: (root.pos[0], root.pos[1]) if root.has_value else (0, 0)
             value: int(root.value)
             max: int(root.max) + 100
+
             canvas:
                 Color:
-                    rgba: 0, 0, 0, .9
+                    rgba: 0, 0, 0, .8
                 Line:
-                    points: self.x, self.y+20, self.x + self.parent.width, self.y+20
-                    width: 2 if root.has_value else 3
+                    points: self.x, self.y+35, self.x + self.parent.width, self.y+35
+                    width: 1 if root.has_value else 2

@@ -42,8 +42,10 @@ class RightPanelBtn(PanelBtn):
             if not app_config('bike', 'title'):
                 bike = get_bike_by_title(bikes_screen.ids['title'].text)
                 rest_rm = calc_rest_rm(bike['price'])
+
                 if Bike.buy(bike):
                     RightPanelBtn.change_rm(screens, rest_rm)
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_price'], bike['price'])
                     RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike['power'])
                     RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike['speed'])
                     RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike['acceleration'])
@@ -61,6 +63,7 @@ class RightPanelBtn(PanelBtn):
             if not app_config('map', 'title'):
                 map = get_map_by_title(maps_screen.ids['title'].text)
                 rest_rm = calc_rest_rm(map['price'])
+
                 if BaseLevel.buy(map):
                     RightPanelBtn.change_rm(screens, rest_rm)
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_record'], '/dev/')
@@ -96,8 +99,25 @@ class RightPanelBtn(PanelBtn):
         bg.anim_color(bg.rgba_default)
 
     @staticmethod
-    def format_title_right_panel(character_wrap, value):
-        return '{}: {}'.format(character_wrap.title.split(':')[0], value)
+    def format_title_right_panel(character_wrap, key=None, value=None, max_val=None):
+        def __format_number(_key, _val, _max_val):
+            markup = "{key} [color=#{color_sub}][sub]{val}[/sub][/color]:[color=#{color_sup}][sup]{max}[/sup][/color]"
+            return markup.format(
+                key=_key, val=_val, max=_max_val,
+                color_sub=UColor.GREEN,
+                color_sup=UColor.ORANGE)
+
+        def __format_string(_key, _val):
+            return "{}: {}".format(_key, _val)
+
+        if character_wrap is None and key and value:
+            return __format_string(key, value)
+
+        return __format_number(
+            character_wrap.key if not key else key,
+            character_wrap.value if not value else value,
+            character_wrap.max if not max_val else max_val
+        ) if character_wrap.has_value else character_wrap.title
 
     @staticmethod
     def cancel_animation_button(screens, sid):
@@ -111,23 +131,22 @@ class RightPanelBtn(PanelBtn):
             # s.ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
             GetObject.get_child(s, 'RMLayout').ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
 
-
     @staticmethod
     def change_character_wrap(character_wrap, value, color=UColor.hex(UColor.WHITE)):
         progress_bar = ValidObject.progress_bar(character_wrap.children[0].children[0])
         if type(value) is int:
             character_wrap.max = progress_bar.max = value
         else:
-            character_wrap.title = RightPanelBtn.format_title_right_panel(character_wrap, value)
+            character_wrap.title = RightPanelBtn.format_title_right_panel(character_wrap)
             RightPanelBtn.prop_buttons_hide(character_wrap)
 
         RightPanelBtn.change_color_labels_right_panel(character_wrap, color)
 
     @staticmethod
     def prop_buttons_hide(character_wrap):
-        buttons = [character_wrap.children[1].children[0], character_wrap.children[1].children[2]]
-        buttons[0].disabled = buttons[1].disabled = False
-        buttons[0].opacity = buttons[1].opacity = 1
+        btn = character_wrap.children[1].children[0]
+        btn.disabled = False
+        btn.opacity = 1
 
     @staticmethod
     def change_bottom_right_btn(menu_screen):

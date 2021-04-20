@@ -79,9 +79,9 @@ class BikeMenuCarousel(MenuCarousel):
     def char_btn_disabled(self, sid: str):
         bikes_screen = ValidObject.bikes_screen(self._screen())
         box_layout = bikes_screen.ids[sid].children[1]
-        left_btn, right_btn = box_layout.children[0], box_layout.children[2]
-        left_btn.disabled = right_btn.disabled = True
-        left_btn.opacity = right_btn.opacity = 0
+        btn = box_layout.children[0]
+        btn.disabled = True
+        btn.opacity = 0
 
 
 class MapMenuCarousel(MenuCarousel):
