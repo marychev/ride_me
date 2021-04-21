@@ -26,32 +26,33 @@
         CharacterWrap:
             id: character_wrap_price
             key: "Price"
-            title: RightPanelBtn.format_title_right_panel(None, self.key, "{} rm".format(BIKES[0]['price']), None)
+            value: BIKES[0]['price']
             has_value: False
+            title: self.format_string()
         CharacterWrap:
             id: character_wrap_power
             key: "Power"
-            title: "Power"
             value: BIKES[0]['power']
             max: BIKES[0]['power']
+            title: self.format_number()
         CharacterWrap:
             id: character_wrap_speed
             key: "Speed"
-            title: "Speed"
             value: BIKES[0]['speed']
             max: BIKES[0]['speed']
+            title: self.format_number()
         CharacterWrap:
             id: character_wrap_acceleration
             key: "Acceleration"
-            title: "Acceleration"
             value: BIKES[0]['acceleration']
             max: BIKES[0]['acceleration']
+            title: self.format_number()
         CharacterWrap:
             id: character_wrap_agility
             key: "Agility"
-            title: "Agility"
             value: BIKES[0]['agility']
             max: BIKES[0]['agility']
+            title: self.format_number()
 
     LeftPanelBtn:
         disabled: False

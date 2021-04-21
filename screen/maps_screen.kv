@@ -24,28 +24,29 @@
         CharacterWrap:
             id: character_wrap_price
             key: "Price"
-            title: RightPanelBtn.format_title_right_panel(None, self.key, "{} rm".format(MAPS[0]['price']), None)
             has_value: False
+            value: MAPS[0]['price']
+            title: self.format_string()
         CharacterWrap:
             id: character_wrap_record
             key: "Record"
-            title: RightPanelBtn.format_title_right_panel(None, self.key, '00:00:00', None)
             has_value: False
+            title: self.format_string('00:00:00')
         CharacterWrap:
             id: character_wrap_level
             key: 'Track'
-            title: RightPanelBtn.format_title_right_panel(None, self.key, "{}".format(MAPS[0]['level']), None)
             has_value: False
+            title: self.format_string("{}".format(MAPS[0]['level']))
         CharacterWrap:
             id: character_wrap_map
             key: 'Map'
-            title: RightPanelBtn.format_title_right_panel(None, self.key, "{}".format(MAPS[0]['map']), None)
             has_value: False
+            title: self.format_string("{}".format(MAPS[0]['map']))
         CharacterWrap:
             id: character_wrap_total_way
             key: 'Total way'
-            title: RightPanelBtn.format_title_right_panel(None, self.key, "{}".format(MAPS[0]['total_way']), None)
             has_value: False
+            title: self.format_string("{}".format(MAPS[0]['total_way']))
 
     LeftPanelBtn:
         disabled: False

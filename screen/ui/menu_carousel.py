@@ -1,7 +1,5 @@
 from typing import Union
-
-from kivy.lang import Builder
-from kivy.properties import ListProperty
+from kivy.properties import ListProperty, StringProperty
 from kivy.uix.carousel import Carousel
 
 from bike.bikes import BIKES, get_by_title as get_bike_by_title
@@ -9,15 +7,13 @@ from level.maps import MAPS, get_by_title as get_map_by_title
 from screen.ui.bottom_button import RightPanelBtn
 from screen.ui.slide import Slide
 from utils.color import Color as UColor
-from utils.dir import abstract_path
 from utils.init import app_config
 from utils.validation import ValidObject
-
-Builder.load_file(abstract_path('screen/ui/menu_carousel.kv'))
 
 
 class MenuCarousel(Carousel):
     objects = ListProperty()
+    direction = StringProperty('right')
 
     def __init__(self, **kwargs):
         super(MenuCarousel, self).__init__(**kwargs)
@@ -42,9 +38,16 @@ class MenuCarousel(Carousel):
 
     def change_prop_title(self, sid: str, value: Union[int, str], color: UColor):
         screen = self._screen()
+
+        if type(value) is int:
+            screen.ids[sid].value = value
+
         RightPanelBtn.change_color_labels_right_panel(screen.ids[sid], color)
-        screen.ids[sid].title = RightPanelBtn.format_title_right_panel(
-            screen.ids[sid], value)
+
+        if screen.ids[sid].has_value:
+            screen.ids[sid].title = screen.ids[sid].format_number(screen.ids[sid].key, value, screen.ids[sid].max)
+        else:
+            screen.ids[sid].title = screen.ids[sid].format_string(value)
 
 
 class BikeMenuCarousel(MenuCarousel):
@@ -71,6 +74,7 @@ class BikeMenuCarousel(MenuCarousel):
         color = self.define_color('bike')
         bikes_screen.ids['title'].color = color
 
+        self.change_prop_title('character_wrap_price', _bike['price'], color)
         self.change_prop_title('character_wrap_power', _bike['power'], color)
         self.change_prop_title('character_wrap_speed', _bike['speed'], color)
         self.change_prop_title('character_wrap_acceleration', _bike['acceleration'], color)
@@ -81,7 +85,7 @@ class BikeMenuCarousel(MenuCarousel):
         box_layout = bikes_screen.ids[sid].children[1]
         btn = box_layout.children[0]
         btn.disabled = True
-        btn.opacity = 0
+        btn.opacity = 0.2
 
 
 class MapMenuCarousel(MenuCarousel):
@@ -98,6 +102,7 @@ class MapMenuCarousel(MenuCarousel):
         color = self.define_color('map')
         maps_screen.ids['title'].color = color
 
+        self.change_prop_title('character_wrap_price', _map['price'], color)
         self.change_prop_title('character_wrap_record', '*dev', color)
         self.change_prop_title('character_wrap_level', _map['level'], color)
         self.change_prop_title('character_wrap_map', _map['map'], color)

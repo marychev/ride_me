@@ -13,6 +13,7 @@ from objects.currency.currency import Currency
 from utils.color import BgAnimation, Color as UColor
 from utils.init import app_config, calc_rest_rm
 from utils.validation import ValidObject
+from utils.get_object import GetObject
 
 
 class PanelBtn(Button):
@@ -27,7 +28,6 @@ class RightPanelBtn(PanelBtn):
     text = StringProperty('Ok')
 
     def _current_screen(self):
-        # OLD:  return self.parent.parent.parent if hasattr(self.parent.parent.parent, 'manager') else None
         return self.parent if hasattr(self.parent, 'manager') else None
 
     def on_press(self, *args, **kwargs):
@@ -66,6 +66,7 @@ class RightPanelBtn(PanelBtn):
 
                 if BaseLevel.buy(map):
                     RightPanelBtn.change_rm(screens, rest_rm)
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_price'], map['price'])
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_record'], '/dev/')
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_level'], map['level'])
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_map'], map['map'])
@@ -99,53 +100,34 @@ class RightPanelBtn(PanelBtn):
         bg.anim_color(bg.rgba_default)
 
     @staticmethod
-    def format_title_right_panel(character_wrap, key=None, value=None, max_val=None):
-        def __format_number(_key, _val, _max_val):
-            markup = "{key} [color=#{color_sub}][sub]{val}[/sub][/color]:[color=#{color_sup}][sup]{max}[/sup][/color]"
-            return markup.format(
-                key=_key, val=_val, max=_max_val,
-                color_sub=UColor.GREEN,
-                color_sup=UColor.ORANGE)
-
-        def __format_string(_key, _val):
-            return "{}: {}".format(_key, _val)
-
-        if character_wrap is None and key and value:
-            return __format_string(key, value)
-
-        return __format_number(
-            character_wrap.key if not key else key,
-            character_wrap.value if not value else value,
-            character_wrap.max if not max_val else max_val
-        ) if character_wrap.has_value else character_wrap.title
-
-    @staticmethod
     def cancel_animation_button(screens, sid):
         [Animation.cancel_all(s.ids[sid], 'background_color') for s in screens]
 
     @staticmethod
     def change_rm(screens, value):
-        from utils.get_object import GetObject
-
         for s in screens:
-            # s.ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
             GetObject.get_child(s, 'RMLayout').ids['panel_rm'].text = "{}: {}".format(Currency.units, value)
+            return
 
     @staticmethod
     def change_character_wrap(character_wrap, value, color=UColor.hex(UColor.WHITE)):
-        progress_bar = ValidObject.progress_bar(character_wrap.children[0].children[0])
         if type(value) is int:
+            progress_bar = ValidObject.progress_bar(character_wrap.children[0].children[0])
+            character_wrap.value = value
             character_wrap.max = progress_bar.max = value
-        else:
-            character_wrap.title = RightPanelBtn.format_title_right_panel(character_wrap)
-            RightPanelBtn.prop_buttons_hide(character_wrap)
 
+        if character_wrap.has_value:
+            character_wrap.title = character_wrap.format_number()
+        else:
+            character_wrap.title = character_wrap.format_string()
+
+        RightPanelBtn.prop_buttons_show(character_wrap)
         RightPanelBtn.change_color_labels_right_panel(character_wrap, color)
 
     @staticmethod
-    def prop_buttons_hide(character_wrap):
+    def prop_buttons_show(character_wrap):
         btn = character_wrap.children[1].children[0]
-        btn.disabled = False
+        btn.disabled = not character_wrap.has_value
         btn.opacity = 1
 
     @staticmethod
