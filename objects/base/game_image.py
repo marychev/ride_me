@@ -36,7 +36,8 @@ class GameImage(Widget):
 
     def set_x(self):
         road = self.get_road()
-        if road and (road.distance_traveled + Window.width) >= self.x and (self.x+self.width/1.4 > 0):
+        # if road and (road.distance_traveled + Window.width) >= self.x and (self.x+self.width/1.4 > 0):
+        if road and (road.distance_traveled + Window.width) >= self.x and (self.x+self.width > 0):
             self.x = self.get_x()
             redraw_texture(self)
 

@@ -80,6 +80,7 @@ class Scene(FloatLayout):
         road = self.parent.ids['road']
         if len(road.children) >= 0:
             map_elems = road.level.visible_map_elem()
+
             for me in map_elems:
                 if road.visible(me['pos']):
                     if me['name'] in [Start.__name__, Finish.__name__]:

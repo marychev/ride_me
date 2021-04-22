@@ -1,6 +1,5 @@
 from kivy.cache import Cache
 from layout.scene import CACHE_NAME
-from kivy.app import App
 from utils.init import app_config, calc_rest_rm
 
 
