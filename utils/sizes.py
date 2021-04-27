@@ -36,15 +36,15 @@ class FontSize(Enum):
 
 
 class GOSize(Enum):
-    WH_PanelBtn = switch_size(v11=(Window.width / 10), v18=(Window.width / 7))
-    WH_BUTTON_LR = switch_size(v11=(Window.width / 10), v18=(Window.width / 7))
+    WH_PanelBtn = switch_size(v11=(Window.width / 7), v18=(Window.width / 7))
+    WH_BUTTON_LR = switch_size(v11=(Window.width / 7), v18=(Window.width / 7))
     WIDTH_MenuButton = switch_size(v11=(Window.width / 4), v18=(Window.width / 5))
-    HEIGHT_MenuButton = switch_size(v11=(Window.height/10), v18=(Window.height/7))
-    WIDTH_CharacterWrap = switch_size(v11=(Window.width/5), v18=(Window.width/4))
+    HEIGHT_MenuButton = switch_size(v11=(Window.height / 10), v18=(Window.height/7))
+    WIDTH_CharacterWrap = switch_size(v11=(Window.width / 5), v18=(Window.width/4))
     WIDTH_Slide = switch_size(v11=Window.width, v18=Window.width)
     HEIGHT_Slide = switch_size(v11=Window.height, v18=Window.height)
     # HEIGHT_CharacterWrap = dp(40)
-    HEIGHT_CharacterWrap = switch_size(v11=Window.height / (4*4), v18=Window.height / (4*2))
+    HEIGHT_CharacterWrap = switch_size(v11=Window.height / (4*wh*2), v18=Window.height / (4*2))
 
 
 # class SizePhones:
