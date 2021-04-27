@@ -20,6 +20,7 @@ class MenuCarousel(Carousel):
 
         slides = [Slide(item=o) for o in self.objects]
         [self.add_widget(slide) for slide in slides]
+
         self.set_title(self.objects[0]['title'])
 
     def _screen(self):

@@ -14,6 +14,15 @@ Builder.load_file(abstract_path('bike/bike.kv'))
 
 class Bike(Image, AnimationBike):
     source = StringProperty(abstract_path('bike/img/default.png'))
+
+    source_go = StringProperty(abstract_path('bike/img/default.png'))
+    source_relax = StringProperty(abstract_path('bike/img/default.png'))
+    source_wait = StringProperty(abstract_path('bike/img/default.png'))
+    source_stop = StringProperty(abstract_path('bike/img/default.png'))
+    source_jump_up = StringProperty(abstract_path('bike/img/default.png'))
+    source_landing = StringProperty(abstract_path('bike/img/default.png'))
+    source_collision = StringProperty(abstract_path('bike/img/default.png'))
+
     acceleration = NumericProperty(0)
     power = NumericProperty(0)
     max_power = NumericProperty(0)
@@ -38,14 +47,17 @@ class Bike(Image, AnimationBike):
         self.acceleration = item['acceleration']
         self.agility = item['agility']
 
+        self.init_source_animation(item)
+
     def init_app_config(self):
         bike_title = app_config('bike', 'title')
+
         if bike_title:
-            bike = Bike.dict_params(get_by_bike_title(bike_title))
+            bike_param = Bike.dict_params(get_by_bike_title(bike_title))
+            self.init_params(bike_param)
         else:
-            # Logger.warn('Bike: The bike is not installed! Installed the default bike!')
-            bike = get_by_bike_title('Default')
-        self.init_params(bike)
+            from kivy.logger import Logger
+            Logger.warn('Bike: The bike is not installed.')
 
     @staticmethod
     def buy(bike):
@@ -75,6 +87,13 @@ class Bike(Image, AnimationBike):
     def dict_params(item):
         return {
             'source': item['source'],
+            'source_go': item['source_go'],
+            'source_relax': item['source_relax'],
+            'source_wait': item['source_wait'],
+            'source_stop': item['source_stop'],
+            'source_jump_up': item['source_jump_up'],
+            'source_landing': item['source_landing'],
+            'source_collision': item['source_collision'],
             'power': item['power'],
             'speed': item['speed'],
             'acceleration': item['acceleration'],
