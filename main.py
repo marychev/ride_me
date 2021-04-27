@@ -2,7 +2,6 @@ from conf import *      # <-- don't delete!
 from kivy.app import App
 from kivy.cache import Cache
 from kivy.uix.screenmanager import ScreenManager, WipeTransition
-from screen.game_screen import GameScreen
 from screen.start_screen import StartScreen
 from screen.menu_screen import MenuScreen
 from screen.bikes_screen import BikesScreen
@@ -37,7 +36,6 @@ class RideMeApp(App):
         self.sm.add_widget(MapsScreen(name='maps'))
         self.sm.add_widget(ShopScreen(name='shop'))
         self.sm.add_widget(StartScreen(name='start'))
-        self.sm.add_widget(GameScreen(name='game'))
         return self.sm
 
     def build_config(self, config):

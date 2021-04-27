@@ -1,6 +1,6 @@
 from kivy.clock import Clock
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty, ListProperty
+from kivy.properties import ObjectProperty, ListProperty, NumericProperty
 from kivy.uix.behaviors.button import ButtonBehavior
 from kivy.core.window import Window
 from kivy.uix.image import Image
@@ -8,15 +8,14 @@ from conf import SECOND_GAME
 from label.status_bar import StatusBar
 from utils.dir import abstract_path
 from utils.get_object import GetObject
+from utils.sizes import GOSize as GOS
 
 Builder.load_file(abstract_path('button/left_button.kv'))
 
-BUTTON_WIDTH = int(Window.width / 9)
-
 
 class LeftButtonWidget(ButtonBehavior, Image):
-    btn_size = ListProperty([BUTTON_WIDTH, BUTTON_WIDTH])
-    status_bar = ObjectProperty(None)
+    height = NumericProperty(GOS.WH_BUTTON_LR.value)
+    width = NumericProperty(GOS.WH_BUTTON_LR.value)
     road = ObjectProperty(None)
     bike = ObjectProperty(None)
     background = ObjectProperty(None)

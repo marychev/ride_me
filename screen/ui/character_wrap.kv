@@ -4,7 +4,8 @@
 #:import Rectangle kivy.graphics.vertex_instructions.Rectangle
 #:import Currency objects.currency.currency.Currency
 #:import UColor utils.color.Color
-#:import FS conf.FontSize
+#:import GOS utils.sizes.GOSize
+#:import FS utils.sizes.FontSize
 
 
 <UpgradePopup@Popup>:
@@ -42,8 +43,8 @@
 
 <CharacterWrap>:
     orientation: "vertical"
-    height: '40dp'
-    width: int(Window.width/4)
+    height: GOS.HEIGHT_CharacterWrap.value
+    width: GOS.WIDTH_CharacterWrap.value
     size_hint: None, None
     has_value: self.has_value
     key: self.key
@@ -65,7 +66,7 @@
     BoxLayout:
         orientation: "vertical"
         ProgressBar:
-            height: root.parent.height - 30
+            height: GOS.HEIGHT_CharacterWrap.value
             size_hint: 1, None
             # pos: (root.pos[0], root.pos[1]) if root.has_value else (0, 0)
             value: int(root.value)

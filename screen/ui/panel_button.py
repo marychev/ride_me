@@ -7,15 +7,16 @@ from kivy.properties import ObjectProperty, StringProperty, ListProperty, Refere
 from kivy.uix.button import Button
 from utils.init import app_config
 from utils.dir import abstract_path
-from conf import FontSize as FS
+from utils.sizes import FontSize as FS
+from utils.sizes import GOSize as GOS
 
 
 Builder.load_file(abstract_path('screen/ui/panel_button.kv'))
 
 
 class MenuButton(Button):
-    width = NumericProperty(int(Window.width/5))
-    height = NumericProperty(int(Window.height/8))
+    width = NumericProperty(GOS.WIDTH_MenuButton.value)
+    height = NumericProperty(GOS.HEIGHT_MenuButton.value)
     size_hint_x = NumericProperty(None)
     size_hint_y = NumericProperty(None)
     size_hint = ReferenceListProperty(size_hint_x, size_hint_y)

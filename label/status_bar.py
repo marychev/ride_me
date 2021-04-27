@@ -1,7 +1,7 @@
 from kivy.properties import StringProperty
 from kivy.uix.label import Label
 from screen.utils import get_game_screen
-from conf import FontSize as FS
+from utils.sizes import FontSize as FS
 
 
 class StatusBar(Label):

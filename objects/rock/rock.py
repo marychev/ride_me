@@ -8,7 +8,7 @@ from utils.dir import abstract_path
 from utils.validation import ValidObject
 from utils.get_object import GetObject
 from label.curtain import Curtain
-from conf import FontSize as FS
+from utils.sizes import FontSize as FS
 
 _dir = 'objects/rock'
 Builder.load_file(abstract_path('{}/rock.kv'.format(_dir)))

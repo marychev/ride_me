@@ -17,6 +17,7 @@ class MenuCarousel(Carousel):
 
     def __init__(self, **kwargs):
         super(MenuCarousel, self).__init__(**kwargs)
+
         slides = [Slide(item=o) for o in self.objects]
         [self.add_widget(slide) for slide in slides]
         self.set_title(self.objects[0]['title'])

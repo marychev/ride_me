@@ -64,9 +64,8 @@ class Road(Widget, RoadEvents):
             return self.x + self.bike.speed
         except AttributeError as e:
             text = '{}.\n\tCause: Bike does not exist.\n\tTip: Need to set the bike.'.format(e)
-            # Logger.exception(text)
+            Logger.exception(text)
             # raise AttributeError(text)
-            print('[ERROR-1]')
 
     def set_distance_traveled(self):
         self.distance_traveled += self.get_distance_traveled()
@@ -91,7 +90,7 @@ class Road(Widget, RoadEvents):
         background.go_mountains_stop()
 
     def passed(self, pos):
-        return int(self.distance_traveled) > (pos[0])
+        return int(self.distance_traveled) > int(pos[0])
 
     def visible(self, pos):
         return int(self.distance_traveled) < int(pos[0]) < int(self.distance_traveled) + int(Window.width)

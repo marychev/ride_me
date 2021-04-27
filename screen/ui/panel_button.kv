@@ -1,17 +1,15 @@
 #:import Window kivy.core.window.Window
 #:import app_config utils.init.app_config
 #:import PanelBtn screen.ui.bottom_button.PanelBtn
-#:import FS conf.FontSize
 
 
 <TitleScreen@Label>:
     id: title
     font_size: FS.H1.value
-    color: .2, .2, .2, 1
     size_hint: None, None
     margin_top: 100
     pos: int(Window.width/2 - self.width/2), int(Window.height - self.margin_top)
-
+    color: .2, .2, .2, 1
 
 <RMTitle@Label>:
     text: "{}: {}".format(Currency.units, app_config('bike', 'rm'))
@@ -40,7 +38,7 @@
 <RightPanel@BoxLayout>:
     id: right_block
     orientation: "vertical"
-    pos: Window.width - (Window.width/4) - 5, Window.height/4
+    pos: Window.width - (GOS.WIDTH_CharacterWrap.value) - 5, GOS.WH_PanelBtn.value
     size_hint: None, None
 
 # Left panel

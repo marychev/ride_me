@@ -14,12 +14,13 @@ from utils.color import BgAnimation, Color as UColor
 from utils.init import app_config, calc_rest_rm
 from utils.validation import ValidObject
 from utils.get_object import GetObject
+from utils.sizes import GOSize as GOS
 
 
 class PanelBtn(Button):
     disabled = BooleanProperty(True)
-    height = NumericProperty(int(Window.height / 4.2))
-    width = NumericProperty(int(Window.height / 4.2))
+    height = NumericProperty(GOS.WH_PanelBtn.value)
+    width = NumericProperty(GOS.WH_PanelBtn.value)
     size_hint = ListProperty([None, None])
 
 

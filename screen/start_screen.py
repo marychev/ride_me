@@ -1,21 +1,34 @@
+from kivy.app import App
 from kivy.cache import Cache
 from kivy.clock import Clock
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 
-from conf import FontSize as FS
+from utils.sizes import FontSize as FS
 from label.curtain import Curtain
 from layout.scene import CACHE_NAME
 from utils.dir import abstract_path
 from utils.state import State
 from utils.validation import ValidObject
+from screen.game_screen import GameScreen
 
 Builder.load_file(abstract_path('screen/start_screen.kv'))
 
 
 class StartScreen(Screen):
 
+    def __init__(self, **kwargs):
+        super(StartScreen, self).__init__(**kwargs)
+
+        try:
+            app = App.get_running_app()
+            app.sm.add_widget(GameScreen(name='game'))
+        except AttributeError as e:
+            from kivy.logger import Logger
+            Logger.warning('{0}\r\n[NOTE] Fix of the restart test\r\n'.format(e))
+
     def restart_game(self):
+
         Cache.remove(CACHE_NAME)
         screen_name = 'game'
 
