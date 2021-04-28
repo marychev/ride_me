@@ -6,6 +6,7 @@
 #:import UColor utils.color.Color
 #:import GOS utils.sizes.GOSize
 #:import FS utils.sizes.FontSize
+#:import switch_size utils.sizes.switch_size
 
 
 <UpgradePopup@Popup>:
@@ -56,7 +57,7 @@
         Label:
             text: str(root.title)
             color: UColor.hex(UColor.GRAY)
-            font_size: FS.NORMAL.value
+            font_size: switch_size(FS.SMALL.value, FS.NORMAL.value, FS.SMALL.value)
             markup: True
         CharBtn:
             text: "Upgrade"

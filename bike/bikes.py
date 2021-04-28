@@ -17,10 +17,11 @@ BIKES = [
         "acceleration": "3",
         "agility": "5",
         "price": "920",
-        "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
-                       "lar the with others lar the  with others lar the with others lar the with"
-                       " others lar the with others lar the with others lar\n the with others lar "
-                       "the bike onto with others he bike onto with others words thi road/"
+        "text": "Управление:\n" 
+                    "Ехать: правая кнопка\n"
+                    "Тормоз: левая кнопка\n"
+                    "Прыжок: левая кнопка х 2 раза\n"
+                    "the bike onto with others he bike onto with others words thi road/"
     },
     {
         "title": "Geisha",

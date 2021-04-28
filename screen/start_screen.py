@@ -28,7 +28,6 @@ class StartScreen(Screen):
             Logger.warning('{0}\r\n[NOTE] Fix of the restart test\r\n'.format(e))
 
     def restart_game(self):
-
         Cache.remove(CACHE_NAME)
         screen_name = 'game'
 
@@ -39,6 +38,8 @@ class StartScreen(Screen):
 
         # Fix: v0.0.9
         # curtain = screen.ids['curtain']
+        if screen.ids['curtain']:
+            scene.remove_widget(screen.ids['curtain'])
 
         road.bike = bike
         road.init_app_config()
@@ -57,15 +58,17 @@ class StartScreen(Screen):
 
         # Fix: v0.0.9
         # if not curtain.text:
-        #     scene.remove_widget(curtain)
-
+        #    scene.remove_widget(curtain)
         # Fix: v0.0.91 'troubles with the tests'
         # Curtain(font_size=120).add_to_game_screen()
-        Curtain(font_size=FS.H1.value).add_to_game_screen(screen, scene)
 
+        Curtain(font_size=FS.H1.value).add_to_game_screen(screen, scene)
         curtain = screen.ids['curtain']
-        curtain.do_start_timer()
+        if not curtain.text:
+            curtain.do_start_timer()
 
         Clock.schedule_interval(scene.start_timer, 1)
+
+        # TODO: [IMPOTENT]: Need to fix bottom buttons when collision happened!
 
         self.manager.current = screen_name

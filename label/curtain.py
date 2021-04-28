@@ -1,3 +1,5 @@
+from typing import Union
+
 from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
@@ -12,9 +14,15 @@ class Curtain(Label):
     road = ObjectProperty()
     stop = NumericProperty(3)
 
-    def do_start_timer(self):
+    def do_start_timer(self) -> Union[str, None]:
         self.text = str(self.stop)
         self.draw_background(0.7)
+
+        if self.stop == 0:
+            scene = GetObject(self.road).scene
+            scene.remove_widget(self)
+            return
+
         return self.text
 
     def draw_background(self, transparent=0.6):
