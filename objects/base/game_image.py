@@ -3,6 +3,7 @@ from kivy.properties import StringProperty
 from kivy.uix.widget import Widget
 from utils.texture import redraw_texture
 from utils.get_object import GetObject
+from utils.sizes import BASE_WIDTH_BTN
 
 
 class GameImage(Widget):
@@ -17,8 +18,9 @@ class GameImage(Widget):
 
     @classmethod
     def create(cls, sid, pos, size=None):
-        #print('CREATE: {} pos: {}'.format(cls, pos))
-        size = size if size else cls.TEXTURE.size
+        # print('CREATE: {} pos: {}'.format(cls, pos))
+        # size = size if size else cls.TEXTURE.size
+        size = size if size else (BASE_WIDTH_BTN, BASE_WIDTH_BTN)
         kwargs = {
             "sid": sid,
             "pos": pos,

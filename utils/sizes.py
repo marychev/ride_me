@@ -1,7 +1,7 @@
 from kivy.core.window import Window
 from enum import Enum
 from kivy.metrics import sp, dp
-
+from utils.type import TIntFloatStr
 
 # [note]: kivy doc size % getting debug size, w / h
 # _k: about 0.15
@@ -10,7 +10,7 @@ from kivy.metrics import sp, dp
 WH = float("{0:.2f}".format(Window.width / Window.height))
 
 
-def switch_size(v11: any, v18: any, small: any) -> any:
+def switch_size(v11: TIntFloatStr, v18: TIntFloatStr, small: TIntFloatStr) -> TIntFloatStr:
     def _k(v): return 0.15 + v
 
     small_height = 600
@@ -38,7 +38,7 @@ class FontSize(Enum):
     H1 = sp(27+WH)
 
 
-BASE_WIDTH_BTN = Window.width / 7
+BASE_WIDTH_BTN = Window.width / 8
 
 
 class GOSize(Enum):

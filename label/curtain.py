@@ -25,19 +25,19 @@ class Curtain(Label):
 
         return self.text
 
-    def draw_background(self, transparent=0.6):
+    def draw_background(self, transparent=0.6) -> None:
         self.canvas.before.clear()
         with self.canvas.before:
             Color(0, 0, 0, transparent)
             Rectangle(pos=(0, 0), size=(Window.width, Window.height))
 
-    def collision_text_rock(self):
+    def collision_text_rock(self) -> str:
         bike = GetObject(self.road).bike
         return 'Collision to {}.\nPress on "Restart Game"\n{:.2f}'.format(
             bike.__class__.__name__,
             bike.finish_dt - bike.start_dt)
 
-    def add_to_game_screen(self, screen=None, scene=None):
+    def add_to_game_screen(self, screen=None, scene=None) -> None:
         self.draw_background()
         screen = screen or GetObject(self.road).screen
         scene = scene or GetObject(self.road).scene

@@ -6,9 +6,18 @@
 #:import Road road.road.Road
 #:import Bike bike.bike.Bike
 #:import Curtain label.curtain.Curtain
-# #:import DevTools devtools.devtools.DevTools
+#:import FS utils.sizes.FontSize
+#:import BASE_WIDTH_BTN utils.sizes.BASE_WIDTH_BTN
+#:import Currency objects.currency.currency.Currency
+# ! #:import DevTools devtools.devtools.DevTools
 
 #:import time time
+
+
+<ToolsLabel@Label>:
+    font_size: FS.NORMAL.value
+    markup: True
+
 
 <GameScreen>:
     Scene:
@@ -34,19 +43,27 @@
 
         Bike:
             id: bike
-            pos: 120, root.ids.road.y  + 300
-            size: 120, 120
+            pos: BASE_WIDTH_BTN/1.5, root.ids.road.y  + BASE_WIDTH_BTN * 3
+            size: BASE_WIDTH_BTN, BASE_WIDTH_BTN
             size_hint: None, None
 
         Curtain:
             id: curtain
             scene: root.ids.scene
             road: root.ids.road
-            #!!!text: str(self.do_start_timer())
 
     Tools:
         id: tools
-        size_hint: 1, .09
+        size_hint: 1, None
+        height: BASE_WIDTH_BTN/2
+        width: Window.width
+
+        canvas.before:
+            Color:
+                rgba: 0, 0, 0, .8
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
         AnchorLayout:
             id: left_btn_wrap
@@ -62,26 +79,12 @@
             anchor_x: 'center'
             anchor_y: 'bottom'
             BoxLayout:
-                Label:
-                    font_size: 20
-                    markup: True
+                ToolsLabel:
                     text: root.ids.tools.indicator_power(root.ids.bike.power)
-                Label:
-                    font_size: 20
-                    markup: True
-                    text:
-                        "[sup]Acceleration[/sup]{:3.2f}".format(root.ids.bike.acceleration)
-                Label:
-                    font_size: 20
-                    markup: True
+                ToolsLabel:
+                    text: "[sup]Acceleration[/sup]{:3.2f}".format(root.ids.bike.acceleration)
+                ToolsLabel:
                     text: root.ids.tools.indicator_speed(root.ids.bike.speed)
-                Label:
-                    text: str(root.ids.bike.collected_currency)
-
-            Button:
-                text: 'Restart'
-                size_hint: .2, .3
-                on_press: root.manager.current = 'start'
 
         AnchorLayout:
             id: right_btn_wrap
@@ -91,6 +94,31 @@
                 Label:
                     pos: self.parent.pos
                     text: 'go'
+
+    RelativeLayout:
+        id: currency_game_wrap
+        size_hint: None, None
+        pos: 0, Window.height-75
+        Label:
+            font_size: FS.SMALL.value
+            markup: True
+            text: "{} {}".format(root.ids.bike.collected_currency, Currency.units)
+
+    RelativeLayout:
+        id: menu_game_wrap
+        size_hint: None, None
+        height: sp(36)
+        width: sp(36)
+        pos: Window.width-self.height, Window.height-self.height
+        Button:
+            background_color: 0, 0, 0, .2
+            text: '''MENU'''
+            markup: True
+            font_size: FS.SMALL.value
+            size_hint: None, None
+            width: self.parent.width
+            height: self.parent.height
+            on_press: root.manager.current = 'start'
 
         ## activate devtools
         #FloatLayout:

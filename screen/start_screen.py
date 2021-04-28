@@ -36,31 +36,20 @@ class StartScreen(Screen):
         road = screen.ids['road']
         bike = screen.ids['bike']
 
-        # Fix: v0.0.9
-        # curtain = screen.ids['curtain']
         if screen.ids.get('curtain'):
             scene.remove_widget(screen.ids['curtain'])
 
         road.bike = bike
         road.init_app_config()
-        bike.init_app_config()
-
-        bike.collected_currency = 0
-        bike.y = 800
-        bike.canvas.remove_group("background")
-        # bike.anim_landing()
-
         road.set_state(State.NONE)
         road.clear_widgets()
         road.landing_start()
-        # road.distance_traveled = 0
         road.set_distance_traveled(0)
 
-        # Fix: v0.0.9
-        # if not curtain.text:
-        #    scene.remove_widget(curtain)
-        # Fix: v0.0.91 'troubles with the tests'
-        # Curtain(font_size=120).add_to_game_screen()
+        bike.init_app_config()
+        bike.collected_currency = 0
+        bike.y = 800
+        bike.canvas.remove_group("background")
 
         Curtain(font_size=FS.H1.value).add_to_game_screen(screen, scene)
         curtain = screen.ids['curtain']

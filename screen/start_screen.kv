@@ -1,41 +1,29 @@
+#:import FS utils.sizes.FontSize
+
 <StartScreen>:
     BoxLayout:
         orientation: 'vertical'
-
+        spacing: 10
+        padding: Window.width/3, 0
         Label:
-            text: 'Start Game'
-            font_size: 18
-
-        Button:
-            text: 'GO'
-            font_size: 42
-            size_hint: .4, .4
-            pos_hint: {'x': .3, 'y': .2}
-            on_press: root.manager.current = 'game'
-
+            text: 'Ride me!!!'
+            font_size: FS.H1.value
         Button:
             text: 'Restart game'
-            size_hint: .4, .4
-            pos_hint: {'x': .3, 'y': .2}
             on_press: root.restart_game()
-
-        Button:
-            text: 'Open Settings'
-            size_hint: .4, .3
-            pos_hint: {'x': .3, 'y': .2}
-            on_press: app.open_settings()
-
-        Button:
-            text: 'Pause'
-            size_hint: .4, .3
-            pos_hint: {'x': .3, 'y': .2}
-            on_press: app.on_pause()
-
         Button:
             text: 'Menu'
-            size_hint: .4, .3
-            pos_hint: {'x': .3, 'y': .2}
             on_press: root.manager.current = 'menu'
+        Button:
+            text: 'Open Settings'
+            on_press: app.open_settings()
+        Button:
+            text: 'GO empty template'
+            on_press: root.manager.current = 'game'
+        Button:
+            text: 'Pause'
+            on_press: app.on_pause()
+            disabled: True
 
         AnchorLayout:
             anchor_x: 'center'
