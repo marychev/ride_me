@@ -1,3 +1,5 @@
+from typing import Union
+
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.logger import Logger
@@ -67,7 +69,10 @@ class Road(Widget, RoadEvents):
             Logger.exception(text)
             # raise AttributeError(text)
 
-    def set_distance_traveled(self):
+    def set_distance_traveled(self, val: Union[int, None] = None):
+        if val is not None:
+            self.distance_traveled = val
+
         self.distance_traveled += self.get_distance_traveled()
         set_texture_uvpos(self, self.texture.uvpos[0] + self.bike.speed / self.texture.size[0], self.texture.uvpos[1])
         ValidObject.scene(self.parent).define_and_add_map_elements()

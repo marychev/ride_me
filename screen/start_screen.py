@@ -38,7 +38,7 @@ class StartScreen(Screen):
 
         # Fix: v0.0.9
         # curtain = screen.ids['curtain']
-        if screen.ids['curtain']:
+        if screen.ids.get('curtain'):
             scene.remove_widget(screen.ids['curtain'])
 
         road.bike = bike
@@ -48,13 +48,13 @@ class StartScreen(Screen):
         bike.collected_currency = 0
         bike.y = 800
         bike.canvas.remove_group("background")
-        bike.anim_landing()
+        # bike.anim_landing()
 
         road.set_state(State.NONE)
-        road.landing_start()
         road.clear_widgets()
-        road.distance_traveled = 0
-        road.set_distance_traveled()
+        road.landing_start()
+        # road.distance_traveled = 0
+        road.set_distance_traveled(0)
 
         # Fix: v0.0.9
         # if not curtain.text:
