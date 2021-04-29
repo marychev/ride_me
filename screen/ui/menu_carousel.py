@@ -72,15 +72,15 @@ class BikeMenuCarousel(MenuCarousel):
             self.char_btn_disabled('character_wrap_acceleration')
             self.char_btn_disabled('character_wrap_agility')
 
-        _bike = get_bike_by_title(self.current_slide.item['title'])
         color = self.define_color('bike')
         bikes_screen.ids['title'].color = color
 
-        self.change_prop_title('character_wrap_price', _bike['price'], color)
-        self.change_prop_title('character_wrap_power', _bike['power'], color)
-        self.change_prop_title('character_wrap_speed', _bike['speed'], color)
-        self.change_prop_title('character_wrap_acceleration', _bike['acceleration'], color)
-        self.change_prop_title('character_wrap_agility', _bike['agility'], color)
+        bike_model = get_bike_by_title(self.current_slide.item['title'])
+        self.change_prop_title('character_wrap_price', str(bike_model.price), color)
+        self.change_prop_title('character_wrap_power', str(bike_model.power), color)
+        self.change_prop_title('character_wrap_speed', str(bike_model.speed), color)
+        self.change_prop_title('character_wrap_acceleration', str(bike_model.acceleration), color)
+        self.change_prop_title('character_wrap_agility', str(bike_model.agility), color)
 
     def char_btn_disabled(self, sid: str):
         bikes_screen = ValidObject.bikes_screen(self._screen())

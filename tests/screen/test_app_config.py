@@ -31,14 +31,15 @@ class AppConfigTest(GraphicUnitTest):
         menu_screen = ValidObject.menu_screen(self.sm.get_screen('menu'))
         self.assertEqual(menu_screen.get_label_item('No bike').text, 'No bike')
 
-        self.assertEqual(_bike['title'], 'Default')
+        self.assertEqual(_bike.title, 'Default')
         self.assertTrue(Bike.buy(_bike))
-        self.assertEqual(_bike['title'], Cache.get('bike', 'title'))
-        self.assertEqual(_bike['power'], Cache.get('bike', 'power'))
-        self.assertEqual(_bike['speed'], Cache.get('bike', 'speed'))
-        self.assertEqual(_bike['acceleration'], Cache.get('bike', 'acceleration'))
-        self.assertEqual(_bike['agility'], Cache.get('bike', 'agility'))
-        self.assertEqual(RM - int(_bike['price']), Cache.get('bike', 'rm'))
+
+        self.assertEqual(_bike.title, Cache.get('bike', 'title'))
+        self.assertEqual(_bike.power, Cache.get('bike', 'power'))
+        self.assertEqual(_bike.speed, Cache.get('bike', 'speed'))
+        self.assertEqual(_bike.acceleration, Cache.get('bike', 'acceleration'))
+        self.assertEqual(_bike.agility, Cache.get('bike', 'agility'))
+        self.assertEqual(RM - int(_bike.price), Cache.get('bike', 'rm'))
 
     def test_map_buy_success(self):
         self.set_app()

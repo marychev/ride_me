@@ -4,8 +4,6 @@ from utils.texture import image_texture
 
 
 class LevelOne(BaseLevel):
-    """ Straight track """
-
     BACKGROUND_TEXTURE = 'layout/img/mountains-2.png'
     BACKGROUND_TEXTURE_DEFAULT = 'layout/img/default.png'
     road_texture = image_texture('road/img/road-l1.jpg')
@@ -16,5 +14,3 @@ class LevelOne(BaseLevel):
 
     def __init__(self, road, bike, map=MAP):
         super().__init__(road, bike, map)
-
-

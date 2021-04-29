@@ -1,3 +1,4 @@
+from typing import Union
 from kivy.cache import Cache
 
 
@@ -6,7 +7,7 @@ def app_config(section, key):
     return value if value != 'None' else None
 
 
-def get_item_by_title_or_index(array, value):
+def get_item_by_title_or_index(array: list, value: Union[str, int]):
     if not value:
         return
     elif type(value) is int:

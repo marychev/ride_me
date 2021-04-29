@@ -41,16 +41,16 @@ class RightPanelBtn(PanelBtn):
 
         if 'BikesScreen' == _screen.__class__.__name__:
             if not app_config('bike', 'title'):
-                bike = get_bike_by_title(bikes_screen.ids['title'].text)
-                rest_rm = calc_rest_rm(bike['price'])
+                bike_model = get_bike_by_title(bikes_screen.ids['title'].text)
+                rest_rm = calc_rest_rm(bike_model.price)
 
-                if Bike.buy(bike):
+                if Bike.buy(bike_model):
                     RightPanelBtn.change_rm(screens, rest_rm)
-                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_price'], bike['price'])
-                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike['power'])
-                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike['speed'])
-                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike['acceleration'])
-                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_agility'], bike['agility'])
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_price'], bike_model.price)
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_power'], bike_model.power)
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_speed'], bike_model.speed)
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_acceleration'], bike_model.acceleration)
+                    RightPanelBtn.change_character_wrap(bikes_screen.ids['character_wrap_agility'], bike_model.agility)
                     RightPanelBtn.cancel_animation_button(screens, 'left_panel_menu_bikes')
 
                     self.init_item(menu_screen.init_bike)
