@@ -29,7 +29,7 @@ class AppConfigTest(GraphicUnitTest):
         _bike = get_bike_by_title('Default')
 
         menu_screen = ValidObject.menu_screen(self.sm.get_screen('menu'))
-        self.assertEqual(menu_screen.get_label_item('No bike').text, 'No bike')
+        self.assertEqual(menu_screen.get_label_by_text('No bike').text, 'No bike')
 
         self.assertEqual(_bike.title, 'Default')
         self.assertTrue(Bike.buy(_bike))
@@ -46,15 +46,12 @@ class AppConfigTest(GraphicUnitTest):
         _map = get_map_by_title('Default')
 
         menu_screen = ValidObject.menu_screen(self.sm.get_screen('menu'))
-        self.assertEqual(menu_screen.get_label_item('No map').text, 'No map')
+        self.assertEqual(menu_screen.get_label_by_text('No map').text, 'No map')
 
-        self.assertEqual(_map['title'], 'Default')
+        self.assertEqual(_map.title, 'Default')
         self.assertTrue(LevelOne.buy(_map))
-        self.assertEqual(_map['title'], Cache.get('map', 'title'))
-        self.assertEqual(_map['level'], Cache.get('map', 'level'))
-        self.assertEqual(_map['map'], Cache.get('map', 'map'))
-        self.assertEqual(_map['total_way'], Cache.get('map', 'total_way'))
-        self.assertEqual(RM - int(_map['price']), Cache.get('bike', 'rm'))
-
-
-
+        self.assertEqual(_map.title, Cache.get('map', 'title'))
+        self.assertEqual(_map.level, Cache.get('map', 'level'))
+        self.assertEqual(_map.map, Cache.get('map', 'map'))
+        self.assertEqual(_map.total_way, Cache.get('map', 'total_way'))
+        self.assertEqual(RM - int(_map.price), Cache.get('bike', 'rm'))

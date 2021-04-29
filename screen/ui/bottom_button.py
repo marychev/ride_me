@@ -62,16 +62,16 @@ class RightPanelBtn(PanelBtn):
 
         elif 'MapsScreen' == _screen.__class__.__name__:
             if not app_config('map', 'title'):
-                map = get_map_by_title(maps_screen.ids['title'].text)
-                rest_rm = calc_rest_rm(map['price'])
+                map_model = get_map_by_title(maps_screen.ids['title'].text)
+                rest_rm = calc_rest_rm(map_model.price)
 
-                if BaseLevel.buy(map):
+                if BaseLevel.buy(map_model):
                     RightPanelBtn.change_rm(screens, rest_rm)
-                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_price'], map['price'])
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_price'], map_model.price)
                     RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_record'], '/dev/')
-                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_level'], map['level'])
-                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_map'], map['map'])
-                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_total_way'], map['total_way'])
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_level'], map_model.level)
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_map'], map_model.map)
+                    RightPanelBtn.change_character_wrap(maps_screen.ids['character_wrap_total_way'], map_model.total_way)
                     RightPanelBtn.cancel_animation_button(screens, 'left_panel_menu_maps')
 
                     self.init_item(menu_screen.init_map)

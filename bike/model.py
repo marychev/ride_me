@@ -1,4 +1,3 @@
-from decimal import Decimal
 from typing import NamedTuple, Optional
 
 
@@ -18,9 +17,9 @@ class BikeModel(NamedTuple):
     max_speed: Optional[float]
     acceleration: float
     agility: float
-    price: Decimal
+    price: int  # rm
     text: Optional[str]
 
     def __repr__(self) -> str:
-        return f'<Employee {self.title}>'
+        return f'<BikeModel {self.title}>'
 

@@ -100,15 +100,15 @@ class MapMenuCarousel(MenuCarousel):
         if app_config('map', 'title') == self.current_slide.item['title']:
             maps_screen.ids['title'].text = self.title_active()
 
-        _map = get_map_by_title(self.current_slide.item['title'])
+        map_model = get_map_by_title(self.current_slide.item['title'])
         color = self.define_color('map')
         maps_screen.ids['title'].color = color
 
-        self.change_prop_title('character_wrap_price', _map['price'], color)
+        self.change_prop_title('character_wrap_price', map_model.price, color)
         self.change_prop_title('character_wrap_record', '*dev', color)
-        self.change_prop_title('character_wrap_level', _map['level'], color)
-        self.change_prop_title('character_wrap_map', _map['map'], color)
-        self.change_prop_title('character_wrap_total_way', _map['total_way'], color)
+        self.change_prop_title('character_wrap_level', map_model.level, color)
+        self.change_prop_title('character_wrap_map', map_model.map, color)
+        self.change_prop_title('character_wrap_total_way', map_model.total_way, color)
 
     def set_title(self, value):
         if self.parent:

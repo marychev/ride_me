@@ -53,11 +53,11 @@ class Road(Widget, RoadEvents):
             # set background texture
             if self.parent:
                 game_screen = ValidObject.screen(self.parent.parent)
-                _map = get_map_by_title(app_config('map', 'title'))
+                map_model = get_map_by_title(app_config('map', 'title'))
                 background = game_screen.ids['background']
 
-                if background and _map:
-                    background.texture = image_texture(_map['source'])
+                if background and map_model:
+                    background.texture = image_texture(map_model.source)
 
         repeat_texture(self.texture, int(Window.width / self.texture.width))
 

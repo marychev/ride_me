@@ -1,3 +1,6 @@
+from kivy.logger import Logger
+from typing import Union
+from level.model import MapModel
 from level.one.level_one import LevelOne
 from utils.init import get_item_by_title_or_index
 
@@ -22,6 +25,7 @@ MAPS = [
         "map": 1,
         "total_way": LevelOne.total_way(LevelOne.maps[1]),
         "source": LevelOne.BACKGROUND_TEXTURE,
+        "source_road": "",
         "price": "7",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
                 "the bike onto with others he bike onto with others words thi road/"
@@ -32,11 +36,17 @@ MAPS = [
         "map": 0,
         "total_way": LevelOne.total_way(LevelOne.maps[0]),
         "source": LevelOne.BACKGROUND_TEXTURE_DEFAULT,
+        "source_road": "",
         "price": "55",
         "text": "Description\nSolar tlar the bike onto with others lar the with others"
     }
 ]
 
 
-def get_by_title(value):
-    return get_item_by_title_or_index(MAPS, value)
+def get_by_title(value: Union[str, int]) -> MapModel:
+    if value:
+        try:
+            return MapModel(**get_item_by_title_or_index(MAPS, value))
+        except TypeError as TE:
+            Logger.error('{}: {}'.format(value, TE))
+            return MapModel(**get_item_by_title_or_index(MAPS, value))

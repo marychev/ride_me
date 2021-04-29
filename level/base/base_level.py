@@ -1,5 +1,6 @@
 from kivy.cache import Cache
 from layout.scene import CACHE_NAME
+from level.model import MapModel
 from utils.init import app_config, calc_rest_rm
 
 
@@ -33,15 +34,15 @@ class BaseLevel:
         return map[-1]['pos'][0]
 
     @staticmethod
-    def buy(map):
-        rest_rm = calc_rest_rm(map['price'])
+    def buy(map_model: MapModel) -> bool:
+        rest_rm = calc_rest_rm(map_model.price)
         if rest_rm > 0:
-            BaseLevel.set_config(map, rest_rm)
+            BaseLevel.set_config(map_model, rest_rm)
             return True
         return False
 
     @staticmethod
-    def set_config(item, rest_rm):
+    def set_config(map_model: MapModel, rest_rm):
         Cache.remove('bike', 'rm')
         Cache.append('bike', 'rm', rest_rm)
 
@@ -49,8 +50,7 @@ class BaseLevel:
         Cache.remove('map', 'level')
         Cache.remove('map', 'map')
         Cache.remove('map', 'total_way')
-        Cache.append('map', 'title', item['title'])
-        Cache.append('map', 'level', item['level'])
-        Cache.append('map', 'map', item['map'])
-        Cache.append('map', 'total_way', item['total_way'])
-
+        Cache.append('map', 'title', map_model.title)
+        Cache.append('map', 'level', map_model.level)
+        Cache.append('map', 'map', map_model.map)
+        Cache.append('map', 'total_way', map_model.total_way)

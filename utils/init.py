@@ -7,7 +7,7 @@ def app_config(section, key):
     return value if value != 'None' else None
 
 
-def get_item_by_title_or_index(array: list, value: Union[str, int]):
+def get_item_by_title_or_index(array: list, value: Union[str, int, None]):
     if not value:
         return
     elif type(value) is int:
