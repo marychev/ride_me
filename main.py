@@ -1,15 +1,23 @@
+# from kivy.logger import Logger
+
+# from bike.model import BikeModel
+from bike.model import BikeModel
 from conf import *      # <-- don't delete!
 from kivy.app import App
 from kivy.cache import Cache
 from kivy.uix.screenmanager import ScreenManager, WipeTransition
+
+from level.model import MapModel
 from screen.start_screen import StartScreen
 from screen.menu_screen import MenuScreen
 from screen.bikes_screen import BikesScreen
 from screen.maps_screen import MapsScreen
 from screen.shop_screen import ShopScreen
-
+# from bike.bikes import BIKES, get_by_title as get_bike_by_title
 # import re
 # import cProfile
+# from utils.init import app_config
+from utils.store import Store
 
 
 class RideMeApp(App):
@@ -39,31 +47,30 @@ class RideMeApp(App):
         return self.sm
 
     def build_config(self, config):
-        Cache.register('bike')
-        Cache.append('bike', 'rm', 1000)
-        Cache.append('bike', 'title', 'None')
-        Cache.append('bike', 'power', 0)
-        Cache.append('bike', 'speed', 0)
-        Cache.append('bike', 'acceleration', 0)
-        Cache.append('bike', 'agility', 0)
-        config.setdefaults('bike', {
-            'rm': '1000',
-            'title': 'None',
-            'power': '0',
-            'speed': '0',
-            'acceleration': '0',
-            'agility': '0'})
+        user_rm = 1000
+        store = Store()
+        store.register_all_table()
 
-        Cache.register('map')
-        Cache.append('map', 'title', 'None')
-        Cache.append('map', 'level', 'None')
-        Cache.append('map', 'map', 'None')
-        Cache.append('map', 'total_way', 0)
+        store.set_rm(user_rm)
+
+        bike_model = BikeModel.create_empty()
+        bike_model = store.add_cache_bike(None, bike_model)
+        config.setdefaults('bike', {
+            'rm': user_rm,
+            'title': bike_model.title,
+            'power': bike_model.power,
+            'speed': bike_model.speed,
+            'acceleration': bike_model.acceleration,
+            'agility': bike_model.agility
+        })
+
+        map_model = MapModel.create_empty()
+        map_model = store.add_cache_map(None, map_model)
         config.setdefaults('map', {
-            'title': 'None',
-            'level': 'None',
-            'map': 'None',
-            'total_way': '0'
+            'title': map_model.title,
+            'level': map_model.level,
+            'map': map_model.map,
+            'total_way': map_model.total_way
         })
 
     # def build_settings(self, settings):

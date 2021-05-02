@@ -32,6 +32,9 @@ class StartScreen(Screen):
         screen_name = 'game'
 
         screen = ValidObject.screen(self.manager.get_screen(screen_name))
+        screen.ids['left_btn_wrap'].children[0].button_state_style()
+        screen.ids['right_btn_wrap'].children[0].button_state_style()
+
         scene = screen.ids['scene']
         road = screen.ids['road']
         bike = screen.ids['bike']
@@ -57,7 +60,5 @@ class StartScreen(Screen):
             curtain.do_start_timer()
 
         Clock.schedule_interval(scene.start_timer, 1)
-
-        # TODO: [IMPOTENT]: Need to fix bottom buttons when collision happened!
 
         self.manager.current = screen_name

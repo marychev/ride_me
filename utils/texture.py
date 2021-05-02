@@ -1,8 +1,6 @@
 from kivy.uix.image import Image
 from utils.dir import abstract_path
-from kivy.graphics import Color, Line, Rectangle
-
-from kivy.uix.label import Label
+from kivy.graphics import Color, Rectangle
 
 
 def image_texture(source):
@@ -23,11 +21,11 @@ def redraw_texture(widget, name='texture'):
         widget.label.pos = widget.pos
         widget.label_canvas_before()
 
-    if name not in ['cloud_big_texture', 'cloud_min_texture', 'cloud_middle_texture']:
-        print('.. .. .. redraw_texture', name, widget)
+    # if name not in ['cloud_big_texture', 'cloud_min_texture', 'cloud_middle_texture']:
+    #     print('.. .. .. redraw_texture', name, widget)
 
 
-def repeat_texture(texture, uvsize_x=1, uvsize_y=-1):
+def repeat_texture(texture, uvsize_x: int = 1, uvsize_y: int = -1) -> None:
     texture.wrap = 'repeat'
     texture.uvsize = (uvsize_x, uvsize_y)
 

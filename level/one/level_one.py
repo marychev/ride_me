@@ -4,11 +4,15 @@ from utils.texture import image_texture
 
 
 class LevelOne(BaseLevel):
-    BACKGROUND_TEXTURE = 'layout/img/mountains-2.png'
-    BACKGROUND_TEXTURE_DEFAULT = 'layout/img/default.png'
-    road_texture = image_texture('road/img/road-l1.jpg')
-    background_texture = image_texture(BACKGROUND_TEXTURE)
-    background_texture_default = image_texture(BACKGROUND_TEXTURE_DEFAULT)
+    BACKGROUND_SOURCE = 'layout/img/mountains-2.png'
+    background_texture = image_texture(BACKGROUND_SOURCE)
+
+    BACKGROUND_SOURCE_DEFAULT = 'layout/img/default.png'
+    background_texture_default = image_texture(BACKGROUND_SOURCE_DEFAULT)
+
+    ROAD_SOURCE = './road/img/road-l1.jpg'
+    road_texture = image_texture(ROAD_SOURCE)
+
     name = 'I. Asphalt and mountains'
     maps = (MAP, TEST_MAP)
 

@@ -20,6 +20,7 @@ class BaseDispatcher(EventDispatcher):
         print('[after_init--BaseDispatcher--]')
         app = App.get_running_app()
         ids = app and app.root.current_screen.ids
+
         if ids:
             if not self.bike and hasattr(ids, 'bike') and ids['bike']:
                 self.bike = ids['bike']

@@ -1,8 +1,19 @@
 from kivy.animation import Animation
+from kivy.properties import StringProperty
+from kivy.uix.image import Image
 from bike.model import BikeModel
+from utils.dir import abstract_path
 
 
-class AnimationBike:
+class AnimationBike(Image):
+    source_go = StringProperty(abstract_path('bike/img/default.png'))
+    source_relax = StringProperty(abstract_path('bike/img/default.png'))
+    source_wait = StringProperty(abstract_path('bike/img/default.png'))
+    source_stop = StringProperty(abstract_path('bike/img/default.png'))
+    source_jump_up = StringProperty(abstract_path('bike/img/default.png'))
+    source_landing = StringProperty(abstract_path('bike/img/default.png'))
+    source_collision = StringProperty(abstract_path('bike/img/default.png'))
+
     def init_source_animation(self, item: BikeModel):
         self.source_go = item.source_go
         self.source_relax = item.source_relax

@@ -1,4 +1,5 @@
 from kivy.clock import Clock
+from kivy.properties import BooleanProperty, ObjectProperty
 
 from conf import SECOND_GAME
 from road.events.base import BaseDispatcher
@@ -10,6 +11,10 @@ from utils.validation import ValidObject
 
 
 class GoBackgroundDispatcher(BaseDispatcher):
+    is_repeat_texture = BooleanProperty(False)
+    texture = ObjectProperty()
+    parent = ObjectProperty()
+
     @classmethod
     def start_states_list(cls):
         return (

@@ -12,8 +12,6 @@ from utils.get_object import GetObject
 class Background(Widget, GoBackgroundDispatcher):
     sid = StringProperty('background')
     texture = ObjectProperty(None)
-    is_repeat_texture = BooleanProperty(False)
-
     cloud_big_texture = ObjectProperty(None)
     cloud_middle_texture = ObjectProperty(None)
     cloud_min_texture = ObjectProperty(None)

@@ -1,7 +1,6 @@
 from typing import Union
 from kivy.logger import Logger
-from utils.init import get_item_by_title_or_index
-from utils.type import BikeModel
+from bike.model import BikeModel
 
 
 BIKES = [
@@ -51,6 +50,13 @@ BIKES = [
     {
         "title": "Default",
         "source": "./bike/img/bike-1.png",
+        "source_go": "./bike/img/bike-1.png",
+        "source_relax": "./bike/img/bike-1.png",
+        "source_wait": "./bike/img/bike-1.png",
+        "source_stop": "./bike/img/bike-1.png",
+        "source_jump_up": "./bike/img/bike-1.png",
+        "source_landing": "./bike/img/bike-1.png",
+        "source_collision": "./bike/img/bike-1.png",
         "power": "180",
         "max_power": "290",
         "speed": "20",
@@ -64,6 +70,8 @@ BIKES = [
 
 
 def get_by_title(value: Union[str, int]) -> BikeModel:
+    from utils.init import get_item_by_title_or_index
+
     try:
         return BikeModel(**get_item_by_title_or_index(BIKES, value))
     except TypeError as TE:

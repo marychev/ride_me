@@ -1,14 +1,15 @@
-from typing import Union
-
+from typing import Union, Optional
 from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.logger import Logger
 from kivy.properties import NumericProperty, ObjectProperty, ListProperty, OptionProperty
 from kivy.uix.widget import Widget
 
+from bike.bike import Bike
 from level.one.level_one import LevelOne
 from road.events import RoadEvents
 from utils.dir import abstract_path
+from utils.exception import WarnTrySetBikeFromLayoutWarn, ErrBikeIsNotConfig, InfoBikeInstalledFor
 from utils.get_object import GetObject
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos, image_texture
@@ -20,7 +21,7 @@ Builder.load_file(abstract_path('road/road.kv'))
 
 
 class Road(Widget, RoadEvents):
-    level = ObjectProperty(None)
+    level = ObjectProperty()
     texture = ObjectProperty(image_texture('road/img/road-asphalt.png'))
     total_way = NumericProperty(0)         # todo: need to fix tests
     distance_traveled = NumericProperty(0)
@@ -31,37 +32,50 @@ class Road(Widget, RoadEvents):
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
-        self.bike = self.bike if self.bike else self.get_bike()
+        self.set_bike()
         self.init_app_config()
 
         if self.bike:
             self.set_state(State.NONE)
             self.landing_start()
 
-    def init_app_config(self):
+    def set_bike(self, bike: Optional[Bike] = None) -> None:
+        if bike is not None:
+            self.bike = bike
+        if self.bike is None:
+            WarnTrySetBikeFromLayoutWarn(self)
+            self.bike = GetObject(road=self).bike
+        if self.bike is None:
+            ErrBikeIsNotConfig(self)
+        else:
+            InfoBikeInstalledFor(self)
+
+    def init_app_config(self) -> None:
+        map_model = get_map_by_title(app_config('map', 'title'))
+
         if not self.level:
             self.set_state(State.INIT)
             self.road = self
-            self.bike = self.bike if self.bike else self.get_bike()
-            # TODO: define a Level from App Config
-            self.level = LevelOne(self, self.bike)                      # todo: fix here init with app config
+            self.bike or self.set_bike()
+
+            if map_model and map_model.level == 'LevelOne':
+                self.level = LevelOne(self, self.bike)
+                Logger.info('Level was set successful!\n{}'.format(self.level))
 
         if self.level:
             self.texture = self.level.road_texture
-            self.total_way = self.road.total_way = self.level.total_way(self.level.map)
+            self.total_way = self.level.total_way(self.level.map)
 
             # set background texture
             if self.parent:
                 game_screen = ValidObject.screen(self.parent.parent)
-                map_model = get_map_by_title(app_config('map', 'title'))
                 background = game_screen.ids['background']
-
                 if background and map_model:
                     background.texture = image_texture(map_model.source)
 
-        repeat_texture(self.texture, int(Window.width / self.texture.width))
+            repeat_texture(self.texture, int(Window.width / self.texture.width))
 
-    def get_distance_traveled(self):
+    def get_distance_traveled(self) -> Union[int, float]:
         try:
             return self.x + self.bike.speed
         except AttributeError as e:
@@ -69,7 +83,7 @@ class Road(Widget, RoadEvents):
             Logger.exception(text)
             # raise AttributeError(text)
 
-    def set_distance_traveled(self, val: Union[int, None] = None):
+    def set_distance_traveled(self, val: Optional[int] = None) -> None:
         if val is not None:
             self.distance_traveled = val
 
@@ -77,42 +91,36 @@ class Road(Widget, RoadEvents):
         set_texture_uvpos(self, self.texture.uvpos[0] + self.bike.speed / self.texture.size[0], self.texture.uvpos[1])
         ValidObject.scene(self.parent).define_and_add_map_elements()
 
-    def has_finished(self):
+    def has_finished(self) -> bool:
         return self.distance_traveled >= self.total_way
 
-    def set_state(self, name, count=5):
+    def set_state(self, name: State, count: int = 5) -> None:
         self.state = name
         self.last_states.append(name)
         if len(self.last_states) > count:
             del self.last_states[0]
             del self.last_states[1]
 
-    def unschedule_events(self):
+    def unschedule_events(self) -> None:
         background = self.get_background()
         self.jump_stop()
         self.go_stop()
         self.relax_stop()
         background.go_mountains_stop()
 
-    def passed(self, pos):
+    def passed(self, pos: tuple) -> int:
         return int(self.distance_traveled) > int(pos[0])
 
-    def visible(self, pos):
+    def visible(self, pos: tuple) -> int:
         return int(self.distance_traveled) < int(pos[0]) < int(self.distance_traveled) + int(Window.width)
 
-    def future(self, pos):
+    def future(self, pos: tuple) -> int:
         return int(self.distance_traveled) + int(Window.width) < int(pos[0])
 
     # get game objects
 
-    def get_road(self):
-        return self
-
-    def get_tools(self):
-        return GetObject(road=self).tools
-
-    def get_bike(self):
+    def get_bike(self) -> Widget:
         return GetObject(road=self).bike
 
-    def get_background(self):
+    def get_background(self) -> Widget:
         return GetObject(road=self).background

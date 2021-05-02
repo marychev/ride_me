@@ -4,8 +4,6 @@ from layout.scene import CACHE_NAME
 from kivy.cache import Cache
 from utils.get_object import GetObject
 from utils.state import State
-from kivy.config import Config
-
 
 # TODO-WARNING: The tests have broken!
 #  `test_gradual_loading_and_deleting_map_elements_onto_road`
@@ -15,6 +13,9 @@ from kivy.config import Config
 from kivy.utils import platform
 from kivy.config import Config
 from kivy.core.window import Window
+
+from utils.store import Store
+
 if platform not in ('android', 'ios'):
     Config.set('graphics', 'resizable', '1')
     Window.size = (1000, 700)
@@ -23,26 +24,19 @@ if platform not in ('android', 'ios'):
 class BaseGameScreenGUITest(GraphicUnitTest):
     @staticmethod
     def setdefaults_config():
-        Config.setdefaults('bike', {
-            'rm': '1000',
-            'title': 'Hell Ride::Test',
-            'power': '150',
-            'speed': '10',
-            'acceleration': '1',
-            'agility': '1'
-        })
+        Cache.register(CACHE_NAME, limit=1000)
+        store = Store()
+        store.register_all_table()
 
-        Config.setdefaults('map', {
-            'title': 'Sakura::Test'
-        })
+        store.set_rm(1000)
+        store.add_cache_bike('Default')
+        store.add_cache_map('Default')
 
     def set_app(self):
         BaseGameScreenGUITest.setdefaults_config()
 
         self.screen = GameScreen(name='game')
         self.render(self.screen)
-
-        Cache.register(CACHE_NAME, limit=1000)
 
         self.road = self.screen.ids['road']
         self.bike = self.screen.ids['bike']

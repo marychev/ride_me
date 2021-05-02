@@ -1,8 +1,7 @@
 from kivy.clock import Clock
 from kivy.lang import Builder
-from kivy.properties import ObjectProperty, ListProperty, NumericProperty
+from kivy.properties import ObjectProperty, NumericProperty
 from kivy.uix.behaviors.button import ButtonBehavior
-from kivy.core.window import Window
 from kivy.uix.image import Image
 from conf import SECOND_GAME
 from label.status_bar import StatusBar

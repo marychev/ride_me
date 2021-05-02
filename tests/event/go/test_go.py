@@ -1,4 +1,3 @@
-from utils.state import State
 from tests.event.go.base_go_test import BaseGoTest
 
 

@@ -1,9 +1,9 @@
 from typing import Union
-
 from kivy.core.window import Window
-from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 from kivy.properties import StringProperty, ObjectProperty, NumericProperty, BooleanProperty
+from kivy.uix.label import Label
+
 from utils.get_object import GetObject
 
 

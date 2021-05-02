@@ -9,10 +9,10 @@ MAPS = [
     {
         "title": "Light Road",
         "level": LevelOne.__name__,
-        "source": LevelOne.BACKGROUND_TEXTURE,
+        "source": LevelOne.BACKGROUND_SOURCE,
         "price": "5",
         "map": 0,
-        "source_road": "",
+        "source_road": LevelOne.ROAD_SOURCE,
         "total_way": LevelOne.total_way(LevelOne.maps[0]),
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
                 "lar the with others lar the  with others lar the with others lar the with"
@@ -24,8 +24,8 @@ MAPS = [
         "level": LevelOne.__name__,
         "map": 1,
         "total_way": LevelOne.total_way(LevelOne.maps[1]),
-        "source": LevelOne.BACKGROUND_TEXTURE,
-        "source_road": "",
+        "source": LevelOne.BACKGROUND_SOURCE,
+        "source_road": LevelOne.ROAD_SOURCE,
         "price": "7",
         "text": "Description\nSolar tlar the bike onto with others lar the with others \n"
                 "the bike onto with others he bike onto with others words thi road/"
@@ -35,8 +35,8 @@ MAPS = [
         "level": LevelOne.__name__,
         "map": 0,
         "total_way": LevelOne.total_way(LevelOne.maps[0]),
-        "source": LevelOne.BACKGROUND_TEXTURE_DEFAULT,
-        "source_road": "",
+        "source": LevelOne.BACKGROUND_SOURCE_DEFAULT,
+        "source_road": LevelOne.ROAD_SOURCE,
         "price": "55",
         "text": "Description\nSolar tlar the bike onto with others lar the with others"
     }
