@@ -5,11 +5,11 @@ WIDTH = 1060
 
 
 TESTMAP = [
-    Start.to_map((190, 60)),        # 1
-    Lamp.to_map((600, 0)),          # 1
-    Puddle.to_map((2000, 0)),       # 2
-    Rock.to_map((5000, 0)),         # 3
-    Finish.to_map((10000, 80)),     # 4
+    Start.to_map(190),        # 1
+    Lamp.to_map(600),          # 1
+    Puddle.to_map(2000),       # 2
+    Rock.to_map(5000),         # 3
+    Finish.to_map(10000),     # 4
 ]
 
 

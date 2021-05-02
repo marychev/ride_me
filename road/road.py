@@ -11,8 +11,10 @@ from road.events import RoadEvents
 from utils.dir import abstract_path
 from utils.exception import WarnTrySetBikeFromLayoutWarn, ErrBikeIsNotConfig, InfoBikeInstalledFor
 from utils.get_object import GetObject
+from utils.sizes import ROAD_BIKE_LINE
 from utils.state import State
 from utils.texture import repeat_texture, set_texture_uvpos, image_texture
+from utils.type import TPos
 from utils.validation import ValidObject
 from utils.init import app_config
 from level.maps import get_by_title as get_map_by_title
@@ -28,7 +30,7 @@ class Road(Widget, RoadEvents):
     gravity = NumericProperty(9.0)
     state = OptionProperty(State.NONE, options=State.list_states())
     last_states = ListProperty()
-    line_points = ListProperty([100, 100, 1000, 100])
+    line_points = ListProperty(ROAD_BIKE_LINE)
 
     def __init__(self, **kwargs):
         super(Road, self).__init__(**kwargs)
@@ -111,7 +113,7 @@ class Road(Widget, RoadEvents):
     def passed(self, pos: tuple) -> int:
         return int(self.distance_traveled) > int(pos[0])
 
-    def visible(self, pos: tuple) -> int:
+    def visible(self, pos: TPos) -> int:
         return int(self.distance_traveled) < int(pos[0]) < int(self.distance_traveled) + int(Window.width)
 
     def future(self, pos: tuple) -> int:

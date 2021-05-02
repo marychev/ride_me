@@ -1,5 +1,4 @@
 from typing import Union, Optional
-from kivy.cache import Cache
 from kivy.lang import Builder
 # from kivy.logger import Logger
 from kivy.properties import NumericProperty, StringProperty
@@ -11,6 +10,7 @@ from bike.model import BikeModel
 from utils.dir import abstract_path
 from utils.get_object import GetObject
 from utils.init import app_config, calc_rest_rm
+from utils.store import Store
 from utils.validation import ValidObject
 from utils.exception import WarnBikeIsNotConfig
 
@@ -36,15 +36,6 @@ class Bike(AnimationBike):
         super(Bike, self).__init__(**kwargs)
         self.init_app_config()
 
-    def init_params(self, bike_model: BikeModel) -> None:
-        self.source = bike_model.source
-        self.max_power = bike_model.power
-        self.max_speed = bike_model.speed
-        self.acceleration = bike_model.acceleration
-        self.agility = bike_model.agility
-
-        self.init_source_animation(bike_model)
-
     def init_app_config(self) -> None:
         bike_title = app_config('bike', 'title')
 
@@ -53,6 +44,16 @@ class Bike(AnimationBike):
             self.init_params(bike_model)
         else:
             WarnBikeIsNotConfig(bike_title, self)
+
+    def init_params(self, bike_model: BikeModel) -> None:
+        self.source = bike_model.source
+        self.max_power = bike_model.power
+        self.max_speed = bike_model.speed
+        self.acceleration = bike_model.acceleration
+        self.agility = bike_model.agility
+        # self.set_power(0)
+        # self.set_speed(0)
+        self.init_source_animation(bike_model)
 
     @staticmethod
     def buy(bike_model: BikeModel) -> bool:
@@ -64,20 +65,11 @@ class Bike(AnimationBike):
 
     @staticmethod
     def set_config(bike_model, rest_rm) -> None:
-        Cache.remove('bike', 'rm')
-        Cache.append('bike', 'rm', rest_rm)
-
-        Cache.remove('bike', 'title')
-        Cache.remove('bike', 'power')
-        Cache.remove('bike', 'speed')
-        Cache.remove('bike', 'acceleration')
-        Cache.remove('bike', 'agility')
-
-        Cache.append('bike', 'title', bike_model.title)
-        Cache.append('bike', 'power', bike_model.power)
-        Cache.append('bike', 'speed', bike_model.speed)
-        Cache.append('bike', 'acceleration', bike_model.acceleration)
-        Cache.append('bike', 'agility', bike_model.agility)
+        store = Store()
+        store.remove_cache_rm()
+        store.set_rm(rest_rm)
+        store.remove_cache_bike()
+        store.set_cache_bike(bike_model)
 
     def set_power(self, value: Union[int, float]) -> None:
         self.power = self._max_val(value, self.max_power)

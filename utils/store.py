@@ -1,5 +1,4 @@
 from typing import Optional
-
 from kivy.cache import Cache
 from kivy.logger import Logger
 
@@ -58,11 +57,27 @@ class Store:
         Cache.append(self.bike_table, 'acceleration', model.acceleration)
         Cache.append(self.bike_table, 'agility', model.agility)
 
+    def remove_cache_bike(self) -> None:
+        Cache.remove(self.bike_table, 'title')
+        Cache.remove(self.bike_table, 'power')
+        Cache.remove(self.bike_table, 'speed')
+        Cache.remove(self.bike_table, 'acceleration')
+        Cache.remove(self.bike_table, 'agility')
+
     def set_cache_map(self, model: MapModel):
         Cache.append(self.map_table, 'title', model.title)
         Cache.append(self.map_table, 'level', model.level)
         Cache.append(self.map_table, 'map', model.map)
         Cache.append(self.map_table, 'total_way', model.total_way)
 
+    def remove_cache_map(self):
+        Cache.remove(self.map_table, 'title')
+        Cache.remove(self.map_table, 'level')
+        Cache.remove(self.map_table, 'map')
+        Cache.remove(self.map_table, 'total_way')
+
     def set_rm(self, value: int):
         Cache.append(self.bike_table, 'rm', value)
+
+    def remove_cache_rm(self):
+        Cache.remove(self.bike_table, 'rm')

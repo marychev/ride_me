@@ -8,6 +8,3 @@ Builder.load_file(abstract_path('screen/game_screen.kv'))
 class GameScreen(Screen):
    pass
 
-
-
-

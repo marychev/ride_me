@@ -1,3 +1,4 @@
+from utils.sizes import ROAD_BIKE_LINE_Y
 from utils.state import State
 from tests.base_gui_test import BaseGameScreenGUITest
 
@@ -23,7 +24,7 @@ class BaseJumpTest(BaseGameScreenGUITest):
         self.assertEqual(self.road.state, State.ON_JUMP_MOVE)
 
     def jump_stop_equal(self):
-        self.bike.y = self.road.line_points[-1]*2
+        self.bike.y = ROAD_BIKE_LINE_Y
         self.bike.power = 1
         self.road.on_jump(.1)
         self.road.jump_stop()

@@ -1,6 +1,7 @@
 from level.base.base_level import BaseLevel
 from level.one.map import MAP, TEST_MAP
 from utils.texture import image_texture
+from utils.type import TJsonMap
 
 
 class LevelOne(BaseLevel):
@@ -16,5 +17,5 @@ class LevelOne(BaseLevel):
     name = 'I. Asphalt and mountains'
     maps = (MAP, TEST_MAP)
 
-    def __init__(self, road, bike, map=MAP):
+    def __init__(self, road, bike, map: TJsonMap = MAP):
         super().__init__(road, bike, map)

@@ -9,6 +9,25 @@ from utils.type import TIntFloatStr
 # 1,77 ,1.33, 1,78, 1,77
 WH = float("{0:.2f}".format(Window.width / Window.height))
 
+BASE_WIDTH_BTN = Window.width / 8
+
+BIKE_WIDTH = BASE_WIDTH_BTN - sp(13)
+BIKE_HEIGHT = BIKE_WIDTH
+
+
+# -- points
+
+BIKE_POS_X = BASE_WIDTH_BTN*1.8-BIKE_WIDTH
+
+ROAD_BIKE_POINT_X = BASE_WIDTH_BTN
+ROAD_BIKE_POINT_Y = BASE_WIDTH_BTN
+ROAD_BIKE_POINTS = (ROAD_BIKE_POINT_X, ROAD_BIKE_POINT_Y)
+
+ROAD_BIKE_LINE_Y = BASE_WIDTH_BTN + sp(15)
+ROAD_BIKE_LINE = (BASE_WIDTH_BTN, ROAD_BIKE_LINE_Y, Window.width-150, ROAD_BIKE_LINE_Y)
+
+START_POS_X = BASE_WIDTH_BTN + BIKE_WIDTH/2
+
 
 def switch_size(v11: TIntFloatStr, v18: TIntFloatStr, small: TIntFloatStr) -> TIntFloatStr:
     def _k(v): return 0.15 + v
@@ -36,9 +55,6 @@ class FontSize(Enum):
     NORMAL = sp(10+WH)
     LEAD = sp(15+WH)
     H1 = sp(27+WH)
-
-
-BASE_WIDTH_BTN = Window.width / 8
 
 
 class GOSize(Enum):

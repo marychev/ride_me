@@ -8,7 +8,13 @@
 #:import Curtain label.curtain.Curtain
 #:import FS utils.sizes.FontSize
 #:import BASE_WIDTH_BTN utils.sizes.BASE_WIDTH_BTN
+#:import BIKE_WIDTH utils.sizes.BIKE_WIDTH
+#:import BIKE_HEIGHT utils.sizes.BIKE_HEIGHT
+#:import ROAD_BIKE_LINE_Y utils.sizes.ROAD_BIKE_LINE_Y
+#:import BIKE_POS_X utils.sizes.BIKE_POS_X
+#:import WH utils.sizes.WH
 #:import Currency objects.currency.currency.Currency
+
 # ! #:import DevTools devtools.devtools.DevTools
 
 #:import time time
@@ -30,7 +36,7 @@
         Road:
             id: road
             pos: 0, root.ids.tools.height
-            size: Window.width, 120 # self.height
+            size: Window.width, BASE_WIDTH_BTN
             size_hint: None, None
 
             # road line points
@@ -43,8 +49,8 @@
 
         Bike:
             id: bike
-            pos: BASE_WIDTH_BTN/1.5, root.ids.road.y  + BASE_WIDTH_BTN * 3
-            size: BASE_WIDTH_BTN, BASE_WIDTH_BTN
+            pos: BIKE_POS_X, ROAD_BIKE_LINE_Y
+            size: BIKE_WIDTH, BIKE_HEIGHT
             size_hint: None, None
 
         Curtain:
@@ -55,7 +61,7 @@
     Tools:
         id: tools
         size_hint: 1, None
-        height: BASE_WIDTH_BTN/2
+        height: BASE_WIDTH_BTN
         width: Window.width
 
         canvas.before:

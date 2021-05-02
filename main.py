@@ -1,10 +1,6 @@
-# from kivy.logger import Logger
-
-# from bike.model import BikeModel
 from bike.model import BikeModel
 from conf import *      # <-- don't delete!
 from kivy.app import App
-from kivy.cache import Cache
 from kivy.uix.screenmanager import ScreenManager, WipeTransition
 
 from level.model import MapModel

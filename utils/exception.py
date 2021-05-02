@@ -16,6 +16,11 @@ class BikeError(BikeWarn):
         Logger.error(self.message)
 
 
+class BikeException(BikeWarn):
+    def logger_run(self):
+        Logger.exception(self.message)
+
+
 class BikeInfo(BikeWarn):
     def logger_run(self):
         Logger.info(self.message)
@@ -41,6 +46,14 @@ class ErrBikeIsNotConfig(BikeError):
     def __init__(self, cls_self: Any):
         self.message = 'Bike was not set! That can crash the entire application'
         super().__init__(self.message, cls_self)
+
+
+# exception
+
+class ExceptionPosObjectMoreRoad:
+    def __init__(self):
+        self.message = "Init position: Can't place game object above or below the Road"
+        Logger.exception(self.message)
 
 
 # info
