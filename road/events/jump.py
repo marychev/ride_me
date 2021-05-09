@@ -60,7 +60,7 @@ class JumpDispatcher(BaseDispatcher):
             self.bike.on_collision_currency()
 
             self.bike.acceleration += (dt * self.road.gravity) / 10
-            self.bike.y = self.bike.y + (self.bike.acceleration * self.bike.max_power / 5)
+            self.bike.y = self.bike.y + (self.bike.acceleration * self.bike.max_power)
             self.bike.set_power(self.bike.power - self.bike.acceleration)
 
             if self.bike.speed > self.bike.max_speed / 3:

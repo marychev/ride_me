@@ -4,17 +4,20 @@ from kivy.logger import Logger
 
 from bike.bikes import get_by_title as get_bike_by_title
 from bike.model import BikeModel
-from level.maps import get_by_title as get_map_by_title
 from level.model import MapModel
+
+CACHE_NAME = 'installed'
 
 
 class Store:
+    installed_table = CACHE_NAME
     bike_table = 'bike'
     map_table = 'map'
 
     def register_all_table(self):
         Cache.register(self.bike_table)
         Cache.register(self.map_table)
+        Cache.register(self.installed_table, limit=10000)
 
     def add_cache_bike(self, bike_title: Optional[str], model: BikeModel = None) -> BikeModel:
         model = get_bike_by_title(bike_title) if model is None else model
@@ -34,6 +37,8 @@ class Store:
         return model
 
     def add_cache_map(self, title: Optional[str], model: MapModel = None) -> MapModel:
+        from level.maps import get_by_title as get_map_by_title
+
         model = get_map_by_title(title) if model is None else model
 
         if not model:
@@ -81,3 +86,7 @@ class Store:
 
     def remove_cache_rm(self):
         Cache.remove(self.bike_table, 'rm')
+
+    # def get_installed_cache(self, sid: str) -> Optional[str, int, float]:
+    def get_installed_cache(self, sid):
+        return Cache.get(self.installed_table, sid)

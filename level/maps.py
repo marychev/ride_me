@@ -2,7 +2,6 @@ from kivy.logger import Logger
 from typing import Union
 from level.model import MapModel
 from level.one.level_one import LevelOne
-from utils.init import get_item_by_title_or_index
 
 
 MAPS = [
@@ -45,6 +44,8 @@ MAPS = [
 
 def get_by_title(value: Union[str, int]) -> MapModel:
     if value:
+        from utils.init import get_item_by_title_or_index
+
         try:
             return MapModel(**get_item_by_title_or_index(MAPS, value))
         except TypeError as TE:
