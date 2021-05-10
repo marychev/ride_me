@@ -39,6 +39,8 @@ class JumpDispatcher(BaseDispatcher):
             self.road.set_state(State.ON_JUMP_START)
             self.bike.anim_jump_up()
 
+            self.bike.acceleration = self.bike.power / self.road.gravity + self.bike.speed / self.road.gravity
+
     def jump_stop(self):
         print('jump_stop')
         if self.road.state in JumpDispatcher.stop_states_list():
@@ -56,17 +58,13 @@ class JumpDispatcher(BaseDispatcher):
 
         elif int(self.bike.power) > 0 \
                 and self.road.state not in self.bun_events() \
-                and (self.bike.y < self.bike.height * 2.4):
+                and (self.bike.y < self.bike.height * 3):
             self.bike.on_collision_currency()
+            self.bike.y += self.get_bike_y_for_landing()
 
-            self.bike.acceleration += (dt * self.road.gravity) / 10
-            self.bike.y = self.bike.y + (self.bike.acceleration * self.bike.max_power)
-            self.bike.set_power(self.bike.power - self.bike.acceleration)
-
-            if self.bike.speed > self.bike.max_speed / 3:
-                self.bike.set_speed(self.bike.speed - self.bike.acceleration)
-            else:
-                self.bike.set_speed(self.bike.speed - dt)
+            self.set_bike_acceleration_for_landing(dt)
+            self.bike.set_power(self.bike.power - (dt * self.road.gravity))
+            self.bike.set_speed(self.bike.speed - (dt * self.road.gravity))
 
             self.road.set_state(State.ON_JUMP_MOVE)
             self.set_distances()

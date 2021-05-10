@@ -4,7 +4,8 @@ from kivy.uix.widget import Widget
 from level.model import MapModel
 from utils.type import TJsonMap
 from utils.init import calc_rest_rm
-from utils.store import CACHE_NAME
+# todo: troubles with import
+# from utils.store import CACHE_NAME
 
 
 class BaseLevel:
@@ -45,6 +46,8 @@ class BaseLevel:
         return [me for me in self.road.level.map if self.road.visible(me['pos'])]
 
     def _remove_widget(self, widget: Widget) -> None:
+        from utils.store import CACHE_NAME
+
         if widget.x < 0:
             Cache.remove(CACHE_NAME, widget.sid)
             self.road.remove_widget(widget)

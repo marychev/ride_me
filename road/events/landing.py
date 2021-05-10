@@ -58,11 +58,11 @@ class LandingDispatcher(BaseDispatcher):
 
             if self.bike.is_in_sky():
                 self.bike.on_collision_currency()
+                self.bike.y -= self.get_bike_y_for_landing()
 
-                self.bike.acceleration = dt * self.road.gravity
-                self.bike.y -= self.bike.acceleration * self.bike.max_power / 4
-
-                self.bike.set_power(self.bike.power + self.bike.acceleration)
+                self.set_bike_acceleration_for_landing(dt)
+                self.bike.set_power(self.bike.power + (dt * self.road.gravity*2))
+                self.bike.set_speed(self.bike.speed - (dt * self.road.gravity))
 
                 # todo: need to move into start method
                 # remove all animation (need to call one time)

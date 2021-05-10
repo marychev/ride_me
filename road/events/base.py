@@ -1,4 +1,6 @@
 import time
+from typing import Union
+
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.event import EventDispatcher
@@ -44,3 +46,9 @@ class BaseDispatcher(EventDispatcher):
         curtain = Curtain(road=self.road)
         curtain.text = Finish.curtain_text(self.road, self.bike)
         curtain.add_to_game_screen()
+
+    def set_bike_acceleration_for_landing(self, dt: Union[float, int]):
+        self.bike.acceleration += dt * self.road.gravity
+
+    def get_bike_y_for_landing(self) -> Union[float, int]:
+        return self.bike.acceleration + (self.bike.power/self.bike.max_power)
