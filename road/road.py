@@ -6,7 +6,7 @@ from kivy.properties import NumericProperty, ObjectProperty, ListProperty, Optio
 from kivy.uix.widget import Widget
 
 from bike.bike import Bike
-from level.one.level_one import LevelOne
+from level import LevelOne
 from road.events import RoadEvents
 from utils.dir import abstract_path
 from utils.exception import WarnTrySetBikeFromLayoutWarn, ErrBikeIsNotConfig, InfoBikeInstalledFor

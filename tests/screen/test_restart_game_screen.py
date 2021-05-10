@@ -1,9 +1,8 @@
 from kivy.cache import Cache
-from kivy.config import Config
 from kivy.tests.common import GraphicUnitTest
 from kivy.uix.screenmanager import ScreenManager, WipeTransition
 
-from layout.scene import CACHE_NAME
+from utils.store import CACHE_NAME
 from screen.game_screen import GameScreen
 from screen.start_screen import StartScreen
 from tests.level.test_map_road import TESTMAP

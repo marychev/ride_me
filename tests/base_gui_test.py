@@ -1,6 +1,6 @@
 from kivy.tests.common import GraphicUnitTest
 from screen.game_screen import GameScreen
-from layout.scene import CACHE_NAME
+from utils.store import CACHE_NAME
 from kivy.cache import Cache
 from utils.get_object import GetObject
 from utils.state import State

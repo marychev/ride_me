@@ -6,7 +6,7 @@ from kivy.uix.screenmanager import Screen
 
 from utils.sizes import FontSize as FS
 from label.curtain import Curtain
-from layout.scene import CACHE_NAME
+from utils.store import CACHE_NAME
 from utils.dir import abstract_path
 from utils.state import State
 from utils.validation import ValidObject

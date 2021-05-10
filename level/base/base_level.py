@@ -1,11 +1,10 @@
 from typing import List
 from kivy.cache import Cache
 from kivy.uix.widget import Widget
-
-from layout.scene import CACHE_NAME
 from level.model import MapModel
 from utils.type import TJsonMap
 from utils.init import calc_rest_rm
+from utils.store import CACHE_NAME
 
 
 class BaseLevel:
