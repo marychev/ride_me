@@ -50,7 +50,11 @@
         Bike:
             id: bike
             pos: BIKE_POS_X, ROAD_BIKE_LINE_Y
-            size: BIKE_WIDTH, BIKE_HEIGHT
+            # size: self.texture_size
+            # kof: BIKE_WIDTH / self.texture_size[0] if self.texture_size[0] > 0 else 1
+            # size: self.texture_size[0]*self.kof, self.texture_size[1]*self.kof
+            width: self.texture_size[0] + (BIKE_WIDTH - self.texture_size[0])
+            height: self.texture_size[1] + (BIKE_HEIGHT - self.texture_size[1])
             size_hint: None, None
 
         Curtain:

@@ -11,9 +11,8 @@ WH = float("{0:.2f}".format(Window.width / Window.height))
 
 BASE_WIDTH_BTN = Window.width / 8
 
-BIKE_HEIGHT = BASE_WIDTH_BTN - sp(4)
-BIKE_WIDTH = BIKE_HEIGHT
-
+BIKE_WIDTH = Window.width / 7
+BIKE_HEIGHT = Window.height / 4
 
 # -- points
 
